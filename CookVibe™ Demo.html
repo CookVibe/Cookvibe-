@@ -50,7 +50,23 @@
   </style>
 </head>
 
-<body>
+<body><body>
+  <!-- page content -->
+
+  <script>
+    // Auto-bypass the access gate and hide modals so the demo is visible by default.
+    // Remove this snippet when you want the gate back.
+    document.addEventListener('DOMContentLoaded', () => {
+      const access = document.getElementById('access');
+      const demo = document.getElementById('demo');
+      if (access) access.style.display = 'none';
+      if (demo) demo.classList.remove('hidden');
+      document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
+      const badge = document.getElementById('roleBadge');
+      if (badge) badge.textContent = 'ROLE: USER';
+    });
+  </script>
+</body>
   <div class="container">
     <header>
       <h1>CookVibe™ Demo</h1>
