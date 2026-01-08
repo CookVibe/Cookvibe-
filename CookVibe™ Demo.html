@@ -373,8 +373,15 @@
     }
 
     // ---- Modals ----
-    function openModal(id){ qs(id).classList.remove("hidden"); }
-    function closeModal(id){ qs(id).classList.add("hidden"); }
+    function openModal(id){
+  const el = document.getElementById(id);
+  el.style.display = "flex";       // force show
+}
+
+function closeModal(id){
+  const el = document.getElementById(id);
+  el.style.display = "none";       // force hide
+}
 
     // ---- Partner URLs (placeholders) ----
     function partnerSearchUrl(partner, query, location) {
@@ -405,9 +412,12 @@
       track("role_set", { role: ROLE });
       // Render creator-only content if applicable
       if (ROLE === "CREATOR") {
-        renderVoteList();
-        renderTopAndGroups();
-      }
+  qs("creatorOnlyPanel").style.display = "block";
+  qs("creatorControls").style.display = "block";
+} else {
+  qs("creatorOnlyPanel").style.display = "none";
+  qs("creatorControls").style.display = "none";
+}
     }
 
     // ---- Render order section ----
