@@ -64,9 +64,18 @@ hr{border:none;border-top:1px solid #134e4a;margin:14px 0}
 <p id="introStatus" class="small">No intro video uploaded.</p>
 
 <div id="introUpload" class="hidden">
-<input type="file" id="introFile" accept="video/*">
-<button onclick="saveIntro()">Save Intro Video</button>
-</div>
+  <input type="file" id="introFile" accept="video/*">
+  <button onclick="saveIntro()">Save Intro Video</button>
+
+  <!-- NEW: upload status + visible proof -->
+  <p id="introUploadStatus" class="small hidden"></p>
+  <div id="introProof" class="hidden card" style="margin-top:10px;">
+    <p class="small" style="margin:0;"><strong>Intro Video Saved</strong></p>
+    <p id="introProofName" class="small" style="margin:6px 0 0 0;"></p>
+    <p class="small" style="margin:6px 0 0 0;">
+      ⚠️ Early access demo: this confirms receipt and saves the filename locally on this device.
+    </p>
+  </div>
 </div>
 
 <div class="card">
