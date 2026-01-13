@@ -1,441 +1,649 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CookVibe • Stage 1 Demo</title>
-  <style>
-    :root{
-      --bg:#0b0f0e;
-      --card:#121816;
-      --text:#f1f5f4;
-      --muted:#a7b3b0;
-      --green:#1fbf7a;
-      --gold:#d9b75f;
-      --line:#23302c;
-      --danger:#ff5a5f;
-      --ok:#35d07f;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 700px at 20% 0%, rgba(31,191,122,.18), transparent 60%),
-                  radial-gradient(1100px 600px at 80% 10%, rgba(217,183,95,.14), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-    }
-    .wrap{max-width:980px;margin:0 auto;padding:22px 16px 40px}
-    .top{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      padding:14px 16px; border:1px solid var(--line); border-radius:14px; background:rgba(18,24,22,.92);
-      position:sticky; top:0; backdrop-filter: blur(10px); z-index:10;
-    }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-    }
-    .logo{
-      width:38px;height:38px;border-radius:10px;
-      background: linear-gradient(135deg, rgba(31,191,122,.95), rgba(217,183,95,.95));
-      box-shadow: 0 8px 22px rgba(0,0,0,.35);
-    }
-    .brand h1{margin:0;font-size:18px;letter-spacing:.2px}
-    .pill{
-      font-size:12px;color:#0b0f0e;background:linear-gradient(135deg,var(--green),var(--gold));
-      padding:6px 10px;border-radius:999px;font-weight:700;
-    }
-    .grid{
-      display:grid; grid-template-columns: 1.1fr .9fr; gap:14px; margin-top:14px;
-    }
-    @media (max-width:860px){ .grid{grid-template-columns:1fr;} .top{position:relative; top:auto;} }
-    .card{
-      border:1px solid var(--line);
-      background:rgba(18,24,22,.92);
-      border-radius:14px; padding:16px;
-      box-shadow: 0 10px 28px rgba(0,0,0,.30);
-    }
-    h2{margin:0 0 10px;font-size:16px}
-    .small{color:var(--muted);font-size:12px;line-height:1.45}
-    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    input, textarea, button{
-      font:inherit;
-    }
-    input[type="text"], input[type="password"], textarea{
-      width:100%;
-      background:#0f1412;
-      border:1px solid var(--line);
-      color:var(--text);
-      border-radius:12px;
-      padding:12px 12px;
-      outline:none;
-    }
-    textarea{min-height:110px;resize:vertical}
-    button{
-      background: linear-gradient(135deg,var(--green),var(--gold));
-      color:#0b0f0e; border:0; border-radius:12px;
-      padding:10px 12px; font-weight:800; cursor:pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,.35);
-    }
-    button.secondary{
-      background:#0f1412; color:var(--text);
-      border:1px solid var(--line); box-shadow:none;
-      font-weight:700;
-    }
-    .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      border:1px solid var(--line); background:#0f1412; color:var(--text);
-      padding:8px 10px; border-radius:999px; font-size:12px;
-    }
-    .hidden{display:none !important}
-    .badge{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;font-weight:800;font-size:12px;
-      background:rgba(31,191,122,.14); border:1px solid rgba(31,191,122,.35);
-    }
-    .badge.gold{
-      background:rgba(217,183,95,.14); border:1px solid rgba(217,183,95,.35);
-    }
-    .divider{height:1px;background:var(--line);margin:14px 0}
-    .ok{color:var(--ok);font-weight:800}
-    .danger{color:var(--danger);font-weight:800}
-    a{color:var(--gold);text-decoration:none}
-    video{background:#000}
-    .toast{
-      margin-top:10px; padding:10px 12px; border-radius:12px;
-      border:1px solid var(--line); background:#0f1412;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CookVibe • Stage 1 Demo</title>
+
+<!-- Cache-busting hints (best-effort) -->
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<style>
+:root{
+  --bg:#0b0f0e;
+  --card:#121816;
+  --text:#f1f5f4;
+  --muted:#9fb0aa;
+  --green:#1fbf7a;
+  --gold:#d9b75f;
+  --line:#24322d;
+  --ok:#35d07f;
+  --bad:#ff5a5f;
+  --shadow: 0 10px 28px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(800px 520px at 10% 0%, rgba(31,191,122,.18), transparent 60%),
+    radial-gradient(720px 420px at 90% 0%, rgba(217,183,95,.16), transparent 60%),
+    var(--bg);
+  color:var(--text);
+}
+a{color:var(--gold);text-decoration:none}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 14px 40px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{
+  background:rgba(18,24,22,.95);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px;
+  box-shadow: var(--shadow);
+}
+header.card{
+  position:sticky;top:0;z-index:10;
+  backdrop-filter: blur(10px);
+}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.small{font-size:12px;color:var(--muted);line-height:1.45}
+.ok{color:var(--ok);font-weight:900}
+.bad{color:var(--bad);font-weight:900}
+.hidden{display:none !important}
+.divider{height:1px;background:var(--line);margin:14px 0}
+input,textarea,button{font:inherit}
+input[type="text"], textarea{
+  width:100%;
+  background:#0f1412;
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 12px;
+  outline:none;
+}
+textarea{min-height:110px;resize:vertical}
+button{
+  border:0;border-radius:12px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:950;
+  background:linear-gradient(135deg,var(--green),var(--gold));
+  color:#0b0f0e;
+  box-shadow:0 10px 18px rgba(0,0,0,.25);
+}
+button.secondary{
+  background:#0f1412;
+  color:var(--text);
+  border:1px solid var(--line);
+  box-shadow:none;
+  font-weight:850;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#0f1412;
+  font-size:12px;
+  font-weight:950;
+}
+.badge.gold{
+  background:rgba(217,183,95,.14);
+  border-color:rgba(217,183,95,.45);
+}
+.toast{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#0f1412;
+}
+.logoWrap{display:flex;align-items:center;gap:12px}
+.logo{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--green),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  color:#0b0f0e;font-weight:1000;letter-spacing:.5px;
+}
+video{width:100%;border-radius:10px;background:#000;margin-top:10px}
+.pill{
+  font-size:12px;color:#0b0f0e;background:linear-gradient(135deg,var(--green),var(--gold));
+  padding:7px 10px;border-radius:999px;font-weight:1000;
+}
+.kv{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+hr{border:0;height:1px;background:var(--line);margin:12px 0}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <div class="logo"></div>
-        <div>
-          <h1>CookVibe • Stage 1 Demo</h1>
-          <div class="small">Creator-first cooking videos + recipe Rolodex • Green & Gold</div>
-        </div>
-      </div>
-      <div class="row">
-        <span id="rolePill" class="tag">Not logged in</span>
-        <span class="pill">EARLY ACCESS</span>
-      </div>
-    </div>
+<div class="wrap">
 
-    <div class="grid">
-      <!-- LEFT -->
-      <div class="card">
-        <h2>Login</h2>
-        <p class="small">Enter an access code to view the demo.</p>
-
-        <div class="row">
-          <input id="accessCode" type="text" placeholder="Enter code (USERBETA / CREATORBETA / FOUNDING20)" />
-          <button onclick="login()">Enter</button>
-          <button class="secondary" onclick="logout()">Reset</button>
-        </div>
-
-        <div id="loginMsg" class="toast small hidden"></div>
-
-        <div class="divider"></div>
-
-        <h2>Demo Home</h2>
-        <p class="small">
-          This is a lightweight demo for creators to preview the experience. Some features are simulated for testing.
-        </p>
-
-        <div class="row" style="margin-top:10px;">
-          <span id="userBadge" class="badge hidden">👤 User Access</span>
-          <span id="creatorBadge" class="badge hidden">🎬 Creator Access</span>
-          <span id="foundingBadge" class="badge gold hidden">⭐ Founding Creator</span>
-        </div>
-
-        <div id="foundingExplainer" class="toast small hidden">
-          <div class="small">
-            <strong>Founding Creator Benefit:</strong> Lifetime free creator subscription once CookVibe officially launches.<br>
-            <span class="small">Demo note: this recognition is shown here and will be enforced when accounts/subscriptions go live.</span>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <h2>Creator Introduction Video</h2>
-        <p class="small">Creators can upload a short intro video to appear above cooking videos & the recipe Rolodex.</p>
-
-        <p id="introStatus" class="small">No intro video saved yet.</p>
-
-        <!-- Creator-only upload area -->
-        <div id="introUpload" class="hidden">
-          <input type="file" id="introFile" accept="video/*" />
-          <div class="row" style="margin-top:10px;">
-            <button onclick="saveIntro()">Save Intro Video</button>
-          </div>
-
-          <!-- Status -->
-          <p id="introUploadStatus" class="small hidden"></p>
-
-          <video id="introPreview"
-       class="hidden"
-       controls
-       style="width:100%;margin-top:10px;border-radius:10px;">
-</video>
-
-<p class="small" style="opacity:.75;margin-top:6px;">
-  Demo note: video previews play immediately after upload.
-  Permanent playback will be added in Stage 2 when videos are stored in the cloud.
-</p>
-
-          <!-- Visible proof -->
-          <div id="introProof" class="hidden card" style="margin-top:10px;">
-            <p class="small" style="margin:0;"><strong>Intro Video Saved</strong></p>
-            <p id="introProofName" class="small" style="margin:6px 0 0 0;"></p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- RIGHT -->
-      <div class="card">
-        <h2>Feedback</h2>
-        <p class="small">
-          Your feedback shapes the real CookVibe build. Be direct—what works, what’s confusing, what’s missing.
-        </p>
-
-        <textarea id="feedbackText" placeholder="Type feedback here..."></textarea>
-        <div class="row" style="margin-top:10px;">
-          <button onclick="sendFeedback()">Send Feedback</button>
-        </div>
-        <div id="feedbackMsg" class="toast small hidden"></div>
-
-        <div class="divider"></div>
-
-        <!-- Creator-only suggestions box -->
-        <div id="creatorSuggestionsCard" class="hidden">
-          <h2>Creator Suggestions (Creators Only)</h2>
-          <p class="small">This card is hidden from users. Share product ideas, workflow needs, and what would help creators grow.</p>
-          <textarea id="suggestionText" placeholder="Your suggestion..."></textarea>
-          <div class="row" style="margin-top:10px;">
-            <button onclick="sendSuggestion()">Submit Suggestion</button>
-          </div>
-          <div id="suggestionMsg" class="toast small hidden"></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <h2>Support</h2>
-        <p class="small">
-          Contact: <strong>hello@cookvibe.co</strong><br>
-          Operated by <strong>The Start UPZ, LLC</strong>
-        </p>
-      </div>
+<header class="card row" style="justify-content:space-between">
+  <div class="logoWrap">
+    <div class="logo" aria-label="CookVibe logo">CV</div>
+    <div>
+      <div style="font-weight:1000;font-size:16px;letter-spacing:.2px">CookVibe</div>
+      <div class="small">Stage 1 Demo • Green & Gold</div>
     </div>
   </div>
+  <div class="row">
+    <span id="buildPill" class="badge">Build v1.1 • <span id="buildTime"></span></span>
+    <span id="rolePill" class="badge">Not logged in</span>
+    <span class="pill">EARLY ACCESS</span>
+  </div>
+</header>
+
+<!-- Demo Notice -->
+<div class="card" id="demoNotice">
+  <strong>⚠ Demo Notice</strong>
+  <div class="small" style="margin-top:8px">
+    • This is a Stage 1 demo. Video <strong>previews play immediately</strong> after upload.<br>
+    • After refresh, preview playback disappears (no cloud storage yet). That arrives in <strong>Stage 2</strong>.<br>
+    • If the page looks “old” after an update: open in a <strong>Private tab</strong> or add <strong>?v=2</strong> to the URL and reload.
+  </div>
+
+  <!-- ✅ NEW: Walkthrough button (works once the PDF is in your repo root) -->
+  <div class="row" style="margin-top:12px">
+    <button type="button" onclick="openWalkthrough()">View Full Platform Walkthrough (PDF)</button>
+    <button class="secondary" type="button" onclick="toast('Tip: Upload CookVibe_Full_Platform_Walkthrough.pdf to your GitHub repo (same folder as index.html), commit, then this button will open it.')">How to enable</button>
+  </div>
+  <div class="small" style="opacity:.85;margin-top:8px">
+    Button opens: <strong id="walkthroughPathLabel"></strong>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <div class="card">
+      <h3 style="margin:0 0 10px 0">Access</h3>
+      <p class="small" style="margin:0 0 10px 0">Enter an access code to view the demo.</p>
+
+      <div class="row">
+        <input id="accessCode" type="text" placeholder="USERBETA / CREATORBETA / FOUNDING20" />
+        <button onclick="login()">Enter</button>
+        <button class="secondary" onclick="logout()">Reset</button>
+      </div>
+
+      <div id="loginMsg" class="toast small hidden"></div>
+
+      <div class="kv">
+        <span id="userBadge" class="badge hidden">👤 User Access</span>
+        <span id="creatorBadge" class="badge hidden">🎬 Creator Access</span>
+        <span id="foundingBadge" class="badge gold hidden">⭐ Founding Creator</span>
+      </div>
+
+      <div id="foundingExplainer" class="toast small hidden">
+        <div><strong>Founding Creator Benefit:</strong> Lifetime free creator subscription once CookVibe officially launches.</div>
+        <div class="small" style="margin-top:6px">Demo note: enforced in Stage 2 when accounts/subscriptions go live.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px 0">Demo Home</h3>
+      <p class="small" style="margin:0 0 10px 0">
+        No extra pages, no routes, no 404s. Buttons are demo-only.
+      </p>
+      <div class="row">
+        <button class="secondary" type="button" onclick="toast('Follow (demo): In Stage 2 this will follow creators and notify users of new videos.')">Follow Creator (demo)</button>
+        <button class="secondary" type="button" onclick="toast('Share (demo): In Stage 2 this will share a creator profile or recipe link.')">Share (demo)</button>
+        <button class="secondary" type="button" onclick="toast('Live (demo): Live streaming launches later. Stage 2 focuses on persistent uploads + profiles + moderation.')">Live (demo)</button>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="secondary" type="button" onclick="openWalkthrough()">View Full Platform Walkthrough (PDF)</button>
+      </div>
+    </div>
+
+    <!-- CREATOR AREA -->
+    <div id="creatorArea" class="hidden">
+
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Creator Profile Preview</h3>
+        <p class="small" style="margin:0">This is a preview layout. Real profile pages arrive in Stage 2.</p>
+        <hr>
+        <div class="row" style="justify-content:space-between">
+          <div>
+            <div style="font-weight:1000">Creator Name (demo)</div>
+            <div class="small">Intro video • Cooking videos • Recipe Rolodex</div>
+          </div>
+          <button class="secondary" type="button" onclick="toast('Follow (demo) captured. Stage 2 will make this functional.')">Follow (demo)</button>
+        </div>
+        <div id="profileIntroSlot" class="toast small" style="margin-top:10px">
+          Intro video slot: <span class="bad">none yet</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px 0">Creator Introduction Video</h3>
+        <p class="small" style="margin:0 0 8px 0">Upload a short intro video (appears above your cooking videos + recipe Rolodex).</p>
+
+        <p id="introStatus" class="small" style="margin:0 0 10px 0">No intro video received yet.</p>
+
+        <input type="file" id="introFile" accept="video/*" />
+        <div class="row" style="margin-top:10px">
+          <button onclick="saveIntro()">Save Intro Video</button>
+          <button id="replaceBtn" class="secondary hidden" type="button" onclick="replaceIntro()">Replace</button>
+        </div>
+
+        <div id="introUploadStatus" class="toast small hidden"></div>
+
+        <video id="introPreview" class="hidden" controls></video>
+
+        <p id="demoNote" class="small hidden" style="opacity:.80;margin-top:8px">
+          Demo note: preview plays immediately after upload. After refresh the preview disappears (no cloud storage yet). Stage 2 adds permanent playback.
+        </p>
+
+        <p id="introMeta" class="small hidden" style="opacity:.90;margin-top:6px"></p>
+
+        <p class="small" style="opacity:.80;margin-top:10px">
+          Supported: MP4/MOV/WebM • Recommended under 60 seconds • Max size: <strong>50MB</strong>
+        </p>
+
+        <div id="introProof" class="toast small hidden">
+          <strong>Saved proof (demo)</strong><br/>
+          <span id="introProofName"></span>
+        </div>
+      </div>
+
+      <div class="card" id="creatorSuggestionsCard">
+        <h3 style="margin:0 0 8px 0">Creator Suggestions (Creators Only)</h3>
+        <p class="small" style="margin:0 0 10px 0">Users cannot see this. Share what would help creators grow.</p>
+        <textarea id="suggestionText" placeholder="Your suggestion..."></textarea>
+        <div class="row" style="margin-top:10px">
+          <button onclick="sendSuggestion()">Submit Suggestion</button>
+        </div>
+        <div id="suggestionMsg" class="toast small hidden"></div>
+      </div>
+
+      <div class="card" id="bugCard">
+        <h3 style="margin:0 0 8px 0">Bug Report (Creators Only)</h3>
+        <p class="small" style="margin:0 0 10px 0">Stage 1 stores reports on this device only (Stage 2 routes them to the platform).</p>
+        <textarea id="bugText" placeholder="What were you trying to do? What happened? Device/browser?"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button onclick="reportBug()">Report Bug</button>
+          <button class="secondary" type="button" onclick="copyBugTemplate()">Copy Template</button>
+        </div>
+        <div id="bugMsg" class="toast small hidden"></div>
+      </div>
+
+    </div><!-- /creatorArea -->
+
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px 0">Feedback</h3>
+      <p class="small" style="margin:0 0 10px 0">Be direct—what works, what’s confusing, what’s missing?</p>
+      <textarea id="feedbackText" placeholder="Type feedback here..."></textarea>
+      <div class="row" style="margin-top:10px">
+        <button onclick="sendFeedback()">Send Feedback</button>
+        <button class="secondary" type="button" onclick="copyFeedbackTemplate()">Copy Template</button>
+      </div>
+      <div id="feedbackMsg" class="toast small hidden"></div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px 0">Roadmap</h3>
+      <ul class="small" style="margin:0 0 0 18px;padding:0">
+        <li><strong>Stage 1:</strong> Demo testing (current)</li>
+        <li><strong>Stage 2:</strong> Persistent uploads, creator pages, moderation</li>
+        <li><strong>Stage 3:</strong> Subscriptions, payouts, live streaming</li>
+      </ul>
+      <div class="row" style="margin-top:10px">
+        <button class="secondary" type="button" onclick="openWalkthrough()">View Full Platform Walkthrough (PDF)</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px 0">Support</h3>
+      <p class="small" style="margin:0">
+        Contact: <strong>hello@cookvibe.co</strong><br/>
+        Operated by <strong>The Start UPZ, LLC</strong>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</div>
 
 <script>
-  // ======= BASIC ROLE LOGIC =======
-  const CODES = {
-    USER: "USERBETA",
-    CREATOR: "CREATORBETA",
-    FOUNDING: "FOUNDING20"
-  };
+/* =========================
+   CookVibe Stage 1 — v1.1
+   Adds: Walkthrough PDF button (no new pages/routes)
+   ========================= */
 
-  let sessionVideoURL = null; // holds local object URL for playback in-session only
+const CODES = { USER:"USERBETA", CREATOR:"CREATORBETA", FOUNDING:"FOUNDING20" };
+const LS_ROLE = "cv_role_code";
+const LS_INTRO = "cv_intro_meta";
+const LS_FEEDBACK = "cv_feedback";
+const LS_SUGGEST = "cv_suggestions";
+const LS_BUGS = "cv_bugs";
 
-  function setRolePill(text){
-    const el = document.getElementById("rolePill");
-    el.innerText = text;
-  }
+// ✅ Walkthrough PDF file name (place in SAME folder as index.html in your GitHub repo)
+const WALKTHROUGH_PDF = "CookVibe_Full_Platform_Walkthrough.pdf";
 
-  function showMsg(id, text, ok=true){
-    const el = document.getElementById(id);
-    el.classList.remove("hidden");
-    el.innerHTML = (ok ? `<span class="ok">${text}</span>` : `<span class="danger">${text}</span>`);
-  }
+let sessionVideoURL = null;
+function $(id){ return document.getElementById(id); }
 
-  function clearMsg(id){
-    const el = document.getElementById(id);
-    el.classList.add("hidden");
-    el.innerHTML = "";
-  }
-
-  function login(){
-    const raw = (document.getElementById("accessCode").value || "").trim();
-    const code = raw.toUpperCase();
-
-    clearMsg("loginMsg");
-
-    if(!code){
-      showMsg("loginMsg","Please enter an access code.", false);
-      return;
-    }
-
-    if(code !== CODES.USER && code !== CODES.CREATOR && code !== CODES.FOUNDING){
-      showMsg("loginMsg","Invalid code. Try USERBETA, CREATORBETA, or FOUNDING20.", false);
-      return;
-    }
-
-    localStorage.setItem("cv_role_code", code);
-    applyAccess();
-    showMsg("loginMsg","Access granted.", true);
-  }
-
-  function logout(){
-    localStorage.removeItem("cv_role_code");
-    // keep demo feedback entries if you want; removing access is enough
-    applyAccess(true);
-    showMsg("loginMsg","Reset complete. You are logged out.", true);
-  }
-
-  function applyAccess(isLogout=false){
-    const code = localStorage.getItem("cv_role_code");
-
-    // Reset UI
-    document.getElementById("userBadge").classList.add("hidden");
-    document.getElementById("creatorBadge").classList.add("hidden");
-    document.getElementById("foundingBadge").classList.add("hidden");
-    document.getElementById("foundingExplainer").classList.add("hidden");
-
-    document.getElementById("introUpload").classList.add("hidden");
-    document.getElementById("creatorSuggestionsCard").classList.add("hidden");
-
-    if(isLogout || !code){
-      setRolePill("Not logged in");
-      return;
-    }
-
-    if(code === CODES.USER){
-      setRolePill("👤 USER");
-      document.getElementById("userBadge").classList.remove("hidden");
-      // user cannot upload or see creator suggestions
-    }
-
-    if(code === CODES.CREATOR){
-      setRolePill("🎬 CREATOR");
-      document.getElementById("creatorBadge").classList.remove("hidden");
-      document.getElementById("introUpload").classList.remove("hidden");
-      document.getElementById("creatorSuggestionsCard").classList.remove("hidden");
-    }
-
-    if(code === CODES.FOUNDING){
-      setRolePill("⭐ FOUNDING CREATOR");
-      document.getElementById("creatorBadge").classList.remove("hidden");
-      document.getElementById("foundingBadge").classList.remove("hidden");
-      document.getElementById("foundingExplainer").classList.remove("hidden");
-      document.getElementById("introUpload").classList.remove("hidden");
-      document.getElementById("creatorSuggestionsCard").classList.remove("hidden");
-    }
-
-    loadIntroStatus();
-  }
-
-  // ======= INTRO VIDEO (DEMO) =======
-  function saveIntro(){
-    const statusEl = document.getElementById("introUploadStatus");
-    const proofBox = document.getElementById("introProof");
-    const proofName = document.getElementById("introProofName");
-    const input = document.getElementById("introFile");
-    const preview = document.getElementById("introPreview");
-    const f = input.files[0];
-
-    statusEl.classList.add("hidden");
-    proofBox.classList.add("hidden");
-
-    if(!f){
-      statusEl.classList.remove("hidden");
-      statusEl.innerHTML = `<span class="danger">Please choose a video file first.</span>`;
-      return;
-    }
-
-    // Uploading state (simulated)
-    statusEl.classList.remove("hidden");
-    statusEl.innerHTML = `Uploading video…`;
-
-    setTimeout(() => {
-      // Save filename for demo persistence
-      localStorage.setItem("cv_intro_name", f.name);
-
-      // In-session playback preview
-      // Revoke any previous object URL to avoid memory leaks
-      if(sessionVideoURL) URL.revokeObjectURL(sessionVideoURL);
-      sessionVideoURL = URL.createObjectURL(f);
-      preview.src = sessionVideoURL;
-      preview.classList.remove("hidden");
-
-      // Confirmation UI
-      statusEl.innerHTML = `<span class="ok">✅ Upload complete — preview ready.</span>`;
-      proofBox.classList.remove("hidden");
-      proofName.innerText = "Saved file: " + f.name;
-
-      document.getElementById("introStatus").innerHTML = `<span class="ok">✅ Intro video saved:</span> ${escapeHtml(f.name)}`;
-
-      // Reset input to allow re-upload
-      input.value = "";
-    }, 650);
-  }
-
-  function loadIntroStatus(){
-    const n = localStorage.getItem("cv_intro_name");
-    const status = document.getElementById("introStatus");
-    const proofBox = document.getElementById("introProof");
-    const proofName = document.getElementById("introProofName");
-    const preview = document.getElementById("introPreview");
-
-    if(n){
-      status.innerHTML = `<span class="ok">✅ Intro video saved:</span> ${escapeHtml(n)}`;
-      proofBox.classList.remove("hidden");
-      proofName.innerText = "Saved file: " + n;
-
-      // IMPORTANT: We cannot replay after refresh without a backend upload.
-      // Keep preview hidden unless a fresh upload occurs in this session.
-      preview.classList.add("hidden");
-      preview.removeAttribute("src");
-    } else {
-      status.innerText = "No intro video saved yet.";
-      proofBox.classList.add("hidden");
-      preview.classList.add("hidden");
-    }
-  }
-
-  // ======= FEEDBACK (LOCAL DEMO) =======
-  function sendFeedback(){
-    clearMsg("feedbackMsg");
-    const text = (document.getElementById("feedbackText").value || "").trim();
-    if(!text){
-      showMsg("feedbackMsg","Please type feedback before sending.", false);
-      return;
-    }
-    const arr = JSON.parse(localStorage.getItem("cv_feedback") || "[]");
-    arr.push({ t: Date.now(), text });
-    localStorage.setItem("cv_feedback", JSON.stringify(arr));
-    document.getElementById("feedbackText").value = "";
-    showMsg("feedbackMsg","✅ Feedback received. Thank you!", true);
-  }
-
-  function sendSuggestion(){
-    clearMsg("suggestionMsg");
-    const text = (document.getElementById("suggestionText").value || "").trim();
-    if(!text){
-      showMsg("suggestionMsg","Please type a suggestion before submitting.", false);
-      return;
-    }
-    const arr = JSON.parse(localStorage.getItem("cv_suggestions") || "[]");
-    arr.push({ t: Date.now(), text });
-    localStorage.setItem("cv_suggestions", JSON.stringify(arr));
-    document.getElementById("suggestionText").value = "";
-    showMsg("suggestionMsg","✅ Suggestion received. Thank you!", true);
-  }
-
-  // small helper
-  function escapeHtml(s){
-    return String(s)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-  // Boot
+(function boot(){
+  setBuildStamp();
+  $("walkthroughPathLabel").textContent = WALKTHROUGH_PDF;
   applyAccess();
+})();
+
+function setBuildStamp(){
+  const now = new Date();
+  $("buildTime").textContent =
+    now.toLocaleDateString() + " " +
+    now.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+}
+
+function toast(msg){
+  clearMsg("loginMsg");
+  showMsg("loginMsg", msg, true);
+  setTimeout(()=>clearMsg("loginMsg"), 2800);
+}
+
+function showMsg(id, text, ok=true){
+  const el = $(id);
+  el.classList.remove("hidden");
+  el.innerHTML = ok ? `<span class="ok">${escapeHtml(text)}</span>` : `<span class="bad">${escapeHtml(text)}</span>`;
+}
+function clearMsg(id){
+  const el = $(id);
+  el.classList.add("hidden");
+  el.innerHTML = "";
+}
+
+// ✅ Walkthrough opener with a quick existence check to avoid confusing 404s
+async function openWalkthrough(){
+  const url = WALKTHROUGH_PDF;
+
+  try{
+    const r = await fetch(url, { method:"HEAD", cache:"no-store" });
+    if(!r.ok) throw new Error("missing");
+    window.open(url, "_blank", "noopener,noreferrer");
+    toast("Opening walkthrough PDF…");
+  }catch(e){
+    toast("Walkthrough PDF not found yet. Upload CookVibe_Full_Platform_Walkthrough.pdf to your repo (same folder as index.html), commit, then try again.");
+  }
+}
+
+/* ---------- Access / role gating ---------- */
+function login(){
+  const raw = ($("accessCode").value || "").trim().toUpperCase();
+  clearMsg("loginMsg");
+
+  if(!raw){ showMsg("loginMsg","Please enter an access code.", false); return; }
+  if(raw !== CODES.USER && raw !== CODES.CREATOR && raw !== CODES.FOUNDING){
+    showMsg("loginMsg","Invalid code. Use USERBETA, CREATORBETA, or FOUNDING20.", false);
+    return;
+  }
+  localStorage.setItem(LS_ROLE, raw);
+  applyAccess();
+  showMsg("loginMsg","Access granted.", true);
+}
+
+function logout(){
+  localStorage.removeItem(LS_ROLE);
+  applyAccess(true);
+  showMsg("loginMsg","Reset complete. You are logged out.", true);
+}
+
+function applyAccess(isLogout=false){
+  const code = localStorage.getItem(LS_ROLE);
+
+  ["userBadge","creatorBadge","foundingBadge","foundingExplainer"].forEach(id => $(id).classList.add("hidden"));
+  $("creatorArea").classList.add("hidden");
+
+  if(isLogout || !code){
+    $("rolePill").textContent = "Not logged in";
+    return;
+  }
+
+  if(code === CODES.USER){
+    $("rolePill").textContent = "👤 USER";
+    $("userBadge").classList.remove("hidden");
+  }
+
+  if(code === CODES.CREATOR){
+    $("rolePill").textContent = "🎬 CREATOR";
+    $("creatorBadge").classList.remove("hidden");
+    $("creatorArea").classList.remove("hidden");
+  }
+
+  if(code === CODES.FOUNDING){
+    $("rolePill").textContent = "⭐ FOUNDING CREATOR";
+    $("creatorBadge").classList.remove("hidden");
+    $("foundingBadge").classList.remove("hidden");
+    $("foundingExplainer").classList.remove("hidden");
+    $("creatorArea").classList.remove("hidden");
+  }
+
+  loadIntroStatus();
+}
+
+/* ---------- Intro video demo ---------- */
+function saveIntro(){
+  const input = $("introFile");
+  const f = input.files && input.files[0];
+
+  $("introUploadStatus").classList.add("hidden");
+  $("introProof").classList.add("hidden");
+  $("introMeta").classList.add("hidden");
+  $("introPreview").classList.add("hidden");
+  $("demoNote").classList.add("hidden");
+  $("replaceBtn").classList.add("hidden");
+
+  if(!f){
+    showToastIn("introUploadStatus","Please choose a video file first.", false);
+    return;
+  }
+
+  const MAX = 50 * 1024 * 1024;
+  if(f.size > MAX){
+    showToastIn("introUploadStatus","File too large. Max size is 50MB.", false);
+    input.value = "";
+    return;
+  }
+
+  const okTypes = ["video/mp4","video/quicktime","video/webm"];
+  if(f.type && !okTypes.includes(f.type)){
+    showToastIn("introUploadStatus","Unsupported format. Please upload MP4, MOV, or WebM.", false);
+    input.value = "";
+    return;
+  }
+
+  showToastIn("introUploadStatus","Uploading video…", true);
+
+  setTimeout(() => {
+    const payload = { name:f.name, size:f.size, type:(f.type || "video"), savedAt: Date.now() };
+    localStorage.setItem(LS_INTRO, JSON.stringify(payload));
+
+    if(sessionVideoURL) URL.revokeObjectURL(sessionVideoURL);
+    sessionVideoURL = URL.createObjectURL(f);
+
+    const vid = $("introPreview");
+    vid.src = sessionVideoURL;
+    vid.classList.remove("hidden");
+
+    showToastIn("introUploadStatus","✅ Upload complete — preview ready.", true);
+
+    $("introStatus").innerHTML = `<span class="ok">✅ Intro video received (demo):</span> ${escapeHtml(f.name)}`;
+    $("profileIntroSlot").innerHTML = `Intro video slot: <span class="ok">ready (demo)</span> • ${escapeHtml(f.name)}`;
+
+    const dt = new Date(payload.savedAt);
+    $("introMeta").classList.remove("hidden");
+    $("introMeta").innerHTML = `Uploaded: <strong>${dt.toLocaleString()}</strong> • ${Math.round(payload.size/1024/1024)}MB`;
+
+    $("introProof").classList.remove("hidden");
+    $("introProofName").textContent = `Saved file: ${f.name}`;
+
+    $("replaceBtn").classList.remove("hidden");
+    $("demoNote").classList.remove("hidden");
+
+    input.value = "";
+  }, 650);
+}
+
+function replaceIntro(){
+  localStorage.removeItem(LS_INTRO);
+
+  $("introStatus").textContent = "No intro video received yet.";
+  $("profileIntroSlot").innerHTML = `Intro video slot: <span class="bad">none yet</span>`;
+
+  $("introProof").classList.add("hidden");
+  $("introMeta").classList.add("hidden");
+  $("introUploadStatus").classList.add("hidden");
+  $("demoNote").classList.add("hidden");
+  $("replaceBtn").classList.add("hidden");
+
+  const vid = $("introPreview");
+  vid.classList.add("hidden");
+  vid.removeAttribute("src");
+
+  if(sessionVideoURL){
+    URL.revokeObjectURL(sessionVideoURL);
+    sessionVideoURL = null;
+  }
+
+  $("introFile").click();
+}
+
+function loadIntroStatus(){
+  const raw = localStorage.getItem(LS_INTRO);
+  const vid = $("introPreview");
+
+  vid.classList.add("hidden");
+  vid.removeAttribute("src");
+
+  if(!raw){
+    $("introStatus").textContent = "No intro video received yet.";
+    $("profileIntroSlot").innerHTML = `Intro video slot: <span class="bad">none yet</span>`;
+    $("introProof").classList.add("hidden");
+    $("introMeta").classList.add("hidden");
+    $("replaceBtn").classList.add("hidden");
+    $("demoNote").classList.add("hidden");
+    return;
+  }
+
+  try{
+    const payload = JSON.parse(raw);
+    $("introStatus").innerHTML = `<span class="ok">✅ Intro video received (demo):</span> ${escapeHtml(payload.name)}`;
+    $("profileIntroSlot").innerHTML = `Intro video slot: <span class="ok">ready (demo)</span> • ${escapeHtml(payload.name)}`;
+
+    $("introProof").classList.remove("hidden");
+    $("introProofName").textContent = `Saved file: ${payload.name}`;
+
+    const dt = new Date(payload.savedAt);
+    $("introMeta").classList.remove("hidden");
+    $("introMeta").innerHTML = `Uploaded: <strong>${dt.toLocaleString()}</strong> • ${Math.round(payload.size/1024/1024)}MB`;
+
+    $("replaceBtn").classList.remove("hidden");
+  }catch(e){
+    localStorage.removeItem(LS_INTRO);
+  }
+}
+
+function showToastIn(id, msg, ok=true){
+  const el = $(id);
+  el.classList.remove("hidden");
+  el.innerHTML = ok ? `<span class="ok">${escapeHtml(msg)}</span>` : `<span class="bad">${escapeHtml(msg)}</span>`;
+}
+
+/* ---------- Feedback / Suggestions / Bugs (per-device demo storage) ---------- */
+function sendFeedback(){
+  clearMsg("feedbackMsg");
+  const text = ($("feedbackText").value || "").trim();
+  if(!text){ showMsg("feedbackMsg","Please type feedback before sending.", false); return; }
+  const arr = JSON.parse(localStorage.getItem(LS_FEEDBACK) || "[]");
+  arr.push({ t:Date.now(), text });
+  localStorage.setItem(LS_FEEDBACK, JSON.stringify(arr));
+  $("feedbackText").value = "";
+  showMsg("feedbackMsg","✅ Feedback received. Thank you!", true);
+}
+
+function sendSuggestion(){
+  clearMsg("suggestionMsg");
+  const text = ($("suggestionText").value || "").trim();
+  if(!text){ showMsg("suggestionMsg","Please type a suggestion before submitting.", false); return; }
+  const arr = JSON.parse(localStorage.getItem(LS_SUGGEST) || "[]");
+  arr.push({ t:Date.now(), text });
+  localStorage.setItem(LS_SUGGEST, JSON.stringify(arr));
+  $("suggestionText").value = "";
+  showMsg("suggestionMsg","✅ Suggestion received. Thank you!", true);
+}
+
+function reportBug(){
+  clearMsg("bugMsg");
+  const text = ($("bugText").value || "").trim();
+  if(!text){ showMsg("bugMsg","Please describe the bug before submitting.", false); return; }
+  const arr = JSON.parse(localStorage.getItem(LS_BUGS) || "[]");
+  arr.push({ t:Date.now(), text });
+  localStorage.setItem(LS_BUGS, JSON.stringify(arr));
+  $("bugText").value = "";
+  showMsg("bugMsg","✅ Bug report saved (demo).", true);
+}
+
+function copyBugTemplate(){
+  const tpl =
+`BUG REPORT (CookVibe Stage 1 Demo)
+- What I was trying to do:
+- What happened:
+- Steps to reproduce:
+- Device/Browser:
+- Anything else:`;
+  copyText(tpl);
+  toast("Bug template copied.");
+}
+
+function copyFeedbackTemplate(){
+  const tpl =
+`FEEDBACK (CookVibe Stage 1 Demo)
+- What felt good:
+- What felt confusing:
+- What I expected to happen:
+- One feature I want most:`;
+  copyText(tpl);
+  toast("Feedback template copied.");
+}
+
+function copyText(text){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(()=>fallbackCopy(text));
+  }else{
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly","readonly");
+  ta.style.position = "absolute";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  try{ document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+}
+
+function escapeHtml(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
 </script>
 </body>
 </html>
