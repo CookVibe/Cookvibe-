@@ -1,352 +1,105 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>CookVibe • Stage 1 Demo</title>
-<meta name="theme-color" content="#0b0f0e" />
-<meta http-equiv="Cache-Control" content="no-store" />
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta name="theme-color" content="#0b0f0e"/>
 <style>
-  :root{
-    --bg:#0b0f0e;
-    --card:#121816;
-    --text:#f1f5f4;
-    --muted:#9fb0aa;
-    --line:#24322d;
-    --green:#1fbf7a;
-    --gold:#d9b75f;
-    --shadow:0 12px 30px rgba(0,0,0,.32);
-  }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-    color:var(--text);
-    background:
-      radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
-      radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),
-      var(--bg);
-  }
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 44px}
-  .card{
-    background:rgba(18,24,22,.95);
-    border:1px solid var(--line);
-    border-radius:16px;
-    padding:16px;
-    box-shadow:var(--shadow);
-  }
-  .muted{color:var(--muted)}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-  .pill{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:6px 10px;border-radius:999px;
-    border:1px solid var(--line);
-    background:#0f1412;color:var(--muted);
-    font-size:12px;font-weight:900;
-  }
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;
-    padding:10px 14px;border-radius:12px;
-    font-weight:950;font-size:13px;
-    border:0;cursor:pointer;text-decoration:none;
-    background:linear-gradient(135deg,var(--green),var(--gold));
-    color:var(--bg);
-    user-select:none;
-  }
-  .btn.ghost{
-    background:#0f1412;color:var(--text);
-    border:1px solid var(--line);
-  }
-  .btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
-  .grid{display:grid;gap:14px}
-  .grid.cols2{grid-template-columns:1.25fr .75fr}
-  .grid.cards{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-  @media(max-width:900px){ .grid.cols2{grid-template-columns:1fr} }
-
-  /* Header */
-  .hdr{
-    position:sticky;top:0;z-index:1000;
-    background:rgba(11,15,14,.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .hdr_in{
-    max-width:1100px;margin:0 auto;padding:12px 14px;
-    display:flex;align-items:center;justify-content:space-between;gap:12px;
-  }
-  .brand{display:flex;align-items:center;gap:10px;min-width:0}
-  .brand_txt{display:flex;flex-direction:column;line-height:1.1;min-width:0}
-  .brand_name{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .brand_tag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .nav{display:flex;gap:12px;flex-wrap:wrap}
-  .nav a{
-    font-size:13px;font-weight:900;color:var(--text);
-    padding:8px 10px;border-radius:10px;
-  }
-  .nav a:hover{background:#0f1412;border:1px solid var(--line);padding:7px 9px}
-  .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .burger{
-    display:none;width:44px;height:44px;border-radius:12px;
-    border:1px solid var(--line);background:#0f1412;cursor:pointer;
-  }
-  .burger span{display:block;width:18px;height:2px;background:var(--text);margin:4px auto;border-radius:2px}
-  .mobile{display:none;border-top:1px solid var(--line);background:rgba(18,24,22,.96)}
-  .mobile a{display:block;padding:12px 14px;font-weight:950;color:var(--text)}
-  .mobile a:hover{background:#0f1412}
-  @media(max-width:860px){
-    .nav,.actions{display:none}
-    .burger{display:inline-block}
-    .mobile.show{display:block}
-  }
-
-  /* Logos */
-  .logoMark{
-    width:42px;height:42px;border-radius:12px;
-    border:1px solid var(--line);
-    background:linear-gradient(135deg, rgba(31,191,122,.25), rgba(217,183,95,.22));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:1000;color:var(--text);
-    flex:0 0 auto;
-    overflow:hidden;
-  }
-  .logoMark.big{
-    width:150px;height:150px;border-radius:28px;
-    font-size:34px; box-shadow:var(--shadow);
-  }
-  .logoImg{
-    width:100%;height:100%;
-    object-fit:contain;
-    display:block;
-    padding:6px;
-    background:#0f1412;
-  }
-  .logoWatermark{
-    position:fixed;right:12px;bottom:12px;z-index:900;
-    width:54px;height:54px;border-radius:16px;
-    border:1px solid var(--line);
-    background:#0f1412;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    display:none;
-    opacity:.88;
-  }
-  .logoWatermark img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
-
-  /* Hero */
-  .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:16px}
-  @media(max-width:900px){.hero{grid-template-columns:1fr}}
-  .hero h1{margin:0;font-size:26px}
-  .hero p{margin:10px 0 0;color:var(--muted);line-height:1.5}
-  .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-  .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .sectionTitle h2{margin:0;font-size:18px}
-
-  /* Mini cards */
-  .mini{
-    border:1px solid var(--line);
-    background:#0f1412;border-radius:14px;padding:16px;
-    transition:transform .12s ease,border-color .12s ease;
-  }
-  .mini:hover{transform:translateY(-1px);border-color:var(--gold)}
-  .mini p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
-  .miniRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-
-  /* Role */
-  .roleBar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}
-  .roleLeft{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .toggle{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:8px 10px;border-radius:12px;background:#0f1412;border:1px solid var(--line);
-  }
-  .toggle label{font-size:12px;color:var(--muted);font-weight:900}
-  .toggle select{
-    background:#0b0f0e;color:var(--text);
-    border:1px solid var(--line);border-radius:10px;
-    padding:7px 10px;font-weight:900;
-  }
-
-  /* Notices */
-  .notice{
-    border:1px solid rgba(31,191,122,.35);
-    background:rgba(31,191,122,.08);
-    border-radius:14px;padding:12px 14px;
-  }
-  .warn{
-    border:1px solid rgba(217,183,95,.35);
-    background:rgba(217,183,95,.08);
-    border-radius:14px;padding:12px 14px;
-  }
-
-  /* Toast */
-  .toast{
-    position:fixed;left:50%;transform:translateX(-50%);
-    bottom:16px;z-index:2500;
-    max-width:min(560px,92vw);
-    border-radius:14px;
-    padding:12px 14px;
-    border:1px solid var(--line);
-    background:rgba(18,24,22,.98);
-    box-shadow:var(--shadow);
-    display:none;
-  }
-  .toast.show{display:block}
-  .toast.ok{border-color:rgba(31,191,122,.55); background:rgba(31,191,122,.12)}
-  .toast.warn{border-color:rgba(217,183,95,.55); background:rgba(217,183,95,.12)}
-
-  .sp{height:10px}
-  .hide{display:none !important}
-  .creatorOnly{display:none}
-  .creatorOnly.show{display:block}
-  .adminOnly{display:none}
-  .adminOnly.show{display:block}
-
-  /* Forms */
-  .formRow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media(max-width:900px){.formRow{grid-template-columns:1fr}}
-  input,textarea{
-    width:100%;
-    background:#0f1412;color:var(--text);
-    border:1px solid var(--line);border-radius:12px;
-    padding:11px 12px;font:inherit;outline:none;
-  }
-  textarea{min-height:92px;resize:vertical}
-  video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
-
-  /* Creator page highlight */
-  .focusGlow{
-    outline:2px solid rgba(217,183,95,.55);
-    box-shadow:0 0 0 6px rgba(217,183,95,.12);
-  }
-
-  /* Gallery */
-  .galleryGrid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
-    gap:10px;
-    margin-top:12px;
-  }
-  .galleryItem{
-    border:1px solid var(--line);
-    background:#0b0f0e;
-    border-radius:14px;
-    overflow:hidden;
-  }
-  .galleryItem img{
-    width:100%;
-    height:140px;
-    object-fit:cover;
-    display:block;
-  }
-  .galleryCap{
-    padding:10px;
-    font-size:12px;
-    color:var(--muted);
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    align-items:center;
-  }
-  .xBtn{
-    border:1px solid var(--line);
-    background:#0f1412;
-    color:var(--text);
-    font-weight:1000;
-    border-radius:10px;
-    padding:6px 10px;
-    cursor:pointer;
-  }
-
-  /* Walkthrough modal */
-  .backdrop{
-    position:fixed;inset:0;background:rgba(0,0,0,.6);
-    display:none;align-items:center;justify-content:center;
-    padding:14px;z-index:2000;
-  }
-  .backdrop.show{display:flex}
-  .modal{
-    width:min(860px,100%);
-    background:rgba(18,24,22,.98);
-    border:1px solid var(--line);
-    border-radius:16px;padding:16px;
-    box-shadow:var(--shadow);
-  }
-  .modalTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .modalTop h3{margin:0}
-  .modalBody{margin-top:10px;color:var(--muted);line-height:1.55;font-size:13px}
-  .modalBody ol{margin:8px 0 0 18px}
-  .modalBody li{margin:6px 0}
-
-  /* Footer */
-  footer{margin-top:40px;border-top:1px solid var(--line);background:#0b0f0e}
-  .footerInner{
-    max-width:1100px;margin:0 auto;padding:30px 14px;
-    display:grid;grid-template-columns:1.2fr 1.8fr;gap:24px;
-  }
-  .footerBrand{display:flex;gap:12px;align-items:flex-start}
-  .footerLinks{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  .footerLinks h4{margin:0 0 8px;font-size:14px;font-weight:1000}
-  .footerLinks a{display:block;margin:6px 0;font-size:13px;color:var(--muted)}
-  .footerLinks a:hover{color:var(--gold)}
-  .footerBottom{
-    border-top:1px solid var(--line);
-    padding:14px;
-    display:flex;justify-content:space-between;align-items:center;
-    font-size:12px;color:var(--muted);
-    flex-wrap:wrap;gap:8px;
-  }
-  @media(max-width:820px){
-    .footerInner{grid-template-columns:1fr}
-    .footerLinks{grid-template-columns:1fr 1fr}
-  }
+:root{--bg:#0b0f0e;--card:#121816;--text:#f1f5f4;--muted:#9fb0aa;--line:#24322d;--g:#1fbf7a;--y:#d9b75f;--sh:0 12px 30px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;background:
+radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
+radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),var(--bg);color:var(--text)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 44px}
+.card{background:rgba(18,24,22,.95);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-top:14px}
+.muted{color:var(--muted)}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0f1412;color:var(--muted);font-size:12px;font-weight:900}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:950;font-size:13px;background:linear-gradient(135deg,var(--g),var(--y));color:#000;user-select:none}
+.btn.ghost{background:#0f1412;color:var(--text);border:1px solid var(--line)}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
+.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.25fr .75fr}
+@media(max-width:900px){.cols2{grid-template-columns:1fr}}
+input,textarea,select{width:100%;background:#0f1412;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
+textarea{min-height:92px;resize:vertical}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.logoBox{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(31,191,122,.25),rgba(217,183,95,.22));display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
+.logoBox.big{width:150px;height:150px;border-radius:28px;font-size:34px}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#0f1412}
+.hdr{position:sticky;top:0;z-index:999;background:rgba(11,15,14,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
+.brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
+.nav a:hover{background:#0f1412;border:1px solid var(--line);padding:7px 9px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:14px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}}
+.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
+.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.08);border-radius:14px;padding:12px 14px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);
+border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:rgba(18,24,22,.98);box-shadow:var(--sh);display:none}
+.toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+.focus{outline:2px solid rgba(217,183,95,.55);box-shadow:0 0 0 6px rgba(217,183,95,.12)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.gItem{border:1px solid var(--line);background:#0b0f0e;border-radius:14px;overflow:hidden}
+.gItem img{width:100%;height:140px;object-fit:cover;display:block}
+.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid var(--line);background:#0f1412;color:var(--text);font-weight:1000;border-radius:10px;padding:6px 10px;cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:12px}
+.mini{border:1px solid var(--line);background:#0f1412;border-radius:14px;padding:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hide{display:none!important}
+video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:14px;z-index:2000}
+.backdrop.show{display:flex}
+.modal{width:min(860px,100%);background:rgba(18,24,22,.98);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh)}
+.modalTop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+footer{margin-top:40px;border-top:1px solid var(--line);background:#0b0f0e}
+.footerIn{max-width:1100px;margin:0 auto;padding:26px 14px;display:grid;grid-template-columns:1.2fr 1.8fr;gap:24px}
+@media(max-width:820px){.footerIn{grid-template-columns:1fr}}
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:820px){.links{grid-template-columns:1fr 1fr}}
+.links h4{margin:0 0 8px;font-size:14px;font-weight:1000}
+.links a{display:block;margin:6px 0;font-size:13px;color:var(--muted)}
+.links a:hover{color:var(--y)}
+.bottom{border-top:1px solid var(--line);padding:14px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.wm{position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;border:1px solid var(--line);background:#0f1412;box-shadow:var(--sh);overflow:hidden;display:none;opacity:.88}
+.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
 </style>
 </head>
-
 <body>
+<div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
 
-<div class="logoWatermark" id="logoWatermark" title="CookVibe">
-  <img id="logoWatermarkImg" alt="CookVibe watermark">
-</div>
-
-<header class="hdr" role="banner">
-  <div class="hdr_in">
+<header class="hdr">
+  <div class="hdrin">
     <a class="brand" href="#top" aria-label="CookVibe home">
-      <div class="logoMark" aria-hidden="true" id="logoHeaderBox">
-        <span id="logoHeaderFallback">CV</span>
-        <img id="logoHeaderImg" class="logoImg" alt="CookVibe logo" style="display:none" />
+      <div class="logoBox" id="logoHeaderBox">
+        <span id="logoHeaderFB">CV</span>
+        <img id="logoHeaderImg" class="logoImg" style="display:none" alt="CookVibe logo">
       </div>
-      <span class="brand_txt">
-        <span class="brand_name">CookVibe</span>
-        <span class="brand_tag">Creator-first cooking • Green & Gold</span>
-      </span>
+      <div class="brandTxt">
+        <div class="brandName">CookVibe</div>
+        <div class="brandTag">Creator-first cooking • Green & Gold</div>
+      </div>
     </a>
-
     <nav class="nav" aria-label="Primary">
       <a href="#demo">Demo</a>
-      <a href="#creatorpage">Creator Page</a>
-      <a href="#creators">Creator Studio</a>
+      <a href="#public">Creator Page</a>
+      <a href="#studio">Creator Studio</a>
       <a href="#admin">Admin</a>
-      <a href="#join">Join</a>
     </nav>
-
     <div class="actions">
-      <button class="btn ghost small" id="btnWalkthrough" type="button">Walkthrough</button>
-      <button class="btn small" id="btnCopyLink" type="button">Copy Demo Link</button>
+      <button class="btn ghost small" id="walkBtn" type="button">Walkthrough</button>
+      <button class="btn small" id="copyLink" type="button">Copy Demo Link</button>
+      <button class="btn ghost small" id="resetAll" type="button">Reset Demo</button>
     </div>
-
-    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" id="burgerBtn">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <div class="mobile" id="mobileMenu" hidden>
-    <a href="#demo">Demo</a>
-    <a href="#creatorpage">Creator Page</a>
-    <a href="#creators">Creator Studio</a>
-    <a href="#admin">Admin</a>
-    <a href="#join">Join</a>
-    <a href="#top" id="closeMobile">Close</a>
   </div>
 </header>
 
@@ -354,575 +107,357 @@
 
   <section class="hero">
     <div class="card">
-      <div class="sectionTitle">
-        <h1>CookVibe — Creator-first cooking</h1>
-        <span class="pill">Web-first • Stage 1</span>
+      <div class="row">
+        <div class="rowL">
+          <h1 style="margin:0;font-size:26px">CookVibe — Creator-first cooking</h1>
+          <span class="pill">Web-first • Stage 1</span>
+        </div>
+        <span class="pill" id="rolePill">viewer</span>
       </div>
-
-      <p>
-        A working creator demo: profile, videos, recipes, meal photos, and feedback — built to ship small, listen closely, and grow deliberately.
+      <p class="muted" style="margin:10px 0 0;line-height:1.5">
+        Stage 1 demo: profiles, meal photos, videos, recipes, and creator feedback — built to ship small, listen closely, and grow deliberately.
       </p>
 
-      <div class="sp"></div>
-
-      <div id="lifetimeBanner" class="notice" style="display:none">
-        <strong>⭐ Founding Creator:</strong> Lifetime free subscription access (demo flag).
-        <span class="muted">Enforced server-side in Stage 3.</span>
+      <div id="foundingBanner" class="notice" style="display:none;margin-top:12px">
+        <strong>⭐ Founding Creator:</strong> lifetime free subscription access (demo flag).
       </div>
 
-      <div class="cta">
-        <a class="btn" href="#creators">Start Creator Setup</a>
-        <a class="btn ghost" href="#creatorpage">View Public Creator Page</a>
-      </div>
-
-      <div class="roleBar">
-        <div class="roleLeft">
-          <span class="pill">Demo Mode</span>
-          <div class="toggle">
-            <label for="roleSelect">Mode</label>
-            <select id="roleSelect">
-              <option value="viewer">viewer</option>
-              <option value="creator">creator</option>
-              <option value="founder_creator">founder_creator</option>
-              <option value="admin">admin</option>
-            </select>
+      <div class="mini" style="margin-top:12px">
+        <div class="row">
+          <div class="rowL">
+            <span class="pill">Demo Mode</span>
+            <div style="min-width:240px">
+              <select id="role">
+                <option value="viewer">viewer</option>
+                <option value="creator">creator</option>
+                <option value="founder_creator">founder_creator</option>
+                <option value="admin">admin</option>
+              </select>
+            </div>
+            <span class="muted" style="font-size:12px">This is a demo switch. Real accounts start Stage 2.</span>
           </div>
-          <span class="pill" id="rolePill">viewer</span>
-          <span class="muted" style="font-size:12px">Demo switch only. Real logins start in Stage 2.</span>
+          <div class="rowL">
+            <a class="btn ghost small" href="#public">View Public Page</a>
+            <a class="btn small" href="#studio">Start Creator Setup</a>
+          </div>
         </div>
-        <button class="btn ghost small" id="btnResetDemo" type="button">Reset Demo Data</button>
-      </div>
-
-      <div class="sp"></div>
-      <div class="warn muted" style="font-size:12px">
-        <strong style="color:var(--text)">Demo note:</strong> Data is saved on this device only (localStorage). Stage 2 adds accounts + cloud storage.
+        <div class="warn muted" style="margin-top:12px;font-size:12px">
+          Demo note: saved on this device only (localStorage). Stage 2 adds accounts + cloud storage.
+        </div>
       </div>
     </div>
 
-    <div class="card" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
-      <div class="logoMark big" aria-hidden="true" id="logoHeroBox">
-        <span id="logoHeroFallback">CV</span>
-        <img id="logoHeroImg" class="logoImg" alt="CookVibe logo" style="display:none" />
+    <div class="card" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px">
+      <div class="logoBox big" id="logoHeroBox">
+        <span id="logoHeroFB">CV</span>
+        <img id="logoHeroImg" class="logoImg" style="display:none" alt="CookVibe logo">
       </div>
       <div class="muted" style="font-size:13px;text-align:center">
-        CookVibe<br><span class="mono">Operated by The Start UPZ, LLC</span>
+        Operated by <strong>The Start UPZ, LLC</strong><br/>Founder: <strong>Shaun Wint</strong>
       </div>
     </div>
   </section>
 
-  <section id="demo" class="card" style="margin-top:14px;">
-    <div class="sectionTitle">
-      <h2>Platform Preview</h2>
-      <span class="muted">What creators + viewers experience</span>
+  <section id="demo" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Platform Preview</h2>
+        <span class="pill">Stage 1 demo</span>
+      </div>
+      <button class="btn ghost small" id="pulsePublic" type="button">Highlight Public Page</button>
     </div>
-
-    <div class="grid cards" style="margin-top:12px;">
-      <div class="mini">
-        <div class="miniRow"><div class="logoMark" aria-hidden="true">CV</div><strong>Creator Profiles</strong></div>
-        <div class="sp"></div>
-        <p>Public creator pages with meal photos, video tiles, and recipe Rolodex.</p>
-      </div>
-      <div class="mini">
-        <div class="miniRow"><div class="logoMark" aria-hidden="true">CV</div><strong>Clear Confirmations</strong></div>
-        <div class="sp"></div>
-        <p>Save/upload actions confirm success and point to your public page.</p>
-      </div>
-      <div class="mini">
-        <div class="miniRow"><div class="logoMark" aria-hidden="true">CV</div><strong>Creator Feedback</strong></div>
-        <div class="sp"></div>
-        <p>Creator-only suggestion box with copy-to-clipboard.</p>
-      </div>
-      <div class="mini">
-        <div class="miniRow"><div class="logoMark" aria-hidden="true">CV</div><strong>Admin Branding + Photos</strong></div>
-        <div class="sp"></div>
-        <p>Admin can upload logos (4 spots) and admin photos (demo).</p>
-      </div>
+    <div class="cards">
+      <div class="mini"><strong>Creator Profiles</strong><div class="muted" style="margin-top:6px;font-size:13px;line-height:1.45">Public creator pages with meal photos, videos, and recipe Rolodex.</div></div>
+      <div class="mini"><strong>Clear Confirmations</strong><div class="muted" style="margin-top:6px;font-size:13px;line-height:1.45">Save/upload actions confirm success and point to your public page.</div></div>
+      <div class="mini"><strong>Creator Feedback</strong><div class="muted" style="margin-top:6px;font-size:13px;line-height:1.45">Creator-only suggestion box for unfiltered feedback.</div></div>
+      <div class="mini"><strong>Admin Branding + Photos</strong><div class="muted" style="margin-top:6px;font-size:13px;line-height:1.45">Admin uploads 4 logo spots + admin photos.</div></div>
     </div>
   </section>
 
-  <section id="creatorpage" class="card" style="margin-top:14px;">
-    <div class="sectionTitle">
-      <h2>Creator Page Preview</h2>
-      <span class="pill">PUBLIC VIEW</span>
+  <section id="public" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Creator Page Preview</h2>
+        <span class="pill">PUBLIC VIEW</span>
+      </div>
+      <button class="btn small" id="jumpStudio" type="button">Edit My Profile</button>
     </div>
+    <div class="notice muted" style="margin-top:12px;font-size:12px">👀 This is what viewers will see. After saves/uploads, this section highlights so creators KNOW it worked.</div>
 
-    <div class="sp"></div>
-    <div class="notice muted" style="font-size:12px">
-      👀 This is what viewers will see. After you save/upload, this section will highlight.
-    </div>
-
-    <div class="sp"></div>
-    <div class="mini" id="creatorPageCard">
-      <div class="miniRow" style="justify-content:space-between">
-        <div class="miniRow">
-          <div class="logoMark" aria-hidden="true">CV</div>
+    <div class="mini" id="publicCard" style="margin-top:12px">
+      <div class="row">
+        <div class="rowL">
+          <div class="logoBox">CV</div>
           <div>
             <div style="font-weight:1000" id="pubName">Creator Name</div>
             <div class="muted" style="font-size:12px" id="pubCountry">Country</div>
           </div>
+          <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
         </div>
-        <div class="miniRow">
-          <span class="pill" id="pubBadge" style="display:none">⭐ Founding Creator</span>
-          <button class="btn small" type="button" id="btnJumpToStudio">Edit My Profile</button>
-        </div>
+        <button class="btn ghost small" id="viewPublicBtn" type="button">Scroll Here</button>
       </div>
+      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">Save a profile to populate this page.</div>
 
-      <div class="sp"></div>
-      <div class="muted" style="font-size:13px;line-height:1.55" id="pubBio">
-        Save a profile in Creator Studio to populate this public page.
-      </div>
+      <hr/>
 
-      <div class="sp"></div>
-      <div class="warn muted" style="font-size:12px">
-        Intro video previews in Creator Studio for Stage 1. Stage 2 stores it for viewers here.
-      </div>
+      <div class="row"><strong>Meal Gallery</strong><span class="muted" id="pubMealCount" style="font-size:12px"></span></div>
+      <div id="pubMealsEmpty" class="muted" style="margin-top:8px">No meal photos yet.</div>
+      <div id="pubMeals" class="gallery"></div>
 
-      <div class="sp"></div>
-      <div class="sectionTitle">
-        <h2 style="font-size:16px;margin:0">Meal Gallery</h2>
-        <span class="muted" style="font-size:12px" id="pubGalleryCount"></span>
-      </div>
-      <div id="pubGalleryEmpty" class="muted" style="margin-top:10px;font-size:13px">
-        No meal photos yet.
-      </div>
-      <div id="pubGallery" class="galleryGrid"></div>
+      <hr/>
 
-      <div class="sp"></div>
-      <div class="sectionTitle">
-        <h2 style="font-size:16px;margin:0">Cooking Videos</h2>
-        <span class="muted" style="font-size:12px" id="pubVideoCount"></span>
-      </div>
-      <div id="pubVideos" class="grid cards" style="margin-top:10px;"></div>
+      <div class="row"><strong>Cooking Videos</strong><span class="muted" id="pubVidCount" style="font-size:12px"></span></div>
+      <div id="pubVids" class="cards"></div>
 
-      <div class="sp"></div>
-      <div class="sectionTitle">
-        <h2 style="font-size:16px;margin:0">Recipe Rolodex</h2>
-        <span class="muted" style="font-size:12px" id="pubRecipeCount"></span>
-      </div>
-      <div id="pubRecipes" class="grid cards" style="margin-top:10px;"></div>
+      <hr/>
+
+      <div class="row"><strong>Recipe Rolodex</strong><span class="muted" id="pubRecCount" style="font-size:12px"></span></div>
+      <div id="pubRecs" class="cards"></div>
     </div>
   </section>
 
-  <section id="creators" class="card" style="margin-top:14px;">
-    <div class="sectionTitle">
-      <h2>Creator Studio</h2>
-      <span class="pill">Creators only</span>
+  <section id="studio" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Creator Studio</h2>
+        <span class="pill">Creators only</span>
+      </div>
+      <button class="btn ghost small" id="goPublic" type="button">View My Public Page</button>
     </div>
 
-    <div id="creatorGate" class="warn muted" style="margin-top:12px;">
-      Switch Demo Mode to <span class="mono">creator</span> or unlock founder with <span class="mono">FOUNDING20</span>.
+    <div id="creatorGate" class="warn muted" style="margin-top:12px;font-size:12px">
+      To use Creator Studio: switch Demo Mode to <strong>creator</strong> or enter code <strong>FOUNDING20</strong> below.
     </div>
 
-    <div id="creatorStudio" class="creatorOnly" style="margin-top:12px;">
+    <div id="creatorOnly" class="hide" style="margin-top:12px">
 
       <div class="mini">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
             <div>
-              <div style="font-weight:1000">Start Here (Demo Checklist)</div>
-              <div class="muted" style="font-size:12px">Do these 5 steps — then give unfiltered feedback</div>
+              <div style="font-weight:1000">Start Here (5-step creator checklist)</div>
+              <div class="muted" style="font-size:12px">This removes confusion. Finish these, then give unfiltered feedback.</div>
             </div>
           </div>
-          <button class="btn ghost small" type="button" id="btnResetChecklist">Reset</button>
+          <button class="btn ghost small" id="resetChecklist" type="button">Reset</button>
         </div>
-
-        <div class="sp"></div>
-        <div class="grid cards">
-          <div class="mini" style="margin:0">
-            <div class="miniRow"><input type="checkbox" id="ck1"> <label for="ck1"><strong>Save your profile</strong></label></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">Name, country, and bio.</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div class="miniRow"><input type="checkbox" id="ck2"> <label for="ck2"><strong>Upload an intro video</strong></label></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">Short “who you are + what you cook.”</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div class="miniRow"><input type="checkbox" id="ck3"> <label for="ck3"><strong>Add 1 meal photo</strong></label></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">Build your gallery.</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div class="miniRow"><input type="checkbox" id="ck4"> <label for="ck4"><strong>Add 1 recipe</strong></label></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">Your Rolodex.</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div class="miniRow"><input type="checkbox" id="ck5"> <label for="ck5"><strong>View your public page</strong></label></div>
-            <div class="muted" style="font-size:12px;margin-top:6px">See what viewers see.</div>
-          </div>
-        </div>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" type="button" id="btnGoPublic">View My Public Creator Page</button>
-          <button class="btn ghost" type="button" id="btnWalkthrough2">Open Walkthrough</button>
+        <div class="cards">
+          <div class="mini"><label><input type="checkbox" id="ck1"> <strong>Save your profile</strong></label><div class="muted" style="margin-top:6px;font-size:12px">Name, country, bio.</div></div>
+          <div class="mini"><label><input type="checkbox" id="ck2"> <strong>Upload intro video</strong></label><div class="muted" style="margin-top:6px;font-size:12px">Short “who you are + what you cook.”</div></div>
+          <div class="mini"><label><input type="checkbox" id="ck3"> <strong>Add 1 meal photo</strong></label><div class="muted" style="margin-top:6px;font-size:12px">Build your gallery.</div></div>
+          <div class="mini"><label><input type="checkbox" id="ck4"> <strong>Add 1 recipe</strong></label><div class="muted" style="margin-top:6px;font-size:12px">Your Rolodex.</div></div>
+          <div class="mini"><label><input type="checkbox" id="ck5"> <strong>View your public page</strong></label><div class="muted" style="margin-top:6px;font-size:12px">See what viewers see.</div></div>
         </div>
       </div>
 
-      <div id="lifetimeBannerStudio" class="notice" style="display:none;margin-top:12px">
-        <strong>⭐ Founding Creator:</strong> Lifetime free subscription access (demo flag). Badge shows on your public page.
+      <div id="foundingBanner2" class="notice" style="display:none;margin-top:12px">
+        <strong>⭐ Founding Creator:</strong> Lifetime free subscription access (demo flag).
       </div>
 
-      <div class="grid cols2" style="margin-top:14px;">
+      <div class="grid cols2" style="margin-top:14px">
+
         <div class="mini">
-          <div class="miniRow" style="justify-content:space-between">
-            <div class="miniRow">
-              <div class="logoMark" aria-hidden="true">CV</div>
+          <div class="row">
+            <div class="rowL">
+              <div class="logoBox">CV</div>
               <div>
                 <div style="font-weight:1000">Your Creator Profile</div>
                 <div class="muted" style="font-size:12px">Saved on this device (demo)</div>
               </div>
             </div>
-            <span class="pill" id="founderPill" style="display:none;">Founding Creator</span>
+            <span class="pill" id="founderPill" style="display:none">Founding Creator</span>
           </div>
 
-          <div class="sp"></div>
-          <div class="formRow">
-            <div>
-              <div class="muted" style="font-size:12px;margin-bottom:6px">Display name</div>
-              <input id="inpName" placeholder="e.g., Ms. Kimmy" />
+          <div class="grid" style="margin-top:12px;gap:10px">
+            <div class="grid" style="gap:10px;grid-template-columns:1fr 1fr">
+              <div><div class="muted" style="font-size:12px;margin-bottom:6px">Display name</div><input id="name" placeholder="e.g., Ms. Kimmy"/></div>
+              <div><div class="muted" style="font-size:12px;margin-bottom:6px">Country</div><input id="country" placeholder="e.g., Jamaica"/></div>
             </div>
-            <div>
-              <div class="muted" style="font-size:12px;margin-bottom:6px">Country</div>
-              <input id="inpCountry" placeholder="e.g., Jamaica" />
-            </div>
-          </div>
+            <div><div class="muted" style="font-size:12px;margin-bottom:6px">Bio</div><textarea id="bio" placeholder="Tell viewers what you cook and what makes your recipes special..."></textarea></div>
 
-          <div class="sp"></div>
-          <div class="muted" style="font-size:12px;margin-bottom:6px">Bio</div>
-          <textarea id="inpBio" placeholder="Tell viewers what you cook and what makes your recipes special..."></textarea>
-
-          <div class="sp"></div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn" type="button" id="btnSaveProfile">Save Profile</button>
-            <button class="btn ghost" type="button" id="btnLoadProfile">Load Saved</button>
-            <button class="btn ghost" type="button" id="btnViewMyPage">View My Public Page</button>
-          </div>
-
-          <div class="sp"></div>
-          <div class="mini" style="padding:14px">
-            <div class="miniRow">
-              <div class="logoMark" aria-hidden="true">CV</div>
-              <div>
-                <div style="font-weight:1000">Founding Creator Access</div>
-                <div class="muted" style="font-size:12px">Enter code to unlock perks (demo)</div>
-              </div>
+            <div class="row" style="justify-content:flex-start;gap:10px">
+              <button class="btn" id="saveProfile" type="button">Save Profile</button>
+              <button class="btn ghost" id="loadProfile" type="button">Load Saved</button>
+              <button class="btn ghost" id="viewPage" type="button">View My Public Page</button>
             </div>
-            <div class="sp"></div>
-            <div class="formRow">
-              <div>
-                <div class="muted" style="font-size:12px;margin-bottom:6px">Access code</div>
-                <input id="foundingCode" placeholder="Enter code (e.g., FOUNDING20)" />
+
+            <div class="mini">
+              <div style="font-weight:1000">Founding Creator Access</div>
+              <div class="muted" style="font-size:12px;margin-top:6px">Enter code to unlock perks (demo)</div>
+              <div class="grid" style="margin-top:10px;gap:10px;grid-template-columns:1fr auto">
+                <input id="code" placeholder="FOUNDING20"/>
+                <button class="btn" id="applyCode" type="button">Apply</button>
               </div>
-              <div style="display:flex;align-items:flex-end">
-                <button class="btn" type="button" id="btnApplyFounding">Apply</button>
-              </div>
+              <div id="codeStatus" class="muted" style="font-size:12px;margin-top:8px"></div>
             </div>
-            <div class="sp"></div>
-            <div id="foundingStatus" class="muted" style="font-size:12px"></div>
           </div>
         </div>
 
         <div class="mini">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
+          <div class="rowL">
+            <div class="logoBox">CV</div>
             <div>
               <div style="font-weight:1000">Creator Introduction Video</div>
               <div class="muted" style="font-size:12px">Upload a short intro (session preview)</div>
             </div>
           </div>
-
-          <div class="sp"></div>
-          <input id="introFile" type="file" accept="video/*" />
-          <div class="sp"></div>
-          <video id="introPlayer" controls playsinline class="hide"></video>
-          <div class="sp"></div>
-          <div class="muted" style="font-size:12px" id="introStatus">
-            Upload your intro — playback appears immediately.
-          </div>
+          <div style="margin-top:12px"><input id="intro" type="file" accept="video/*"/></div>
+          <div style="margin-top:12px"><video id="introPlayer" controls playsinline class="hide"></video></div>
+          <div id="introStatus" class="muted" style="font-size:12px;margin-top:8px">Upload your intro — playback appears immediately.</div>
         </div>
+
       </div>
 
-       <div class="mini" style="margin-top:14px;">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
-            <div>
-              <div style="font-weight:1000">Meal Gallery (Photos)</div>
-              <div class="muted" style="font-size:12px">Upload meal photos (saved locally for demo)</div>
-            </div>
+      <div class="mini" style="margin-top:14px">
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
+            <div><div style="font-weight:1000">Meal Gallery (Photos)</div><div class="muted" style="font-size:12px">Saved locally for demo</div></div>
           </div>
           <span class="pill">Creator tool</span>
         </div>
-
-        <div class="sp"></div>
-        <div class="formRow">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Select photo(s)</div>
-            <input id="mealFiles" type="file" accept="image/*" multiple />
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Caption (optional)</div>
-            <input id="mealCaption" placeholder="e.g., Jerk chicken plate 🔥" />
-          </div>
+        <div class="grid" style="margin-top:12px;gap:10px;grid-template-columns:1fr 1fr">
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Select photo(s)</div><input id="mealFiles" type="file" accept="image/*" multiple/></div>
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Caption (optional)</div><input id="mealCap" placeholder="e.g., Jerk chicken plate 🔥"/></div>
         </div>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <button class="btn" type="button" id="btnAddMeals">Add to Gallery</button>
-          <button class="btn ghost" type="button" id="btnClearMeals">Clear Gallery</button>
-          <span class="muted" style="font-size:12px" id="mealStatus"></span>
+        <div class="row" style="margin-top:12px;justify-content:flex-start;gap:10px">
+          <button class="btn" id="addMeals" type="button">Add to Gallery</button>
+          <button class="btn ghost" id="clearMeals" type="button">Clear Gallery</button>
+          <span id="mealStatus" class="muted" style="font-size:12px"></span>
         </div>
-
-        <div class="sp"></div>
-        <div id="creatorGallery" class="galleryGrid"></div>
+        <div id="meals" class="gallery"></div>
       </div>
 
-      <div class="mini" style="margin-top:14px;">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
-            <div>
-              <div style="font-weight:1000">Upload Cooking Videos</div>
-              <div class="muted" style="font-size:12px">Upload + instant playback preview</div>
-            </div>
+      <div class="mini" style="margin-top:14px">
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
+            <div><div style="font-weight:1000">Cooking Videos</div><div class="muted" style="font-size:12px">Upload + instant playback preview</div></div>
           </div>
           <span class="pill">Demo</span>
         </div>
-
-        <div class="sp"></div>
-        <div class="formRow">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Select video</div>
-            <input id="cookFile" type="file" accept="video/*" />
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Video title</div>
-            <input id="cookTitle" placeholder="e.g., 5-Min Garlic Shrimp" />
-          </div>
+        <div class="grid" style="margin-top:12px;gap:10px;grid-template-columns:1fr 1fr">
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Select video</div><input id="vidFile" type="file" accept="video/*"/></div>
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Video title</div><input id="vidTitle" placeholder="e.g., 5-Min Garlic Shrimp"/></div>
         </div>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <button class="btn" type="button" id="btnAddVideo">Add to My Videos</button>
-          <button class="btn ghost" type="button" id="btnClearVideos">Clear My Videos</button>
-          <span class="muted" style="font-size:12px" id="videoStatus"></span>
+        <div class="row" style="margin-top:12px;justify-content:flex-start;gap:10px">
+          <button class="btn" id="addVid" type="button">Add to My Videos</button>
+          <button class="btn ghost" id="clearVids" type="button">Clear My Videos</button>
+          <span id="vidStatus" class="muted" style="font-size:12px"></span>
         </div>
-
-        <div class="sp"></div>
-        <div id="videoList" class="grid cards"></div>
+        <div id="vids" class="cards"></div>
+        <div class="warn muted" style="margin-top:12px;font-size:12px">
+          Stage 1 limitation: videos are playable during this session. After refresh, re-upload is needed to play videos again.
+        </div>
       </div>
 
-      <div class="mini" style="margin-top:14px;">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
-            <div>
-              <div style="font-weight:1000">Recipe Rolodex</div>
-              <div class="muted" style="font-size:12px">Store recipes on your page (demo)</div>
-            </div>
+      <div class="mini" style="margin-top:14px">
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
+            <div><div style="font-weight:1000">Recipe Rolodex</div><div class="muted" style="font-size:12px">Saved locally for demo</div></div>
           </div>
           <span class="pill">Creator tool</span>
         </div>
-
-        <div class="sp"></div>
-        <div class="formRow">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Recipe title</div>
-            <input id="recipeTitle" placeholder="e.g., Jerk Chicken Bowl" />
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Category</div>
-            <input id="recipeCat" placeholder="e.g., Healthy, Quick, Vegan, etc." />
-          </div>
+        <div class="grid" style="margin-top:12px;gap:10px;grid-template-columns:1fr 1fr">
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Recipe title</div><input id="rTitle" placeholder="e.g., Jerk Chicken Bowl"/></div>
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Category</div><input id="rCat" placeholder="e.g., Healthy, Vegan, Quick"/></div>
         </div>
-
-        <div class="sp"></div>
-        <div class="muted" style="font-size:12px;margin-bottom:6px">Recipe details</div>
-        <textarea id="recipeBody" placeholder="Ingredients + steps (short version for demo)"></textarea>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <button class="btn" type="button" id="btnAddRecipe">Add Recipe</button>
-          <button class="btn ghost" type="button" id="btnClearRecipes">Clear Recipes</button>
-          <span class="muted" style="font-size:12px" id="recipeStatus"></span>
+        <div style="margin-top:10px"><div class="muted" style="font-size:12px;margin-bottom:6px">Recipe details</div><textarea id="rBody" placeholder="Ingredients + steps (short for demo)"></textarea></div>
+        <div class="row" style="margin-top:12px;justify-content:flex-start;gap:10px">
+          <button class="btn" id="addRec" type="button">Add Recipe</button>
+          <button class="btn ghost" id="clearRecs" type="button">Clear Recipes</button>
+          <span id="recStatus" class="muted" style="font-size:12px"></span>
         </div>
-
-        <div class="sp"></div>
-        <div id="recipeList" class="grid cards"></div>
+        <div id="recs" class="cards"></div>
       </div>
 
-      <div class="mini" style="margin-top:14px;">
-        <div class="miniRow">
-          <div class="logoMark" aria-hidden="true">CV</div>
-          <div>
-            <div style="font-weight:1000">Creator Suggestion Box (Creators Only)</div>
-            <div class="muted" style="font-size:12px">Submit feedback, then copy it into your tracker</div>
-          </div>
+      <div class="mini" style="margin-top:14px">
+        <div class="rowL">
+          <div class="logoBox">CV</div>
+          <div><div style="font-weight:1000">Creator Suggestion Box (Creators Only)</div><div class="muted" style="font-size:12px">Hidden from viewers</div></div>
         </div>
-
-        <div class="sp"></div>
-        <textarea id="creatorSuggestion" placeholder="Be unfiltered: what’s confusing, what’s missing, what’s 🔥"></textarea>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn" type="button" id="btnSubmitSuggestion">Submit (Demo)</button>
-          <button class="btn ghost" type="button" id="btnCopySuggestion">Copy Text</button>
+        <div style="margin-top:12px"><textarea id="suggest" placeholder="Be unfiltered: what's confusing, what's missing, what's 🔥"></textarea></div>
+        <div class="row" style="margin-top:12px;justify-content:flex-start;gap:10px">
+          <button class="btn" id="saveSug" type="button">Submit (Demo)</button>
+          <button class="btn ghost" id="copySug" type="button">Copy Text</button>
+          <span id="sugStatus" class="muted" style="font-size:12px"></span>
         </div>
-
-        <div class="sp"></div>
-        <div id="suggestionStatus" class="muted" style="font-size:12px"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="admin" class="card" style="margin-top:14px;">
-    <div class="sectionTitle">
-      <h2>Admin Panel</h2>
-      <span class="pill">Admin only</span>
-    </div>
-
-    <div id="adminGate" class="warn muted" style="margin-top:12px;">
-      Switch Demo Mode to <span class="mono">admin</span> to access branding + admin photos.
-    </div>
-
-    <div id="adminPanel" class="adminOnly" style="margin-top:12px;">
-
-      <div class="mini">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
-            <div>
-              <div style="font-weight:1000">Branding Manager (Logos)</div>
-              <div class="muted" style="font-size:12px">Upload logos for 4 spots (saved on this device)</div>
-            </div>
-          </div>
-          <button class="btn ghost small" type="button" id="btnClearLogos">Clear Logos</button>
-        </div>
-
-        <div class="sp"></div>
-        <div class="grid cards">
-          <div class="mini" style="margin:0">
-            <div style="font-weight:1000;margin-bottom:6px">Header Logo</div>
-            <input type="file" accept="image/*" id="logoSlotHeader">
-            <div class="muted" style="font-size:12px;margin-top:6px">Top-left box</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div style="font-weight:1000;margin-bottom:6px">Hero Logo</div>
-            <input type="file" accept="image/*" id="logoSlotHero">
-            <div class="muted" style="font-size:12px;margin-top:6px">Big logo right</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div style="font-weight:1000;margin-bottom:6px">Footer Logo</div>
-            <input type="file" accept="image/*" id="logoSlotFooter">
-            <div class="muted" style="font-size:12px;margin-top:6px">Footer mark</div>
-          </div>
-          <div class="mini" style="margin:0">
-            <div style="font-weight:1000;margin-bottom:6px">Watermark Logo</div>
-            <input type="file" accept="image/*" id="logoSlotWatermark">
-            <div class="muted" style="font-size:12px;margin-top:6px">Bottom-right watermark</div>
-          </div>
-        </div>
-
-        <div class="sp"></div>
-        <div class="notice muted" style="font-size:12px">
-          Branding uploads are local to this device in Stage 1. Stage 2+ moves branding to cloud storage.
-        </div>
-      </div>
-
-      <div class="mini" style="margin-top:14px;">
-        <div class="miniRow" style="justify-content:space-between">
-          <div class="miniRow">
-            <div class="logoMark" aria-hidden="true">CV</div>
-            <div>
-              <div style="font-weight:1000">Admin Photo Manager</div>
-              <div class="muted" style="font-size:12px">Upload promo/featured photos for the demo (local)</div>
-            </div>
-          </div>
-          <button class="btn ghost small" type="button" id="btnClearAdminPhotos">Clear Admin Photos</button>
-        </div>
-
-        <div class="sp"></div>
-        <div class="formRow">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Select photo(s)</div>
-            <input id="adminPhotoFiles" type="file" accept="image/*" multiple />
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px">Caption (optional)</div>
-            <input id="adminPhotoCaption" placeholder="e.g., Featured meals this week" />
-          </div>
-        </div>
-
-        <div class="sp"></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-          <button class="btn" type="button" id="btnAddAdminPhotos">Add Admin Photos</button>
-          <span class="muted" style="font-size:12px" id="adminPhotoStatus"></span>
-        </div>
-
-        <div class="sp"></div>
-        <div id="adminPhotoGrid" class="galleryGrid"></div>
       </div>
 
     </div>
   </section>
 
-  <section id="join" class="card" style="margin-top:14px;">
-    <div class="sectionTitle">
-      <h2>Join Early Access</h2>
-      <span class="pill">Founding program</span>
+  <section id="admin" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Admin Panel</h2>
+        <span class="pill">Admin only</span>
+      </div>
     </div>
 
-    <div class="grid cols2" style="margin-top:12px;">
+    <div id="adminGate" class="warn muted" style="margin-top:12px;font-size:12px">
+      Switch Demo Mode to <strong>admin</strong> to access branding + admin photos.
+    </div>
+
+    <div id="adminOnly" class="hide" style="margin-top:12px">
       <div class="mini">
-        <div class="miniRow">
-          <div class="logoMark" aria-hidden="true">CV</div>
-          <div>
-            <div style="font-weight:1000">Founding 20 Creators</div>
-            <div class="muted" style="font-size:12px">Lifetime free subscription (flagged)</div>
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
+            <div><div style="font-weight:1000">Branding Manager (4 logo spots)</div><div class="muted" style="font-size:12px">Header / Hero / Footer / Watermark</div></div>
           </div>
+          <button class="btn ghost small" id="clearLogos" type="button">Clear Logos</button>
         </div>
-        <div class="sp"></div>
-        <p class="muted" style="font-size:13px;margin:0;line-height:1.5">
-          Use code <span class="mono">FOUNDING20</span> to unlock <span class="mono">founder_creator</span>.
-        </p>
+        <div class="cards">
+          <div class="mini"><strong>Header Logo</strong><div class="muted" style="font-size:12px;margin:6px 0">Top-left box</div><input id="lgHeader" type="file" accept="image/*"></div>
+          <div class="mini"><strong>Hero Logo</strong><div class="muted" style="font-size:12px;margin:6px 0">Big logo</div><input id="lgHero" type="file" accept="image/*"></div>
+          <div class="mini"><strong>Footer Logo</strong><div class="muted" style="font-size:12px;margin:6px 0">Footer mark</div><input id="lgFooter" type="file" accept="image/*"></div>
+          <div class="mini"><strong>Watermark</strong><div class="muted" style="font-size:12px;margin:6px 0">Bottom-right</div><input id="lgWM" type="file" accept="image/*"></div>
+        </div>
+        <div class="notice muted" style="margin-top:12px;font-size:12px">Stage 1: logos saved on this device only (localStorage).</div>
       </div>
 
-      <div class="mini">
-        <div class="miniRow">
-          <div class="logoMark" aria-hidden="true">CV</div>
-          <div>
-            <div style="font-weight:1000">Founder</div>
-            <div class="muted" style="font-size:12px">Shaun Wint • The Start UPZ, LLC</div>
+      <div class="mini" style="margin-top:14px">
+        <div class="row">
+          <div class="rowL">
+            <div class="logoBox">CV</div>
+            <div><div style="font-weight:1000">Admin Photo Upload</div><div class="muted" style="font-size:12px">Saved locally for demo</div></div>
           </div>
+          <button class="btn ghost small" id="clearAdminPhotos" type="button">Clear</button>
         </div>
-        <div class="sp"></div>
-        <p class="muted" style="font-size:13px;margin:0;line-height:1.5">
-          Contact: <strong style="color:var(--text)">hello@cookvibe.co</strong>
-        </p>
+        <div class="grid" style="margin-top:12px;gap:10px;grid-template-columns:1fr 1fr">
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Select photo(s)</div><input id="aPhotos" type="file" accept="image/*" multiple></div>
+          <div><div class="muted" style="font-size:12px;margin-bottom:6px">Caption (optional)</div><input id="aCap" placeholder="e.g., Featured this week"></div>
+        </div>
+        <div class="row" style="margin-top:12px;justify-content:flex-start;gap:10px">
+          <button class="btn" id="addAdminPhotos" type="button">Add Admin Photos</button>
+          <span id="aStatus" class="muted" style="font-size:12px"></span>
+        </div>
+        <div id="adminPhotos" class="gallery"></div>
       </div>
     </div>
   </section>
 
 </div>
 
-<div class="backdrop" id="walkthroughModal" role="dialog" aria-modal="true" aria-label="CookVibe Walkthrough">
+<div class="backdrop" id="walk">
   <div class="modal">
     <div class="modalTop">
-      <h3>CookVibe Walkthrough</h3>
-      <button class="btn ghost small" id="btnCloseWalkthrough" type="button">Close</button>
+      <h3 style="margin:0">CookVibe Walkthrough</h3>
+      <button class="btn ghost small" id="closeWalk" type="button">Close</button>
     </div>
-    <div class="modalBody">
-      <div class="muted">Creator test flow:</div>
-      <ol>
-        <li>Switch Demo Mode to <span class="mono">creator</span> or enter <span class="mono">FOUNDING20</span>.</li>
-        <li>Save profile → click <strong>View My Public Page</strong>.</li>
-        <li>Upload meal photos → confirm they appear in Meal Gallery (public view).</li>
-        <li>Upload a cooking video → confirm playback preview + public tiles.</li>
-        <li>Add 1–2 recipes → confirm they appear publicly.</li>
-        <li>Submit unfiltered feedback in the Suggestion Box.</li>
+    <div class="muted" style="margin-top:10px;line-height:1.55;font-size:13px">
+      <ol style="margin:8px 0 0 18px">
+        <li>Switch Demo Mode to <strong>creator</strong> or enter <strong>FOUNDING20</strong>.</li>
+        <li>Save profile → click <strong>View My Public Page</strong> to verify it saved.</li>
+        <li>Upload meal photos → confirm they show up on the public page.</li>
+        <li>Upload a cooking video → confirm playback preview (session-based).</li>
+        <li>Add 1–2 recipes → confirm they show publicly.</li>
+        <li>Submit unfiltered feedback in Suggestion Box.</li>
       </ol>
-      <div class="sp"></div>
-      <div class="warn muted">
+      <div style="margin-top:12px" class="warn muted">
         Stage 2 adds real accounts + cloud storage. Stage 3 adds subscriptions + payouts + moderation.
       </div>
     </div>
@@ -930,43 +465,25 @@
 </div>
 
 <footer>
-  <div class="footerInner">
-    <div class="footerBrand">
-      <div class="logoMark" aria-hidden="true" id="logoFooterBox">
-        <span id="logoFooterFallback">CV</span>
-        <img id="logoFooterImg" class="logoImg" alt="CookVibe logo" style="display:none" />
+  <div class="footerIn">
+    <div class="rowL">
+      <div class="logoBox" id="logoFooterBox">
+        <span id="logoFooterFB">CV</span>
+        <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
       </div>
       <div>
-        <strong>CookVibe</strong>
-        <p class="muted" style="margin:6px 0 0;font-size:13px;max-width:320px">
-          Creator-first cooking • Culture • Community • Earning
-        </p>
+        <div style="font-weight:1000">CookVibe</div>
+        <div class="muted" style="margin-top:6px;font-size:13px">Creator-first cooking • Culture • Community • Earning</div>
       </div>
     </div>
-
-    <div class="footerLinks">
-      <div>
-        <h4>Platform</h4>
-        <a href="#demo">Demo</a>
-        <a href="#creatorpage">Creator Page</a>
-        <a href="#creators">Creator Studio</a>
-        <a href="#admin">Admin</a>
-      </div>
-      <div>
-        <h4>Company</h4>
-        <a href="#top">Back to top</a>
-        <a href="#join">Early Access</a>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <a href="javascript:void(0)">Terms of Service</a>
-        <a href="javascript:void(0)">Privacy Policy</a>
-      </div>
+    <div class="links">
+      <div><h4>Platform</h4><a href="#demo">Demo</a><a href="#public">Creator Page</a><a href="#studio">Creator Studio</a><a href="#admin">Admin</a></div>
+      <div><h4>Company</h4><a href="#top">Back to top</a><a href="#studio">Founding Program</a></div>
+      <div><h4>Legal</h4><a href="javascript:void(0)">Terms</a><a href="javascript:void(0)">Privacy</a></div>
     </div>
   </div>
-
-  <div class="footerBottom">
-    <span>© <span id="cvYear"></span> CookVibe</span>
+  <div class="bottom">
+    <span>© <span id="yr"></span> CookVibe</span>
     <span>Operated by <strong>The Start UPZ, LLC</strong></span>
   </div>
 </footer>
@@ -974,726 +491,431 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ==========================================================
-   CookVibe Stage 1 Demo JS (ONE FILE)
-   ========================================================== */
+const LS={role:"cv_role",profile:"cv_profile",meals:"cv_meals",recipes:"cv_recipes",vids:"cv_vids_meta",logos:"cv_logos",adminPhotos:"cv_admin_photos",ck:"cv_checklist"};
+const sessionVid=new Map();
+const $=id=>document.getElementById(id);
+const J=(s,f)=>{try{return JSON.parse(s)}catch{return f}};
+const uid=()=> (crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random());
 
-const LS = {
-  role: "cv_role",
-  profile: "cv_profile",
-  recipes: "cv_recipes",
-  videos: "cv_videos",
-  meals: "cv_meals",
-  checklist: "cv_checklist",
-  logos: "cv_logos",
-  adminPhotos: "cv_admin_photos"
+function toast(msg,bad=false,ms=2200){
+  const t=$("toast");
+  t.textContent=msg;
+  t.className="toast show "+(bad?"bad":"ok");
+  clearTimeout(toast._);
+  toast._=setTimeout(()=>{t.className="toast";t.textContent=""},ms);
+}
+async function copyText(text){
+  if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return;}
+  const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+}
+
+function pulsePublic(){
+  const c=$("publicCard");
+  c.classList.add("focus");
+  setTimeout(()=>c.classList.remove("focus"),1800);
+  location.hash="#public";
+}
+$("pulsePublic").onclick=pulsePublic;
+$("viewPublicBtn").onclick=pulsePublic;
+$("jumpStudio").onclick=()=>location.hash="#studio";
+$("goPublic").onclick=()=>{setCk(5,true);pulsePublic();};
+
+$("copyLink").onclick=async()=>{
+  try{await copyText(location.href);toast("✅ Demo link copied.");}
+  catch{toast("Copy failed. Copy from address bar.",true,3200);}
 };
 
-function $(id){ return document.getElementById(id); }
-function safeParse(json, fallback){ try { return JSON.parse(json); } catch { return fallback; } }
+$("walkBtn").onclick=()=>{$("walk").classList.add("show");};
+$("closeWalk").onclick=()=>{$("walk").classList.remove("show");};
+$("walk").onclick=e=>{if(e.target===$("walk"))$("walk").classList.remove("show");};
 
-function escapeHtml(s){
-  return String(s)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+$("yr").textContent=String(new Date().getFullYear());
 
-function copyText(text){
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    return navigator.clipboard.writeText(text);
-  }
-  const ta = document.createElement("textarea");
-  ta.value = text;
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand("copy");
-  ta.remove();
-  return Promise.resolve();
-}
+$("resetAll").onclick=()=>{
+  if(!confirm("Reset ALL demo data on this device?"))return;
+  Object.values(LS).forEach(k=>localStorage.removeItem(k));
+  sessionVid.clear();
+  toast("✅ Demo reset.");
+  init();
+};
 
-function toast(msg, type="ok", ms=2200){
-  const t = $("toast");
-  t.textContent = msg;
-  t.className = "toast show " + (type === "warn" ? "warn" : "ok");
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(()=>{ t.className = "toast"; t.textContent=""; }, ms);
-}
+function role(){return localStorage.getItem(LS.role)||"viewer";}
+function setRole(r){
+  localStorage.setItem(LS.role,r);
+  $("role").value=r;
+  $("rolePill").textContent=r;
 
-function scrollToEl(el){
-  if(!el) return;
-  el.scrollIntoView({behavior:"smooth", block:"start"});
-}
+  const isCreator=(r==="creator"||r==="founder_creator"||r==="admin");
+  const isFounder=(r==="founder_creator");
+  const isAdmin=(r==="admin");
 
-function pulsePublicPage(){
-  const card = $("creatorPageCard");
-  card.classList.add("focusGlow");
-  setTimeout(()=>card.classList.remove("focusGlow"), 1800);
-  scrollToEl($("creatorpage"));
-}
+  $("creatorGate").style.display=isCreator?"none":"block";
+  $("creatorOnly").classList.toggle("hide",!isCreator);
 
-(function mobileMenu(){
-  const btn = $("burgerBtn");
-  const menu = $("mobileMenu");
-  const close = $("closeMobile");
-  function toggle(force){
-    const open = (typeof force === "boolean") ? force : menu.hasAttribute("hidden");
-    if(open){
-      menu.classList.add("show");
-      menu.removeAttribute("hidden");
-      btn.setAttribute("aria-expanded","true");
-    } else {
-      menu.classList.remove("show");
-      menu.setAttribute("hidden","");
-      btn.setAttribute("aria-expanded","false");
-    }
-  }
-  btn.addEventListener("click", () => toggle());
-  close.addEventListener("click", () => toggle(false));
-  menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => toggle(false)));
-})();
+  $("adminGate").style.display=isAdmin?"none":"block";
+  $("adminOnly").classList.toggle("hide",!isAdmin);
 
-(function walkthrough(){
-  const modal = $("walkthroughModal");
-  function open(){ modal.classList.add("show"); }
-  function close(){ modal.classList.remove("show"); }
-  $("btnWalkthrough").addEventListener("click", open);
-  $("btnWalkthrough2").addEventListener("click", open);
-  $("btnCloseWalkthrough").addEventListener("click", close);
-  modal.addEventListener("click", (e) => { if(e.target === modal) close(); });
-})();
-$("cvYear").textContent = String(new Date().getFullYear());
-
- function getRole(){ return localStorage.getItem(LS.role) || "viewer"; }
-
-function setRole(role){
-  localStorage.setItem(LS.role, role);
-  $("roleSelect").value = role;
-  $("rolePill").textContent = role;
-
-  const isCreator = (role === "creator" || role === "founder_creator" || role === "admin");
-  const isFounder = (role === "founder_creator");
-  const isAdmin = (role === "admin");
-
-  $("creatorStudio").classList.toggle("show", isCreator);
-  $("creatorGate").classList.toggle("hide", isCreator);
-
-  $("adminPanel").classList.toggle("show", isAdmin);
-  $("adminGate").classList.toggle("hide", isAdmin);
-
-  $("founderPill").style.display = isFounder ? "inline-flex" : "none";
-  $("pubBadge").style.display = isFounder ? "inline-flex" : "none";
-  $("lifetimeBanner").style.display = isFounder ? "block" : "none";
-  $("lifetimeBannerStudio").style.display = isFounder ? "block" : "none";
+  $("foundingBanner").style.display=isFounder?"block":"none";
+  $("foundingBanner2").style.display=isFounder?"block":"none";
+  $("pubFounder").style.display=isFounder?"inline-flex":"none";
+  $("founderPill").style.display=isFounder?"inline-flex":"none";
 
   renderPublic();
 }
+$("role").onchange=e=>setRole(e.target.value);
 
-/* Profile */
+function setCk(n,v){
+  const c=J(localStorage.getItem(LS.ck),{"1":false,"2":false,"3":false,"4":false,"5":false});
+  c[String(n)]=!!v;
+  localStorage.setItem(LS.ck,JSON.stringify(c));
+  renderCk();
+}
+function renderCk(){
+  const c=J(localStorage.getItem(LS.ck),{"1":false,"2":false,"3":false,"4":false,"5":false});
+  ["1","2","3","4","5"].forEach(k=>{
+    const el=$("ck"+k);
+    if(el)el.checked=!!c[k];
+  });
+}
+$("resetChecklist").onclick=()=>{localStorage.removeItem(LS.ck);renderCk();toast("Checklist reset.");};
+
 function saveProfile(){
-  const profile = {
-    name: ($("inpName").value || "").trim(),
-    country: ($("inpCountry").value || "").trim(),
-    bio: ($("inpBio").value || "").trim()
-  };
-  localStorage.setItem(LS.profile, JSON.stringify(profile));
-  toast("✅ Profile saved (demo). Now view your public page.", "ok");
-  setChecklistDone(1, true);
+  const p={name:$("name").value.trim(),country:$("country").value.trim(),bio:$("bio").value.trim()};
+  localStorage.setItem(LS.profile,JSON.stringify(p));
+  setCk(1,true);
+  toast("✅ Profile saved. Now view your public page.");
   renderPublic();
-  pulsePublicPage();
+  pulsePublic();
 }
 function loadProfile(){
-  const p = safeParse(localStorage.getItem(LS.profile), {}) || {};
-  $("inpName").value = p.name || "";
-  $("inpCountry").value = p.country || "";
-  $("inpBio").value = p.bio || "";
-  renderPublic();
+  const p=J(localStorage.getItem(LS.profile),{})||{};
+  $("name").value=p.name||"";
+  $("country").value=p.country||"";
+  $("bio").value=p.bio||"";
 }
+$("saveProfile").onclick=saveProfile;
+$("loadProfile").onclick=()=>{loadProfile();toast("Loaded saved profile.");};
+$("viewPage").onclick=()=>{setCk(5,true);pulsePublic();};
 
-/* Intro video (session preview) */
-(function introVideo(){
-  const f = $("introFile");
-  const v = $("introPlayer");
-  const s = $("introStatus");
-  f.addEventListener("change", () => {
-    const file = f.files && f.files[0];
-    if(!file) return;
-    const url = URL.createObjectURL(file);
-    v.src = url;
-    v.classList.remove("hide");
-    v.play().catch(()=>{});
-    s.textContent = "✅ Intro video loaded (session preview).";
-    toast("✅ Intro video loaded (session preview).", "ok");
-    setChecklistDone(2, true);
-  });
-})();
-
-/* Videos: persist metadata tile + show playback preview */
-function getVideos(){ return safeParse(localStorage.getItem(LS.videos), []); }
-function setVideos(arr){ localStorage.setItem(LS.videos, JSON.stringify(arr)); }
-
-function renderVideos(){
-  const list = $("videoList");
-  list.innerHTML = "";
-  const vids = getVideos();
-
-  if(vids.length === 0){
-    list.innerHTML = `<div class="muted">No videos yet. Upload one to create a tile.</div>`;
-    renderPublic();
-    return;
-  }
-
-  vids.forEach((v, idx) => {
-    const el = document.createElement("div");
-    el.className = "mini";
-    el.innerHTML = `
-      <div class="miniRow" style="justify-content:space-between">
-        <div class="miniRow">
-          <div class="logoMark" aria-hidden="true">CV</div>
-          <div>
-            <div style="font-weight:1000">${escapeHtml(v.title || "Cooking Video")}</div>
-            <div class="muted" style="font-size:12px">${escapeHtml(v.when || "")}</div>
-          </div>
-        </div>
-        <button class="xBtn" type="button" data-delvideo="${idx}">Remove</button>
-      </div>
-      <div class="sp"></div>
-      <div class="muted" style="font-size:12px">
-        Video tiles saved for demo. Stage 2 stores the actual video for public playback.
-      </div>
-    `;
-    list.appendChild(el);
-  });
-
-  list.querySelectorAll("[data-delvideo]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const i = Number(btn.getAttribute("data-delvideo"));
-      const arr = getVideos();
-      arr.splice(i,1);
-      setVideos(arr);
-      toast("Removed video tile.", "ok");
-      renderVideos();
-    });
-  });
-
-  renderPublic();
-}
-
-$("btnAddVideo").addEventListener("click", () => {
-  const file = $("cookFile").files && $("cookFile").files[0];
-  const title = ($("cookTitle").value || "").trim() || "Cooking Video";
-  if(!file){ alert("Select a video file first."); return; }
-
-  const url = URL.createObjectURL(file);
-  const preview = document.createElement("div");
-  preview.className = "mini";
-  preview.innerHTML = `
-    <div class="miniRow" style="justify-content:space-between">
-      <div class="miniRow">
-        <div class="logoMark" aria-hidden="true">CV</div>
-        <div>
-          <div style="font-weight:1000">${escapeHtml(title)}</div>
-          <div class="muted" style="font-size:12px">✅ Playback preview (session)</div>
-        </div>
-      </div>
-      <span class="pill">Preview</span>
-    </div>
-    <div class="sp"></div>
-    <video controls playsinline src="${url}"></video>
-  `;
-  $("videoList").prepend(preview);
-
-  const vids = getVideos();
-  vids.unshift({ title, when: new Date().toLocaleString() });
-  setVideos(vids);
-
-  $("cookFile").value = "";
-  $("cookTitle").value = "";
-  $("videoStatus").textContent = "✅ Video added (demo tile saved).";
-  toast("✅ Video added. Check your public page.", "ok");
-  renderVideos();
-  pulsePublicPage();
-});
-
-$("btnClearVideos").addEventListener("click", () => {
-  localStorage.removeItem(LS.videos);
-  $("videoList").innerHTML = "";
-  $("videoStatus").textContent = "";
-  toast("Cleared video tiles.", "ok");
-  renderVideos();
-});
-
-/* Recipes */
-function getRecipes(){ return safeParse(localStorage.getItem(LS.recipes), []); }
-function setRecipes(arr){ localStorage.setItem(LS.recipes, JSON.stringify(arr)); }
-
-function renderRecipes(){
-  const list = $("recipeList");
-  list.innerHTML = "";
-  const recs = getRecipes();
-
-  if(recs.length === 0){
-    list.innerHTML = `<div class="muted">No recipes yet. Add one to populate the public Rolodex.</div>`;
-    renderPublic();
-    return;
-  }
-
-  recs.forEach((r, idx) => {
-    const el = document.createElement("div");
-    el.className = "mini";
-    el.innerHTML = `
-      <div class="miniRow" style="justify-content:space-between">
-        <div>
-          <div style="font-weight:1000">${escapeHtml(r.title || "Recipe")}</div>
-          <div class="muted" style="font-size:12px">${escapeHtml(r.cat || "")}</div>
-        </div>
-        <button class="xBtn" type="button" data-delrecipe="${idx}">Remove</button>
-      </div>
-      <div class="sp"></div>
-      <div class="muted" style="font-size:13px;line-height:1.45">${escapeHtml(r.body || "")}</div>
-    `;
-    list.appendChild(el);
-  });
-
-  list.querySelectorAll("[data-delrecipe]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const i = Number(btn.getAttribute("data-delrecipe"));
-      const arr = getRecipes();
-      arr.splice(i,1);
-      setRecipes(arr);
-      toast("Removed recipe.", "ok");
-      renderRecipes();
-    });
-  });
-
-  renderPublic();
-}
-
-$("btnAddRecipe").addEventListener("click", () => {
-  const title = ($("recipeTitle").value||"").trim();
-  const cat = ($("recipeCat").value||"").trim();
-  const body = ($("recipeBody").value||"").trim();
-  if(!title || !body){ alert("Add at least a recipe title and details."); return; }
-  const arr = getRecipes();
-  arr.unshift({ title, cat, body });
-  setRecipes(arr);
-
-  $("recipeTitle").value = "";
-  $("recipeCat").value = "";
-  $("recipeBody").value = "";
-
-  $("recipeStatus").textContent = "✅ Recipe added.";
-  toast("✅ Recipe added. Check your public page.", "ok");
-  setChecklistDone(4, true);
-  renderRecipes();
-  pulsePublicPage();
-});
-
-$("btnClearRecipes").addEventListener("click", () => {
-  localStorage.removeItem(LS.recipes);
-  $("recipeList").innerHTML = "";
-  $("recipeStatus").textContent = "";
-  toast("Cleared recipes.", "ok");
-  renderRecipes();
-});
-
-/* Meal Photos */
-function getMeals(){ return safeParse(localStorage.getItem(LS.meals), []); }
-function setMeals(arr){ localStorage.setItem(LS.meals, JSON.stringify(arr)); }
-
-function fileToDataURL(file){
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = () => reject(new Error("Failed to read image"));
-    reader.readAsDataURL(file);
-  });
-}
-
-function renderMeals(){
-  const grid = $("creatorGallery");
-  grid.innerHTML = "";
-  const meals = getMeals();
-
-  if(meals.length === 0){
-    grid.innerHTML = `<div class="muted">No meal photos yet. Add a few to populate the public gallery.</div>`;
-    renderPublic();
-    return;
-  }
-
-  meals.forEach((m, idx) => {
-    const el = document.createElement("div");
-    el.className = "galleryItem";
-    el.innerHTML = `
-      <img src="${m.data}" alt="Meal photo ${idx+1}">
-      <div class="galleryCap">
-        <span>${escapeHtml(m.cap || "")}</span>
-        <button class="xBtn" type="button" data-delmeal="${idx}">Remove</button>
-      </div>
-    `;
-    grid.appendChild(el);
-  });
-
-  grid.querySelectorAll("[data-delmeal]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const i = Number(btn.getAttribute("data-delmeal"));
-      const arr = getMeals();
-      arr.splice(i,1);
-      setMeals(arr);
-      toast("Removed meal photo.", "ok");
-      renderMeals();
-    });
-  });
-
-  renderPublic();
-}
-
-$("btnAddMeals").addEventListener("click", async () => {
-  const files = $("mealFiles").files;
-  const cap = ($("mealCaption").value || "").trim();
-  if(!files || files.length === 0){ alert("Select at least one photo."); return; }
-
-  $("mealStatus").textContent = "Adding photos…";
-  const arr = getMeals();
-
-  for(let i=0; i<files.length; i++){
-    const f = files[i];
-    if(!f.type.startsWith("image/")) continue;
-    const data = await fileToDataURL(f);
-    arr.unshift({ data, cap, when: new Date().toISOString() });
-  }
-  setMeals(arr);
-
-  $("mealFiles").value = "";
-  $("mealCaption").value = "";
-  $("mealStatus").textContent = "✅ Added to gallery.";
-  toast("✅ Meal photo added. Check your public page.", "ok");
-  setChecklistDone(3, true);
-  renderMeals();
-  pulsePublicPage();
-});
-
-$("btnClearMeals").addEventListener("click", () => {
-  localStorage.removeItem(LS.meals);
-  $("creatorGallery").innerHTML = "";
-  $("mealStatus").textContent = "";
-  toast("Cleared meal gallery.", "ok");
-  renderMeals();
-});
-
-/* Suggestions */
-$("btnSubmitSuggestion").addEventListener("click", () => {
-  const txt = ($("creatorSuggestion").value || "").trim();
-  if(!txt){ alert("Type a suggestion first."); return; }
-  $("suggestionStatus").textContent = "✅ Saved locally (demo). Copy/paste into your feedback tracker.";
-  toast("✅ Suggestion saved locally. Use Copy Text.", "ok");
-});
-$("btnCopySuggestion").addEventListener("click", async () => {
-  const txt = ($("creatorSuggestion").value || "").trim();
-  if(!txt){ alert("Nothing to copy."); return; }
-  await copyText(txt);
-  $("suggestionStatus").textContent = "📋 Copied.";
-  toast("Copied to clipboard.", "ok");
-});
-
-/* Copy link */
-$("btnCopyLink").addEventListener("click", async () => {
-  await copyText(location.href.split("#")[0]);
-  toast("Copied demo link.", "ok");
-});
-
-/* Checklist */
-function getChecklist(){
-  return safeParse(localStorage.getItem(LS.checklist), {1:false,2:false,3:false,4:false,5:false});
-}
-function setChecklist(obj){
-  localStorage.setItem(LS.checklist, JSON.stringify(obj));
-}
-function setChecklistDone(n, val=true){
-  const obj = getChecklist();
-  obj[String(n)] = !!val;
-  setChecklist(obj);
-  renderChecklist();
-}
-function renderChecklist(){
-  const obj = getChecklist();
-  const ids = ["ck1","ck2","ck3","ck4","ck5"];
-  ids.forEach((id, idx) => {
-    const n = idx+1;
-    const el = $(id);
-    if(!el) return;
-    el.checked = !!obj[String(n)];
-    el.onchange = () => setChecklistDone(n, el.checked);
-  });
-}
-$("btnResetChecklist").addEventListener("click", () => {
-  localStorage.setItem(LS.checklist, JSON.stringify({1:false,2:false,3:false,4:false,5:false}));
-  renderChecklist();
-  toast("Checklist reset.", "ok");
-});
-
-/* Jump buttons */
-$("btnJumpToStudio").addEventListener("click", () => scrollToEl($("creators")));
-$("btnGoPublic").addEventListener("click", () => { setChecklistDone(5, true); pulsePublicPage(); });
-$("btnViewMyPage").addEventListener("click", () => { setChecklistDone(5, true); pulsePublicPage(); });
-
-/* Founding code */
-$("btnApplyFounding").addEventListener("click", () => {
-  const code = ($("foundingCode").value || "").trim().toUpperCase();
-  if(code === "FOUNDING20"){
+$("applyCode").onclick=()=>{
+  const code=$("code").value.trim().toUpperCase();
+  if(code==="FOUNDING20"){
     setRole("founder_creator");
-    $("foundingStatus").textContent = "✅ Founding Creator unlocked (demo).";
-    toast("⭐ Founding Creator unlocked.", "ok");
-  } else {
-    $("foundingStatus").textContent = "❌ Invalid code.";
-    toast("Invalid code.", "warn");
+    $("codeStatus").textContent="✅ Founding Creator unlocked. Badge visible on public page.";
+    toast("⭐ Founding Creator unlocked.");
+  }else{
+    $("codeStatus").textContent="Code not recognized. (Demo expects FOUNDING20.)";
+    toast("Code not recognized.",true);
   }
+};
+
+$("intro").addEventListener("change",()=>{
+  const f=$("intro").files?.[0];
+  if(!f)return;
+  const url=URL.createObjectURL(f);
+  const v=$("introPlayer");
+  v.src=url;
+  v.classList.remove("hide");
+  v.play().catch(()=>{});
+  $("introStatus").textContent="✅ Intro video loaded (session preview).";
+  setCk(2,true);
+  toast("✅ Intro video loaded (preview).");
 });
 
-/* Public rendering */
-function renderPublic(){
-  const p = safeParse(localStorage.getItem(LS.profile), {}) || {};
-  $("pubName").textContent = p.name || "Creator Name";
-  $("pubCountry").textContent = p.country ? `📍 ${p.country}` : "Country";
-  $("pubBio").textContent = p.bio || "Save a profile in Creator Studio to populate this public page.";
+function fileToDataUrl(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(String(r.result));
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
+}
 
-  const role = getRole();
-  $("pubBadge").style.display = (role === "founder_creator") ? "inline-flex" : "none";
-
-  const meals = getMeals();
-  $("pubGalleryCount").textContent = meals.length ? `${meals.length} photo(s)` : "";
-  $("pubGalleryEmpty").style.display = meals.length ? "none" : "block";
-  const pubG = $("pubGallery");
-  pubG.innerHTML = "";
-  meals.slice(0,24).forEach(m => {
-    const el = document.createElement("div");
-    el.className = "galleryItem";
-    el.innerHTML = `
-      <img src="${m.data}" alt="Meal photo">
-      <div class="galleryCap"><span>${escapeHtml(m.cap || "")}</span></div>
-    `;
-    pubG.appendChild(el);
+/* MEALS (local) */
+function meals(){return J(localStorage.getItem(LS.meals),[]);}
+function setMeals(a){localStorage.setItem(LS.meals,JSON.stringify(a));}
+function renderMeals(){
+  const a=meals();
+  const g=$("meals"); g.innerHTML="";
+  a.forEach((m,i)=>{
+    const d=document.createElement("div"); d.className="gItem";
+    d.innerHTML=`<img src="${m.dataUrl}" alt="Meal"/><div class="cap"><span>${m.caption||"Meal photo"}</span><button class="x" data-mi="${i}" type="button">Remove</button></div>`;
+    g.appendChild(d);
+  });
+  g.querySelectorAll("button[data-mi]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.mi;
+    setMeals(meals().filter((_,k)=>k!==i));
+    renderMeals(); renderPublic();
+    toast("Meal removed.");
   });
 
-  const vids = getVideos();
-  $("pubVideoCount").textContent = vids.length ? `${vids.length} video(s)` : "0 videos";
-  const pubV = $("pubVideos");
-  pubV.innerHTML = "";
-  if(vids.length === 0){
-    pubV.innerHTML = `<div class="muted">No videos posted yet.</div>`;
-  } else {
-    vids.slice(0,12).forEach(v => {
-      const el = document.createElement("div");
-      el.className = "mini";
-      el.innerHTML = `
-        <div style="font-weight:1000">${escapeHtml(v.title || "Cooking Video")}</div>
-        <div class="muted" style="font-size:12px;margin-top:4px">${escapeHtml(v.when || "")}</div>
-        <div class="sp"></div>
-        <div class="muted" style="font-size:12px">Stage 2+ will show full playable videos here.</div>
-      `;
-      pubV.appendChild(el);
-    });
+  const pg=$("pubMeals"); pg.innerHTML="";
+  $("pubMealCount").textContent=a.length?`${a.length} photo${a.length===1?"":"s"}`:"";
+  $("pubMealsEmpty").style.display=a.length?"none":"block";
+  a.slice(0,24).forEach(m=>{
+    const d=document.createElement("div"); d.className="gItem";
+    d.innerHTML=`<img src="${m.dataUrl}" alt="Meal"/>`;
+    pg.appendChild(d);
+  });
+}
+$("addMeals").onclick=async()=>{
+  const files=[...($("mealFiles").files||[])];
+  if(!files.length){toast("Select at least 1 photo.",true);return;}
+  $("mealStatus").textContent="Uploading...";
+  const cap=$("mealCap").value.trim();
+  const a=meals();
+  const remain=Math.max(0,20-a.length);
+  for(const f of files.slice(0,remain)){
+    a.unshift({id:uid(),dataUrl:await fileToDataUrl(f),caption:cap,createdAt:Date.now()});
   }
+  setMeals(a.slice(0,20));
+  $("mealFiles").value=""; $("mealCap").value="";
+  $("mealStatus").textContent="✅ Added.";
+  setCk(3,true);
+  toast("✅ Meal photo(s) added.");
+  renderMeals(); renderPublic(); pulsePublic();
+};
+$("clearMeals").onclick=()=>{
+  if(!confirm("Clear all meal photos on this device?"))return;
+  localStorage.removeItem(LS.meals);
+  $("mealStatus").textContent="";
+  renderMeals(); renderPublic();
+  toast("Meal gallery cleared.");
+};
 
-  const recs = getRecipes();
-  $("pubRecipeCount").textContent = recs.length ? `${recs.length} recipe(s)` : "0 recipes";
-  const pubR = $("pubRecipes");
-  pubR.innerHTML = "";
-  if(recs.length === 0){
-    pubR.innerHTML = `<div class="muted">No recipes posted yet.</div>`;
-  } else {
-    recs.slice(0,12).forEach(r => {
-      const el = document.createElement("div");
-      el.className = "mini";
-      el.innerHTML = `
-        <div style="font-weight:1000">${escapeHtml(r.title || "Recipe")}</div>
-        <div class="muted" style="font-size:12px;margin-top:4px">${escapeHtml(r.cat || "")}</div>
-        <div class="sp"></div>
-        <div class="muted" style="font-size:13px;line-height:1.45">${escapeHtml(r.body || "")}</div>
-      `;
-      pubR.appendChild(el);
-    });
-  }
-}
-
-/* LOGOS: 4 upload spots */
-function getLogos(){
-  return safeParse(localStorage.getItem(LS.logos), {header:null,hero:null,footer:null,watermark:null});
-}
-function setLogos(obj){
-  localStorage.setItem(LS.logos, JSON.stringify(obj));
-}
-function applyLogo(slot, data){
-  const map = {
-    header: {img:$("logoHeaderImg"), fallback:$("logoHeaderFallback")},
-    hero: {img:$("logoHeroImg"), fallback:$("logoHeroFallback")},
-    footer: {img:$("logoFooterImg"), fallback:$("logoFooterFallback")},
-    watermark: {img:$("logoWatermarkImg"), wrapper:$("logoWatermark")}
-  };
-  const t = map[slot];
-  if(!t) return;
-
-  if(slot === "watermark"){
-    if(data){
-      t.img.src = data;
-      t.wrapper.style.display = "block";
-    } else {
-      t.wrapper.style.display = "none";
-      t.img.removeAttribute("src");
-    }
-    return;
-  }
-
-  if(data){
-    t.fallback.style.display = "none";
-    t.img.style.display = "block";
-    t.img.src = data;
-  } else {
-    t.img.style.display = "none";
-    t.img.removeAttribute("src");
-    t.fallback.style.display = "block";
-  }
-}
-function applyLogosFromStorage(){
-  const logos = getLogos();
-  applyLogo("header", logos.header);
-  applyLogo("hero", logos.hero);
-  applyLogo("footer", logos.footer);
-  applyLogo("watermark", logos.watermark);
-}
-async function handleLogoFile(inputEl, slot){
-  const file = inputEl.files && inputEl.files[0];
-  if(!file) return;
-  if(!file.type.startsWith("image/")){ alert("Please select an image file."); return; }
-  const data = await fileToDataURL(file);
-  const logos = getLogos();
-  logos[slot] = data;
-  setLogos(logos);
-  applyLogo(slot, data);
-  toast(`✅ ${slot} logo updated.`, "ok");
-  inputEl.value = "";
-}
-$("logoSlotHeader").addEventListener("change", (e)=>handleLogoFile(e.target, "header"));
-$("logoSlotHero").addEventListener("change", (e)=>handleLogoFile(e.target, "hero"));
-$("logoSlotFooter").addEventListener("change", (e)=>handleLogoFile(e.target, "footer"));
-$("logoSlotWatermark").addEventListener("change", (e)=>handleLogoFile(e.target, "watermark"));
-$("btnClearLogos").addEventListener("click", ()=>{
-  if(!confirm("Clear all uploaded logos on this device?")) return;
-  setLogos({header:null,hero:null,footer:null,watermark:null});
-  applyLogosFromStorage();
-  toast("Logos cleared.", "ok");
-});
-
-/* ADMIN PHOTOS */
-function getAdminPhotos(){ return safeParse(localStorage.getItem(LS.adminPhotos), []); }
-function setAdminPhotos(arr){ localStorage.setItem(LS.adminPhotos, JSON.stringify(arr)); }
-
-function renderAdminPhotos(){
-  const grid = $("adminPhotoGrid");
-  if(!grid) return;
-  grid.innerHTML = "";
-  const photos = getAdminPhotos();
-
-  if(photos.length === 0){
-    grid.innerHTML = `<div class="muted">No admin photos yet. Upload some for promo/featured use.</div>`;
-    return;
-  }
-
-  photos.forEach((p, idx) => {
-    const el = document.createElement("div");
-    el.className = "galleryItem";
-    el.innerHTML = `
-      <img src="${p.data}" alt="Admin photo ${idx+1}">
-      <div class="galleryCap">
-        <span>${escapeHtml(p.cap || "")}</span>
-        <button class="xBtn" type="button" data-deladminphoto="${idx}">Remove</button>
+/* VIDEOS (meta local + objectURL session) */
+function vids(){return J(localStorage.getItem(LS.vids),[]);}
+function setVids(a){localStorage.setItem(LS.vids,JSON.stringify(a));}
+function renderVids(){
+  const a=vids();
+  const list=$("vids"); list.innerHTML="";
+  a.forEach(v=>{
+    const playable=sessionVid.has(v.id);
+    const d=document.createElement("div"); d.className="mini";
+    d.innerHTML=`
+      <div class="row">
+        <div>
+          <div style="font-weight:1000">${escapeHtml(v.title||"Cooking video")}</div>
+          <div class="muted" style="font-size:12px">${new Date(v.createdAt).toLocaleString()}</div>
+        </div>
+        <button class="x" data-vid="${v.id}" type="button">Remove</button>
       </div>
-    `;
-    grid.appendChild(el);
+      <div style="margin-top:10px">
+        ${playable?`<video controls playsinline src="${sessionVid.get(v.id)}"></video>`:`<div class="warn muted" style="font-size:12px">Re-upload required after refresh (demo).</div>`}
+      </div>`;
+    list.appendChild(d);
+  });
+  list.querySelectorAll("button[data-vid]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.vid;
+    setVids(vids().filter(x=>x.id!==id));
+    if(sessionVid.has(id)){try{URL.revokeObjectURL(sessionVid.get(id))}catch{}sessionVid.delete(id);}
+    renderVids(); renderPublic();
+    toast("Video removed.");
   });
 
-  grid.querySelectorAll("[data-deladminphoto]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const i = Number(btn.getAttribute("data-deladminphoto"));
-      const arr = getAdminPhotos();
-      arr.splice(i,1);
-      setAdminPhotos(arr);
-      toast("Removed admin photo.", "ok");
-      renderAdminPhotos();
-    });
+  const pub=$("pubVids"); pub.innerHTML="";
+  $("pubVidCount").textContent=a.length?`${a.length} video${a.length===1?"":"s"}`:"";
+  a.forEach(v=>{
+    const t=document.createElement("div"); t.className="mini";
+    t.innerHTML=`
+      <div style="font-weight:1000">${escapeHtml(v.title||"Cooking video")}</div>
+      <div class="muted" style="font-size:12px;margin-top:8px">${sessionVid.has(v.id)?"▶︎ Playable in this session":"Re-upload after refresh (demo)"}</div>`;
+    pub.appendChild(t);
   });
 }
+$("addVid").onclick=()=>{
+  const f=$("vidFile").files?.[0];
+  if(!f){toast("Select a video file.",true);return;}
+  const id=uid();
+  const url=URL.createObjectURL(f);
+  sessionVid.set(id,url);
+  const title=($("vidTitle").value.trim()||f.name);
+  const a=vids();
+  a.unshift({id,title,createdAt:Date.now()});
+  setVids(a.slice(0,20));
+  $("vidFile").value=""; $("vidTitle").value="";
+  $("vidStatus").textContent="✅ Video added.";
+  toast("✅ Video added. Playback ready.");
+  renderVids(); renderPublic(); pulsePublic();
+};
+$("clearVids").onclick=()=>{
+  if(!confirm("Clear all video metadata on this device?"))return;
+  vids().forEach(v=>{if(sessionVid.has(v.id)){try{URL.revokeObjectURL(sessionVid.get(v.id))}catch{}sessionVid.delete(v.id);}});
+  localStorage.removeItem(LS.vids);
+  $("vidStatus").textContent="";
+  renderVids(); renderPublic();
+  toast("Videos cleared.");
+};
 
-$("btnAddAdminPhotos").addEventListener("click", async () => {
-  const files = $("adminPhotoFiles").files;
-  const cap = ($("adminPhotoCaption").value || "").trim();
-  if(!files || files.length === 0){ alert("Select at least one admin photo."); return; }
+/* RECIPES (local) */
+function recs(){return J(localStorage.getItem(LS.recipes),[]);}
+function setRecs(a){localStorage.setItem(LS.recipes,JSON.stringify(a));}
+function renderRecs(){
+  const a=recs();
+  const list=$("recs"); list.innerHTML="";
+  a.forEach(r=>{
+    const d=document.createElement("div"); d.className="mini";
+    d.innerHTML=`
+      <div class="row">
+        <div>
+          <div style="font-weight:1000">${escapeHtml(r.title)}</div>
+          <div class="muted" style="font-size:12px">${escapeHtml(r.category||"Uncategorized")}</div>
+        </div>
+        <button class="x" data-r="${r.id}" type="button">Remove</button>
+      </div>
+      <div class="muted" style="margin-top:10px;white-space:pre-wrap;line-height:1.5">${escapeHtml(r.body)}</div>`;
+    list.appendChild(d);
+  });
+  list.querySelectorAll("button[data-r]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.r;
+    setRecs(recs().filter(x=>x.id!==id));
+    renderRecs(); renderPublic();
+    toast("Recipe removed.");
+  });
 
-  $("adminPhotoStatus").textContent = "Adding…";
-  const arr = getAdminPhotos();
-  for(let i=0; i<files.length; i++){
-    const f = files[i];
-    if(!f.type.startsWith("image/")) continue;
-    const data = await fileToDataURL(f);
-    arr.unshift({ data, cap, when: new Date().toISOString() });
+  const pub=$("pubRecs"); pub.innerHTML="";
+  $("pubRecCount").textContent=a.length?`${a.length} recipe${a.length===1?"":"s"}`:"";
+  a.forEach(r=>{
+    const t=document.createElement("div"); t.className="mini";
+    t.innerHTML=`
+      <div style="font-weight:1000">${escapeHtml(r.title)}</div>
+      <div class="muted" style="font-size:12px;margin-top:4px">${escapeHtml(r.category||"Uncategorized")}</div>
+      <div class="muted" style="margin-top:10px;white-space:pre-wrap;line-height:1.45">${escapeHtml(r.body)}</div>`;
+    pub.appendChild(t);
+  });
+}
+$("addRec").onclick=()=>{
+  const title=$("rTitle").value.trim(), cat=$("rCat").value.trim(), body=$("rBody").value.trim();
+  if(!title||!body){toast("Add a recipe title and details.",true);return;}
+  const a=recs();
+  a.unshift({id:uid(),title,category:cat,body,createdAt:Date.now()});
+  setRecs(a.slice(0,50));
+  $("rTitle").value=""; $("rCat").value=""; $("rBody").value="";
+  $("recStatus").textContent="✅ Added.";
+  setCk(4,true);
+  toast("✅ Recipe added.");
+  renderRecs(); renderPublic(); pulsePublic();
+};
+$("clearRecs").onclick=()=>{
+  if(!confirm("Clear all recipes on this device?"))return;
+  localStorage.removeItem(LS.recipes);
+  $("recStatus").textContent="";
+  renderRecs(); renderPublic();
+  toast("Recipes cleared.");
+};
+
+/* SUGGESTION BOX (creator/admin only) */
+$("saveSug").onclick=()=>{
+  const t=$("suggest").value.trim();
+  if(!t){toast("Write your suggestion first.",true);return;}
+  $("sugStatus").textContent="✅ Suggestion captured. Copy & paste into your tracker.";
+  toast("✅ Suggestion captured (demo).");
+};
+$("copySug").onclick=async()=>{
+  const t=$("suggest").value.trim();
+  if(!t){toast("Nothing to copy.",true);return;}
+  await copyText(t);
+  toast("✅ Copied.");
+};
+
+/* LOGOS (admin only, 4 spots) */
+function logos(){return J(localStorage.getItem(LS.logos),{header:null,hero:null,footer:null,wm:null});}
+function setLogos(o){localStorage.setItem(LS.logos,JSON.stringify(o));}
+function applyLogo(img,fb,data){
+  if(data){img.src=data;img.style.display="block";fb.style.display="none";}
+  else{img.removeAttribute("src");img.style.display="none";fb.style.display="block";}
+}
+function applyLogos(){
+  const l=logos();
+  applyLogo($("logoHeaderImg"),$("logoHeaderFB"),l.header);
+  applyLogo($("logoHeroImg"),$("logoHeroFB"),l.hero);
+  applyLogo($("logoFooterImg"),$("logoFooterFB"),l.footer);
+  if(l.wm){$("wmImg").src=l.wm;$("wm").style.display="block";}
+  else{$("wmImg").removeAttribute("src");$("wm").style.display="none";}
+}
+async function setLogoSlot(slot,file){
+  if(!file)return;
+  const data=await fileToDataUrl(file);
+  const l=logos(); l[slot]=data; setLogos(l);
+  applyLogos();
+  toast("✅ Logo updated.");
+}
+$("lgHeader").onchange=e=>setLogoSlot("header",e.target.files?.[0]);
+$("lgHero").onchange=e=>setLogoSlot("hero",e.target.files?.[0]);
+$("lgFooter").onchange=e=>setLogoSlot("footer",e.target.files?.[0]);
+$("lgWM").onchange=e=>setLogoSlot("wm",e.target.files?.[0]);
+$("clearLogos").onclick=()=>{
+  if(!confirm("Clear all logo uploads on this device?"))return;
+  localStorage.removeItem(LS.logos);
+  applyLogos();
+  toast("Logos cleared.");
+};
+
+/* ADMIN PHOTOS (admin only) */
+function adminPhotos(){return J(localStorage.getItem(LS.adminPhotos),[]);}
+function setAdminPhotos(a){localStorage.setItem(LS.adminPhotos,JSON.stringify(a));}
+function renderAdminPhotos(){
+  const a=adminPhotos();
+  const g=$("adminPhotos"); g.innerHTML="";
+  a.forEach((p,i)=>{
+    const d=document.createElement("div"); d.className="gItem";
+    d.innerHTML=`<img src="${p.dataUrl}" alt="Admin"/><div class="cap"><span>${escapeHtml(p.caption||"Admin photo")}</span><button class="x" data-ap="${i}" type="button">Remove</button></div>`;
+    g.appendChild(d);
+  });
+  g.querySelectorAll("button[data-ap]").forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.ap;
+    setAdminPhotos(adminPhotos().filter((_,k)=>k!==i));
+    renderAdminPhotos();
+    toast("Admin photo removed.");
+  });
+}
+$("addAdminPhotos").onclick=async()=>{
+  const files=[...($("aPhotos").files||[])];
+  if(!files.length){toast("Select at least 1 photo.",true);return;}
+  $("aStatus").textContent="Uploading...";
+  const cap=$("aCap").value.trim();
+  const a=adminPhotos();
+  const remain=Math.max(0,20-a.length);
+  for(const f of files.slice(0,remain)){
+    a.unshift({id:uid(),dataUrl:await fileToDataUrl(f),caption:cap,createdAt:Date.now()});
   }
-  setAdminPhotos(arr);
-
-  $("adminPhotoFiles").value = "";
-  $("adminPhotoCaption").value = "";
-  $("adminPhotoStatus").textContent = "✅ Added.";
-  toast("✅ Admin photos added.", "ok");
+  setAdminPhotos(a.slice(0,20));
+  $("aPhotos").value=""; $("aCap").value="";
+  $("aStatus").textContent="✅ Added.";
+  toast("✅ Admin photo(s) added.");
   renderAdminPhotos();
-  setTimeout(()=> $("adminPhotoStatus").textContent = "", 1500);
-});
-
-$("btnClearAdminPhotos").addEventListener("click", ()=>{
-  if(!confirm("Clear all admin photos on this device?")) return;
+};
+$("clearAdminPhotos").onclick=()=>{
+  if(!confirm("Clear all admin photos on this device?"))return;
   localStorage.removeItem(LS.adminPhotos);
-  $("adminPhotoGrid").innerHTML = "";
-  $("adminPhotoStatus").textContent = "";
-  toast("Admin photos cleared.", "ok");
+  $("aStatus").textContent="";
   renderAdminPhotos();
-});
+  toast("Admin photos cleared.");
+};
 
-/* Reset demo */
-$("btnResetDemo").addEventListener("click", () => {
-  if(!confirm("Reset all demo data on this device?")) return;
-  Object.values(LS).forEach(k => localStorage.removeItem(k));
-  ["ck1","ck2","ck3","ck4","ck5"].forEach(id => { if($(id)) $(id).checked = false; });
-  applyLogosFromStorage();
+/* PUBLIC PAGE RENDER */
+function renderPublic(){
+  const p=J(localStorage.getItem(LS.profile),{})||{};
+  $("pubName").textContent=p.name||"Creator Name";
+  $("pubCountry").textContent=p.country||"Country";
+  $("pubBio").textContent=p.bio||"Save a profile to populate this page.";
+  renderMeals(); renderVids(); renderRecs();
+}
+
+/* UTIL */
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));}
+
+function init(){
+  $("role").value=role();
+  setRole(role());
   loadProfile();
-  setRole("viewer");
-  renderVideos();
-  renderRecipes();
-  renderMeals();
+  renderCk();
+  applyLogos();
   renderAdminPhotos();
   renderPublic();
-  toast("Demo reset complete.", "ok");
-});
-
-/* Boot */
-(function boot(){
-  const savedRole = getRole();
-  $("roleSelect").addEventListener("change", (e) => setRole(e.target.value));
-  setRole(savedRole);
-
-  $("btnSaveProfile").addEventListener("click", saveProfile);
-  $("btnLoadProfile").addEventListener("click", () => { loadProfile(); toast("Loaded saved profile (demo).", "ok"); });
-
-  applyLogosFromStorage();
-  loadProfile();
-  renderChecklist();
-  renderVideos();
-  renderRecipes();
-  renderMeals();
-  renderAdminPhotos();
-  renderPublic();
-})();
+}
+init();
 </script>
-
 </body>
 </html> 
 
