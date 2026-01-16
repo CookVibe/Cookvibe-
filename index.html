@@ -68,13 +68,10 @@ a{color:inherit;text-decoration:none}
     </nav>
   </div>
 </header>
-<section id="join" style="margin-top:200px;padding:40px;border:2px dashed red;">
-  <h2>JOIN TEST — YOU SHOULD SEE THIS</h2>
-</section>
 
 <div id="top" class="wrap">
 
-  <!-- JOIN SECTION -->
+  <!-- JOIN SECTION (single, real one) -->
   <section id="join" class="card">
     <div class="row">
       <h2 style="margin:0">Join CookVibe</h2>
@@ -87,7 +84,140 @@ a{color:inherit;text-decoration:none}
       and feedback before scale.
     </p>
 
-    <div style="margin-top:14px">
+    <div style="margin-top:14px" class="row">
+      <a href="#studio" class="btn">Enter Creator Demo</a>
+      <span class="muted" style="font-size:12px">
+        Tip: uploads save locally in Stage 1 (Stage 2 adds cloud).
+      </span>
+    </div>
+  </section>
+
+  <!-- Upload status labels (so creators see progress) -->
+  <div class="card" id="uploadStatusCard">
+    <div class="row">
+      <strong>Upload Status</strong>
+      <span class="pill">Progress</span>
+    </div>
+    <div id="mealStatus" class="muted" style="margin-top:8px">Meal photos: —</div>
+    <div id="adminStatus" class="muted" style="margin-top:6px">Admin photos: —</div>
+  </div>
+
+  <!-- 🔽 KEEP YOUR EXISTING SECTIONS BELOW THIS (public / studio / admin etc.) 🔽 -->
+
+
+<script>
+/* =========================================================
+   FAST IMAGE UPLOAD (A = Meals, B = Admin Photos)
+   Resize + compress BEFORE saving to localStorage.
+   ========================================================= */
+
+async function fileToOptimizedDataURL(file, maxW = 1280, quality = 0.82) {
+  const img = await new Promise((resolve, reject) => {
+    const i = new Image();
+    i.onload = () => resolve(i);
+    i.onerror = reject;
+    i.src = URL.createObjectURL(file);
+  });
+
+  const scale = Math.min(1, maxW / img.width);
+  const w = Math.max(1, Math.round(img.width * scale));
+  const h = Math.max(1, Math.round(img.height * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+
+  const ctx = canvas.getContext("2d", { alpha: false });
+  ctx.drawImage(img, 0, 0, w, h);
+
+  const dataUrl = canvas.toDataURL("image/jpeg", quality);
+
+  try { URL.revokeObjectURL(img.src); } catch {}
+  return dataUrl;
+}
+
+function safeParseLS(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+  catch { return fallback; }
+}
+
+async function addOptimizedImagesToStorage({
+  files,
+  storageKey,
+  statusEl,
+  maxW = 1280,
+  quality = 0.82,
+  itemShape = (src) => src,
+  renderFn
+}) {
+  if (!files || files.length === 0) return;
+
+  const arr = safeParseLS(storageKey, []);
+  const list = Array.from(files);
+
+  if (statusEl) statusEl.textContent = `Uploading 0/${list.length}…`;
+
+  for (let i = 0; i < list.length; i++) {
+    const f = list[i];
+    const src = await fileToOptimizedDataURL(f, maxW, quality);
+    arr.push(itemShape(src));
+    if (statusEl) statusEl.textContent = `Uploading ${i + 1}/${list.length}…`;
+  }
+
+  localStorage.setItem(storageKey, JSON.stringify(arr));
+  if (statusEl) statusEl.textContent = `✅ Added ${list.length} photo${list.length > 1 ? "s" : ""}`;
+
+  if (typeof renderFn === "function") renderFn();
+}
+
+/* -------------------------
+   A) MEAL GALLERY UPLOAD
+   ------------------------- */
+// Use this function for your meal upload button.
+// It expects an input with id="mealFiles" OR id="mealInput"
+async function addMeals() {
+  const input = document.getElementById("mealFiles") || document.getElementById("mealInput");
+  const statusEl = document.getElementById("mealStatus");
+
+  // Match your existing key if different:
+  const storageKey = "cv_meals";
+
+  await addOptimizedImagesToStorage({
+    files: input?.files,
+    storageKey,
+    statusEl,
+    maxW: 1280,
+    quality: 0.82,
+    itemShape: (src) => src,
+    renderFn: (typeof renderMeals === "function") ? renderMeals : null
+  });
+
+  if (input) input.value = "";
+}
+
+/* -------------------------
+   B) ADMIN PHOTO UPLOAD
+   ------------------------- */
+// Call addAdminPhotos(this.files) from your admin file input onchange
+async function addAdminPhotos(fileList) {
+  const statusEl = document.getElementById("adminStatus");
+
+  // Match your existing key if different:
+  const storageKey = "cv_admin_photos";
+
+  await addOptimizedImagesToStorage({
+    files: fileList,
+    storageKey,
+    statusEl,
+    maxW: 1280,
+    quality: 0.82,
+    itemShape: (src) => src,
+    renderFn: (typeof renderAdminPhotos === "function") ? renderAdminPhotos : null
+  });
+}
+</script>
+
+<div style="margin-top:14px">
       <a href="#studio" class="btn">Enter Creator Demo</a>
     </div>
   </section>
@@ -973,4 +1103,161 @@ init();
 </body>
 </html> 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  
 
