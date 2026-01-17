@@ -8,603 +8,715 @@
 <meta name="theme-color" content="#0b0f0e"/>
 
 <style>
-:root{
-  --bg:#0b0f0e;
-  --card:#121816;
-  --text:#f1f5f4;
-  --muted:#9fb0aa;
-  --line:#24322d;
-  --g:#1fbf7a;
-  --y:#d9b75f;
-  --sh:0 12px 30px rgba(0,0,0,.32)
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  background:
-    radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
-    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),
-    var(--bg);
-  color:var(--text)
-}
+:root{--bg:#0b0f0e;--card:#121816;--text:#f1f5f4;--muted:#9fb0aa;--line:#24322d;--g:#1fbf7a;--y:#d9b75f;--sh:0 12px 30px rgba(0,0,0,.32)}
+*{box-sizing:border-box}html,body{height:100%}
+
+/* ✅ Fix: anchor scroll + sticky header */
+html{scroll-padding-top:92px;scroll-behavior:smooth}
+
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;background:
+radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
+radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),var(--bg);color:var(--text)}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
-.card{
-  background:rgba(18,24,22,.95);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:16px;
-  box-shadow:var(--sh);
-  margin-top:14px
-}
-.muted{color:var(--muted)}
+.card{background:rgba(18,24,22,.95);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-top:14px}
+.muted{color:var(--muted)}.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-
 .row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-
-.pill{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:#0f1412;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:900
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 14px;
-  border-radius:12px;
-  border:0;
-  cursor:pointer;
-  font-weight:950;
-  font-size:13px;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000
-}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0f1412;color:var(--muted);font-size:12px;font-weight:900}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:950;font-size:13px;background:linear-gradient(135deg,var(--g),var(--y));color:#000;user-select:none}
 .btn.ghost{background:#0f1412;color:var(--text);border:1px solid var(--line)}
 .btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
-
-.grid{display:grid;gap:14px}
-.cols2{grid-template-columns:1.15fr .85fr}
+.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
 @media(max-width:900px){.cols2{grid-template-columns:1fr}}
-
-input,textarea{
-  width:100%;
-  background:#0f1412;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px 12px;
-  font:inherit;
-  outline:none
-}
+input,textarea{width:100%;background:#0f1412;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
 textarea{min-height:92px;resize:vertical}
-
-/* HEADER */
-.hdr{
-  position:sticky;
-  top:0;
-  z-index:999;
-  background:rgba(11,15,14,.86);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line)
-}
-.hdrin{
-  max-width:1100px;
-  margin:0 auto;
-  padding:12px 14px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap
-}
-.brand{display:flex;align-items:center;gap:10px}
-.brandName{font-weight:1000}
-.brandTag{font-size:12px;color:var(--muted)}
-
+.hdr{position:sticky;top:0;z-index:999;background:rgba(11,15,14,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
+.brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
-.nav a{
-  font-size:13px;
-  font-weight:900;
-  padding:8px 10px;
-  border-radius:10px
-}
-.nav a:hover{
-  background:#0f1412;
-  border:1px solid var(--line)
-}
-
-/* MEDIA + GALLERIES */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-  gap:10px;
-  margin-top:12px
-}
-.gItem{
-  border:1px solid var(--line);
-  background:#0b0f0e;
-  border-radius:14px;
-  overflow:hidden
-}
-.gItem img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  display:block
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:12px;
-  margin-top:12px
-}
-.tile{
-  border:1px solid var(--line);
-  background:#0f1412;
-  border-radius:14px;
-  padding:12px
-}
-
-video{
-  width:100%;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#0b0f0e
-}
-
-/* FOOTER */
-footer{
-  margin-top:36px;
-  border-top:1px solid var(--line);
-  background:#0b0f0e
-}
-.footerIn{
-  max-width:1100px;
-  margin:0 auto;
-  padding:22px 14px;
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-  justify-content:space-between
-}
-.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
+.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
+.nav a:hover{background:#0f1412;border:1px solid var(--line);padding:7px 9px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.logoBox{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(31,191,122,.25),rgba(217,183,95,.22));display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
+.logoBox.big{width:140px;height:140px;border-radius:28px;font-size:34px}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#0f1412}
+.wm{position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;border:1px solid var(--line);background:#0f1412;box-shadow:var(--sh);overflow:hidden;display:none;opacity:.9}
+.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
+.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.08);border-radius:14px;padding:12px 14px}
+.hidden{display:none !important}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.gItem{border:1px solid var(--line);background:#0b0f0e;border-radius:14px;overflow:hidden}
+.gItem img{width:100%;height:140px;object-fit:cover;display:block}
+.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid var(--line);background:#0f1412;color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+.tile{border:1px solid var(--line);background:#0f1412;border-radius:14px;padding:12px}
+video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:rgba(18,24,22,.98);box-shadow:var(--sh);display:none}
+.toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
+.footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 </style>
 </head>
-
 <body>
+<div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
+<div class="toast" id="toast"></div>
 
 <header class="hdr">
   <div class="hdrin">
-    <div class="brand">
-      <div class="brandName">CookVibe</div>
-      <div class="brandTag">Creator-first cooking platform</div>
-    </div>
+    <a class="brand" href="#top">
+      <div class="logoBox" id="logoHeaderBox">
+        <span id="logoHeaderFB">CV</span>
+        <img id="logoHeaderImg" class="logoImg" style="display:none" alt="CookVibe logo">
+      </div>
+      <div class="brandTxt">
+        <div class="brandName">CookVibe</div>
+        <div class="brandTag">Stage 1 demo • upload + feedback</div>
+      </div>
+    </a>
+
     <nav class="nav">
+      <!-- ✅ Join anchor works because #join exists exactly once + scroll-padding-top -->
       <a href="#join">Join</a>
-      <a href="#public">Creator</a>
+      <a href="#public">Creator Page</a>
       <a href="#studio">Studio</a>
       <a href="#admin">Admin</a>
     </nav>
+
+    <div class="actions">
+      <button class="btn ghost small" id="copyLink" type="button">Copy Demo Link</button>
+      <button class="btn ghost small" id="resetBtn" type="button">Reset Demo</button>
+    </div>
   </div>
 </header>
 
 <div id="top" class="wrap">
 
-  <!-- JOIN -->
+  <!-- JOIN (ONLY ONE) -->
   <section id="join" class="card">
     <div class="row">
-      <h2 style="margin:0">Join CookVibe</h2>
-      <span class="pill">Stage 1 Demo</span>
+      <div class="rowL">
+        <h2 style="margin:0">Join CookVibe</h2>
+        <span class="pill">Stage 1</span>
+      </div>
+      <span class="pill" id="rolePill">viewer</span>
     </div>
 
-    <p class="muted">
-      Explore creator profiles, upload content, and shape the future of CookVibe
-      before monetization and native apps.
+    <p class="muted" style="margin-top:10px;line-height:1.55">
+      Enter a code to unlock Creator or Admin tools. Upload meal photos + videos and see them appear on the public creator page.
     </p>
 
-    <div class="row">
-      <button class="btn" onclick="enterDemo()">Enter Creator Demo</button>
-      <span id="joinStatus" class="muted"></span>
+    <div class="tile" style="margin-top:12px">
+      <div class="row">
+        <strong>Access Code</strong>
+        <span class="pill" id="roleMini">viewer</span>
+      </div>
+      <div class="smalltxt" style="margin-top:8px">
+        <strong>FOUNDING20</strong> = Founding Creator (lifetime free demo flag) • <strong>ADMIN</strong> = Admin • Any other code = Creator • Blank = Viewer
+      </div>
+      <div style="margin-top:10px">
+        <input id="codeInput" placeholder="Enter access code (e.g., FOUNDING20)">
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="loginBtn" type="button">Enter</button>
+        <a class="btn ghost" href="#studio">Go to Studio</a>
+      </div>
+      <div class="smalltxt" id="loginNote" style="margin-top:10px"></div>
+    </div>
+
+    <div id="foundingBanner" class="notice" style="display:none;margin-top:12px">
+      <strong>⭐ Founding Creator:</strong> Lifetime free subscription (demo flag).
     </div>
   </section>
 
-  <!-- PUBLIC CREATOR PAGE -->
+  <!-- PUBLIC -->
   <section id="public" class="card">
-    <h2>Public Creator Page</h2>
-    <p class="muted">What viewers see.</p>
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Public Creator Page Preview</h2>
+        <span class="pill">PUBLIC</span>
+      </div>
+      <a class="btn small" href="#studio">Edit in Studio</a>
+    </div>
 
-    <video id="introVideo" controls></video>
+    <div class="tile" style="margin-top:12px">
+      <div class="row">
+        <div class="rowL">
+          <div class="logoBox">CV</div>
+          <div>
+            <div style="font-weight:1000" id="pubName">Creator Name</div>
+            <div class="smalltxt" id="pubMeta">Country • @handle</div>
+          </div>
+          <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
+        </div>
+        <span class="pill" id="pubRole">viewer</span>
+      </div>
 
-    <div class="gallery" id="publicGallery"></div>
+      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">Save a profile to populate this page.</div>
+
+      <hr/>
+      <div class="row"><strong>Intro Video</strong><span class="smalltxt">Session playback</span></div>
+      <div style="margin-top:10px"><video id="pubIntro" controls class="hidden"></video></div>
+
+      <hr/>
+      <div class="row"><strong>Meal Photos</strong><span class="smalltxt" id="pubMealCount">0</span></div>
+      <div id="pubMealsEmpty" class="smalltxt" style="margin-top:8px">No meal photos yet.</div>
+      <div id="pubMeals" class="gallery"></div>
+
+      <hr/>
+      <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
+      <div id="pubVids" class="cards"></div>
+    </div>
   </section>
 
   <!-- STUDIO -->
   <section id="studio" class="card">
-    <h2>Creator Studio</h2>
-    <p class="muted">Upload videos and meal photos (saved locally in Stage 1).</p>
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Creator Studio</h2><span class="pill">CREATOR</span></div>
+      <span class="pill" id="creatorGate">viewer</span>
+    </div>
 
-    <div class="grid cols2">
+    <div class="warn smalltxt" style="margin-top:12px">
+      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+    </div>
 
+    <div class="grid cols2" style="margin-top:12px">
       <div class="tile">
-        <h3>Intro Video</h3>
-        <input type="file" accept="video/*" onchange="uploadIntro(event)">
-        <p id="videoStatus" class="muted"></p>
+        <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
+        <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
+        <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
+        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica)"></div>
+        <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
+          <a class="btn ghost" href="#public">View Public</a>
+        </div>
+        <div class="smalltxt" id="profileStatus" style="margin-top:10px"></div>
       </div>
 
       <div class="tile">
-        <h3>Meal Photos</h3>
-        <input type="file" accept="image/*" multiple onchange="uploadMeals(event)">
-        <p id="mealStatus" class="muted"></p>
-        <div class="gallery" id="mealGallery"></div>
+        <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
+        <div class="smalltxt" style="margin-top:8px">Shows above cooking videos on public page (session playback).</div>
+        <div style="margin-top:10px"><input id="introVideo" type="file" accept="video/*"></div>
+        <div style="margin-top:10px"><video id="introPlayer" controls class="hidden"></video></div>
+        <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
       </div>
+    </div>
 
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Meal Photo Gallery (FAST)</strong><span class="pill">Upload</span></div>
+      <div class="smalltxt" style="margin-top:8px">Pick 1–5 photos at a time. Resizes + compresses for speed.</div>
+      <div class="row" style="margin-top:10px">
+        <input id="mealInput" type="file" accept="image/*" multiple>
+        <button class="btn" id="mealUploadBtn" type="button">Upload Meals</button>
+      </div>
+      <div class="smalltxt" id="mealStatus" style="margin-top:10px">—</div>
+      <div id="mealGallery" class="gallery"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Cooking Videos</strong><span class="pill">Playback</span></div>
+      <div class="row" style="margin-top:10px">
+        <input id="cookVideoInput" type="file" accept="video/*">
+        <button class="btn" id="addVideoBtn" type="button">Add Video</button>
+      </div>
+      <div class="smalltxt" id="videoStatus" style="margin-top:10px">—</div>
+      <div id="videoList" class="cards"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile" id="suggestionTile">
+      <div class="row"><strong>Creator Suggestions</strong><span class="pill">Creators only</span></div>
+      <div style="margin-top:10px"><textarea id="suggestionText" placeholder="Unfiltered feedback…"></textarea></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="sendSuggestionBtn" type="button">Submit</button>
+        <button class="btn ghost" id="viewSuggestionLogBtn" type="button">View Saved</button>
+      </div>
+      <div class="smalltxt" id="suggestionStatus" style="margin-top:10px">—</div>
+      <div id="suggestionLog" class="cards hidden"></div>
     </div>
   </section>
 
   <!-- ADMIN -->
   <section id="admin" class="card">
-    <h2>Admin Panel</h2>
-    <p class="muted">Admin-only uploads (logos, featured images).</p>
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Admin Panel</h2><span class="pill">ADMIN</span></div>
+      <span class="pill" id="adminGate">locked</span>
+    </div>
 
-    <input type="file" accept="image/*" multiple onchange="uploadAdmin(event)">
-    <p id="adminStatus" class="muted"></p>
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (use code <strong>ADMIN</strong>).</div>
 
-    <div class="gallery" id="adminGallery"></div>
+    <div id="adminLocked" class="tile" style="margin-top:12px">
+      <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
+      <div class="smalltxt" style="margin-top:8px">Enter code <strong>ADMIN</strong> in Join to unlock this panel.</div>
+    </div>
+
+    <div id="adminUnlocked" class="hidden" style="margin-top:12px">
+      <div class="tile">
+        <div class="row"><strong>Logo Uploads (4 slots)</strong><span class="pill">Local</span></div>
+        <div class="grid cols2" style="margin-top:10px">
+          <div><label class="smalltxt">Slot 1 (Header)</label><input id="logo1" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 2 (Hero)</label><input id="logo2" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 3 (Footer)</label><input id="logo3" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 4 (Watermark)</label><input id="logo4" type="file" accept="image/*"></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveLogosBtn" type="button">Save Logos</button>
+          <button class="btn ghost" id="clearLogosBtn" type="button">Clear Logos</button>
+        </div>
+        <div class="smalltxt" id="logoStatus" style="margin-top:10px">—</div>
+      </div>
+
+      <div class="tile" style="margin-top:14px">
+        <div class="row"><strong>Admin Photos (FAST)</strong><span class="pill">Upload</span></div>
+        <div class="row" style="margin-top:10px">
+          <input id="adminPhotoInput" type="file" accept="image/*" multiple>
+          <button class="btn" id="adminUploadBtn" type="button">Upload Admin Photos</button>
+        </div>
+        <div class="smalltxt" id="adminStatus" style="margin-top:10px">—</div>
+        <div id="adminGallery" class="gallery"></div>
+      </div>
+    </div>
   </section>
 
 </div>
 
 <footer>
   <div class="footerIn">
-    <div class="smalltxt">
-      © <span id="year"></span> CookVibe<br>
-      Stage 1 Web Demo
+    <div>
+      <div class="rowL">
+        <div class="logoBox" id="logoFooterBox">
+          <span id="logoFooterFB">CV</span>
+          <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
+        </div>
+        <div>
+          <div style="font-weight:1000">CookVibe</div>
+          <div class="smalltxt">Creator-first cooking • web-first demo</div>
+        </div>
+      </div>
+      <div class="smalltxt" style="margin-top:10px">Founder: Shaun Wint • The Start UPZ, LLC</div>
     </div>
-    <div class="smalltxt">
-      Built to ship small, listen closely, and grow deliberately.
+
+    <div>
+      <div style="font-weight:1000">Stage Notes</div>
+      <div class="smalltxt" style="margin-top:8px">
+        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, and scalable storage.
+      </div>
     </div>
   </div>
 </footer>
-
 <script>
-/* =========================
-   CookVibe Stage 1 Demo JS
-   - Local demo persistence
-   - Fast photo uploads (resize + compress)
-   ========================= */
-
-const LS = {
-  intro: "cv_intro_video_url",
-  meals: "cv_meal_photos",
-  admin: "cv_admin_photos"
+const LS={
+  role:"cv_role",
+  founding:"cv_founding",
+  admin:"cv_admin",
+  profile:"cv_profile",
+  meals:"cv_meals",
+  suggestions:"cv_suggestions",
+  logos:"cv_logos",
+  adminPhotos:"cv_admin_photos"
 };
 
-function $(id){ return document.getElementById(id); }
+const $=id=>document.getElementById(id);
 
-function setStatus(id, msg){
-  const el = $(id);
-  if (el) el.textContent = msg || "";
+function toast(msg,ok=true){
+  const t=$("toast");
+  t.className="toast show "+(ok?"ok":"bad");
+  t.textContent=msg;
+  setTimeout(()=>t.className="toast",2200);
 }
 
-function enterDemo(){
-  setStatus("joinStatus","✅ Demo ready. Go to Studio to upload.");
-  location.hash = "#studio";
+function safeJSON(key,fallback){
+  try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}
+  catch{return fallback;}
+}
+function escapeHTML(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
 
-function safeParse(key, fallback){
-  try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
-  catch { return fallback; }
+function setRole(role){
+  localStorage.setItem(LS.role,role);
+
+  $("rolePill").textContent=role;
+  $("roleMini").textContent=role;
+  $("creatorGate").textContent=role;
+  $("pubRole").textContent=role;
+
+  const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
+  $("suggestionTile").classList.toggle("hidden",!isCreator);
+
+  const isAdmin=(role==="admin");
+  $("adminGate").textContent=isAdmin?"unlocked":"locked";
+  $("adminUnlocked").classList.toggle("hidden",!isAdmin);
+  $("adminLocked").classList.toggle("hidden",isAdmin);
+
+  const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
+  $("foundingBanner").style.display=founding?"block":"none";
+  $("pubFounder").style.display=founding?"inline-flex":"none";
 }
 
-function saveJSON(key, value){
-  localStorage.setItem(key, JSON.stringify(value));
+function applyAccessCode(codeRaw){
+  const code=(codeRaw||"").trim().toUpperCase();
+  let role="viewer";
+
+  if(code==="ADMIN"){ role="admin"; localStorage.setItem(LS.admin,"1"); localStorage.removeItem(LS.founding); }
+  else if(code==="FOUNDING20"){ role="founder_creator"; localStorage.setItem(LS.founding,"1"); localStorage.removeItem(LS.admin); }
+  else if(code){ role="creator"; localStorage.removeItem(LS.admin); localStorage.removeItem(LS.founding); }
+  else { role="viewer"; localStorage.removeItem(LS.admin); localStorage.removeItem(LS.founding); }
+
+  setRole(role);
+
+  $("loginNote").textContent =
+    role==="admin" ? "✅ Admin mode enabled." :
+    role==="founder_creator" ? "✅ Founding Creator enabled (lifetime free demo flag)." :
+    role==="creator" ? "✅ Creator mode enabled." :
+    "Viewer mode.";
+
+  toast("Access applied ✅");
+  renderAll();
+  location.hash = (role==="admin") ? "#admin" : "#studio";
 }
 
-/* =========
-   VIDEO
-   ========= */
-function uploadIntro(ev){
-  const file = ev.target.files && ev.target.files[0];
-  if (!file){
-    setStatus("videoStatus","Pick a video first.");
-    return;
-  }
-  const url = URL.createObjectURL(file);
-  // Stage 1: store URL for this session only (object URLs won't persist across reload)
-  // We'll still show it immediately.
-  const v = $("introVideo");
-  v.src = url;
-  v.style.display = "block";
-  setStatus("videoStatus","✅ Intro video loaded (plays in this session).");
-}
+$("loginBtn").addEventListener("click",()=>applyAccessCode($("codeInput").value));
 
-/* =========================
-   FAST IMAGE PIPELINE
-   ========================= */
-async function fileToOptimizedDataURL(file, maxW = 1280, quality = 0.82){
-  const img = await new Promise((resolve, reject) => {
-    const i = new Image();
-    i.onload = () => resolve(i);
-    i.onerror = reject;
-    i.src = URL.createObjectURL(file);
+$("copyLink").addEventListener("click",async()=>{
+  const url=window.location.origin+window.location.pathname+"#join";
+  try{ await navigator.clipboard.writeText(url); toast("Link copied ✅"); }
+  catch{ toast("Copy failed — copy URL manually.",false); }
+});
+
+$("resetBtn").addEventListener("click",()=>{
+  if(!confirm("Reset demo data on this device?")) return;
+  Object.values(LS).forEach(k=>localStorage.removeItem(k));
+  toast("Reset complete ✅");
+  location.reload();
+});
+
+/* ========= Profile ========= */
+$("saveProfileBtn").addEventListener("click",()=>{
+  const profile={
+    name:$("cName").value.trim(),
+    handle:$("cHandle").value.trim(),
+    country:$("cCountry").value.trim(),
+    bio:$("cBio").value.trim()
+  };
+  localStorage.setItem(LS.profile,JSON.stringify(profile));
+  $("profileStatus").textContent="✅ Profile saved";
+  toast("Profile saved ✅");
+  renderPublic();
+});
+
+/* ========= Fast Images (resize + compress) ========= */
+async function fileToOptimizedDataURL(file,maxW=1280,quality=0.82){
+  const img=await new Promise((resolve,reject)=>{
+    const i=new Image();
+    i.onload=()=>resolve(i);
+    i.onerror=reject;
+    i.src=URL.createObjectURL(file);
   });
-
-  const scale = Math.min(1, maxW / img.width);
-  const w = Math.max(1, Math.round(img.width * scale));
-  const h = Math.max(1, Math.round(img.height * scale));
-
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-
-  const ctx = canvas.getContext("2d", { alpha:false });
-  ctx.drawImage(img, 0, 0, w, h);
-
-  const dataUrl = canvas.toDataURL("image/jpeg", quality);
-
-  try { URL.revokeObjectURL(img.src); } catch {}
+  const scale=Math.min(1,maxW/img.width);
+  const w=Math.max(1,Math.round(img.width*scale));
+  const h=Math.max(1,Math.round(img.height*scale));
+  const canvas=document.createElement("canvas");
+  canvas.width=w; canvas.height=h;
+  const ctx=canvas.getContext("2d",{alpha:false});
+  ctx.drawImage(img,0,0,w,h);
+  const dataUrl=canvas.toDataURL("image/jpeg",quality);
+  try{ URL.revokeObjectURL(img.src); }catch{}
   return dataUrl;
 }
 
-async function addOptimizedImages({ files, storageKey, statusElId, galleryElId, label }){
-  const list = Array.from(files || []);
-  if (!list.length){
-    setStatus(statusElId, `Pick ${label} first.`);
-    return;
+async function addOptimizedImages({files,storageKey,statusEl,renderFn}){
+  if(!files || files.length===0){ toast("Pick photos first.",false); return; }
+  const arr=safeJSON(storageKey,[]);
+  const list=Array.from(files);
+  statusEl.textContent=`Uploading 0/${list.length}…`;
+  for(let i=0;i<list.length;i++){
+    const src=await fileToOptimizedDataURL(list[i],1280,0.82);
+    arr.push({src,ts:Date.now()});
+    statusEl.textContent=`Uploading ${i+1}/${list.length}…`;
   }
+  localStorage.setItem(storageKey,JSON.stringify(arr));
+  statusEl.textContent=`✅ Added ${list.length} photo${list.length>1?"s":""}`;
+  toast("Photos uploaded ✅");
+  if(typeof renderFn==="function") renderFn();
+}
 
-  let arr = safeParse(storageKey, []);
-  setStatus(statusElId, `Uploading 0/${list.length}…`);
+/* ========= Meals ========= */
+$("mealUploadBtn").addEventListener("click",async()=>{
+  await addOptimizedImages({
+    files:$("mealInput").files,
+    storageKey:LS.meals,
+    statusEl:$("mealStatus"),
+    renderFn:()=>{ renderMeals(); renderPublic(); }
+  });
+  $("mealInput").value="";
+});
 
-  for (let i=0; i<list.length; i++){
-    const f = list[i];
-    const src = await fileToOptimizedDataURL(f, 1280, 0.82);
-    arr.push({ src, ts: Date.now() });
-    setStatus(statusElId, `Uploading ${i+1}/${list.length}…`);
+function renderMeals(){
+  const meals=safeJSON(LS.meals,[]);
+  $("pubMealCount").textContent=String(meals.length);
+  $("pubMealsEmpty").style.display=meals.length?"none":"block";
+  const pub=$("pubMeals"), studio=$("mealGallery");
+  pub.innerHTML=""; studio.innerHTML="";
+  meals.forEach((m,idx)=>{
+    const item=document.createElement("div");
+    item.className="gItem";
+    item.innerHTML=`<img alt="Meal photo" src="${m.src}">
+      <div class="cap"><span>Meal</span><button class="x" data-i="${idx}">Remove</button></div>`;
+    studio.appendChild(item);
+
+    const item2=document.createElement("div");
+    item2.className="gItem";
+    item2.innerHTML=`<img alt="Meal photo" src="${m.src}">`;
+    pub.appendChild(item2);
+  });
+  studio.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
+    const i=Number(btn.getAttribute("data-i"));
+    const arr=safeJSON(LS.meals,[]);
+    arr.splice(i,1);
+    localStorage.setItem(LS.meals,JSON.stringify(arr));
+    toast("Removed ✅");
+    renderMeals(); renderPublic();
+  }));
+}
+
+/* ========= Admin Photos ========= */
+$("adminUploadBtn").addEventListener("click",async()=>{
+  await addOptimizedImages({
+    files:$("adminPhotoInput").files,
+    storageKey:LS.adminPhotos,
+    statusEl:$("adminStatus"),
+    renderFn:renderAdminPhotos
+  });
+  $("adminPhotoInput").value="";
+});
+
+function renderAdminPhotos(){
+  const arr=safeJSON(LS.adminPhotos,[]);
+  const g=$("adminGallery");
+  g.innerHTML="";
+  arr.forEach((m,idx)=>{
+    const item=document.createElement("div");
+    item.className="gItem";
+    item.innerHTML=`<img alt="Admin photo" src="${m.src}">
+      <div class="cap"><span>Admin</span><button class="x" data-i="${idx}">Remove</button></div>`;
+    g.appendChild(item);
+  });
+  g.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
+    const i=Number(btn.getAttribute("data-i"));
+    const a=safeJSON(LS.adminPhotos,[]);
+    a.splice(i,1);
+    localStorage.setItem(LS.adminPhotos,JSON.stringify(a));
+    toast("Removed ✅");
+    renderAdminPhotos();
+  }));
+}
+
+/* ========= Videos (session playback) ========= */
+let sessionVideos=[];
+$("addVideoBtn").addEventListener("click",()=>{
+  const f=$("cookVideoInput").files?.[0];
+  if(!f){ toast("Pick a video first.",false); return; }
+  const url=URL.createObjectURL(f);
+  sessionVideos.unshift({url,name:f.name,ts:Date.now()});
+  $("videoStatus").textContent="✅ Video added (session playback)";
+  toast("Video added ✅");
+  $("cookVideoInput").value="";
+  renderVideosStudio(); renderVideosPublic();
+});
+
+function renderVideosStudio(){
+  const list=$("videoList");
+  list.innerHTML="";
+  sessionVideos.forEach((v,idx)=>{
+    const tile=document.createElement("div");
+    tile.className="tile";
+    tile.innerHTML=`<div class="smalltxt"><strong>${escapeHTML(v.name)}</strong></div>
+      <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
+      <div class="row" style="margin-top:10px">
+        <span class="smalltxt">Session</span>
+        <button class="btn ghost small" data-i="${idx}">Remove</button>
+      </div>`;
+    list.appendChild(tile);
+  });
+  list.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",()=>{
+    const i=Number(b.getAttribute("data-i"));
+    try{ URL.revokeObjectURL(sessionVideos[i].url); }catch{}
+    sessionVideos.splice(i,1);
+    toast("Removed ✅");
+    renderVideosStudio(); renderVideosPublic();
+  }));
+}
+
+function renderVideosPublic(){
+  $("pubVidCount").textContent=String(sessionVideos.length);
+  const pub=$("pubVids");
+  pub.innerHTML="";
+  sessionVideos.forEach(v=>{
+    const tile=document.createElement("div");
+    tile.className="tile";
+    tile.innerHTML=`<div class="smalltxt"><strong>${escapeHTML(v.name)}</strong></div>
+      <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
+      <div class="smalltxt" style="margin-top:8px">Stage 1 session preview</div>`;
+    pub.appendChild(tile);
+  });
+}
+
+/* ========= Intro video (session playback) ========= */
+$("introVideo").addEventListener("change",()=>{
+  const f=$("introVideo").files?.[0];
+  if(!f) return;
+  const url=URL.createObjectURL(f);
+  $("introPlayer").src=url;
+  $("introPlayer").classList.remove("hidden");
+  $("pubIntro").src=url;
+  $("pubIntro").classList.remove("hidden");
+  $("introStatus").textContent="✅ Intro loaded (session playback)";
+  toast("Intro loaded ✅");
+});
+
+/* ========= Suggestions (creator-only) ========= */
+$("sendSuggestionBtn").addEventListener("click",()=>{
+  const text=$("suggestionText").value.trim();
+  if(!text){ toast("Type feedback first.",false); return; }
+  const arr=safeJSON(LS.suggestions,[]);
+  arr.unshift({text,ts:Date.now()});
+  localStorage.setItem(LS.suggestions,JSON.stringify(arr));
+  $("suggestionText").value="";
+  $("suggestionStatus").textContent="✅ Saved locally";
+  toast("Suggestion saved ✅");
+});
+
+$("viewSuggestionLogBtn").addEventListener("click",()=>{
+  $("suggestionLog").classList.toggle("hidden");
+  renderSuggestions();
+});
+
+function renderSuggestions(){
+  const arr=safeJSON(LS.suggestions,[]);
+  const box=$("suggestionLog");
+  box.innerHTML="";
+  arr.slice(0,10).forEach(s=>{
+    const t=document.createElement("div");
+    t.className="tile";
+    t.innerHTML=`<div class="smalltxt" style="white-space:pre-wrap">${escapeHTML(s.text)}</div>`;
+    box.appendChild(t);
+  });
+}
+
+/* ========= Logos (4 slots) ========= */
+function setLogoUI(src,fallbackSpan,imgEl){
+  if(src){
+    fallbackSpan.style.display="none";
+    imgEl.style.display="block";
+    imgEl.src=src;
+  }else{
+    imgEl.style.display="none";
+    imgEl.removeAttribute("src");
+    fallbackSpan.style.display="inline";
   }
-
-  saveJSON(storageKey, arr);
-  setStatus(statusElId, `✅ Uploaded ${list.length} ${label}${list.length>1?"s":""}`);
-  renderGallery(storageKey, galleryElId);
-  // also reflect meals to public page
-  if (storageKey === LS.meals) renderGallery(LS.meals, "publicGallery");
 }
 
-function renderGallery(storageKey, galleryElId){
-  const g = $(galleryElId);
-  if (!g) return;
-  const arr = safeParse(storageKey, []);
-  g.innerHTML = "";
-  arr.slice().reverse().forEach(item => {
-    const wrap = document.createElement("div");
-    wrap.className = "gItem";
-    wrap.innerHTML = `<img src="${item.src}" alt="photo">`;
-    g.appendChild(wrap);
-  });
+function renderLogosToUI(){
+  const logos=safeJSON(LS.logos,[null,null,null,null]);
+  setLogoUI(logos[0],$("logoHeaderFB"),$("logoHeaderImg"));
+  // hero slot is stored but only used for future hero area if you add it
+  setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
+  const wm=$("wm");
+  if(logos[3]){
+    $("wmImg").src=logos[3];
+    wm.style.display="block";
+  }else{
+    wm.style.display="none";
+    $("wmImg").removeAttribute("src");
+  }
 }
 
-/* =========
-   A) MEALS
-   ========= */
-function uploadMeals(ev){
-  const files = ev.target.files;
-  addOptimizedImages({
-    files,
-    storageKey: LS.meals,
-    statusElId: "mealStatus",
-    galleryElId: "mealGallery",
-    label: "meal photo"
-  });
-  ev.target.value = "";
+$("saveLogosBtn").addEventListener("click",async()=>{
+  const files=[
+    $("logo1").files?.[0],
+    $("logo2").files?.[0],
+    $("logo3").files?.[0],
+    $("logo4").files?.[0]
+  ];
+  const existing=safeJSON(LS.logos,[null,null,null,null]);
+  $("logoStatus").textContent="Saving logos…";
+  for(let i=0;i<4;i++){
+    if(files[i]) existing[i]=await fileToOptimizedDataURL(files[i],900,0.86);
+  }
+  localStorage.setItem(LS.logos,JSON.stringify(existing));
+  $("logoStatus").textContent="✅ Logos saved";
+  toast("Logos saved ✅");
+  renderLogosToUI();
+});
+
+$("clearLogosBtn").addEventListener("click",()=>{
+  localStorage.setItem(LS.logos,JSON.stringify([null,null,null,null]));
+  toast("Logos cleared ✅");
+  renderLogosToUI();
+});
+
+/* ========= Public render ========= */
+function renderPublic(){
+  const p=safeJSON(LS.profile,{});
+  $("pubName").textContent=p.name||"Creator Name";
+  $("pubMeta").textContent=`${p.country||"Country"} • ${p.handle||"@handle"}`;
+  $("pubBio").textContent=p.bio||"Save a profile to populate this page.";
+
+  const role=localStorage.getItem(LS.role)||"viewer";
+  $("pubRole").textContent=role;
+
+  const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
+  $("pubFounder").style.display=founding?"inline-flex":"none";
+
+  renderMeals();
+  renderVideosPublic();
+  renderLogosToUI();
 }
 
-/* =========
-   B) ADMIN
-   ========= */
-function uploadAdmin(ev){
-  const files = ev.target.files;
-  addOptimizedImages({
-    files,
-    storageKey: LS.admin,
-    statusElId: "adminStatus",
-    galleryElId: "adminGallery",
-    label: "admin photo"
-  });
-  ev.target.value = "";
+function renderAll(){
+  renderPublic();
+  renderVideosStudio();
+  renderSuggestions();
+  renderAdminPhotos();
 }
 
-/* =========
-   INIT
-   ========= */
+/* ========= Init ========= */
 (function init(){
-  const y = $("year");
-  if (y) y.textContent = new Date().getFullYear();
+  // restore role
+  let role=localStorage.getItem(LS.role)||"viewer";
+  if(localStorage.getItem(LS.admin)==="1") role="admin";
+  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
+  setRole(role);
 
-  // render any previously saved photos
-  renderGallery(LS.meals, "mealGallery");
-  renderGallery(LS.meals, "publicGallery");
-  renderGallery(LS.admin, "adminGallery");
+  // restore profile fields
+  const p=safeJSON(LS.profile,{});
+  $("cName").value=p.name||"";
+  $("cHandle").value=p.handle||"";
+  $("cCountry").value=p.country||"";
+  $("cBio").value=p.bio||"";
 
-  // keep intro video hidden if none loaded
-  const v = $("introVideo");
-  if (v) {
-    v.removeAttribute("src");
-    v.style.display = "none";
-  }
+  // initial render
+  renderAll();
 })();
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-  
-
