@@ -3,206 +3,791 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • Demo</title>
+<title>CookVibe • App Demo</title>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta name="theme-color" content="#ffffff"/>
 
 <style>
 :root{
-  --g:#1fbf7a;
-  --y:#d9b75f;
-  --bg1:#fff3e0;
-  --bg2:#ffffff;
-  --text:#222;
-  --muted:#666;
-  --card:#ffffff;
-  --line:#e6e6e6;
+  --g:#1fbf7a; --y:#d9b75f;
+  --ink:#0b0f0e; --muted:#4b5b56;
+  --card:#ffffff; --line:rgba(0,0,0,.10);
+  --shadow:0 16px 40px rgba(0,0,0,.10);
+  --soft:linear-gradient(180deg,#fff6e6 0%, #ffffff 58%, #f7fffb 100%);
 }
-
-*{box-sizing:border-box}
-
+*{box-sizing:border-box}html,body{height:100%}
+html{scroll-padding-top:92px;scroll-behavior:smooth}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:var(--text);
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 700px at 0% 0%, rgba(31,191,122,.16), transparent 60%),
+    radial-gradient(1200px 700px at 100% 0%, rgba(217,183,95,.18), transparent 60%),
+    var(--soft);
 }
-
-a{text-decoration:none;color:inherit}
-
-.wrap{
-  max-width:1100px;
-  margin:0 auto;
-  padding:20px;
-}
-
-header{
-  position:sticky;
-  top:0;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  z-index:10;
-}
-
-.header-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:12px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo svg{height:36px}
-
-nav a{
-  margin-left:12px;
-  font-weight:700;
-}
-
-.btn{
-  padding:10px 16px;
-  border-radius:14px;
-  border:none;
-  cursor:pointer;
-  font-weight:900;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000;
-}
-
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
 .card{
-  background:var(--card);
+  background:rgba(255,255,255,.92);
   border:1px solid var(--line);
   border-radius:20px;
-  padding:20px;
-  box-shadow:0 10px 28px rgba(0,0,0,.08);
-  margin-bottom:20px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  margin-top:14px
 }
-
-/* ACCESS PAGE */
-#access{
-  text-align:center;
-}
-
-#access input{
-  padding:12px;
-  width:260px;
-  max-width:100%;
-  border-radius:12px;
+.muted{color:var(--muted)}
+.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pill{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:7px 10px;border-radius:999px;
   border:1px solid var(--line);
-  font-size:16px;
+  background:#fff;color:var(--muted);
+  font-size:12px;font-weight:900
 }
-
-/* POST ACCESS HERO */
-.hero{
-  margin-top:10px;
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:14px;border:0;
+  cursor:pointer;font-weight:950;font-size:13px;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  color:#000;user-select:none
 }
-
-.hero h1{
-  font-size:28px;
-  margin-bottom:6px;
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:12px}
+.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
+@media(max-width:900px){.cols2{grid-template-columns:1fr}}
+input,textarea{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:11px 12px;font:inherit;outline:none}
+textarea{min-height:92px;resize:vertical}
+.hdr{
+  position:sticky;top:0;z-index:999;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)
 }
-
-.hero p{
-  color:var(--muted);
+.hdrin{
+  max-width:1100px;margin:0 auto;padding:12px 14px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
 }
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
+.brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:12px}
+.nav a:hover{background:#fff;border:1px solid var(--line);padding:7px 9px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.logoBox{
+  width:42px;height:42px;border-radius:14px;border:1px solid var(--line);
+  background:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:1000;overflow:hidden;box-shadow:0 10px 18px rgba(0,0,0,.08)
+}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#fff}
+.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.10);border-radius:16px;padding:12px 14px}
+.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.12);border-radius:16px;padding:12px 14px}
+.hidden{display:none !important}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:12px}
+.gItem{border:1px solid var(--line);background:#fff;border-radius:16px;overflow:hidden}
+.gItem img{width:100%;height:120px;object-fit:cover;display:block}
+.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:950;border-radius:12px;padding:6px 10px;cursor:pointer}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+.tile{border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px}
+video{width:100%;border-radius:16px;border:1px solid var(--line);background:#fff}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:16px;z-index:2500;max-width:min(560px,92vw);
+  border-radius:14px;padding:12px 14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.95);box-shadow:var(--shadow);display:none
+}
+.toast.show{display:block}
+.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}
+.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
 
-/* GALLERY */
-.gallery{
+.postAccessHero{
+  margin: 14px auto 0;
+  max-width: 1100px;
+  padding: 18px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fff6e6 0%, #ffffff 60%);
+  border:1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+.postAccessHero h1{margin:0 0 8px;font-size:26px;font-weight:1000}
+.postAccessHero p{margin:0 0 14px;color:var(--muted);line-height:1.5}
+.foodCollage{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:12px;
-  margin-top:16px;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:10px;
 }
-
-.gItem img{
+.foodCollage img{
   width:100%;
   height:120px;
   object-fit:cover;
-  border-radius:14px;
-  display:block;
+  border-radius:16px;
+  border:1px solid var(--line);
+  box-shadow:0 10px 18px rgba(0,0,0,.06);
 }
-
-/* MUM EASTER EGG */
+footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,255,.75)}
+.footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 .mum-note{
-  position:fixed;
-  right:12px;
-  bottom:10px;
-  font-size:11px;
-  opacity:.15;
-  pointer-events:none;
+  position:fixed; right:12px; bottom:10px;
+  font-size:11px; opacity:.12; pointer-events:none;
 }
-
-@media(max-width:1200px){
-  .mum-note{display:none}
+@media (max-width: 1200px){
+  .mum-note{ display:none; }
 }
 </style>
 </head>
 
 <body>
+<div class="toast" id="toast"></div>
 
-<header>
-  <div class="header-inner">
-    <div class="logo">
-      <svg width="160" viewBox="0 0 500 200">
-        <text x="0" y="140" font-size="140" font-weight="900" font-family="Arial">
-          <tspan fill="#2E7D32">Cook</tspan>
-          <tspan fill="#C9A227">vibe</tspan>
-        </text>
-      </svg>
-    </div>
-    <nav>
-      <a href="#access">Access</a>
-      <a href="#app">App</a>
+<header class="hdr">
+  <div class="hdrin">
+    <a class="brand" href="#top">
+      <div class="logoBox" id="logoHeaderBox" aria-label="CookVibe logo">
+        <svg width="42" height="42" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+          <rect width="500" height="500" fill="#ffffff"/>
+          <text x="50%" y="58%" text-anchor="middle"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="120" font-weight="bold">
+            <tspan fill="#2E7D32">C</tspan>
+            <tspan fill="#C9A227">V</tspan>
+          </text>
+        </svg>
+        <img id="logoHeaderImg" class="logoImg" style="display:none" alt="CookVibe logo">
+      </div>
+      <div class="brandTxt">
+        <div class="brandName">CookVibe</div>
+        <div class="brandTag">App demo • bright • global • food-forward</div>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="#earn">Earn</a>
+      <a href="#public">Creator Page</a>
+      <a href="#studio">Studio</a>
+      <a href="#admin">Admin</a>
     </nav>
+
+    <div class="actions">
+      <span class="pill" id="rolePill">viewer</span>
+      <button class="btn ghost small" id="copyLink" type="button">Copy App Link</button>
+      <button class="btn ghost small" id="resetBtn" type="button">Reset Demo</button>
+    </div>
   </div>
 </header>
 
-<div class="wrap">
-
-  <!-- ACCESS -->
-  <section id="access" class="card">
-    <h2>Welcome to CookVibe 🌍</h2>
-    <p>A global cooking community where creators earn through engagement.</p>
-    <input id="code" placeholder="Enter access code"/>
-    <div style="margin-top:14px">
-      <button class="btn" onclick="unlock()">Enter</button>
-    </div>
-  </section>
-
-  <!-- APP -->
-  <section id="app" class="card hero" style="display:none">
-    <h1>Welcome to CookVibe 🍽️</h1>
-    <p>Creators • Culture • Community • Earnings</p>
-
-    <div class="gallery">
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"></div>
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8"></div>
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe"></div>
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc"></div>
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1"></div>
-      <div class="gItem"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"></div>
-    </div>
-
-    <p style="margin-top:20px">
-      Upload meals. Share videos. Go live. Earn as your audience grows.
-    </p>
-  </section>
-
+<div id="top" class="postAccessHero">
+  <div class="row">
+    <h1>Welcome to CookVibe 🌍🍽️</h1>
+    <span class="pill" id="roleMini">viewer</span>
+  </div>
+  <p>
+    Global cooking culture meets creator earning potential. Post videos, go live (later), and organize recipes —
+    the more interaction you drive, the more you can earn as the platform scales.
+  </p>
+  <div class="foodCollage" aria-label="Global food collage">
+    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=70" alt="People sharing food">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70" alt="Global food table">
+    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=70" alt="Colorful plates">
+    <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=800&q=70" alt="Family meal">
+    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=70" alt="International cuisine">
+    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=70" alt="Healthy dishes">
+  </div>
 </div>
 
 <div class="mum-note">I love you Mum thank you.</div>
 
+<div class="wrap">
+
+  <!-- EARN -->
+  <section id="earn" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Earn on CookVibe</h2>
+        <span class="pill">Stage 2+ monetization</span>
+      </div>
+      <span class="pill" id="earnRole">viewer</span>
+    </div>
+
+    <div class="tile" style="margin-top:12px">
+      <div style="font-weight:1000">How earning works (simple + clear)</div>
+      <div class="smalltxt" style="margin-top:8px">
+        CookVibe is built so creator earnings rise with engagement. As the platform introduces subscriptions, tips, and brand offers,
+        creator payouts can be tied to <strong>views, saves, comments, shares, and live engagement</strong>.
+      </div>
+      <hr/>
+      <div class="smalltxt">
+        <strong>Stage 1 (today):</strong> demo validation + feedback<br/>
+        <strong>Stage 2:</strong> accounts + persistence + creator metrics + moderation tools<br/>
+        <strong>Stage 3:</strong> live + tips + scalable payouts + international growth
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLIC -->
+  <section id="public" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Public Creator Page Preview</h2>
+        <span class="pill">PUBLIC</span>
+      </div>
+      <a class="btn small" href="#studio">Edit in Studio</a>
+    </div>
+
+    <div class="tile" style="margin-top:12px">
+      <div class="row">
+        <div class="rowL">
+          <div class="logoBox">CV</div>
+          <div>
+            <div style="font-weight:1000" id="pubName">Creator Name</div>
+            <div class="smalltxt" id="pubMeta">Country • @handle</div>
+          </div>
+          <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
+        </div>
+        <span class="pill" id="pubRole">viewer</span>
+      </div>
+
+      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">
+        Save a profile to populate this page.
+      </div>
+
+      <hr/>
+      <div class="row"><strong>Intro Video</strong><span class="smalltxt">Session playback</span></div>
+      <div style="margin-top:10px"><video id="pubIntro" controls class="hidden"></video></div>
+
+      <hr/>
+      <div class="row"><strong>Meal Photos</strong><span class="smalltxt" id="pubMealCount">0</span></div>
+      <div id="pubMealsEmpty" class="smalltxt" style="margin-top:8px">No meal photos yet.</div>
+      <div id="pubMeals" class="gallery"></div>
+
+      <hr/>
+      <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
+      <div id="pubVids" class="cards"></div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" class="card">
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Creator Studio</h2><span class="pill">CREATOR</span></div>
+      <span class="pill" id="creatorGate">viewer</span>
+    </div>
+
+    <div class="warn smalltxt" style="margin-top:12px">
+      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+    </div>
+
+    <div class="grid cols2" style="margin-top:12px">
+      <div class="tile">
+        <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
+        <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
+        <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
+        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica 🇯🇲)"></div>
+        <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
+          <a class="btn ghost" href="#public">View Public</a>
+        </div>
+        <div class="smalltxt" id="profileStatus" style="margin-top:10px"></div>
+      </div>
+
+      <div class="tile">
+        <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
+        <div class="smalltxt" style="margin-top:8px">Shows above cooking videos on public page (session playback).</div>
+        <div style="margin-top:10px"><input id="introVideo" type="file" accept="video/*"></div>
+        <div style="margin-top:10px"><video id="introPlayer" controls class="hidden"></video></div>
+        <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Meal Photo Gallery</strong><span class="pill">Upload</span></div>
+      <div class="smalltxt" style="margin-top:8px">Pick 1–5 photos at a time. Resizes + compresses for speed.</div>
+      <div class="row" style="margin-top:10px">
+        <input id="mealInput" type="file" accept="image/*" multiple>
+        <button class="btn" id="mealUploadBtn" type="button">Upload Meals</button>
+      </div>
+      <div class="smalltxt" id="mealStatus" style="margin-top:10px">—</div>
+      <div id="mealGallery" class="gallery"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Cooking Videos</strong><span class="pill">Playback</span></div>
+      <div class="row" style="margin-top:10px">
+        <input id="cookVideoInput" type="file" accept="video/*">
+        <button class="btn" id="addVideoBtn" type="button">Add Video</button>
+      </div>
+      <div class="smalltxt" id="videoStatus" style="margin-top:10px">—</div>
+      <div id="videoList" class="cards"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile" id="suggestionTile">
+      <div class="row"><strong>Creator Suggestions</strong><span class="pill">Creators only</span></div>
+      <div style="margin-top:10px"><textarea id="suggestionText" placeholder="Unfiltered feedback…"></textarea></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="sendSuggestionBtn" type="button">Submit</button>
+        <button class="btn ghost" id="viewSuggestionLogBtn" type="button">View Saved</button>
+      </div>
+      <div class="smalltxt" id="suggestionStatus" style="margin-top:10px">—</div>
+      <div id="suggestionLog" class="cards hidden"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="card">
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Admin Panel</h2><span class="pill">ADMIN</span></div>
+      <span class="pill" id="adminGate">locked</span>
+    </div>
+
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (enter ADMIN on access page).</div>
+
+    <div id="adminLocked" class="tile" style="margin-top:12px">
+      <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
+      <div class="smalltxt" style="margin-top:8px">Go back to <strong>index.html</strong> and enter <strong>ADMIN</strong>, then return here.</div>
+      <div class="row" style="margin-top:10px">
+        <a class="btn" href="index.html">Go to Access Page</a>
+        <a class="btn ghost" href="#studio">Back to Studio</a>
+      </div>
+    </div>
+
+    <div id="adminUnlocked" class="hidden" style="margin-top:12px">
+      <div class="tile">
+        <div class="row"><strong>Logo Uploads (4 slots)</strong><span class="pill">Local</span></div>
+        <div class="grid cols2" style="margin-top:10px">
+          <div><label class="smalltxt">Slot 1 (Header)</label><input id="logo1" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 2 (Hero)</label><input id="logo2" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 3 (Footer)</label><input id="logo3" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 4 (Watermark)</label><input id="logo4" type="file" accept="image/*"></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveLogosBtn" type="button">Save Logos</button>
+          <button class="btn ghost" id="clearLogosBtn" type="button">Clear Logos</button>
+        </div>
+        <div class="smalltxt" id="logoStatus" style="margin-top:10px">—</div>
+      </div>
+
+      <div class="tile" style="margin-top:14px">
+        <div class="row"><strong>Admin Photos</strong><span class="pill">Upload</span></div>
+        <div class="row" style="margin-top:10px">
+          <input id="adminPhotoInput" type="file" accept="image/*" multiple>
+          <button class="btn" id="adminUploadBtn" type="button">Upload Admin Photos</button>
+        </div>
+        <div class="smalltxt" id="adminStatus" style="margin-top:10px">—</div>
+        <div id="adminGallery" class="gallery"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footerIn">
+    <div>
+      <div class="rowL">
+        <div class="logoBox" id="logoFooterBox">
+          <span id="logoFooterFB">CV</span>
+          <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
+        </div>
+        <div>
+          <div style="font-weight:1000">CookVibe</div>
+          <div class="smalltxt">Creator-first cooking • web-first demo</div>
+        </div>
+      </div>
+      <div class="smalltxt" style="margin-top:10px">Founder: Shaun Wint • The Start UPZ, LLC</div>
+    </div>
+
+    <div>
+      <div style="font-weight:1000">Stage Notes</div>
+      <div class="smalltxt" style="margin-top:8px">
+        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, and scalable storage.
+      </div>
+    </div>
+  </div>
+</footer>
+
 <script>
-function unlock(){
-  document.getElementById("access").style.display="none";
-  document.getElementById("app").style.display="block";
-  location.hash="#app";
+/* ===== Local storage keys ===== */
+const LS={
+  role:"cv_role",
+  founding:"cv_founding",
+  admin:"cv_admin",
+  profile:"cv_profile",
+  meals:"cv_meals",
+  suggestions:"cv_suggestions",
+  logos:"cv_logos",
+  adminPhotos:"cv_admin_photos"
+};
+
+const $=id=>document.getElementById(id);
+
+function toast(msg,ok=true){
+  const t=$("toast");
+  t.className="toast show "+(ok?"ok":"bad");
+  t.textContent=msg;
+  setTimeout(()=>t.className="toast",2200);
 }
+
+function safeJSON(key,fallback){
+  try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}
+  catch{return fallback;}
+}
+function escapeHTML(s){
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function setRole(role){
+  localStorage.setItem(LS.role,role);
+  $("rolePill").textContent=role;
+  $("roleMini").textContent=role;
+  $("creatorGate").textContent=role;
+  $("pubRole").textContent=role;
+  $("earnRole").textContent=role;
+
+  const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
+  $("suggestionTile").classList.toggle("hidden",!isCreator);
+
+  const isAdmin=(role==="admin");
+  $("adminGate").textContent=isAdmin?"unlocked":"locked";
+  $("adminUnlocked").classList.toggle("hidden",!isAdmin);
+  $("adminLocked").classList.toggle("hidden",isAdmin);
+
+  const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
+  $("pubFounder").style.display=founding?"inline-flex":"none";
+}
+
+$("copyLink").addEventListener("click",async()=>{
+  const url=window.location.origin+window.location.pathname+"#studio";
+  try{ await navigator.clipboard.writeText(url); toast("App link copied ✅"); }
+  catch{ toast("Copy failed — copy URL manually.",false); }
+});
+
+$("resetBtn").addEventListener("click",()=>{
+  if(!confirm("Reset demo data on this device?")) return;
+  Object.values(LS).forEach(k=>localStorage.removeItem(k));
+  toast("Reset complete ✅");
+  location.reload();
+});
+
+/* ========= Profile ========= */
+$("saveProfileBtn").addEventListener("click",()=>{
+  const profile={
+    name:$("cName").value.trim(),
+    handle:$("cHandle").value.trim(),
+    country:$("cCountry").value.trim(),
+    bio:$("cBio").value.trim()
+  };
+  localStorage.setItem(LS.profile,JSON.stringify(profile));
+  $("profileStatus").textContent="✅ Profile saved";
+  toast("Profile saved ✅");
+  renderPublic();
+});
+
+/* ========= Fast Images (resize + compress) ========= */
+async function fileToOptimizedDataURL(file,maxW=1200,quality=0.82){
+  const img=await new Promise((resolve,reject)=>{
+    const i=new Image();
+    i.onload=()=>resolve(i);
+    i.onerror=reject;
+    i.src=URL.createObjectURL(file);
+  });
+  const scale=Math.min(1,maxW/img.width);
+  const w=Math.max(1,Math.round(img.width*scale));
+  const h=Math.max(1,Math.round(img.height*scale));
+  const canvas=document.createElement("canvas");
+  canvas.width=w; canvas.height=h;
+  const ctx=canvas.getContext("2d",{alpha:false});
+  ctx.drawImage(img,0,0,w,h);
+  const dataUrl=canvas.toDataURL("image/jpeg",quality);
+  try{ URL.revokeObjectURL(img.src); }catch{}
+  return dataUrl;
+}
+
+async function addOptimizedImages({files,storageKey,statusEl,renderFn}){
+  if(!files || files.length===0){ toast("Pick photos first.",false); return; }
+  const arr=safeJSON(storageKey,[]);
+  const list=Array.from(files);
+  statusEl.textContent=`Uploading 0/${list.length}…`;
+  for(let i=0;i<list.length;i++){
+    const src=await fileToOptimizedDataURL(list[i],1200,0.82);
+    arr.push({src,ts:Date.now()});
+    statusEl.textContent=`Uploading ${i+1}/${list.length}…`;
+  }
+  localStorage.setItem(storageKey,JSON.stringify(arr));
+  statusEl.textContent=`✅ Added ${list.length} photo${list.length>1?"s":""}`;
+  toast("Photos uploaded ✅");
+  if(typeof renderFn==="function") renderFn();
+}
+
+/* ========= Meals ========= */
+$("mealUploadBtn").addEventListener("click",async()=>{
+  await addOptimizedImages({
+    files:$("mealInput").files,
+    storageKey:LS.meals,
+    statusEl:$("mealStatus"),
+    renderFn:()=>{ renderMeals(); renderPublic(); }
+  });
+  $("mealInput").value="";
+});
+
+function renderMeals(){
+  const meals=safeJSON(LS.meals,[]);
+  $("pubMealCount").textContent=String(meals.length);
+  $("pubMealsEmpty").style.display=meals.length?"none":"block";
+  const pub=$("pubMeals"), studio=$("mealGallery");
+  pub.innerHTML=""; studio.innerHTML="";
+  meals.forEach((m,idx)=>{
+    const item=document.createElement("div");
+    item.className="gItem";
+    item.innerHTML=`<img alt="Meal photo" src="${m.src}">
+      <div class="cap"><span>Meal</span><button class="x" data-i="${idx}">Remove</button></div>`;
+    studio.appendChild(item);
+
+    const item2=document.createElement("div");
+    item2.className="gItem";
+    item2.innerHTML=`<img alt="Meal photo" src="${m.src}">`;
+    pub.appendChild(item2);
+  });
+  studio.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
+    const i=Number(btn.getAttribute("data-i"));
+    const arr=safeJSON(LS.meals,[]);
+    arr.splice(i,1);
+    localStorage.setItem(LS.meals,JSON.stringify(arr));
+    toast("Removed ✅");
+    renderMeals(); renderPublic();
+  }));
+}
+
+/* ========= Admin Photos ========= */
+$("adminUploadBtn").addEventListener("click",async()=>{
+  await addOptimizedImages({
+    files:$("adminPhotoInput").files,
+    storageKey:LS.adminPhotos,
+    statusEl:$("adminStatus"),
+    renderFn:renderAdminPhotos
+  });
+  $("adminPhotoInput").value="";
+});
+
+function renderAdminPhotos(){
+  const arr=safeJSON(LS.adminPhotos,[]);
+  const g=$("adminGallery");
+  g.innerHTML="";
+  arr.forEach((m,idx)=>{
+    const item=document.createElement("div");
+    item.className="gItem";
+    item.innerHTML=`<img alt="Admin photo" src="${m.src}">
+      <div class="cap"><span>Admin</span><button class="x" data-i="${idx}">Remove</button></div>`;
+    g.appendChild(item);
+  });
+  g.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
+    const i=Number(btn.getAttribute("data-i"));
+    const a=safeJSON(LS.adminPhotos,[]);
+    a.splice(i,1);
+    localStorage.setItem(LS.adminPhotos,JSON.stringify(a));
+    toast("Removed ✅");
+    renderAdminPhotos();
+  }));
+}
+
+/* ========= Videos (session playback) ========= */
+let sessionVideos=[];
+$("addVideoBtn").addEventListener("click",()=>{
+  const f=$("cookVideoInput").files?.[0];
+  if(!f){ toast("Pick a video first.",false); return; }
+  const url=URL.createObjectURL(f);
+  sessionVideos.unshift({url,name:f.name,ts:Date.now()});
+  $("videoStatus").textContent="✅ Video added (session playback)";
+  toast("Video added ✅");
+  $("cookVideoInput").value="";
+  renderVideosStudio(); renderVideosPublic();
+});
+
+function renderVideosStudio(){
+  const list=$("videoList");
+  list.innerHTML="";
+  sessionVideos.forEach((v,idx)=>{
+    const tile=document.createElement("div");
+    tile.className="tile";
+    tile.innerHTML=`<div class="smalltxt"><strong>${escapeHTML(v.name)}</strong></div>
+      <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
+      <div class="row" style="margin-top:10px">
+        <span class="smalltxt">Session</span>
+        <button class="btn ghost small" data-i="${idx}">Remove</button>
+      </div>`;
+    list.appendChild(tile);
+  });
+  list.querySelectorAll("button[data-i]").forEach(b=>b.addEventListener("click",()=>{
+    const i=Number(b.getAttribute("data-i"));
+    try{ URL.revokeObjectURL(sessionVideos[i].url); }catch{}
+    sessionVideos.splice(i,1);
+    toast("Removed ✅");
+    renderVideosStudio(); renderVideosPublic();
+  }));
+}
+
+function renderVideosPublic(){
+  $("pubVidCount").textContent=String(sessionVideos.length);
+  const pub=$("pubVids");
+  pub.innerHTML="";
+  sessionVideos.forEach(v=>{
+    const tile=document.createElement("div");
+    tile.className="tile";
+    tile.innerHTML=`<div class="smalltxt"><strong>${escapeHTML(v.name)}</strong></div>
+      <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
+      <div class="smalltxt" style="margin-top:8px">Stage 1 session preview</div>`;
+    pub.appendChild(tile);
+  });
+}
+
+/* ========= Intro video (session playback) ========= */
+$("introVideo").addEventListener("change",()=>{
+  const f=$("introVideo").files?.[0];
+  if(!f) return;
+  const url=URL.createObjectURL(f);
+  $("introPlayer").src=url;
+  $("introPlayer").classList.remove("hidden");
+  $("pubIntro").src=url;
+  $("pubIntro").classList.remove("hidden");
+  $("introStatus").textContent="✅ Intro loaded (session playback)";
+  toast("Intro loaded ✅");
+});
+
+/* ========= Suggestions (creator-only) ========= */
+$("sendSuggestionBtn").addEventListener("click",()=>{
+  const text=$("suggestionText").value.trim();
+  if(!text){ toast("Type feedback first.",false); return; }
+  const arr=safeJSON(LS.suggestions,[]);
+  arr.unshift({text,ts:Date.now()});
+  localStorage.setItem(LS.suggestions,JSON.stringify(arr));
+  $("suggestionText").value="";
+  $("suggestionStatus").textContent="✅ Saved locally";
+  toast("Suggestion saved ✅");
+});
+
+$("viewSuggestionLogBtn").addEventListener("click",()=>{
+  $("suggestionLog").classList.toggle("hidden");
+  renderSuggestions();
+});
+
+function renderSuggestions(){
+  const arr=safeJSON(LS.suggestions,[]);
+  const box=$("suggestionLog");
+  box.innerHTML="";
+  arr.slice(0,10).forEach(s=>{
+    const t=document.createElement("div");
+    t.className="tile";
+    t.innerHTML=`<div class="smalltxt" style="white-space:pre-wrap">${escapeHTML(s.text)}</div>`;
+    box.appendChild(t);
+  });
+}
+
+/* ========= Logos (4 slots) ========= */
+function setLogoUI(src,fallbackSpan,imgEl){
+  if(!fallbackSpan || !imgEl) return;
+  if(src){
+    fallbackSpan.style.display="none";
+    imgEl.style.display="block";
+    imgEl.src=src;
+  }else{
+    imgEl.style.display="none";
+    imgEl.removeAttribute("src");
+    fallbackSpan.style.display="inline";
+  }
+}
+
+function renderLogosToUI(){
+  const logos=safeJSON(LS.logos,[null,null,null,null]);
+  if($("logoFooterFB") && $("logoFooterImg")) setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
+  // Header custom image support (slot 1)
+  if(logos[0] && $("logoHeaderImg")){
+    $("logoHeaderImg").style.display="block";
+    $("logoHeaderImg").src=logos[0];
+  }
+}
+
+$("saveLogosBtn").addEventListener("click",async()=>{
+  const files=[
+    $("logo1").files?.[0],
+    $("logo2").files?.[0],
+    $("logo3").files?.[0],
+    $("logo4").files?.[0]
+  ];
+  const existing=safeJSON(LS.logos,[null,null,null,null]);
+  $("logoStatus").textContent="Saving logos…";
+  for(let i=0;i<4;i++){
+    if(files[i]) existing[i]=await fileToOptimizedDataURL(files[i],900,0.86);
+  }
+  localStorage.setItem(LS.logos,JSON.stringify(existing));
+  $("logoStatus").textContent="✅ Logos saved";
+  toast("Logos saved ✅");
+  renderLogosToUI();
+});
+
+$("clearLogosBtn").addEventListener("click",()=>{
+  localStorage.setItem(LS.logos,JSON.stringify([null,null,null,null]));
+  toast("Logos cleared ✅");
+  renderLogosToUI();
+});
+
+/* ========= Public render ========= */
+function renderPublic(){
+  const p=safeJSON(LS.profile,{});
+  $("pubName").textContent=p.name||"Creator Name";
+  $("pubMeta").textContent=`${p.country||"Country"} • ${p.handle||"@handle"}`;
+  $("pubBio").textContent=p.bio||"Save a profile to populate this page.";
+
+  const role=localStorage.getItem(LS.role)||"viewer";
+  $("pubRole").textContent=role;
+
+  const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
+  $("pubFounder").style.display=founding?"inline-flex":"none";
+
+  renderMeals();
+  renderVideosPublic();
+  renderLogosToUI();
+}
+
+function renderAll(){
+  renderPublic();
+  renderVideosStudio();
+  renderSuggestions();
+  renderAdminPhotos();
+}
+
+/* ========= Init ========= */
+(function init(){
+  // restore role set on index.html
+  let role=localStorage.getItem(LS.role)||"viewer";
+  if(localStorage.getItem(LS.admin)==="1") role="admin";
+  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
+  setRole(role);
+
+  // restore profile fields
+  const p=safeJSON(LS.profile,{});
+  $("cName").value=p.name||"";
+  $("cHandle").value=p.handle||"";
+  $("cCountry").value=p.country||"";
+  $("cBio").value=p.bio||"";
+
+  renderAll();
+})();
 </script>
 
 </body>
