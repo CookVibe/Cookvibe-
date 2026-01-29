@@ -345,6 +345,83 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
 </header>
 
 <div id="top" class="wrap">
+  <!-- =========================
+ COOKVIBE POST-ACCESS VISUAL UPGRADE
+ Bright • Global • Food-forward
+ Applies ONLY after access
+========================= -->
+
+<style>
+  .postAccessHero{
+    margin: 20px auto 30px;
+    max-width: 1100px;
+    padding: 24px;
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, #fff6e6 0%, #ffffff 60%);
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  }
+
+  .postAccessHero h1{
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: 900;
+  }
+
+  .postAccessHero p{
+    margin: 0 0 20px;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  .foodCollage{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .foodCollage img{
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+</style>
+
+<section class="postAccessHero">
+  <h1>Welcome to CookVibe 🌍🍽️</h1>
+  <p>
+    A global cooking community where creators share culture, meals, and moments —
+    and earn more as their audience engages.
+  </p>
+
+  <div class="foodCollage">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" alt="Global food">
+    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8" alt="People sharing food">
+    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" alt="Home cooking">
+    <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1" alt="Family meal">
+    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc" alt="International cuisine">
+    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd" alt="Healthy dishes">
+  </div>
+</section>
+
+<!-- Subtle easter egg for Mum (desktop only) -->
+<div class="mum-note" style="
+  position:fixed;
+  right:12px;
+  bottom:10px;
+  font-size:11px;
+  opacity:0.15;
+  pointer-events:none;">
+  I love you Mum thank you.
+</div>
+
+<style>
+@media (max-width: 1200px){
+  .mum-note{ display:none; }
+}
+</style>
 
   <!-- JOIN (ONLY ONE) -->
   <section id="join" class="card">
