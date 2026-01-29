@@ -15,8 +15,10 @@
 html{scroll-padding-top:92px;scroll-behavior:smooth}
 
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;background:
-radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
-radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),var(--bg);color:var(--text)}
+radial-gradient(1100px 620px at 10% -5%, rgba(31,191,122,.22), transparent 60%),
+radial-gradient(1100px 620px at 90% -5%, rgba(217,183,95,.18), transparent 60%),
+radial-gradient(900px 520px at 50% 30%, rgba(31,191,122,.08), transparent 62%),
+var(--bg);color:var(--text)}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
 .card{background:rgba(18,24,22,.95);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-top:14px}
@@ -32,6 +34,7 @@ hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 @media(max-width:900px){.cols2{grid-template-columns:1fr}}
 input,textarea{width:100%;background:#0f1412;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
 textarea{min-height:92px;resize:vertical}
+
 .hdr{position:sticky;top:0;z-index:999;background:rgba(11,15,14,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
@@ -42,14 +45,17 @@ textarea{min-height:92px;resize:vertical}
 .nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
 .nav a:hover{background:#0f1412;border:1px solid var(--line);padding:7px 9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
 .logoBox{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(31,191,122,.25),rgba(217,183,95,.22));display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
 .logoBox.big{width:140px;height:140px;border-radius:28px;font-size:34px}
 .logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#0f1412}
 .wm{position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;border:1px solid var(--line);background:#0f1412;box-shadow:var(--sh);overflow:hidden;display:none;opacity:.9}
 .wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+
 .notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
 .warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.08);border-radius:14px;padding:12px 14px}
 .hidden{display:none !important}
+
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
 .gItem{border:1px solid var(--line);background:#0b0f0e;border-radius:14px;overflow:hidden}
 .gItem img{width:100%;height:140px;object-fit:cover;display:block}
@@ -58,15 +64,48 @@ textarea{min-height:92px;resize:vertical}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
 .tile{border:1px solid var(--line);background:#0f1412;border-radius:14px;padding:12px}
 video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
+
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:rgba(18,24,22,.98);box-shadow:var(--sh);display:none}
 .toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+
+.hero{margin-top:14px;border:1px solid rgba(255,255,255,.06);border-radius:18px;overflow:hidden;background:
+linear-gradient(135deg,rgba(31,191,122,.18),rgba(217,183,95,.12)),
+radial-gradient(900px 420px at 20% 0%, rgba(31,191,122,.22), transparent 60%),
+radial-gradient(900px 420px at 80% 0%, rgba(217,183,95,.18), transparent 60%);}
+.heroIn{padding:18px 16px}
+.heroTop{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.heroLeft{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.heroTitle{font-size:22px;font-weight:1000;margin:0}
+.heroSub{margin:8px 0 0;color:rgba(241,245,244,.86);line-height:1.55}
+.heroBadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.10);background:rgba(15,20,18,.75);padding:8px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.badge b{color:var(--y)}
+
 footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
 .footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+/* subtle easter egg note */
+.mum-note{
+  position:fixed;
+  right:10px;
+  bottom:10px;
+  font-size:10px;
+  opacity:.18;
+  color:#f1f5f4;
+  letter-spacing:.2px;
+  z-index:850;
+  pointer-events:none;
+}
+@media (max-width: 1200px){
+  .mum-note{ display:none; }
+}
 </style>
 </head>
+
 <body>
 <div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
 <div class="toast" id="toast"></div>
+<div class="mum-note">I love you Mum thank you.</div>
 
 <header class="hdr">
   <div class="hdrin">
@@ -82,7 +121,6 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
     </a>
 
     <nav class="nav">
-      <!-- ✅ Join anchor works because #join exists exactly once + scroll-padding-top -->
       <a href="#join">Join</a>
       <a href="#earn">Earn</a>
       <a href="#public">Creator Page</a>
@@ -98,6 +136,36 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
 </header>
 
 <div id="top" class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="CookVibe hero">
+    <div class="heroIn">
+      <div class="heroTop">
+        <div class="heroLeft">
+          <div class="logoBox big" style="background:#0f1412;border:1px solid rgba(255,255,255,.10)">
+            <img id="logoHeroImg" class="logoImg" alt="CookVibe hero logo" style="display:block;padding:10px">
+          </div>
+          <div style="min-width:240px;flex:1">
+            <h1 class="heroTitle">Cook together. Earn together.</h1>
+            <div class="heroSub">
+              A creator-first cooking platform built for global food culture — where <b>interaction</b> can become income.
+              Stage 1 validates creator workflows; Stage 2 adds accounts, moderation, and scalable earnings.
+            </div>
+            <div class="heroBadges">
+              <div class="badge">🌍 <b>International</b> first</div>
+              <div class="badge">🎥 Videos + Live (Stage 2)</div>
+              <div class="badge">💸 Interaction → Earnings</div>
+              <div class="badge">🛡️ 3 strikes → ban (locked)</div>
+            </div>
+          </div>
+        </div>
+        <div class="rowL">
+          <a class="btn" href="#join">Join the Demo</a>
+          <a class="btn ghost" href="#studio">Go to Studio</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- JOIN (ONLY ONE) -->
   <section id="join" class="card">
@@ -135,73 +203,42 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
       <strong>⭐ Founding Creator:</strong> Lifetime free subscription (demo flag).
     </div>
   </section>
+
   <!-- EARN -->
-<section id="earn" class="card">
-  <!-- EARN -->
-<section id="earn" class="card">
-  <div class="row">
-    <div class="rowL">
-      <h2 style="margin:0">Earn on CookVibe</h2>
-      <span class="pill">Creator-first</span>
-    </div>
-    <span class="pill">Engagement → Income</span>
-  </div>
-
-  <p class="muted" style="margin-top:10px;line-height:1.55">
-    CookVibe is built so creators can earn based on how people engage with their cooking content.
-    The more your audience watches, saves, shares, subscribes, and shows up, the more income
-    opportunities you unlock as the platform grows.
-  </p>
-
-  <div class="notice" style="margin-top:12px">
-    <strong>How it works:</strong> More interaction → more visibility → more earning potential.
-  </div>
-
-  <div class="cards" style="margin-top:12px">
-    <div class="tile">
-      <strong>💳 Creator Subscriptions</strong>
-      <p class="smalltxt" style="margin-top:8px">
-        Build recurring income from supporters who subscribe directly to your content.
-        More engaged followers lead to stronger earning opportunities.
-      </p>
-      <p class="smalltxt">Planned feature • shaped with creators</p>
+  <section id="earn" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0">Earn on CookVibe</h2>
+        <span class="pill">Creator-first</span>
+      </div>
+      <a class="btn small" href="#join">Unlock Creator</a>
     </div>
 
-    <div class="tile">
-      <strong>⭐ Performance-Based Visibility</strong>
-      <p class="smalltxt" style="margin-top:8px">
-        High-performing creators receive increased exposure across CookVibe, unlocking
-        additional monetization opportunities.
-      </p>
-      <p class="smalltxt">Engagement-driven • transparent criteria</p>
+    <div class="muted" style="margin-top:10px;line-height:1.6">
+      CookVibe is built so creators can turn cooking content into real income.
+      The more your videos get watched, shared, saved, and engaged with — the more you can earn.
+      Stage 1 is the workflow demo; Stage 2 introduces monetization + payouts.
     </div>
 
-    <div class="tile">
-      <strong>🎥 Live Cooking Experiences</strong>
-      <p class="smalltxt" style="margin-top:8px">
-        Host live cooking sessions and interactive experiences. Strong participation
-        opens higher earning potential.
-      </p>
-      <p class="smalltxt">Stage 2 rollout</p>
+    <div class="cards" style="margin-top:12px">
+      <div class="tile">
+        <strong>1) Engagement drives earnings</strong>
+        <div class="smalltxt" style="margin-top:8px">Views, saves, shares, comments, and live tips all count.</div>
+      </div>
+      <div class="tile">
+        <strong>2) Global discovery</strong>
+        <div class="smalltxt" style="margin-top:8px">International sections + country leaderboards increase reach.</div>
+      </div>
+      <div class="tile">
+        <strong>3) Tips only for lives (locked)</strong>
+        <div class="smalltxt" style="margin-top:8px">Creators can’t charge to watch lives; tips are welcome.</div>
+      </div>
+      <div class="tile">
+        <strong>4) Fair play & safety</strong>
+        <div class="smalltxt" style="margin-top:8px">3 strikes → ban, plus admin review tools in Stage 2.</div>
+      </div>
     </div>
-
-    <div class="tile">
-      <strong>🤝 Brand & Marketplace Opportunities</strong>
-      <p class="smalltxt" style="margin-top:8px">
-        As CookVibe grows, creators with engaged audiences may unlock brand collaborations,
-        sponsorships, and marketplace-driven income.
-      </p>
-      <p class="smalltxt">Long-term roadmap</p>
-    </div>
-  </div>
-
-  <div class="warn" style="margin-top:14px">
-    <strong>Transparency:</strong> CookVibe does not guarantee income.
-    Earnings depend on creator participation, audience engagement, and platform growth.
-  </div>
-</section>
-</section>
-  
+  </section>
 
   <!-- PUBLIC -->
   <section id="public" class="card">
@@ -216,7 +253,10 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
     <div class="tile" style="margin-top:12px">
       <div class="row">
         <div class="rowL">
-          <div class="logoBox">CV</div>
+          <div class="logoBox" style="background:#0f1412">
+            <span id="pubLogoFB" style="display:none">CV</span>
+            <img id="pubLogoImg" class="logoImg" alt="CookVibe logo">
+          </div>
           <div>
             <div style="font-weight:1000" id="pubName">Creator Name</div>
             <div class="smalltxt" id="pubMeta">Country • @handle</div>
@@ -364,9 +404,9 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
   <div class="footerIn">
     <div>
       <div class="rowL">
-        <div class="logoBox" id="logoFooterBox">
-          <span id="logoFooterFB">CV</span>
-          <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
+        <div class="logoBox" id="logoFooterBox" style="background:#0f1412">
+          <span id="logoFooterFB" style="display:none">CV</span>
+          <img id="logoFooterImg" class="logoImg" alt="CookVibe logo">
         </div>
         <div>
           <div style="font-weight:1000">CookVibe</div>
@@ -384,7 +424,22 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
     </div>
   </div>
 </footer>
+
 <script>
+/* ========= Default logo (SVG) =========
+   Used unless admin uploads override slots. */
+const DEFAULT_LOGO = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
+`<svg width="220" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="500" fill="#000"/>
+  <text x="50%" y="55%" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="96" font-weight="bold">
+    <tspan fill="#2E7D32">Cook</tspan>
+    <tspan fill="#C9A227">vibe</tspan>
+  </text>
+</svg>`
+);
+
 const LS={
   role:"cv_role",
   founding:"cv_founding",
@@ -690,23 +745,30 @@ function renderSuggestions(){
 }
 
 /* ========= Logos (4 slots) ========= */
-function setLogoUI(src,fallbackSpan,imgEl){
-  if(src){
-    fallbackSpan.style.display="none";
-    imgEl.style.display="block";
-    imgEl.src=src;
-  }else{
-    imgEl.style.display="none";
-    imgEl.removeAttribute("src");
-    fallbackSpan.style.display="inline";
-  }
+function setLogoUI(src,imgEl){
+  imgEl.src = src || DEFAULT_LOGO;
 }
 
 function renderLogosToUI(){
   const logos=safeJSON(LS.logos,[null,null,null,null]);
-  setLogoUI(logos[0],$("logoHeaderFB"),$("logoHeaderImg"));
-  // hero slot is stored but only used for future hero area if you add it
-  setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
+
+  // Header logo: slot 1 or default
+  $("logoHeaderFB").style.display="none";
+  $("logoHeaderImg").style.display="block";
+  setLogoUI(logos[0],$("logoHeaderImg"));
+
+  // Hero logo: slot 2 or default
+  setLogoUI(logos[1],$("logoHeroImg"));
+
+  // Public profile logo: use slot 1 or default (consistent branding)
+  setLogoUI(logos[0] || null,$("pubLogoImg"));
+
+  // Footer logo: slot 3 or default
+  $("logoFooterFB").style.display="none";
+  $("logoFooterImg").style.display="block";
+  setLogoUI(logos[2],$("logoFooterImg"));
+
+  // Watermark: slot 4 only (otherwise hidden)
   const wm=$("wm");
   if(logos[3]){
     $("wmImg").src=logos[3];
