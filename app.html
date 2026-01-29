@@ -3,123 +3,208 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • App Demo</title>
+<title>CookVibe • App (Stage 1/2 Demo)</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
-<meta name="theme-color" content="#ffffff"/>
+<meta name="theme-color" content="#0b0f0e"/>
 
 <style>
 :root{
+  --bgA:#fff3e0; --bgB:#f3fff9; --bgC:#eef6ff;
+  --card:rgba(255,255,255,.86);
+  --ink:#111827;
+  --muted:#4b5563;
+  --line:rgba(0,0,0,.10);
   --g:#1fbf7a; --y:#d9b75f;
-  --ink:#0b0f0e; --muted:#4b5b56;
-  --card:#ffffff; --line:rgba(0,0,0,.10);
-  --shadow:0 16px 40px rgba(0,0,0,.10);
-  --soft:linear-gradient(180deg,#fff6e6 0%, #ffffff 58%, #f7fffb 100%);
+  --shadow:0 16px 40px rgba(0,0,0,.12);
 }
-*{box-sizing:border-box}html,body{height:100%}
-html{scroll-padding-top:92px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-padding-top:86px;scroll-behavior:smooth}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--ink);
   background:
-    radial-gradient(1200px 700px at 0% 0%, rgba(31,191,122,.16), transparent 60%),
-    radial-gradient(1200px 700px at 100% 0%, rgba(217,183,95,.18), transparent 60%),
-    var(--soft);
+    radial-gradient(1100px 700px at 10% 10%, rgba(255,107,107,.26), transparent 60%),
+    radial-gradient(1100px 700px at 90% 15%, rgba(255,209,102,.30), transparent 60%),
+    radial-gradient(1100px 700px at 25% 90%, rgba(6,214,160,.22), transparent 60%),
+    radial-gradient(1100px 700px at 85% 85%, rgba(17,138,178,.20), transparent 60%),
+    linear-gradient(180deg,var(--bgA) 0%,var(--bgB) 46%,var(--bgC) 100%);
 }
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
-.card{
-  background:rgba(255,255,255,.92);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  box-shadow:var(--shadow);
-  margin-top:14px
-}
-.muted{color:var(--muted)}
-.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{
-  display:inline-flex;gap:8px;align-items:center;
-  padding:7px 10px;border-radius:999px;
-  border:1px solid var(--line);
-  background:#fff;color:var(--muted);
-  font-size:12px;font-weight:900
-}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 14px;border-radius:14px;border:0;
-  cursor:pointer;font-weight:950;font-size:13px;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000;user-select:none
-}
-.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
-.btn.small{padding:8px 10px;font-size:12px;border-radius:12px}
-.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
-@media(max-width:900px){.cols2{grid-template-columns:1fr}}
-input,textarea{width:100%;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:11px 12px;font:inherit;outline:none}
-textarea{min-height:92px;resize:vertical}
+.wrap{max-width:1120px;margin:0 auto;padding:16px 14px 64px}
+
 .hdr{
-  position:sticky;top:0;z-index:999;
-  background:rgba(255,255,255,.82);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line)
+  position:sticky; top:0; z-index:999;
+  background:rgba(255,255,255,.68);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
 }
 .hdrin{
-  max-width:1100px;margin:0 auto;padding:12px 14px;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
+  max-width:1120px;margin:0 auto;padding:12px 14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
 }
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
-.brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
+.brandTxt{display:flex;flex-direction:column;line-height:1.1;min-width:0}
 .brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.nav{display:flex;gap:8px;flex-wrap:wrap}
-.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:12px}
-.nav a:hover{background:#fff;border:1px solid var(--line);padding:7px 9px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
 .logoBox{
-  width:42px;height:42px;border-radius:14px;border:1px solid var(--line);
-  background:#fff;display:flex;align-items:center;justify-content:center;
-  font-weight:1000;overflow:hidden;box-shadow:0 10px 18px rgba(0,0,0,.08)
+  width:44px;height:44px;border-radius:14px;border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(31,191,122,.22),rgba(217,183,95,.22));
+  display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden;
 }
-.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#fff}
-.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.10);border-radius:16px;padding:12px 14px}
-.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.12);border-radius:16px;padding:12px 14px}
+.logoBox.big{width:110px;height:110px;border-radius:26px}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:7px;background:rgba(255,255,255,.9)}
+
+.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.nav a{
+  font-size:13px;font-weight:950;padding:8px 10px;border-radius:12px;
+}
+.nav a:hover{background:rgba(255,255,255,.7);border:1px solid var(--line);padding:7px 9px}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
+  font-weight:950;font-size:13px;user-select:none;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  color:#000;
+}
+.btn.ghost{
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  color:var(--ink);
+}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:var(--shadow);
+  margin-top:14px;
+}
+.tile{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.70);
+  border-radius:16px;
+  padding:12px;
+}
+.muted{color:var(--muted)}
+.smalltxt{font-size:12px;color:var(--muted);line-height:1.55}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.pill{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.70);
+  color:var(--muted);
+  font-size:12px;font-weight:950;
+}
+
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:1.15fr .85fr}
+@media(max-width:900px){.cols2{grid-template-columns:1fr}}
+
+input,textarea,select{
+  width:100%;
+  background:rgba(255,255,255,.85);
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 12px;
+  font:inherit;
+  outline:none;
+}
+textarea{min-height:92px;resize:vertical}
+input:disabled,textarea:disabled,select:disabled{opacity:.55;cursor:not-allowed}
+
+.notice{
+  border:1px solid rgba(31,191,122,.35);
+  background:rgba(31,191,122,.12);
+  border-radius:14px;
+  padding:12px 14px;
+}
+.warn{
+  border:1px solid rgba(217,183,95,.45);
+  background:rgba(217,183,95,.16);
+  border-radius:14px;
+  padding:12px 14px;
+}
 .hidden{display:none !important}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:12px}
-.gItem{border:1px solid var(--line);background:#fff;border-radius:16px;overflow:hidden}
-.gItem img{width:100%;height:120px;object-fit:cover;display:block}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.gItem{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.72);
+  border-radius:16px;
+  overflow:hidden;
+}
+.gItem img{width:100%;height:110px;object-fit:cover;display:block}
 .cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
-.x{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:950;border-radius:12px;padding:6px 10px;cursor:pointer}
+
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
-.tile{border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px}
-video{width:100%;border-radius:16px;border:1px solid var(--line);background:#fff}
+video{width:100%;border-radius:14px;border:1px solid var(--line);background:#fff}
+
+.x{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.72);
+  color:var(--ink);
+  font-weight:950;
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+
 .toast{
   position:fixed;left:50%;transform:translateX(-50%);
-  bottom:16px;z-index:2500;max-width:min(560px,92vw);
-  border-radius:14px;padding:12px 14px;border:1px solid var(--line);
-  background:rgba(255,255,255,.95);box-shadow:var(--shadow);display:none
+  bottom:16px;z-index:2500;
+  max-width:min(560px,92vw);
+  border-radius:14px;padding:12px 14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.85);
+  box-shadow:var(--shadow);
+  display:none;
 }
 .toast.show{display:block}
-.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}
-.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.18)}
+.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.22)}
 
-.postAccessHero{
-  margin: 14px auto 0;
-  max-width: 1100px;
-  padding: 18px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, #fff6e6 0%, #ffffff 60%);
+footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,255,.40)}
+.footerIn{max-width:1120px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+.hero{
+  margin-top:10px;
+  border-radius:22px;
+  padding:18px;
   border:1px solid var(--line);
-  box-shadow: var(--shadow);
+  box-shadow:var(--shadow);
+  background:
+    radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.16), transparent 60%),
+    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.16), transparent 60%),
+    rgba(255,255,255,.66);
 }
-.postAccessHero h1{margin:0 0 8px;font-size:26px;font-weight:1000}
-.postAccessHero p{margin:0 0 14px;color:var(--muted);line-height:1.5}
+.heroTop{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.heroTitle{font-size:26px;font-weight:1000;margin:0}
+.heroSub{margin:8px 0 0;color:var(--muted);line-height:1.5}
+.heroCTA{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
 .foodCollage{
+  margin-top:14px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
   gap:10px;
 }
 .foodCollage img{
@@ -127,46 +212,56 @@ video{width:100%;border-radius:16px;border:1px solid var(--line);background:#fff
   height:120px;
   object-fit:cover;
   border-radius:16px;
-  border:1px solid var(--line);
-  box-shadow:0 10px 18px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.08);
 }
-footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,255,.75)}
-.footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+/* subtle watermark logo slot (admin slot 4) */
+.wm{
+  position:fixed;right:12px;bottom:12px;z-index:900;
+  width:54px;height:54px;border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.80);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:none;
+  opacity:.9;
+}
+.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+
+/* Mum note: desktop only */
 .mum-note{
-  position:fixed; right:12px; bottom:10px;
-  font-size:11px; opacity:.12; pointer-events:none;
+  position:fixed;
+  right:12px;
+  bottom:10px;
+  font-size:11px;
+  opacity:0.12;
+  pointer-events:none;
+  z-index:905;
 }
 @media (max-width: 1200px){
-  .mum-note{ display:none; }
+  .mum-note{display:none;}
 }
 </style>
 </head>
 
 <body>
+<div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
 <div class="toast" id="toast"></div>
 
 <header class="hdr">
   <div class="hdrin">
-    <a class="brand" href="#top">
-      <div class="logoBox" id="logoHeaderBox" aria-label="CookVibe logo">
-        <svg width="42" height="42" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-          <rect width="500" height="500" fill="#ffffff"/>
-          <text x="50%" y="58%" text-anchor="middle"
-                font-family="Arial, Helvetica, sans-serif"
-                font-size="120" font-weight="bold">
-            <tspan fill="#2E7D32">C</tspan>
-            <tspan fill="#C9A227">V</tspan>
-          </text>
-        </svg>
+    <a class="brand" href="#home">
+      <div class="logoBox" id="logoHeaderBox" title="CookVibe">
+        <span id="logoHeaderFB">CV</span>
         <img id="logoHeaderImg" class="logoImg" style="display:none" alt="CookVibe logo">
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag">App demo • bright • global • food-forward</div>
+        <div class="brandTag">Bright • Global • Creator-first</div>
       </div>
     </a>
 
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <a href="#earn">Earn</a>
       <a href="#public">Creator Page</a>
       <a href="#studio">Studio</a>
@@ -181,50 +276,77 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
   </div>
 </header>
 
-<div id="top" class="postAccessHero">
-  <div class="row">
-    <h1>Welcome to CookVibe 🌍🍽️</h1>
-    <span class="pill" id="roleMini">viewer</span>
-  </div>
-  <p>
-    Global cooking culture meets creator earning potential. Post videos, go live (later), and organize recipes —
-    the more interaction you drive, the more you can earn as the platform scales.
-  </p>
-  <div class="foodCollage" aria-label="Global food collage">
-    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=70" alt="People sharing food">
-    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70" alt="Global food table">
-    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=70" alt="Colorful plates">
-    <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=800&q=70" alt="Family meal">
-    <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=70" alt="International cuisine">
-    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=70" alt="Healthy dishes">
-  </div>
-</div>
+<div id="home" class="wrap">
 
-<div class="mum-note">I love you Mum thank you.</div>
+  <!-- HERO (post-access vibe) -->
+  <section class="hero" id="top">
+    <div class="heroTop">
+      <div class="rowL">
+        <div class="logoBox big" id="logoHeroBox">
+          <span id="logoHeroFB" style="font-size:26px">CV</span>
+          <img id="logoHeroImg" class="logoImg" style="display:none" alt="CookVibe logo">
+        </div>
+        <div style="min-width:0">
+          <h1 class="heroTitle">Welcome to CookVibe 🌍🍽️</h1>
+          <p class="heroSub">
+            A global cooking community where creators share culture, meals, and moments —
+            and <strong>earn more as their audience engages</strong>.
+          </p>
+          <div class="smalltxt" id="accessHint">
+            If you haven’t entered an access code yet, go to the main demo link first (index page) to unlock Creator/Admin tools.
+          </div>
+        </div>
+      </div>
 
-<div class="wrap">
+      <div class="heroCTA">
+        <a class="btn" href="#studio">Go to Studio</a>
+        <a class="btn ghost" href="#public">View Public Profile</a>
+      </div>
+    </div>
+
+    <div class="foodCollage" aria-label="Global food collage">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=60" alt="Global food spread">
+      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=60" alt="People sharing food">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=60" alt="Home cooking">
+      <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=60" alt="Street food">
+      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=60" alt="International cuisine">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=60" alt="Healthy dishes">
+    </div>
+  </section>
 
   <!-- EARN -->
   <section id="earn" class="card">
     <div class="row">
       <div class="rowL">
-        <h2 style="margin:0;font-size:18px">Earn on CookVibe</h2>
-        <span class="pill">Stage 2+ monetization</span>
+        <h2 style="margin:0">Earn on CookVibe</h2>
+        <span class="pill">CREATOR-FIRST</span>
       </div>
       <span class="pill" id="earnRole">viewer</span>
     </div>
 
     <div class="tile" style="margin-top:12px">
-      <div style="font-weight:1000">How earning works (simple + clear)</div>
-      <div class="smalltxt" style="margin-top:8px">
-        CookVibe is built so creator earnings rise with engagement. As the platform introduces subscriptions, tips, and brand offers,
-        creator payouts can be tied to <strong>views, saves, comments, shares, and live engagement</strong>.
-      </div>
-      <hr/>
-      <div class="smalltxt">
-        <strong>Stage 1 (today):</strong> demo validation + feedback<br/>
-        <strong>Stage 2:</strong> accounts + persistence + creator metrics + moderation tools<br/>
-        <strong>Stage 3:</strong> live + tips + scalable payouts + international growth
+      <p class="muted" style="margin:0;line-height:1.6">
+        CookVibe is built so creators can turn cooking content into income.
+        <strong>The more interaction you earn, the more you can earn</strong> — views, saves, shares, tips, and community engagement.
+      </p>
+      <div class="grid" style="margin-top:12px">
+        <div class="tile">
+          <div style="font-weight:1000">What drives earnings</div>
+          <div class="smalltxt" style="margin-top:8px">
+            • Consistent posts (videos + recipes)<br/>
+            • Community engagement (comments, saves, shares)<br/>
+            • Live participation (tips only — no paywalls)<br/>
+            • Global discovery via country + culture tags
+          </div>
+        </div>
+
+        <div class="tile">
+          <div style="font-weight:1000">Stage 1 vs Stage 2</div>
+          <div class="smalltxt" style="margin-top:8px">
+            Stage 1 validates workflow + feedback (local demo storage).<br/>
+            Stage 2 adds accounts, cloud storage, moderation, payouts, and live tooling.
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -245,16 +367,14 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
           <div class="logoBox">CV</div>
           <div>
             <div style="font-weight:1000" id="pubName">Creator Name</div>
-            <div class="smalltxt" id="pubMeta">Country • @handle</div>
+            <div class="smalltxt" id="pubMeta">Country 🇯🇲 • @handle</div>
           </div>
-          <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
+          <span class="pill" id="pubFounder" style="display:none">⭐ Core Circle</span>
         </div>
         <span class="pill" id="pubRole">viewer</span>
       </div>
 
-      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">
-        Save a profile to populate this page.
-      </div>
+      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">Save a profile to populate this page.</div>
 
       <hr/>
       <div class="row"><strong>Intro Video</strong><span class="smalltxt">Session playback</span></div>
@@ -279,7 +399,11 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
     </div>
 
     <div class="warn smalltxt" style="margin-top:12px">
-      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+      Stage 1 saves profile + photos locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+    </div>
+
+    <div id="lockedMsg" class="notice" style="margin-top:12px;display:none">
+      <strong>Locked:</strong> Enter your access code on the main demo page first, then return here. (Creator/Admin unlocks are saved on your device.)
     </div>
 
     <div class="grid cols2" style="margin-top:12px">
@@ -287,7 +411,35 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
         <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
         <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
         <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
-        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica 🇯🇲)"></div>
+
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+          <div>
+            <input id="cCountry" placeholder="Country (e.g., Jamaica)">
+          </div>
+          <div>
+            <select id="cFlag" aria-label="Country flag (emoji)">
+              <option value="">Flag (emoji)</option>
+              <option value="🇯🇲">🇯🇲 Jamaica</option>
+              <option value="🇬🇧">🇬🇧 United Kingdom</option>
+              <option value="🇺🇸">🇺🇸 USA</option>
+              <option value="🇨🇦">🇨🇦 Canada</option>
+              <option value="🇳🇬">🇳🇬 Nigeria</option>
+              <option value="🇬🇭">🇬🇭 Ghana</option>
+              <option value="🇮🇳">🇮🇳 India</option>
+              <option value="🇯🇵">🇯🇵 Japan</option>
+              <option value="🇲🇽">🇲🇽 Mexico</option>
+              <option value="🇧🇷">🇧🇷 Brazil</option>
+              <option value="🇫🇷">🇫🇷 France</option>
+              <option value="🇩🇪">🇩🇪 Germany</option>
+              <option value="🇮🇹">🇮🇹 Italy</option>
+              <option value="🇪🇸">🇪🇸 Spain</option>
+              <option value="🇦🇺">🇦🇺 Australia</option>
+              <option value="🇿🇦">🇿🇦 South Africa</option>
+            </select>
+            <div class="smalltxt" style="margin-top:6px">Stage 2: full country list + search.</div>
+          </div>
+        </div>
+
         <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
         <div class="row" style="margin-top:10px">
           <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
@@ -308,7 +460,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
     <hr/>
 
     <div class="tile">
-      <div class="row"><strong>Meal Photo Gallery</strong><span class="pill">Upload</span></div>
+      <div class="row"><strong>Meal Photo Gallery (FAST)</strong><span class="pill">Upload</span></div>
       <div class="smalltxt" style="margin-top:8px">Pick 1–5 photos at a time. Resizes + compresses for speed.</div>
       <div class="row" style="margin-top:10px">
         <input id="mealInput" type="file" accept="image/*" multiple>
@@ -351,15 +503,11 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
       <span class="pill" id="adminGate">locked</span>
     </div>
 
-    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (enter ADMIN on access page).</div>
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (set your role to admin on the main demo page).</div>
 
     <div id="adminLocked" class="tile" style="margin-top:12px">
       <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
-      <div class="smalltxt" style="margin-top:8px">Go back to <strong>index.html</strong> and enter <strong>ADMIN</strong>, then return here.</div>
-      <div class="row" style="margin-top:10px">
-        <a class="btn" href="index.html">Go to Access Page</a>
-        <a class="btn ghost" href="#studio">Back to Studio</a>
-      </div>
+      <div class="smalltxt" style="margin-top:8px">Set role to <strong>admin</strong> on the main demo page, then refresh this app page.</div>
     </div>
 
     <div id="adminUnlocked" class="hidden" style="margin-top:12px">
@@ -379,7 +527,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
       </div>
 
       <div class="tile" style="margin-top:14px">
-        <div class="row"><strong>Admin Photos</strong><span class="pill">Upload</span></div>
+        <div class="row"><strong>Admin Photos (FAST)</strong><span class="pill">Upload</span></div>
         <div class="row" style="margin-top:10px">
           <input id="adminPhotoInput" type="file" accept="image/*" multiple>
           <button class="btn" id="adminUploadBtn" type="button">Upload Admin Photos</button>
@@ -408,17 +556,26 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,
       <div class="smalltxt" style="margin-top:10px">Founder: Shaun Wint • The Start UPZ, LLC</div>
     </div>
 
-    <div>
-      <div style="font-weight:1000">Stage Notes</div>
+    <div style="max-width:520px">
+      <div style="font-weight:1000">Notes</div>
       <div class="smalltxt" style="margin-top:8px">
-        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, and scalable storage.
+        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, live features, and scalable storage.
       </div>
     </div>
   </div>
 </footer>
 
+<!-- Subtle easter egg for Mum (desktop only) -->
+<div class="mum-note">I love you Mum thank you.</div>
+
 <script>
-/* ===== Local storage keys ===== */
+/* =========================
+  CookVibe App (post-access)
+  - Uses role set on main demo page (index)
+  - Local storage for profile + images
+  - Session playback for videos
+========================= */
+
 const LS={
   role:"cv_role",
   founding:"cv_founding",
@@ -452,52 +609,43 @@ function escapeHTML(s){
     .replaceAll("'","&#039;");
 }
 
-function setRole(role){
-  localStorage.setItem(LS.role,role);
+function isCreatorRole(role){
+  return role==="creator"||role==="founder_creator"||role==="admin";
+}
+function isAdminRole(role){ return role==="admin"; }
+
+function setRoleUI(role){
   $("rolePill").textContent=role;
-  $("roleMini").textContent=role;
   $("creatorGate").textContent=role;
   $("pubRole").textContent=role;
   $("earnRole").textContent=role;
 
-  const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
-  $("suggestionTile").classList.toggle("hidden",!isCreator);
+  const creator=isCreatorRole(role);
+  $("suggestionTile").classList.toggle("hidden",!creator);
+  $("lockedMsg").style.display = creator ? "none" : "block";
 
-  const isAdmin=(role==="admin");
-  $("adminGate").textContent=isAdmin?"unlocked":"locked";
-  $("adminUnlocked").classList.toggle("hidden",!isAdmin);
-  $("adminLocked").classList.toggle("hidden",isAdmin);
+  // disable creator inputs when viewer
+  const disable=!creator;
+  ["cName","cHandle","cCountry","cFlag","cBio","introVideo","mealInput","cookVideoInput","suggestionText"].forEach(id=>{
+    const el=$(id);
+    if(el) el.disabled=disable;
+  });
+  ["saveProfileBtn","mealUploadBtn","addVideoBtn","sendSuggestionBtn"].forEach(id=>{
+    const el=$(id);
+    if(el) el.disabled=disable;
+  });
+
+  const admin=isAdminRole(role);
+  $("adminGate").textContent=admin?"unlocked":"locked";
+  $("adminUnlocked").classList.toggle("hidden",!admin);
+  $("adminLocked").classList.toggle("hidden",admin);
 
   const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
   $("pubFounder").style.display=founding?"inline-flex":"none";
+
+  // hint line in hero
+  $("accessHint").style.display = creator ? "none" : "block";
 }
-
-$("copyLink").addEventListener("click",async()=>{
-  const url=window.location.origin+window.location.pathname+"#studio";
-  try{ await navigator.clipboard.writeText(url); toast("App link copied ✅"); }
-  catch{ toast("Copy failed — copy URL manually.",false); }
-});
-
-$("resetBtn").addEventListener("click",()=>{
-  if(!confirm("Reset demo data on this device?")) return;
-  Object.values(LS).forEach(k=>localStorage.removeItem(k));
-  toast("Reset complete ✅");
-  location.reload();
-});
-
-/* ========= Profile ========= */
-$("saveProfileBtn").addEventListener("click",()=>{
-  const profile={
-    name:$("cName").value.trim(),
-    handle:$("cHandle").value.trim(),
-    country:$("cCountry").value.trim(),
-    bio:$("cBio").value.trim()
-  };
-  localStorage.setItem(LS.profile,JSON.stringify(profile));
-  $("profileStatus").textContent="✅ Profile saved";
-  toast("Profile saved ✅");
-  renderPublic();
-});
 
 /* ========= Fast Images (resize + compress) ========= */
 async function fileToOptimizedDataURL(file,maxW=1200,quality=0.82){
@@ -522,7 +670,7 @@ async function fileToOptimizedDataURL(file,maxW=1200,quality=0.82){
 async function addOptimizedImages({files,storageKey,statusEl,renderFn}){
   if(!files || files.length===0){ toast("Pick photos first.",false); return; }
   const arr=safeJSON(storageKey,[]);
-  const list=Array.from(files);
+  const list=Array.from(files).slice(0,15); // safety
   statusEl.textContent=`Uploading 0/${list.length}…`;
   for(let i=0;i<list.length;i++){
     const src=await fileToOptimizedDataURL(list[i],1200,0.82);
@@ -534,6 +682,21 @@ async function addOptimizedImages({files,storageKey,statusEl,renderFn}){
   toast("Photos uploaded ✅");
   if(typeof renderFn==="function") renderFn();
 }
+
+/* ========= Profile ========= */
+$("saveProfileBtn").addEventListener("click",()=>{
+  const profile={
+    name:$("cName").value.trim(),
+    handle:$("cHandle").value.trim(),
+    country:$("cCountry").value.trim(),
+    flag:$("cFlag").value.trim(),
+    bio:$("cBio").value.trim()
+  };
+  localStorage.setItem(LS.profile,JSON.stringify(profile));
+  $("profileStatus").textContent="✅ Profile saved";
+  toast("Profile saved ✅");
+  renderPublic();
+});
 
 /* ========= Meals ========= */
 $("mealUploadBtn").addEventListener("click",async()=>{
@@ -550,13 +713,14 @@ function renderMeals(){
   const meals=safeJSON(LS.meals,[]);
   $("pubMealCount").textContent=String(meals.length);
   $("pubMealsEmpty").style.display=meals.length?"none":"block";
+
   const pub=$("pubMeals"), studio=$("mealGallery");
   pub.innerHTML=""; studio.innerHTML="";
   meals.forEach((m,idx)=>{
     const item=document.createElement("div");
     item.className="gItem";
     item.innerHTML=`<img alt="Meal photo" src="${m.src}">
-      <div class="cap"><span>Meal</span><button class="x" data-i="${idx}">Remove</button></div>`;
+      <div class="cap"><span>Meal</span><button class="x" data-i="${idx}" type="button">Remove</button></div>`;
     studio.appendChild(item);
 
     const item2=document.createElement("div");
@@ -564,6 +728,7 @@ function renderMeals(){
     item2.innerHTML=`<img alt="Meal photo" src="${m.src}">`;
     pub.appendChild(item2);
   });
+
   studio.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
     const i=Number(btn.getAttribute("data-i"));
     const arr=safeJSON(LS.meals,[]);
@@ -593,7 +758,7 @@ function renderAdminPhotos(){
     const item=document.createElement("div");
     item.className="gItem";
     item.innerHTML=`<img alt="Admin photo" src="${m.src}">
-      <div class="cap"><span>Admin</span><button class="x" data-i="${idx}">Remove</button></div>`;
+      <div class="cap"><span>Admin</span><button class="x" data-i="${idx}" type="button">Remove</button></div>`;
     g.appendChild(item);
   });
   g.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
@@ -629,7 +794,7 @@ function renderVideosStudio(){
       <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
       <div class="row" style="margin-top:10px">
         <span class="smalltxt">Session</span>
-        <button class="btn ghost small" data-i="${idx}">Remove</button>
+        <button class="btn ghost small" data-i="${idx}" type="button">Remove</button>
       </div>`;
     list.appendChild(tile);
   });
@@ -700,7 +865,6 @@ function renderSuggestions(){
 
 /* ========= Logos (4 slots) ========= */
 function setLogoUI(src,fallbackSpan,imgEl){
-  if(!fallbackSpan || !imgEl) return;
   if(src){
     fallbackSpan.style.display="none";
     imgEl.style.display="block";
@@ -714,11 +878,16 @@ function setLogoUI(src,fallbackSpan,imgEl){
 
 function renderLogosToUI(){
   const logos=safeJSON(LS.logos,[null,null,null,null]);
-  if($("logoFooterFB") && $("logoFooterImg")) setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
-  // Header custom image support (slot 1)
-  if(logos[0] && $("logoHeaderImg")){
-    $("logoHeaderImg").style.display="block";
-    $("logoHeaderImg").src=logos[0];
+  setLogoUI(logos[0],$("logoHeaderFB"),$("logoHeaderImg"));
+  setLogoUI(logos[1],$("logoHeroFB"),$("logoHeroImg"));
+  setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
+  const wm=$("wm");
+  if(logos[3]){
+    $("wmImg").src=logos[3];
+    wm.style.display="block";
+  }else{
+    wm.style.display="none";
+    $("wmImg").removeAttribute("src");
   }
 }
 
@@ -750,7 +919,12 @@ $("clearLogosBtn").addEventListener("click",()=>{
 function renderPublic(){
   const p=safeJSON(LS.profile,{});
   $("pubName").textContent=p.name||"Creator Name";
-  $("pubMeta").textContent=`${p.country||"Country"} • ${p.handle||"@handle"}`;
+
+  const country = p.country || "Country";
+  const flag = p.flag ? (" " + p.flag) : "";
+  const handle = p.handle || "@handle";
+  $("pubMeta").textContent = `${country}${flag} • ${handle}`;
+
   $("pubBio").textContent=p.bio||"Save a profile to populate this page.";
 
   const role=localStorage.getItem(LS.role)||"viewer";
@@ -771,21 +945,37 @@ function renderAll(){
   renderAdminPhotos();
 }
 
+/* ========= Header actions ========= */
+$("copyLink").addEventListener("click",async()=>{
+  const url=window.location.href.split("#")[0] + "#studio";
+  try{ await navigator.clipboard.writeText(url); toast("App link copied ✅"); }
+  catch{ toast("Copy failed — copy URL manually.",false); }
+});
+
+$("resetBtn").addEventListener("click",()=>{
+  if(!confirm("Reset demo data on this device?")) return;
+  Object.values(LS).forEach(k=>localStorage.removeItem(k));
+  toast("Reset complete ✅");
+  location.reload();
+});
+
 /* ========= Init ========= */
 (function init(){
-  // restore role set on index.html
+  // restore role
   let role=localStorage.getItem(LS.role)||"viewer";
   if(localStorage.getItem(LS.admin)==="1") role="admin";
   if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
-  setRole(role);
+  setRoleUI(role);
 
   // restore profile fields
   const p=safeJSON(LS.profile,{});
   $("cName").value=p.name||"";
   $("cHandle").value=p.handle||"";
   $("cCountry").value=p.country||"";
+  $("cFlag").value=p.flag||"";
   $("cBio").value=p.bio||"";
 
+  // initial render
   renderAll();
 })();
 </script>
