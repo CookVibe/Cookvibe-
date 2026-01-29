@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>CookVibe • Access</title>
   <meta http-equiv="Cache-Control" content="no-store"/>
-  <meta name="theme-color" content="#0b0f0e"/>
+  <meta name="theme-color" content="#ffb44a"/>
 
   <style>
     :root{
+      --g:#1fbf7a;       /* CookVibe green */
+      --y:#d9b75f;       /* CookVibe gold  */
       --ink:#0b0f0e;
       --card:rgba(255,255,255,.86);
-      --card2:rgba(255,255,255,.72);
       --line:rgba(0,0,0,.10);
-      --shadow:0 18px 45px rgba(0,0,0,.22);
-      --g:#1fbf7a;
-      --y:#d9b75f;
-      --btnText:#0b0f0e;
-      --muted:rgba(11,15,14,.70);
+      --muted:#4a5a56;
+      --sh:0 18px 44px rgba(0,0,0,.18);
+      --r:22px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -26,303 +26,184 @@
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
       color:var(--ink);
       overflow-x:hidden;
+
+      /* Bright, joyful global “food” gradient */
       background:
-        radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.18), transparent 60%),
-        radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.18), transparent 60%),
-        linear-gradient(180deg, #ffffff 0%, #f7fbfa 55%, #f4f7ff 100%);
+        radial-gradient(900px 600px at 12% 10%, rgba(255, 195, 0, .42), transparent 65%),
+        radial-gradient(900px 600px at 88% 12%, rgba(0, 194, 255, .30), transparent 60%),
+        radial-gradient(800px 620px at 18% 92%, rgba(31, 191, 122, .28), transparent 62%),
+        radial-gradient(820px 620px at 86% 92%, rgba(255, 99, 132, .24), transparent 62%),
+        linear-gradient(180deg, #fff3d6 0%, #ffffff 55%, #f7fbff 100%);
     }
 
-    /* ---- Global “B style” collage feel (no heavy JS) ---- */
-    .heroBG{
-      position:fixed; inset:0;
-      z-index:-2;
-      pointer-events:none;
-      opacity:.22;
-      filter:saturate(1.15) contrast(1.05);
-      background:
-        linear-gradient(135deg, rgba(31,191,122,.14), rgba(217,183,95,.12)),
-        url("https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1600&q=70") center/cover no-repeat;
-    }
-    .mosaic{
-      position:fixed; inset:0;
-      z-index:-3;
-      pointer-events:none;
-      opacity:.32;
-      background:
-        radial-gradient(700px 420px at 12% 18%, rgba(255,255,255,.58), transparent 60%),
-        radial-gradient(800px 520px at 88% 22%, rgba(255,255,255,.52), transparent 62%),
-        radial-gradient(700px 520px at 30% 92%, rgba(255,255,255,.36), transparent 62%),
-        url("https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1200&q=70") left top/38% 48% no-repeat,
-        url("https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=70") right top/44% 52% no-repeat,
-        url("https://images.unsplash.com/photo-1532634896-26909d0d4b14?auto=format&fit=crop&w=1200&q=70") left bottom/46% 46% no-repeat,
-        url("https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=1200&q=70") right bottom/42% 44% no-repeat;
-      filter: saturate(1.15) contrast(1.02);
-    }
+    a{color:inherit;text-decoration:none}
 
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:18px 16px 56px;
-    }
+    .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 74px}
 
+    /* Top bar */
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
       padding:12px 14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.70);
+      border:1px solid rgba(255,255,255,.45);
+      background:rgba(255,255,255,.55);
       backdrop-filter: blur(10px);
-      border-radius:16px;
-      box-shadow: var(--shadow);
+      border-radius:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-      text-decoration:none;
-      color:inherit;
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .logo{
+      width:52px;height:52px;border-radius:16px;
+      background:#0b0f0e;
+      display:grid;place-items:center;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.16);
     }
+    .brandtxt{min-width:0}
+    .brandname{font-weight:1000;letter-spacing:.2px}
+    .brandtag{font-size:12px;color:rgba(0,0,0,.55);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70vw}
 
-    .logoBox{
-      width:52px;
-      height:52px;
-      border-radius:14px;
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 14px;border-radius:14px;border:0;cursor:pointer;
+      font-weight:950;font-size:13px;
+      background:linear-gradient(135deg,var(--g),var(--y));
+      color:#000;
+      box-shadow:0 10px 18px rgba(0,0,0,.12);
+      user-select:none;
+    }
+    .btn.ghost{
+      background:rgba(255,255,255,.65);
       border:1px solid rgba(0,0,0,.10);
-      background:rgba(255,255,255,.75);
-      box-shadow:0 12px 25px rgba(0,0,0,.12);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      flex:0 0 auto;
-    }
-    .logoBox svg{width:44px;height:44px;display:block}
-
-    .brandTxt{min-width:0}
-    .brandName{
-      font-weight:1000;
-      letter-spacing:.2px;
-      font-size:18px;
-      line-height:1.1;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brandTag{
-      margin-top:4px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      color:#0b0f0e;
+      box-shadow:none;
     }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.10);
-      background:rgba(255,255,255,.72);
-      font-size:12px;
-      font-weight:900;
-      color:rgba(11,15,14,.78);
-    }
+    /* Hero */
+    .hero{margin-top:18px;display:grid;gap:16px;grid-template-columns:1.05fr .95fr}
+    @media(max-width:980px){.hero{grid-template-columns:1fr}}
 
     .card{
-      margin-top:16px;
-      border-radius:22px;
-      border:1px solid rgba(0,0,0,.10);
+      border-radius:var(--r);
       background:var(--card);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .cardIn{
-      padding:18px 18px 16px;
-    }
-
-    h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing:-.2px;
-    }
-    .sub{
-      margin-top:10px;
-      font-size:15px;
-      line-height:1.55;
-      color:rgba(11,15,14,.76);
-      font-weight:700;
-      max-width:60ch;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:16px;
+      border:1px solid rgba(255,255,255,.6);
+      box-shadow:var(--sh);
       padding:18px;
-      background:rgba(255,255,255,.45);
-      border-top:1px solid rgba(0,0,0,.08);
-    }
-    @media (max-width:900px){
-      .grid{grid-template-columns:1fr}
     }
 
-    .panel{
+    .headline{font-size:34px;line-height:1.05;margin:0;font-weight:1000}
+    .sub{
+      margin:10px 0 0;
+      color:rgba(0,0,0,.62);
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 10px;border-radius:999px;
       border:1px solid rgba(0,0,0,.10);
       background:rgba(255,255,255,.70);
-      border-radius:18px;
-      padding:14px;
+      font-size:12px;font-weight:950;color:rgba(0,0,0,.70)
+    }
+    .dot{
+      width:9px;height:9px;border-radius:99px;background:linear-gradient(135deg,var(--g),var(--y));
+      box-shadow:0 0 0 3px rgba(31,191,122,.15);
     }
 
-    label{
-      display:block;
-      font-size:12px;
-      font-weight:900;
-      color:rgba(11,15,14,.70);
-      margin-bottom:8px;
-      letter-spacing:.25px;
-      text-transform:uppercase;
-    }
+    /* Access module */
+    .accessTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .accessTitle h2{margin:0;font-size:16px;font-weight:1000}
+    .mini{font-size:12px;color:rgba(0,0,0,.55);font-weight:800}
 
     input{
       width:100%;
       padding:12px 12px;
       border-radius:14px;
-      border:1px solid rgba(0,0,0,.14);
+      border:1px solid rgba(0,0,0,.12);
+      background:rgba(255,255,255,.82);
       outline:none;
       font:inherit;
-      background:rgba(255,255,255,.92);
     }
 
-    .row{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      margin-top:12px;
-    }
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:0;
-      cursor:pointer;
-      user-select:none;
-      font-weight:1000;
-      letter-spacing:.2px;
-      color:var(--btnText);
-      background:linear-gradient(135deg,var(--g),var(--y));
-      box-shadow:0 14px 30px rgba(31,191,122,.18);
-    }
-    .btn:active{transform:translateY(1px)}
-    .btn.ghost{
-      background:rgba(255,255,255,.72);
-      border:1px solid rgba(0,0,0,.12);
-      color:rgba(11,15,14,.82);
-      box-shadow:none;
-    }
-    .btn.small{padding:10px 12px; border-radius:12px; font-size:13px}
-
-    .fine{
+    .note{
       margin-top:10px;
       font-size:12px;
+      color:rgba(0,0,0,.55);
       line-height:1.45;
-      color:rgba(11,15,14,.70);
-      font-weight:700;
     }
 
-    .kpi{
+    /* Collage */
+    .collage{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(3, 1fr);
       gap:10px;
-      margin-top:12px;
     }
-    @media(max-width:520px){.kpi{grid-template-columns:1fr}}
-    .kpi .box{
+    @media(max-width:560px){.collage{grid-template-columns:repeat(2, 1fr)}}
+    .img{
+      width:100%;height:152px;border-radius:18px;
+      object-fit:cover;
       border:1px solid rgba(0,0,0,.10);
-      background:rgba(255,255,255,.75);
-      border-radius:16px;
-      padding:12px;
+      box-shadow:0 10px 18px rgba(0,0,0,.10);
+      background:#fff;
     }
-    .kpi .t{font-weight:1000}
-    .kpi .d{margin-top:6px;color:rgba(11,15,14,.72);font-size:12px;font-weight:800;line-height:1.4}
 
-    .toast{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%);
-      bottom:16px;
-      z-index:999;
-      max-width:min(600px,92vw);
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid rgba(0,0,0,.12);
-      background:rgba(255,255,255,.92);
-      box-shadow: var(--shadow);
-      display:none;
-      font-weight:900;
-      color:rgba(11,15,14,.82);
+    /* Bottom strip */
+    .strip{
+      margin-top:16px;
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      padding:14px 16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
     }
-    .toast.show{display:block}
-    .toast.ok{border-color:rgba(31,191,122,.30)}
-    .toast.bad{border-color:rgba(217,183,95,.45)}
+    .strip strong{font-weight:1000}
+    .strip span{color:rgba(0,0,0,.62);font-size:13px;line-height:1.45}
 
-    /* subtle mum note */
+    /* Tiny subtle Mum note (desktop only) */
     .mum-note{
       position:fixed;
-      right:10px;
+      right:12px;
       bottom:10px;
-      z-index:998;
       font-size:11px;
-      font-weight:700;
-      letter-spacing:.2px;
-      color:rgba(0,0,0,.35);
-      opacity:.22;
-      user-select:none;
+      opacity:0.14;
       pointer-events:none;
-      filter: blur(.15px);
+      letter-spacing:.2px;
     }
     @media (max-width: 1200px){
       .mum-note{ display:none; }
     }
 
-    footer{
-      margin-top:18px;
-      padding:14px 16px;
-      color:rgba(11,15,14,.70);
+    /* Toast */
+    .toast{
+      position:fixed;left:50%;transform:translateX(-50%);
+      bottom:16px;z-index:9999;
+      max-width:min(620px,92vw);
+      background:rgba(11,15,14,.92);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:14px;
+      padding:12px 14px;
+      box-shadow:0 14px 38px rgba(0,0,0,.25);
+      display:none;
       font-weight:800;
-      font-size:12px;
-      text-align:center;
     }
+    .toast.show{display:block}
   </style>
 </head>
 
 <body>
-  <div class="mosaic"></div>
-  <div class="heroBG"></div>
+  <div class="wrap" id="top">
 
-  <div class="mum-note">I love you Mum thank you.</div>
-  <div class="toast" id="toast"></div>
-
-  <div class="wrap">
+    <!-- TOP BAR -->
     <div class="topbar">
-      <a class="brand" href="#" aria-label="CookVibe home">
-        <div class="logoBox" aria-hidden="true">
-          <!-- Cookvibe logo (SVG) -->
-          <svg width="220" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cookvibe">
+      <div class="brand">
+        <div class="logo" aria-label="CookVibe Logo">
+          <!-- Inline SVG logo (no uploads needed) -->
+          <svg width="220" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CookVibe">
             <rect width="500" height="500" fill="#000"/>
             <text x="50%" y="55%" text-anchor="middle"
                   font-family="Arial, Helvetica, sans-serif"
@@ -332,173 +213,196 @@
             </text>
           </svg>
         </div>
-        <div class="brandTxt">
-          <div class="brandName">CookVibe</div>
-          <div class="brandTag">Global cooking • creators earn more as engagement grows</div>
-        </div>
-      </a>
-
-      <span class="pill" id="rolePill">viewer</span>
-    </div>
-
-    <div class="card">
-      <div class="cardIn">
-        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-          <h1>Welcome to CookVibe</h1>
-          <span class="pill">Stage 2 look • Stage 1 functionality</span>
-        </div>
-
-        <div class="sub">
-          A creator-first, international cooking platform where your content can become a real income stream.
-          Enter your access code to unlock Creator tools, uploads, and your public profile experience.
-        </div>
-
-        <div class="kpi">
-          <div class="box">
-            <div class="t">Global by design</div>
-            <div class="d">Country-first identity, emoji flags in Stage 2, and community discovery.</div>
-          </div>
-          <div class="box">
-            <div class="t">Earn from interaction</div>
-            <div class="d">More views, saves, shares, and tips = more creator payouts over time.</div>
-          </div>
-          <div class="box">
-            <div class="t">Built with creators</div>
-            <div class="d">Early creators shape the platform before it scales.</div>
-          </div>
+        <div class="brandtxt">
+          <div class="brandname">CookVibe</div>
+          <div class="brandtag">Global cooking • creator-first • earn more as your audience engages</div>
         </div>
       </div>
 
-      <div class="grid">
-        <div class="panel">
-          <label for="code">Access code</label>
-          <input id="code" autocomplete="one-time-code" placeholder="FOUNDING20 • ADMIN • or your creator code" />
+      <div class="row" style="margin-top:0">
+        <button class="btn ghost" id="copyLink" type="button">Copy Access Link</button>
+        <a class="btn" href="#access">Enter Access Code</a>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="card">
+        <h1 class="headline">Cook. Share culture. <span style="background:linear-gradient(135deg,var(--g),var(--y));-webkit-background-clip:text;background-clip:text;color:transparent;">Earn.</span></h1>
+        <p class="sub">
+          CookVibe is a global cooking community where creators post recipes, videos, and go live —
+          and the more interaction they generate, the more income they can earn.
+        </p>
+
+        <div class="pillrow">
+          <div class="pill"><span class="dot"></span> International-first</div>
+          <div class="pill"><span class="dot"></span> Videos + meal photos</div>
+          <div class="pill"><span class="dot"></span> Creator-first payouts (later stages)</div>
+          <div class="pill"><span class="dot"></span> Safe + moderated growth</div>
+        </div>
+
+        <div class="strip" style="margin-top:16px">
+          <div>
+            <strong>Creators</strong><br/>
+            <span>Build your page, upload, get feedback in early.</span>
+          </div>
+          <div>
+            <strong>Viewers</strong><br/>
+            <span>Discover food from around the world — then become a creator.</span>
+          </div>
+          <div>
+            <strong>Core Circle</strong><br/>
+            <span>Early insiders who helped shape CookVibe.</span>
+          </div>
+        </div>
+
+        <!-- ACCESS -->
+        <div id="access" class="card" style="margin-top:16px;background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.10)">
+          <div class="accessTitle">
+            <h2>Enter access code</h2>
+            <div class="mini" id="modePill">Mode: viewer</div>
+          </div>
+
+          <div style="margin-top:10px">
+            <input id="code" placeholder="Enter code (e.g., CORECIRCLE or ADMIN)" autocomplete="off" />
+          </div>
 
           <div class="row">
             <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
-            <button class="btn ghost" id="viewerBtn" type="button">Continue as Viewer</button>
+            <button class="btn ghost" id="clearBtn" type="button">Clear</button>
           </div>
 
-          <div class="fine" id="hint">
-            <strong>FOUNDING20</strong> = Founding Creator (demo flag) • <strong>ADMIN</strong> = Admin • Any other code = Creator • Blank = Viewer
+          <div class="note" id="note">
+            <strong>Codes:</strong>
+            <strong>ADMIN</strong> = Admin tools • <strong>CORECIRCLE</strong> = Core Circle creator • Any other code = Creator • Blank = Viewer.
+            <br/>
+            You’ll be taken into the fully functional platform page (<strong>app.html</strong>) after entry.
           </div>
         </div>
+      </div>
 
-        <div class="panel">
-          <div style="font-weight:1000; font-size:14px;">What happens next?</div>
-          <div class="fine" style="margin-top:8px">
-            ✅ You’ll be taken into the fully functional demo (uploads, Studio, Admin tools).<br/>
-            ✅ Your access level will unlock the right sections automatically.<br/>
-            ✅ You can start posting videos and meal photos immediately.
+      <!-- GLOBAL COLLAGE -->
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <div style="font-weight:1000">Global food + people</div>
+          <div class="mini">Bright • welcoming • international</div>
+        </div>
+
+        <div class="collage" style="margin-top:12px">
+          <!-- NOTE: Unsplash allows hotlinking; these are curated to show global food + people together -->
+          <img class="img" alt="International meal spread" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=70"/>
+          <img class="img" alt="People sharing food together" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=70"/>
+          <img class="img" alt="Vibrant street food" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=70"/>
+          <img class="img" alt="Family enjoying dinner" src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=1200&q=70"/>
+          <img class="img" alt="International cuisine plating" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1200&q=70"/>
+          <img class="img" alt="Healthy colorful dishes" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=70"/>
+        </div>
+
+        <div class="strip" style="margin-top:14px">
+          <div>
+            <strong>Stage 1</strong><br/>
+            <span>Workflow + creator feedback.</span>
           </div>
-
-          <div class="row" style="margin-top:12px">
-            <button class="btn ghost small" id="copyAppLink" type="button">Copy App Link</button>
-            <button class="btn ghost small" id="resetAccess" type="button">Reset Access</button>
+          <div>
+            <strong>Stage 2</strong><br/>
+            <span>Accounts + payouts + live tooling.</span>
           </div>
-
-          <div class="fine" style="margin-top:10px">
-            Tip: If someone says “I can’t find Studio,” it means they entered as Viewer. Have them come back and enter their code.
+          <div>
+            <strong>Global</strong><br/>
+            <span>Country visibility + culture-first.</span>
           </div>
         </div>
       </div>
     </div>
 
-    <footer>
-      Founder: Shaun Wint • The Start UPZ, LLC • CookVibe is coming soon — built global, built with creators.
-    </footer>
   </div>
 
+  <!-- Subtle easter egg for Mum (desktop only) -->
+  <div class="mum-note">I love you Mum thank you.</div>
+
+  <div class="toast" id="toast"></div>
+
   <script>
-    // Storage keys must match your app.html logic
+    // Matches your app.html localStorage keys so the platform opens in the correct mode.
     const LS = {
       role: "cv_role",
       founding: "cv_founding",
       admin: "cv_admin"
     };
 
-    const toastEl = document.getElementById("toast");
-    const rolePill = document.getElementById("rolePill");
+    const $ = (id) => document.getElementById(id);
 
-    function toast(msg, ok=true){
-      toastEl.className = "toast show " + (ok ? "ok" : "bad");
-      toastEl.textContent = msg;
-      setTimeout(()=> toastEl.className = "toast", 2200);
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.className = "toast show";
+      setTimeout(()=> t.className = "toast", 2200);
     }
 
-    function setRolePill(){
-      let role = localStorage.getItem(LS.role) || "viewer";
-      if (localStorage.getItem(LS.admin) === "1") role = "admin";
-      if (localStorage.getItem(LS.founding) === "1") role = "founder_creator";
-      rolePill.textContent = role;
+    function setModeLabel(role){
+      $("modePill").textContent = "Mode: " + role;
     }
 
-    function applyAccessCode(codeRaw){
-      const code = (codeRaw || "").trim().toUpperCase();
+    function applyCode(raw){
+      const code = (raw || "").trim().toUpperCase();
       let role = "viewer";
 
-      if (code === "ADMIN"){
+      // Reset flags by default
+      localStorage.removeItem(LS.admin);
+      localStorage.removeItem(LS.founding);
+
+      if(code === "ADMIN"){
         role = "admin";
-        localStorage.setItem(LS.admin,"1");
-        localStorage.removeItem(LS.founding);
-      } else if (code === "FOUNDING20"){
+        localStorage.setItem(LS.admin, "1");
+      } else if(code === "CORECIRCLE"){
         role = "founder_creator";
-        localStorage.setItem(LS.founding,"1");
-        localStorage.removeItem(LS.admin);
-      } else if (code){
+        localStorage.setItem(LS.founding, "1");
+      } else if(code){
         role = "creator";
-        localStorage.removeItem(LS.admin);
-        localStorage.removeItem(LS.founding);
       } else {
         role = "viewer";
-        localStorage.removeItem(LS.admin);
-        localStorage.removeItem(LS.founding);
       }
 
       localStorage.setItem(LS.role, role);
-      setRolePill();
 
-      // Send them into the functional app
-      const dest = (role === "admin") ? "app.html#admin" : "app.html#studio";
-      toast("Access unlocked ✅ Taking you into CookVibe…");
-      setTimeout(()=> window.location.href = dest, 350);
+      // Route into the functional platform (app.html)
+      const targetHash =
+        role === "admin" ? "#admin" :
+        (role === "creator" || role === "founder_creator") ? "#studio" :
+        "#public";
+
+      toast("Access granted ✓ Opening CookVibe…");
+      // Small delay so toast feels responsive before redirect
+      setTimeout(()=> {
+        window.location.href = "./app.html" + targetHash;
+      }, 450);
     }
 
-    document.getElementById("enterBtn").addEventListener("click", ()=>{
-      applyAccessCode(document.getElementById("code").value);
+    $("enterBtn").addEventListener("click", ()=> applyCode($("code").value));
+    $("code").addEventListener("keydown", (e)=> {
+      if(e.key === "Enter") applyCode($("code").value);
     });
 
-    document.getElementById("viewerBtn").addEventListener("click", ()=>{
-      applyAccessCode("");
+    $("clearBtn").addEventListener("click", ()=> {
+      $("code").value = "";
+      toast("Cleared");
     });
 
-    // Enter key submits
-    document.getElementById("code").addEventListener("keydown", (e)=>{
-      if(e.key === "Enter") applyAccessCode(e.target.value);
-    });
-
-    document.getElementById("copyAppLink").addEventListener("click", async ()=>{
-      const url = window.location.origin + window.location.pathname.replace(/index\.html?$/i,"") + "app.html#studio";
+    $("copyLink").addEventListener("click", async ()=>{
+      const url = window.location.origin + window.location.pathname + "#access";
       try{
         await navigator.clipboard.writeText(url);
-        toast("App link copied ✅");
+        toast("Access link copied ✓");
       }catch{
-        toast("Copy failed — copy the URL manually.", false);
+        toast("Copy failed — copy manually.");
       }
     });
 
-    document.getElementById("resetAccess").addEventListener("click", ()=>{
-      if(!confirm("Reset access on this device?")) return;
-      localStorage.removeItem(LS.role);
-      localStorage.removeItem(LS.founding);
-      localStorage.removeItem(LS.admin);
-      document.getElementById("code").value = "";
-      setRolePill();
-      toast("Access reset ✅");
-    });
-
-    // init pill
-    setRolePill();
+    // On load, reflect current mode if already set
+    (function init(){
+      const role = localStorage.getItem(LS.role) || "viewer";
+      setModeLabel(role);
+    })();
   </script>
 </body>
 </html>
