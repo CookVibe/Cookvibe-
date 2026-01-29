@@ -5,96 +5,237 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>CookVibe • Stage 1 Demo</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
-<meta name="theme-color" content="#0b0f0e"/>
+<meta name="theme-color" content="#1fbf7a"/>
 
 <style>
-:root{--bg:#0b0f0e;--card:#121816;--text:#f1f5f4;--muted:#9fb0aa;--line:#24322d;--g:#1fbf7a;--y:#d9b75f;--sh:0 12px 30px rgba(0,0,0,.32)}
+:root{
+  /* Bright + inviting baseline (keeps full Stage 1 functionality) */
+  --bg:#f5fff9;
+  --card:rgba(255,255,255,.92);
+  --text:#0b0f0e;
+  --muted:#4f6b62;
+  --line:#d9e6e0;
+  --g:#1fbf7a;
+  --y:#d9b75f;
+  --sh:0 14px 34px rgba(0,0,0,.12);
+}
 *{box-sizing:border-box}html,body{height:100%}
-
-/* ✅ Fix: anchor scroll + sticky header */
 html{scroll-padding-top:92px;scroll-behavior:smooth}
-
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;background:
-radial-gradient(1100px 620px at 10% -5%, rgba(31,191,122,.22), transparent 60%),
-radial-gradient(1100px 620px at 90% -5%, rgba(217,183,95,.18), transparent 60%),
-radial-gradient(900px 520px at 50% 30%, rgba(31,191,122,.08), transparent 62%),
-var(--bg);color:var(--text)}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  background:
+    radial-gradient(900px 520px at 8% 0%, rgba(31,191,122,.18), transparent 60%),
+    radial-gradient(900px 520px at 92% 0%, rgba(217,183,95,.16), transparent 60%),
+    linear-gradient(180deg, #f7fffb 0%, #f3fff8 40%, #effff6 100%);
+  color:var(--text)
+}
 a{color:inherit;text-decoration:none}
 .wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
-.card{background:rgba(18,24,22,.95);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-top:14px}
-.muted{color:var(--muted)}.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:var(--sh);
+  margin-top:14px;
+}
+.muted{color:var(--muted)}
+.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
 .row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0f1412;color:var(--muted);font-size:12px;font-weight:900}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:950;font-size:13px;background:linear-gradient(135deg,var(--g),var(--y));color:#000;user-select:none}
-.btn.ghost{background:#0f1412;color:var(--text);border:1px solid var(--line)}
+.pill{
+  display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.75);
+  color:var(--muted);font-size:12px;font-weight:900
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;
+  cursor:pointer;font-weight:950;font-size:13px;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  color:#08110d;user-select:none
+}
+.btn.ghost{
+  background:rgba(255,255,255,.78);
+  color:var(--text);
+  border:1px solid var(--line)
+}
 .btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
-.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:1.15fr .85fr}
 @media(max-width:900px){.cols2{grid-template-columns:1fr}}
-input,textarea{width:100%;background:#0f1412;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
+input,textarea{
+  width:100%;
+  background:rgba(255,255,255,.88);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 12px;
+  font:inherit;outline:none
+}
 textarea{min-height:92px;resize:vertical}
 
-.hdr{position:sticky;top:0;z-index:999;background:rgba(11,15,14,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+/* Header */
+.hdr{
+  position:sticky;top:0;z-index:999;
+  background:rgba(255,255,255,.74);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line)
+}
+.hdrin{
+  max-width:1100px;margin:0 auto;padding:12px 14px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
+}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
 .brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
 .nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
-.nav a:hover{background:#0f1412;border:1px solid var(--line);padding:7px 9px}
+.nav a:hover{background:rgba(255,255,255,.9);border:1px solid var(--line);padding:7px 9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-.logoBox{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(31,191,122,.25),rgba(217,183,95,.22));display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
+/* Logo boxes (Admin uploads still work) */
+.logoBox{
+  width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(31,191,122,.20),rgba(217,183,95,.18));
+  display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden
+}
 .logoBox.big{width:140px;height:140px;border-radius:28px;font-size:34px}
-.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#0f1412}
-.wm{position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;border:1px solid var(--line);background:#0f1412;box-shadow:var(--sh);overflow:hidden;display:none;opacity:.9}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(255,255,255,.85)}
+
+/* Watermark (slot 4) */
+.wm{
+  position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;
+  border:1px solid var(--line);background:rgba(255,255,255,.85);box-shadow:var(--sh);
+  overflow:hidden;display:none;opacity:.92
+}
 .wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
 
 .notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
-.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.08);border-radius:14px;padding:12px 14px}
+.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.10);border-radius:14px;padding:12px 14px}
 .hidden{display:none !important}
 
+/* Galleries */
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
-.gItem{border:1px solid var(--line);background:#0b0f0e;border-radius:14px;overflow:hidden}
+.gItem{border:1px solid var(--line);background:rgba(255,255,255,.75);border-radius:14px;overflow:hidden}
 .gItem img{width:100%;height:140px;object-fit:cover;display:block}
 .cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
-.x{border:1px solid var(--line);background:#0f1412;color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
+.x{border:1px solid var(--line);background:rgba(255,255,255,.85);color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
+
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
-.tile{border:1px solid var(--line);background:#0f1412;border-radius:14px;padding:12px}
-video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
+.tile{border:1px solid var(--line);background:rgba(255,255,255,.78);border-radius:14px;padding:12px}
+video{width:100%;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.85)}
 
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:rgba(18,24,22,.98);box-shadow:var(--sh);display:none}
-.toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+/* Toast */
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;
+  max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.92);box-shadow:var(--sh);display:none
+}
+.toast.show{display:block}
+.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}
+.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.14)}
 
-.hero{margin-top:14px;border:1px solid rgba(255,255,255,.06);border-radius:18px;overflow:hidden;background:
-linear-gradient(135deg,rgba(31,191,122,.18),rgba(217,183,95,.12)),
-radial-gradient(900px 420px at 20% 0%, rgba(31,191,122,.22), transparent 60%),
-radial-gradient(900px 420px at 80% 0%, rgba(217,183,95,.18), transparent 60%);}
-.heroIn{padding:18px 16px}
-.heroTop{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.heroLeft{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.heroTitle{font-size:22px;font-weight:1000;margin:0}
-.heroSub{margin:8px 0 0;color:rgba(241,245,244,.86);line-height:1.55}
-.heroBadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.10);background:rgba(15,20,18,.75);padding:8px 10px;border-radius:999px;font-size:12px;font-weight:900}
-.badge b{color:var(--y)}
-
-footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
+/* Footer */
+footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,255,.65)}
 .footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 
-/* subtle easter egg note */
+/* =========================
+   ACCESS GATE (before app)
+   ========================= */
+#gate{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 14px;
+}
+.gateWrap{max-width:1100px;width:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+@media(max-width:980px){.gateWrap{grid-template-columns:1fr}}
+.gateHero{
+  border-radius:22px;
+  border:1px solid var(--line);
+  overflow:hidden;
+  box-shadow:var(--sh);
+  background:
+    radial-gradient(900px 520px at 15% 0%, rgba(31,191,122,.22), transparent 60%),
+    radial-gradient(900px 520px at 85% 0%, rgba(217,183,95,.20), transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,.86), rgba(255,255,255,.68));
+  position:relative;
+}
+.gateHeroTop{
+  padding:18px 18px 0 18px;
+  display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap
+}
+.gateBrand{
+  display:flex;gap:12px;align-items:center
+}
+.gateTitle{
+  font-weight:1000;font-size:22px;line-height:1.1;margin:0
+}
+.gateSub{
+  margin:6px 0 0 0;color:var(--muted);font-weight:700
+}
+.gateGrid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+  padding:16px 18px 18px 18px;
+}
+@media(max-width:980px){.gateGrid{grid-template-columns:repeat(3,1fr)}}
+.gateImg{
+  height:112px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.06);
+  background:#fff;
+  overflow:hidden;
+  position:relative;
+}
+.gateImg img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:saturate(1.15) contrast(1.06);
+}
+.gateImg:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.22) 100%);
+}
+.gateRight{
+  border-radius:22px;
+  border:1px solid var(--line);
+  overflow:hidden;
+  box-shadow:var(--sh);
+  background:rgba(255,255,255,.85);
+}
+.gateRightIn{padding:18px}
+.gateCTA{
+  font-weight:1000;
+  font-size:18px;
+  margin:0
+}
+.gateBullets{margin:10px 0 0 18px;color:var(--muted);font-weight:700;line-height:1.5}
+.gateRow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.gateRow .btn{flex:1}
+.gateRow .btn.ghost{flex:1}
+.gateHelp{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5
+}
+
+/* Subtle Mum note (trained-eye only) */
 .mum-note{
   position:fixed;
   right:10px;
   bottom:10px;
   font-size:10px;
   opacity:.18;
-  color:#f1f5f4;
-  letter-spacing:.2px;
-  z-index:850;
   pointer-events:none;
+  color:#1a2a24;
 }
 @media (max-width: 1200px){
   .mum-note{ display:none; }
@@ -105,7 +246,75 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
 <body>
 <div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
 <div class="toast" id="toast"></div>
-<div class="mum-note">I love you Mum thank you.</div>
+
+<!-- =========================
+     ACCESS PAGE (FIRST)
+     ========================= -->
+<section id="gate">
+  <div class="gateWrap">
+    <div class="gateHero">
+      <div class="gateHeroTop">
+        <div class="gateBrand">
+          <div class="logoBox big" id="logoHeroBox" title="Logo Slot 2 (Admin)">
+            <span id="logoHeroFB">CV</span>
+            <img id="logoHeroImg" class="logoImg" style="display:none" alt="CookVibe logo">
+          </div>
+          <div>
+            <h1 class="gateTitle" style="margin:0">CookVibe</h1>
+            <p class="gateSub">Global cooking • creators earn as engagement grows</p>
+            <div class="pill" style="margin-top:10px">Stage 1 Demo • bright + international</div>
+          </div>
+        </div>
+        <div class="pill" id="gateRolePill">viewer</div>
+      </div>
+
+      <!-- Global collage (people + food across the world) -->
+      <div class="gateGrid" aria-label="Global food collage">
+        <div class="gateImg"><img alt="Global meal" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=70"></div>
+        <div class="gateImg"><img alt="Friends eating together" src="https://images.unsplash.com/photo-1529692236671-f1dc2c63b97a?auto=format&fit=crop&w=900&q=70"></div>
+        <div class="gateImg"><img alt="Cooking together" src="https://images.unsplash.com/photo-1514511547116-7d3c9f21a0f2?auto=format&fit=crop&w=900&q=70"></div>
+        <div class="gateImg"><img alt="International street food" src="https://images.unsplash.com/photo-1555992336-03a23c25a44c?auto=format&fit=crop&w=900&q=70"></div>
+        <div class="gateImg"><img alt="Family meal" src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=900&q=70"></div>
+        <div class="gateImg"><img alt="Plated cuisine" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70"></div>
+      </div>
+    </div>
+
+    <div class="gateRight">
+      <div class="gateRightIn">
+        <h2 class="gateCTA">Enter CookVibe</h2>
+        <div class="smalltxt" style="margin-top:6px">
+          This is an access page. After you enter a code, you’ll be taken into the <strong>fully functional</strong> demo (Studio, uploads, Admin).
+        </div>
+
+        <ul class="gateBullets">
+          <li><strong>FOUNDING20</strong> = Founding Creator (lifetime free demo flag)</li>
+          <li><strong>ADMIN</strong> = Admin</li>
+          <li>Any other code = Creator</li>
+          <li>Blank = Viewer</li>
+        </ul>
+
+        <div style="margin-top:12px">
+          <label class="smalltxt" for="gateCode"><strong>Access Code</strong></label>
+          <input id="gateCode" placeholder="Enter access code (e.g., FOUNDING20)">
+        </div>
+
+        <div class="gateRow">
+          <button class="btn" id="gateEnterBtn" type="button">Enter CookVibe</button>
+          <button class="btn ghost" id="gateViewerBtn" type="button">Continue as Viewer</button>
+        </div>
+
+        <div class="gateHelp">
+          Tip: once you’re inside, the top nav has <strong>Join</strong>, <strong>Earn</strong>, <strong>Creator Page</strong>, <strong>Studio</strong>, <strong>Admin</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FULL FUNCTIONAL APP
+     ========================= -->
+<div id="appRoot" class="hidden">
 
 <header class="hdr">
   <div class="hdrin">
@@ -136,36 +345,6 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
 </header>
 
 <div id="top" class="wrap">
-
-  <!-- HERO -->
-  <section class="hero" aria-label="CookVibe hero">
-    <div class="heroIn">
-      <div class="heroTop">
-        <div class="heroLeft">
-          <div class="logoBox big" style="background:#0f1412;border:1px solid rgba(255,255,255,.10)">
-            <img id="logoHeroImg" class="logoImg" alt="CookVibe hero logo" style="display:block;padding:10px">
-          </div>
-          <div style="min-width:240px;flex:1">
-            <h1 class="heroTitle">Cook together. Earn together.</h1>
-            <div class="heroSub">
-              A creator-first cooking platform built for global food culture — where <b>interaction</b> can become income.
-              Stage 1 validates creator workflows; Stage 2 adds accounts, moderation, and scalable earnings.
-            </div>
-            <div class="heroBadges">
-              <div class="badge">🌍 <b>International</b> first</div>
-              <div class="badge">🎥 Videos + Live (Stage 2)</div>
-              <div class="badge">💸 Interaction → Earnings</div>
-              <div class="badge">🛡️ 3 strikes → ban (locked)</div>
-            </div>
-          </div>
-        </div>
-        <div class="rowL">
-          <a class="btn" href="#join">Join the Demo</a>
-          <a class="btn ghost" href="#studio">Go to Studio</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- JOIN (ONLY ONE) -->
   <section id="join" class="card">
@@ -208,35 +387,41 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
   <section id="earn" class="card">
     <div class="row">
       <div class="rowL">
-        <h2 style="margin:0">Earn on CookVibe</h2>
-        <span class="pill">Creator-first</span>
+        <h2 style="margin:0;font-size:18px">Earn on CookVibe</h2>
+        <span class="pill">CREATOR-FIRST</span>
       </div>
-      <a class="btn small" href="#join">Unlock Creator</a>
-    </div>
-
-    <div class="muted" style="margin-top:10px;line-height:1.6">
-      CookVibe is built so creators can turn cooking content into real income.
-      The more your videos get watched, shared, saved, and engaged with — the more you can earn.
-      Stage 1 is the workflow demo; Stage 2 introduces monetization + payouts.
+      <span class="pill">Stage 2 adds payouts</span>
     </div>
 
     <div class="cards" style="margin-top:12px">
       <div class="tile">
-        <strong>1) Engagement drives earnings</strong>
-        <div class="smalltxt" style="margin-top:8px">Views, saves, shares, comments, and live tips all count.</div>
+        <div style="font-weight:1000">Earn more as engagement grows</div>
+        <div class="smalltxt" style="margin-top:8px">
+          The more your videos and lives get watched, liked, saved, shared, and commented on — the more you earn.
+        </div>
       </div>
       <div class="tile">
-        <strong>2) Global discovery</strong>
-        <div class="smalltxt" style="margin-top:8px">International sections + country leaderboards increase reach.</div>
+        <div style="font-weight:1000">Tips on Lives (no paid lives)</div>
+        <div class="smalltxt" style="margin-top:8px">
+          Viewers can tip during lives. Creators don’t charge for access to watch lives — tips are welcome.
+        </div>
       </div>
       <div class="tile">
-        <strong>3) Tips only for lives (locked)</strong>
-        <div class="smalltxt" style="margin-top:8px">Creators can’t charge to watch lives; tips are welcome.</div>
+        <div style="font-weight:1000">Global discovery</div>
+        <div class="smalltxt" style="margin-top:8px">
+          Your country and emoji flag show up on your profile, and later you’ll appear on country leaderboards.
+        </div>
       </div>
       <div class="tile">
-        <strong>4) Fair play & safety</strong>
-        <div class="smalltxt" style="margin-top:8px">3 strikes → ban, plus admin review tools in Stage 2.</div>
+        <div style="font-weight:1000">Founding Creator recognition</div>
+        <div class="smalltxt" style="margin-top:8px">
+          Founding creators are flagged and recognized as early builders who helped shape CookVibe.
+        </div>
       </div>
+    </div>
+
+    <div class="warn smalltxt" style="margin-top:12px">
+      Stage 1 is workflow validation. Stage 2 adds accounts, cloud storage, moderation tools, and payout rails.
     </div>
   </section>
 
@@ -253,13 +438,10 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
     <div class="tile" style="margin-top:12px">
       <div class="row">
         <div class="rowL">
-          <div class="logoBox" style="background:#0f1412">
-            <span id="pubLogoFB" style="display:none">CV</span>
-            <img id="pubLogoImg" class="logoImg" alt="CookVibe logo">
-          </div>
+          <div class="logoBox">CV</div>
           <div>
             <div style="font-weight:1000" id="pubName">Creator Name</div>
-            <div class="smalltxt" id="pubMeta">Country • @handle</div>
+            <div class="smalltxt" id="pubMeta">Country 🇯🇲 • @handle</div>
           </div>
           <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
         </div>
@@ -300,6 +482,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
         <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
         <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
         <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica)"></div>
+        <div class="smalltxt" style="margin-top:6px">Stage 2: we’ll show your country like “Jamaica 🇯🇲” (emoji flag).</div>
         <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
         <div class="row" style="margin-top:10px">
           <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
@@ -375,7 +558,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
         <div class="row"><strong>Logo Uploads (4 slots)</strong><span class="pill">Local</span></div>
         <div class="grid cols2" style="margin-top:10px">
           <div><label class="smalltxt">Slot 1 (Header)</label><input id="logo1" type="file" accept="image/*"></div>
-          <div><label class="smalltxt">Slot 2 (Hero)</label><input id="logo2" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 2 (Hero / Gate)</label><input id="logo2" type="file" accept="image/*"></div>
           <div><label class="smalltxt">Slot 3 (Footer)</label><input id="logo3" type="file" accept="image/*"></div>
           <div><label class="smalltxt">Slot 4 (Watermark)</label><input id="logo4" type="file" accept="image/*"></div>
         </div>
@@ -404,9 +587,9 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
   <div class="footerIn">
     <div>
       <div class="rowL">
-        <div class="logoBox" id="logoFooterBox" style="background:#0f1412">
-          <span id="logoFooterFB" style="display:none">CV</span>
-          <img id="logoFooterImg" class="logoImg" alt="CookVibe logo">
+        <div class="logoBox" id="logoFooterBox">
+          <span id="logoFooterFB">CV</span>
+          <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
         </div>
         <div>
           <div style="font-weight:1000">CookVibe</div>
@@ -425,32 +608,23 @@ footer{margin-top:36px;border-top:1px solid var(--line);background:#0b0f0e}
   </div>
 </footer>
 
-<script>
-/* ========= Default logo (SVG) =========
-   Used unless admin uploads override slots. */
-const DEFAULT_LOGO = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(
-`<svg width="220" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-  <rect width="500" height="500" fill="#000"/>
-  <text x="50%" y="55%" text-anchor="middle"
-        font-family="Arial, Helvetica, sans-serif"
-        font-size="96" font-weight="bold">
-    <tspan fill="#2E7D32">Cook</tspan>
-    <tspan fill="#C9A227">vibe</tspan>
-  </text>
-</svg>`
-);
+</div><!-- /#appRoot -->
 
+<!-- Subtle Mum note -->
+<div class="mum-note">I love you Mum thank you.</div>
+
+<script>
 const LS={
   role:"cv_role",
   founding:"cv_founding",
   admin:"cv_admin",
+  entered:"cv_entered",
   profile:"cv_profile",
   meals:"cv_meals",
   suggestions:"cv_suggestions",
   logos:"cv_logos",
   adminPhotos:"cv_admin_photos"
 };
-
 const $=id=>document.getElementById(id);
 
 function toast(msg,ok=true){
@@ -473,6 +647,18 @@ function escapeHTML(s){
     .replaceAll("'","&#039;");
 }
 
+/* Show/hide gate vs app */
+function showApp(){
+  $("gate").classList.add("hidden");
+  $("appRoot").classList.remove("hidden");
+  localStorage.setItem(LS.entered,"1");
+}
+function showGate(){
+  $("appRoot").classList.add("hidden");
+  $("gate").classList.remove("hidden");
+}
+
+/* Role + UI gates */
 function setRole(role){
   localStorage.setItem(LS.role,role);
 
@@ -480,6 +666,7 @@ function setRole(role){
   $("roleMini").textContent=role;
   $("creatorGate").textContent=role;
   $("pubRole").textContent=role;
+  $("gateRolePill").textContent=role;
 
   const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
   $("suggestionTile").classList.toggle("hidden",!isCreator);
@@ -511,19 +698,52 @@ function applyAccessCode(codeRaw){
     role==="creator" ? "✅ Creator mode enabled." :
     "Viewer mode.";
 
-  toast("Access applied ✅");
+  toast("Access granted ✅");
   renderAll();
-  location.hash = (role==="admin") ? "#admin" : "#studio";
+
+  // ✅ This is the key: Access page -> fully functional app
+  showApp();
+
+  // ✅ Route to correct functional section
+  if(role==="admin"){
+    location.hash="#admin";
+  }else if(role==="creator"||role==="founder_creator"){
+    location.hash="#studio";
+    setTimeout(()=>{ const el=$("cName"); if(el) el.focus(); }, 150);
+  }else{
+    location.hash="#public";
+  }
 }
 
-$("loginBtn").addEventListener("click",()=>applyAccessCode($("codeInput").value));
+/* Gate buttons */
+$("gateEnterBtn").addEventListener("click",()=>{
+  const code=$("gateCode").value;
+  $("codeInput").value=code;
+  applyAccessCode(code);
+});
+$("gateViewerBtn").addEventListener("click",()=>{
+  $("gateCode").value="";
+  $("codeInput").value="";
+  applyAccessCode("");
+});
+$("gateCode").addEventListener("keydown",(e)=>{
+  if(e.key==="Enter") $("gateEnterBtn").click();
+});
 
+/* Join buttons (inside app) */
+$("loginBtn").addEventListener("click",()=>applyAccessCode($("codeInput").value));
+$("codeInput").addEventListener("keydown",(e)=>{
+  if(e.key==="Enter") applyAccessCode($("codeInput").value);
+});
+
+/* Copy link */
 $("copyLink").addEventListener("click",async()=>{
   const url=window.location.origin+window.location.pathname+"#join";
   try{ await navigator.clipboard.writeText(url); toast("Link copied ✅"); }
   catch{ toast("Copy failed — copy URL manually.",false); }
 });
 
+/* Reset */
 $("resetBtn").addEventListener("click",()=>{
   if(!confirm("Reset demo data on this device?")) return;
   Object.values(LS).forEach(k=>localStorage.removeItem(k));
@@ -564,7 +784,6 @@ async function fileToOptimizedDataURL(file,maxW=1280,quality=0.82){
   try{ URL.revokeObjectURL(img.src); }catch{}
   return dataUrl;
 }
-
 async function addOptimizedImages({files,storageKey,statusEl,renderFn}){
   if(!files || files.length===0){ toast("Pick photos first.",false); return; }
   const arr=safeJSON(storageKey,[]);
@@ -630,7 +849,6 @@ $("adminUploadBtn").addEventListener("click",async()=>{
   });
   $("adminPhotoInput").value="";
 });
-
 function renderAdminPhotos(){
   const arr=safeJSON(LS.adminPhotos,[]);
   const g=$("adminGallery");
@@ -687,7 +905,6 @@ function renderVideosStudio(){
     renderVideosStudio(); renderVideosPublic();
   }));
 }
-
 function renderVideosPublic(){
   $("pubVidCount").textContent=String(sessionVideos.length);
   const pub=$("pubVids");
@@ -726,12 +943,10 @@ $("sendSuggestionBtn").addEventListener("click",()=>{
   $("suggestionStatus").textContent="✅ Saved locally";
   toast("Suggestion saved ✅");
 });
-
 $("viewSuggestionLogBtn").addEventListener("click",()=>{
   $("suggestionLog").classList.toggle("hidden");
   renderSuggestions();
 });
-
 function renderSuggestions(){
   const arr=safeJSON(LS.suggestions,[]);
   const box=$("suggestionLog");
@@ -745,30 +960,22 @@ function renderSuggestions(){
 }
 
 /* ========= Logos (4 slots) ========= */
-function setLogoUI(src,imgEl){
-  imgEl.src = src || DEFAULT_LOGO;
+function setLogoUI(src,fallbackSpan,imgEl){
+  if(src){
+    fallbackSpan.style.display="none";
+    imgEl.style.display="block";
+    imgEl.src=src;
+  }else{
+    imgEl.style.display="none";
+    imgEl.removeAttribute("src");
+    fallbackSpan.style.display="inline";
+  }
 }
-
 function renderLogosToUI(){
   const logos=safeJSON(LS.logos,[null,null,null,null]);
-
-  // Header logo: slot 1 or default
-  $("logoHeaderFB").style.display="none";
-  $("logoHeaderImg").style.display="block";
-  setLogoUI(logos[0],$("logoHeaderImg"));
-
-  // Hero logo: slot 2 or default
-  setLogoUI(logos[1],$("logoHeroImg"));
-
-  // Public profile logo: use slot 1 or default (consistent branding)
-  setLogoUI(logos[0] || null,$("pubLogoImg"));
-
-  // Footer logo: slot 3 or default
-  $("logoFooterFB").style.display="none";
-  $("logoFooterImg").style.display="block";
-  setLogoUI(logos[2],$("logoFooterImg"));
-
-  // Watermark: slot 4 only (otherwise hidden)
+  setLogoUI(logos[0],$("logoHeaderFB"),$("logoHeaderImg"));
+  setLogoUI(logos[1],$("logoHeroFB"),$("logoHeroImg"));
+  setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
   const wm=$("wm");
   if(logos[3]){
     $("wmImg").src=logos[3];
@@ -778,7 +985,6 @@ function renderLogosToUI(){
     $("wmImg").removeAttribute("src");
   }
 }
-
 $("saveLogosBtn").addEventListener("click",async()=>{
   const files=[
     $("logo1").files?.[0],
@@ -796,7 +1002,6 @@ $("saveLogosBtn").addEventListener("click",async()=>{
   toast("Logos saved ✅");
   renderLogosToUI();
 });
-
 $("clearLogosBtn").addEventListener("click",()=>{
   localStorage.setItem(LS.logos,JSON.stringify([null,null,null,null]));
   toast("Logos cleared ✅");
@@ -807,7 +1012,12 @@ $("clearLogosBtn").addEventListener("click",()=>{
 function renderPublic(){
   const p=safeJSON(LS.profile,{});
   $("pubName").textContent=p.name||"Creator Name";
-  $("pubMeta").textContent=`${p.country||"Country"} • ${p.handle||"@handle"}`;
+
+  // Country + emoji flag (Stage 2 locked: emoji flags)
+  const countryText = p.country ? p.country : "Country";
+  const handleText = p.handle ? p.handle : "@handle";
+  $("pubMeta").textContent=`${countryText} • ${handleText}`;
+
   $("pubBio").textContent=p.bio||"Save a profile to populate this page.";
 
   const role=localStorage.getItem(LS.role)||"viewer";
@@ -820,7 +1030,6 @@ function renderPublic(){
   renderVideosPublic();
   renderLogosToUI();
 }
-
 function renderAll(){
   renderPublic();
   renderVideosStudio();
@@ -830,7 +1039,7 @@ function renderAll(){
 
 /* ========= Init ========= */
 (function init(){
-  // restore role
+  // restore role flags
   let role=localStorage.getItem(LS.role)||"viewer";
   if(localStorage.getItem(LS.admin)==="1") role="admin";
   if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
@@ -843,8 +1052,17 @@ function renderAll(){
   $("cCountry").value=p.country||"";
   $("cBio").value=p.bio||"";
 
-  // initial render
   renderAll();
+  renderLogosToUI();
+
+  // If they already entered before on this device, go straight to app
+  if(localStorage.getItem(LS.entered)==="1"){
+    showApp();
+    // If a hash exists, keep it, otherwise sensible default
+    if(!location.hash) location.hash = (role==="admin") ? "#admin" : "#studio";
+  } else {
+    showGate();
+  }
 })();
 </script>
 
