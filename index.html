@@ -1,408 +1,283 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>CookVibe • Access</title>
-  <meta http-equiv="Cache-Control" content="no-store"/>
-  <meta name="theme-color" content="#ffb44a"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CookVibe • Access</title>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta name="theme-color" content="#ffffff"/>
+<style>
+:root{
+  --text:#101418;
+  --muted:#5a6b65;
+  --line:rgba(0,0,0,.10);
+  --g:#1fbf7a;
+  --y:#d9b75f;
+  --sh:0 14px 34px rgba(0,0,0,.10);
+  --sh2:0 10px 26px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.14), transparent 60%),
+    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),
+    linear-gradient(180deg,#fff 0%, #fffdf7 40%, #ffffff 100%);
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 64px}
+.card{
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:var(--sh);
+  margin-top:16px
+}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.rowL{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.pill{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.9);
+  color:var(--muted);font-size:12px;font-weight:900
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
+  font-weight:950;font-size:13px;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  color:#000;user-select:none;
+  box-shadow:var(--sh2)
+}
+.btn.ghost{background:#fff;color:var(--text);border:1px solid var(--line);box-shadow:none}
+input{
+  width:100%;background:#fff;color:var(--text);
+  border:1px solid var(--line);border-radius:12px;
+  padding:11px 12px;font:inherit;outline:none
+}
+.smalltxt{font-size:12px;color:var(--muted);line-height:1.55}
+.muted{color:var(--muted)}
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;
+  max-width:min(560px,92vw);
+  border-radius:14px;padding:12px 14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.96);box-shadow:var(--sh);display:none
+}
+.toast.show{display:block}
+.toast.ok{border-color:rgba(31,191,122,.45);background:rgba(31,191,122,.10)}
+.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
 
-  <style>
-    :root{
-      --g:#1fbf7a;       /* CookVibe green */
-      --y:#d9b75f;       /* CookVibe gold  */
-      --ink:#0b0f0e;
-      --card:rgba(255,255,255,.86);
-      --line:rgba(0,0,0,.10);
-      --muted:#4a5a56;
-      --sh:0 18px 44px rgba(0,0,0,.18);
-      --r:22px;
-    }
+.hero{
+  border-radius:22px;
+  padding:18px;
+  background:
+    linear-gradient(180deg, rgba(255,246,230,.95) 0%, rgba(255,255,255,.92) 65%),
+    radial-gradient(900px 520px at 12% 0%, rgba(31,191,122,.18), transparent 58%),
+    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.16), transparent 58%);
+  border:1px solid var(--line);
+  box-shadow:var(--sh);
+}
+.logoInline{width:200px;height:auto;display:block}
+.collage{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.collage img{
+  width:100%;
+  height:138px;
+  object-fit:cover;
+  border-radius:16px;
+  border:1px solid var(--line);
+  box-shadow:var(--sh2);
+  background:#fff;
+}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-      color:var(--ink);
-      overflow-x:hidden;
-
-      /* Bright, joyful global “food” gradient */
-      background:
-        radial-gradient(900px 600px at 12% 10%, rgba(255, 195, 0, .42), transparent 65%),
-        radial-gradient(900px 600px at 88% 12%, rgba(0, 194, 255, .30), transparent 60%),
-        radial-gradient(800px 620px at 18% 92%, rgba(31, 191, 122, .28), transparent 62%),
-        radial-gradient(820px 620px at 86% 92%, rgba(255, 99, 132, .24), transparent 62%),
-        linear-gradient(180deg, #fff3d6 0%, #ffffff 55%, #f7fbff 100%);
-    }
-
-    a{color:inherit;text-decoration:none}
-
-    .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 74px}
-
-    /* Top bar */
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      padding:12px 14px;
-      border:1px solid rgba(255,255,255,.45);
-      background:rgba(255,255,255,.55);
-      backdrop-filter: blur(10px);
-      border-radius:18px;
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:0}
-    .logo{
-      width:52px;height:52px;border-radius:16px;
-      background:#0b0f0e;
-      display:grid;place-items:center;
-      overflow:hidden;
-      border:1px solid rgba(0,0,0,.16);
-    }
-    .brandtxt{min-width:0}
-    .brandname{font-weight:1000;letter-spacing:.2px}
-    .brandtag{font-size:12px;color:rgba(0,0,0,.55);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70vw}
-
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:10px 14px;border-radius:14px;border:0;cursor:pointer;
-      font-weight:950;font-size:13px;
-      background:linear-gradient(135deg,var(--g),var(--y));
-      color:#000;
-      box-shadow:0 10px 18px rgba(0,0,0,.12);
-      user-select:none;
-    }
-    .btn.ghost{
-      background:rgba(255,255,255,.65);
-      border:1px solid rgba(0,0,0,.10);
-      color:#0b0f0e;
-      box-shadow:none;
-    }
-
-    /* Hero */
-    .hero{margin-top:18px;display:grid;gap:16px;grid-template-columns:1.05fr .95fr}
-    @media(max-width:980px){.hero{grid-template-columns:1fr}}
-
-    .card{
-      border-radius:var(--r);
-      background:var(--card);
-      border:1px solid rgba(255,255,255,.6);
-      box-shadow:var(--sh);
-      padding:18px;
-    }
-
-    .headline{font-size:34px;line-height:1.05;margin:0;font-weight:1000}
-    .sub{
-      margin:10px 0 0;
-      color:rgba(0,0,0,.62);
-      line-height:1.55;
-      font-size:15px;
-    }
-
-    .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 10px;border-radius:999px;
-      border:1px solid rgba(0,0,0,.10);
-      background:rgba(255,255,255,.70);
-      font-size:12px;font-weight:950;color:rgba(0,0,0,.70)
-    }
-    .dot{
-      width:9px;height:9px;border-radius:99px;background:linear-gradient(135deg,var(--g),var(--y));
-      box-shadow:0 0 0 3px rgba(31,191,122,.15);
-    }
-
-    /* Access module */
-    .accessTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    .accessTitle h2{margin:0;font-size:16px;font-weight:1000}
-    .mini{font-size:12px;color:rgba(0,0,0,.55);font-weight:800}
-
-    input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(0,0,0,.12);
-      background:rgba(255,255,255,.82);
-      outline:none;
-      font:inherit;
-    }
-
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
-
-    .note{
-      margin-top:10px;
-      font-size:12px;
-      color:rgba(0,0,0,.55);
-      line-height:1.45;
-    }
-
-    /* Collage */
-    .collage{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:10px;
-    }
-    @media(max-width:560px){.collage{grid-template-columns:repeat(2, 1fr)}}
-    .img{
-      width:100%;height:152px;border-radius:18px;
-      object-fit:cover;
-      border:1px solid rgba(0,0,0,.10);
-      box-shadow:0 10px 18px rgba(0,0,0,.10);
-      background:#fff;
-    }
-
-    /* Bottom strip */
-    .strip{
-      margin-top:16px;
-      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      padding:14px 16px;
-      border-radius:18px;
-      background:rgba(255,255,255,.55);
-      border:1px solid rgba(255,255,255,.55);
-      backdrop-filter: blur(10px);
-    }
-    .strip strong{font-weight:1000}
-    .strip span{color:rgba(0,0,0,.62);font-size:13px;line-height:1.45}
-
-    /* Tiny subtle Mum note (desktop only) */
-    .mum-note{
-      position:fixed;
-      right:12px;
-      bottom:10px;
-      font-size:11px;
-      opacity:0.14;
-      pointer-events:none;
-      letter-spacing:.2px;
-    }
-    @media (max-width: 1200px){
-      .mum-note{ display:none; }
-    }
-
-    /* Toast */
-    .toast{
-      position:fixed;left:50%;transform:translateX(-50%);
-      bottom:16px;z-index:9999;
-      max-width:min(620px,92vw);
-      background:rgba(11,15,14,.92);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:14px;
-      padding:12px 14px;
-      box-shadow:0 14px 38px rgba(0,0,0,.25);
-      display:none;
-      font-weight:800;
-    }
-    .toast.show{display:block}
-  </style>
+/* subtle mum note (desktop only) */
+.mum-note{
+  position:fixed;right:12px;bottom:10px;font-size:11px;opacity:0.14;pointer-events:none;
+}
+@media (max-width:1200px){ .mum-note{display:none;} }
+</style>
 </head>
 
 <body>
-  <div class="wrap" id="top">
+<div class="toast" id="toast"></div>
 
-    <!-- TOP BAR -->
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo" aria-label="CookVibe Logo">
-          <!-- Inline SVG logo (no uploads needed) -->
-          <svg width="220" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CookVibe">
-            <rect width="500" height="500" fill="#000"/>
-            <text x="50%" y="55%" text-anchor="middle"
-                  font-family="Arial, Helvetica, sans-serif"
-                  font-size="96" font-weight="bold">
-              <tspan fill="#2E7D32">Cook</tspan>
-              <tspan fill="#C9A227">vibe</tspan>
-            </text>
-          </svg>
-        </div>
-        <div class="brandtxt">
-          <div class="brandname">CookVibe</div>
-          <div class="brandtag">Global cooking • creator-first • earn more as your audience engages</div>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="row">
+      <div class="rowL">
+        <!-- Logo (always loads) -->
+        <svg class="logoInline" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CookVibe">
+          <defs>
+            <linearGradient id="cvGrad" x1="0" x2="1">
+              <stop offset="0" stop-color="#1fbf7a"/>
+              <stop offset="1" stop-color="#d9b75f"/>
+            </linearGradient>
+          </defs>
+          <rect width="500" height="150" rx="24" fill="rgba(255,255,255,.65)"/>
+          <text x="50%" y="58%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900">
+            <tspan fill="#2E7D32">Cook</tspan><tspan fill="#C9A227">vibe</tspan>
+          </text>
+          <rect x="24" y="24" width="452" height="102" rx="20" fill="none" stroke="url(#cvGrad)" stroke-width="3" opacity=".55"/>
+        </svg>
+
+        <div>
+          <h1 style="margin:0;font-size:26px;font-weight:1000">CookVibe demo is live — help shape it.</h1>
+          <div class="muted" style="margin-top:6px;line-height:1.45">
+            Early access for creators and regular cooks worldwide. Enter a code to unlock the full demo.
+          </div>
         </div>
       </div>
 
-      <div class="row" style="margin-top:0">
-        <button class="btn ghost" id="copyLink" type="button">Copy Access Link</button>
-        <a class="btn" href="#access">Enter Access Code</a>
-      </div>
+      <span class="pill" id="rolePill">viewer</span>
     </div>
 
-    <!-- HERO -->
-    <div class="hero">
-      <div class="card">
-        <h1 class="headline">Cook. Share culture. <span style="background:linear-gradient(135deg,var(--g),var(--y));-webkit-background-clip:text;background-clip:text;color:transparent;">Earn.</span></h1>
-        <p class="sub">
-          CookVibe is a global cooking community where creators post recipes, videos, and go live —
-          and the more interaction they generate, the more income they can earn.
-        </p>
+    <div class="collage" aria-label="Global food collage">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60" alt="Global food">
+      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60" alt="People sharing food">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60" alt="Home cooking">
+      <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=900&q=60" alt="Family meal">
+      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=60" alt="International cuisine">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60" alt="Healthy dishes">
+      <!-- Seafood -->
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60" alt="Seafood dish">
+    </div>
+  </section>
 
-        <div class="pillrow">
-          <div class="pill"><span class="dot"></span> International-first</div>
-          <div class="pill"><span class="dot"></span> Videos + meal photos</div>
-          <div class="pill"><span class="dot"></span> Creator-first payouts (later stages)</div>
-          <div class="pill"><span class="dot"></span> Safe + moderated growth</div>
-        </div>
-
-        <div class="strip" style="margin-top:16px">
-          <div>
-            <strong>Creators</strong><br/>
-            <span>Build your page, upload, get feedback in early.</span>
-          </div>
-          <div>
-            <strong>Viewers</strong><br/>
-            <span>Discover food from around the world — then become a creator.</span>
-          </div>
-          <div>
-            <strong>Core Circle</strong><br/>
-            <span>Early insiders who helped shape CookVibe.</span>
-          </div>
-        </div>
-
-        <!-- ACCESS -->
-        <div id="access" class="card" style="margin-top:16px;background:rgba(255,255,255,.78);border:1px solid rgba(0,0,0,.10)">
-          <div class="accessTitle">
-            <h2>Enter access code</h2>
-            <div class="mini" id="modePill">Mode: viewer</div>
-          </div>
-
-          <div style="margin-top:10px">
-            <input id="code" placeholder="Enter code (e.g., CORECIRCLE or ADMIN)" autocomplete="off" />
-          </div>
-
-          <div class="row">
-            <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
-            <button class="btn ghost" id="clearBtn" type="button">Clear</button>
-          </div>
-
-          <div class="note" id="note">
-            <strong>Codes:</strong>
-            <strong>ADMIN</strong> = Admin tools • <strong>CORECIRCLE</strong> = Core Circle creator • Any other code = Creator • Blank = Viewer.
-            <br/>
-            You’ll be taken into the fully functional platform page (<strong>app.html</strong>) after entry.
-          </div>
-        </div>
-      </div>
-
-      <!-- GLOBAL COLLAGE -->
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <div style="font-weight:1000">Global food + people</div>
-          <div class="mini">Bright • welcoming • international</div>
-        </div>
-
-        <div class="collage" style="margin-top:12px">
-          <!-- NOTE: Unsplash allows hotlinking; these are curated to show global food + people together -->
-          <img class="img" alt="International meal spread" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=70"/>
-          <img class="img" alt="People sharing food together" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=70"/>
-          <img class="img" alt="Vibrant street food" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=70"/>
-          <img class="img" alt="Family enjoying dinner" src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=1200&q=70"/>
-          <img class="img" alt="International cuisine plating" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1200&q=70"/>
-          <img class="img" alt="Healthy colorful dishes" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=70"/>
-        </div>
-
-        <div class="strip" style="margin-top:14px">
-          <div>
-            <strong>Stage 1</strong><br/>
-            <span>Workflow + creator feedback.</span>
-          </div>
-          <div>
-            <strong>Stage 2</strong><br/>
-            <span>Accounts + payouts + live tooling.</span>
-          </div>
-          <div>
-            <strong>Global</strong><br/>
-            <span>Country visibility + culture-first.</span>
-          </div>
-        </div>
-      </div>
+  <section class="card">
+    <div class="row">
+      <strong>Access Code</strong>
+      <span class="pill" id="roleMini">viewer</span>
     </div>
 
-  </div>
+    <div class="smalltxt" style="margin-top:8px">
+      <strong>FOUNDING20</strong> = Founding Creator • <strong>ADMIN</strong> = Admin • Any other code = Creator • Blank = Viewer
+    </div>
 
-  <!-- Subtle easter egg for Mum (desktop only) -->
-  <div class="mum-note">I love you Mum thank you.</div>
+    <div style="margin-top:10px">
+      <input id="codeInput" placeholder="Enter access code (e.g., FOUNDING20)">
+    </div>
 
-  <div class="toast" id="toast"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="enterBtn" type="button">Enter</button>
+      <button class="btn ghost" id="viewBtn" type="button">Continue as Viewer</button>
+    </div>
 
-  <script>
-    // Matches your app.html localStorage keys so the platform opens in the correct mode.
-    const LS = {
-      role: "cv_role",
-      founding: "cv_founding",
-      admin: "cv_admin"
-    };
+    <div class="smalltxt" id="note" style="margin-top:10px"></div>
+  </section>
 
-    const $ = (id) => document.getElementById(id);
+</div>
 
-    function toast(msg){
-      const t = $("toast");
-      t.textContent = msg;
-      t.className = "toast show";
-      setTimeout(()=> t.className = "toast", 2200);
-    }
+<div class="mum-note">I love you Mum thank you.</div>
 
-    function setModeLabel(role){
-      $("modePill").textContent = "Mode: " + role;
-    }
+<script>
+/* ====== index.html: Access Gate + Redirect ====== */
+const LS = {
+  role:"cv_role",
+  founding:"cv_founding",
+  admin:"cv_admin"
+};
+const $=id=>document.getElementById(id);
 
-    function applyCode(raw){
-      const code = (raw || "").trim().toUpperCase();
-      let role = "viewer";
+function toast(msg, ok=true){
+  const t=$("toast");
+  t.className="toast show "+(ok?"ok":"bad");
+  t.textContent=msg;
+  setTimeout(()=>t.className="toast",2200);
+}
 
-      // Reset flags by default
-      localStorage.removeItem(LS.admin);
-      localStorage.removeItem(LS.founding);
+function getRole(){
+  let role = localStorage.getItem(LS.role) || "viewer";
+  if(localStorage.getItem(LS.admin)==="1") role="admin";
+  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
+  return role;
+}
 
-      if(code === "ADMIN"){
-        role = "admin";
-        localStorage.setItem(LS.admin, "1");
-      } else if(code === "CORECIRCLE"){
-        role = "founder_creator";
-        localStorage.setItem(LS.founding, "1");
-      } else if(code){
-        role = "creator";
-      } else {
-        role = "viewer";
-      }
+function setRole(role){
+  localStorage.setItem(LS.role, role);
+  $("rolePill").textContent = role;
+  $("roleMini").textContent = role;
+}
 
-      localStorage.setItem(LS.role, role);
+function applyCode(codeRaw){
+  const code=(codeRaw||"").trim().toUpperCase();
+  let role="viewer";
 
-      // Route into the functional platform (app.html)
-      const targetHash =
-        role === "admin" ? "#admin" :
-        (role === "creator" || role === "founder_creator") ? "#studio" :
-        "#public";
+  if(code==="ADMIN"){
+    role="admin";
+    localStorage.setItem(LS.admin,"1");
+    localStorage.removeItem(LS.founding);
+  }else if(code==="FOUNDING20"){
+    role="founder_creator";
+    localStorage.setItem(LS.founding,"1");
+    localStorage.removeItem(LS.admin);
+  }else if(code){
+    role="creator";
+    localStorage.removeItem(LS.admin);
+    localStorage.removeItem(LS.founding);
+  }else{
+    role="viewer";
+    localStorage.removeItem(LS.admin);
+    localStorage.removeItem(LS.founding);
+  }
 
-      toast("Access granted ✓ Opening CookVibe…");
-      // Small delay so toast feels responsive before redirect
-      setTimeout(()=> {
-        window.location.href = "./app.html" + targetHash;
-      }, 450);
-    }
+  setRole(role);
 
-    $("enterBtn").addEventListener("click", ()=> applyCode($("code").value));
-    $("code").addEventListener("keydown", (e)=> {
-      if(e.key === "Enter") applyCode($("code").value);
-    });
+  $("note").textContent =
+    role==="admin" ? "✅ Admin access saved. Redirecting…" :
+    role==="founder_creator" ? "✅ Founding Creator saved. Redirecting…" :
+    role==="creator" ? "✅ Creator access saved. Redirecting…" :
+    "Viewer mode saved. Redirecting…";
 
-    $("clearBtn").addEventListener("click", ()=> {
-      $("code").value = "";
-      toast("Cleared");
-    });
+  toast("Access applied ✅");
 
-    $("copyLink").addEventListener("click", async ()=>{
-      const url = window.location.origin + window.location.pathname + "#access";
-      try{
-        await navigator.clipboard.writeText(url);
-        toast("Access link copied ✓");
-      }catch{
-        toast("Copy failed — copy manually.");
-      }
-    });
+  // Redirect into the real app
+  if(role==="admin") window.location.href = "./app.html#admin";
+  else if(role==="creator" || role==="founder_creator") window.location.href = "./app.html#studio";
+  else window.location.href = "./app.html#access";
+}
 
-    // On load, reflect current mode if already set
-    (function init(){
-      const role = localStorage.getItem(LS.role) || "viewer";
-      setModeLabel(role);
-    })();
-  </script>
+/* Buttons */
+$("enterBtn").addEventListener("click", ()=>applyCode($("codeInput").value));
+$("viewBtn").addEventListener("click", ()=>applyCode(""));
+
+/* Auto-skip access for creator/admin */
+(function init(){
+  const role=getRole();
+  setRole(role);
+
+  // If already creator/admin/founding, skip index entirely
+  if(role==="admin") { window.location.replace("./app.html#admin"); return; }
+  if(role==="creator" || role==="founder_creator") { window.location.replace("./app.html#studio"); return; }
+
+  // Viewer stays here
+})();
+
+/* Fallback if any collage image fails */
+(function collageFallback(){
+  const fallbacks = [
+    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60",
+    "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60"
+  ];
+  document.querySelectorAll(".collage img").forEach((img, idx)=>{
+    img.addEventListener("error", ()=>{
+      const next = fallbacks[(idx+1) % fallbacks.length];
+      if(img.src !== next) img.src = next;
+    }, {once:true});
+  });
+})();
+</script>
 </body>
 </html>
