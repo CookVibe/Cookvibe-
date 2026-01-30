@@ -5,279 +5,252 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>CookVibe • Access</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
-<meta name="theme-color" content="#ffffff"/>
+
 <style>
 :root{
-  --text:#101418;
-  --muted:#5a6b65;
-  --line:rgba(0,0,0,.10);
-  --g:#1fbf7a;
-  --y:#d9b75f;
-  --sh:0 14px 34px rgba(0,0,0,.10);
-  --sh2:0 10px 26px rgba(0,0,0,.08);
+  --green:#1fbf7a;
+  --gold:#d9b75f;
+  --ink:#1a1a1a;
+  --muted:#555;
+  --card:rgba(255,255,255,.94);
+  --shadow:0 18px 60px rgba(0,0,0,.18);
 }
 *{box-sizing:border-box}
-html,body{height:100%}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  color:var(--text);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
   background:
-    radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.14), transparent 60%),
-    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.14), transparent 60%),
-    linear-gradient(180deg,#fff 0%, #fffdf7 40%, #ffffff 100%);
+    radial-gradient(900px 500px at 10% 0%, rgba(31,191,122,.25), transparent 60%),
+    radial-gradient(900px 500px at 90% 0%, rgba(217,183,95,.25), transparent 60%),
+    linear-gradient(180deg,#fff4e6 0%, #f7fff9 40%, #eef6ff 100%);
 }
-a{color:inherit;text-decoration:none}
-.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 64px}
 .card{
-  background:rgba(255,255,255,.96);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:16px;
-  box-shadow:var(--sh);
-  margin-top:16px
+  width:min(900px,96vw);
+  background:var(--card);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  padding:22px;
 }
-.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.rowL{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-.pill{
-  display:inline-flex;gap:8px;align-items:center;
-  padding:6px 10px;border-radius:999px;border:1px solid var(--line);
-  background:rgba(255,255,255,.9);
-  color:var(--muted);font-size:12px;font-weight:900
+.top{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
 }
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
-  font-weight:950;font-size:13px;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000;user-select:none;
-  box-shadow:var(--sh2)
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
 }
-.btn.ghost{background:#fff;color:var(--text);border:1px solid var(--line);box-shadow:none}
-input{
-  width:100%;background:#fff;color:var(--text);
-  border:1px solid var(--line);border-radius:12px;
-  padding:11px 12px;font:inherit;outline:none
+.logo{
+  width:56px;height:56px;
+  border-radius:16px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
 }
-.smalltxt{font-size:12px;color:var(--muted);line-height:1.55}
-.muted{color:var(--muted)}
-.toast{
-  position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;
-  max-width:min(560px,92vw);
-  border-radius:14px;padding:12px 14px;border:1px solid var(--line);
-  background:rgba(255,255,255,.96);box-shadow:var(--sh);display:none
+.brand h1{
+  margin:0;
+  font-size:24px;
+  font-weight:900;
 }
-.toast.show{display:block}
-.toast.ok{border-color:rgba(31,191,122,.45);background:rgba(31,191,122,.10)}
-.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
-
-.hero{
-  border-radius:22px;
-  padding:18px;
-  background:
-    linear-gradient(180deg, rgba(255,246,230,.95) 0%, rgba(255,255,255,.92) 65%),
-    radial-gradient(900px 520px at 12% 0%, rgba(31,191,122,.18), transparent 58%),
-    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.16), transparent 58%);
-  border:1px solid var(--line);
-  box-shadow:var(--sh);
+.brand p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:14px;
 }
-.logoInline{width:200px;height:auto;display:block}
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.badge{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+}
 .collage{
+  margin-top:16px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
   gap:12px;
-  margin-top:14px;
 }
 .collage img{
   width:100%;
-  height:138px;
+  height:120px;
   object-fit:cover;
   border-radius:16px;
-  border:1px solid var(--line);
-  box-shadow:var(--sh2);
+}
+.form{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+}
+@media(max-width:640px){
+  .form{grid-template-columns:1fr}
+}
+input{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.2);
+  font-size:15px;
+}
+button{
+  padding:14px 16px;
+  border-radius:14px;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+}
+.primary{
+  background:linear-gradient(135deg,var(--green),var(--gold));
+  color:#000;
+}
+.secondary{
   background:#fff;
+  border:1px solid rgba(0,0,0,.15);
 }
+.note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.toast{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:14px;
+  background:#fff;
+  padding:10px 14px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  display:none;
+  font-weight:800;
+}
+.toast.show{display:block}
 
-/* subtle mum note (desktop only) */
+/* Mum easter egg */
 .mum-note{
-  position:fixed;right:12px;bottom:10px;font-size:11px;opacity:0.14;pointer-events:none;
+  position:fixed;
+  right:12px;
+  bottom:10px;
+  font-size:11px;
+  opacity:0.15;
+  pointer-events:none;
 }
-@media (max-width:1200px){ .mum-note{display:none;} }
+@media(max-width:1200px){
+  .mum-note{display:none}
+}
 </style>
 </head>
 
 <body>
 <div class="toast" id="toast"></div>
 
-<div class="wrap">
-
-  <section class="hero">
-    <div class="row">
-      <div class="rowL">
-        <!-- Logo (always loads) -->
-        <svg class="logoInline" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CookVibe">
-          <defs>
-            <linearGradient id="cvGrad" x1="0" x2="1">
-              <stop offset="0" stop-color="#1fbf7a"/>
-              <stop offset="1" stop-color="#d9b75f"/>
-            </linearGradient>
-          </defs>
-          <rect width="500" height="150" rx="24" fill="rgba(255,255,255,.65)"/>
-          <text x="50%" y="58%" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="900">
-            <tspan fill="#2E7D32">Cook</tspan><tspan fill="#C9A227">vibe</tspan>
+<div class="card">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">
+        <!-- Inline SVG logo (always loads) -->
+        <svg width="44" height="44" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <rect width="500" height="500" fill="#fff"/>
+          <text x="50%" y="55%" text-anchor="middle"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="140" font-weight="bold">
+            <tspan fill="#2E7D32">Cook</tspan>
+            <tspan fill="#C9A227">vibe</tspan>
           </text>
-          <rect x="24" y="24" width="452" height="102" rx="20" fill="none" stroke="url(#cvGrad)" stroke-width="3" opacity=".55"/>
         </svg>
-
-        <div>
-          <h1 style="margin:0;font-size:26px;font-weight:1000">CookVibe demo is live — help shape it.</h1>
-          <div class="muted" style="margin-top:6px;line-height:1.45">
-            Early access for creators and regular cooks worldwide. Enter a code to unlock the full demo.
-          </div>
-        </div>
       </div>
-
-      <span class="pill" id="rolePill">viewer</span>
+      <div>
+        <h1>CookVibe</h1>
+        <p>CookVibe demo is live — help shape it.</p>
+      </div>
     </div>
 
-    <div class="collage" aria-label="Global food collage">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60" alt="Global food">
-      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60" alt="People sharing food">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60" alt="Home cooking">
-      <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=900&q=60" alt="Family meal">
-      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=60" alt="International cuisine">
-      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60" alt="Healthy dishes">
-      <!-- Seafood -->
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60" alt="Seafood dish">
+    <div class="badges">
+      <span class="badge">🌍 Global food culture</span>
+      <span class="badge">📸 Meals & 🎥 Videos</span>
+      <span class="badge">🧪 Stage 1 demo</span>
     </div>
-  </section>
+  </div>
 
-  <section class="card">
-    <div class="row">
-      <strong>Access Code</strong>
-      <span class="pill" id="roleMini">viewer</span>
-    </div>
+  <!-- Global food + people collage -->
+  <div class="collage">
+    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=70">
+    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=70">
+    <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70">
+    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=70">
+  </div>
 
-    <div class="smalltxt" style="margin-top:8px">
-      <strong>FOUNDING20</strong> = Founding Creator • <strong>ADMIN</strong> = Admin • Any other code = Creator • Blank = Viewer
-    </div>
+  <div class="form">
+    <input id="code" placeholder="Enter access code (FOUNDING20 / ADMIN / creator code)">
+    <button class="primary" id="enter">Enter CookVibe</button>
+  </div>
 
-    <div style="margin-top:10px">
-      <input id="codeInput" placeholder="Enter access code (e.g., FOUNDING20)">
-    </div>
+  <div class="form">
+    <button class="secondary" id="viewer">Continue as Viewer</button>
+    <button class="secondary" id="reset">Reset Access</button>
+  </div>
 
-    <div class="row" style="margin-top:10px">
-      <button class="btn" id="enterBtn" type="button">Enter</button>
-      <button class="btn ghost" id="viewBtn" type="button">Continue as Viewer</button>
-    </div>
-
-    <div class="smalltxt" id="note" style="margin-top:10px"></div>
-  </section>
-
+  <div class="note">
+    FOUNDING20 = Founding Creator • ADMIN = Admin • Any other code = Creator
+  </div>
 </div>
 
 <div class="mum-note">I love you Mum thank you.</div>
 
 <script>
-/* ====== index.html: Access Gate + Redirect ====== */
-const LS = {
-  role:"cv_role",
-  founding:"cv_founding",
-  admin:"cv_admin"
+const LS={role:"cv_role",admin:"cv_admin",founding:"cv_founding"};
+const toast=(m)=>{const t=document.getElementById("toast");t.textContent=m;t.className="toast show";setTimeout(()=>t.className="toast",1800);};
+
+(function autoSkip(){
+  let r=localStorage.getItem(LS.role)||"viewer";
+  if(localStorage.getItem(LS.admin)==="1") r="admin";
+  if(localStorage.getItem(LS.founding)==="1") r="founder_creator";
+  if(r!=="viewer"){ location.href="app.html#studio"; }
+})();
+
+function applyCode(raw){
+  const c=(raw||"").trim().toUpperCase();
+  let r="viewer";
+  if(c==="ADMIN"){r="admin";localStorage.setItem(LS.admin,"1");localStorage.removeItem(LS.founding);}
+  else if(c==="FOUNDING20"){r="founder_creator";localStorage.setItem(LS.founding,"1");localStorage.removeItem(LS.admin);}
+  else if(c){r="creator";localStorage.removeItem(LS.admin);localStorage.removeItem(LS.founding);}
+  else{localStorage.removeItem(LS.admin);localStorage.removeItem(LS.founding);}
+  localStorage.setItem(LS.role,r);
+  return r;
+}
+
+document.getElementById("enter").onclick=()=>{
+  const r=applyCode(document.getElementById("code").value);
+  toast("Access granted");
+  location.href = r==="viewer" ? "app.html#earn" : "app.html#studio";
 };
-const $=id=>document.getElementById(id);
 
-function toast(msg, ok=true){
-  const t=$("toast");
-  t.className="toast show "+(ok?"ok":"bad");
-  t.textContent=msg;
-  setTimeout(()=>t.className="toast",2200);
-}
+document.getElementById("viewer").onclick=()=>{
+  applyCode("");
+  toast("Viewer mode");
+  location.href="app.html#earn";
+};
 
-function getRole(){
-  let role = localStorage.getItem(LS.role) || "viewer";
-  if(localStorage.getItem(LS.admin)==="1") role="admin";
-  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
-  return role;
-}
-
-function setRole(role){
-  localStorage.setItem(LS.role, role);
-  $("rolePill").textContent = role;
-  $("roleMini").textContent = role;
-}
-
-function applyCode(codeRaw){
-  const code=(codeRaw||"").trim().toUpperCase();
-  let role="viewer";
-
-  if(code==="ADMIN"){
-    role="admin";
-    localStorage.setItem(LS.admin,"1");
-    localStorage.removeItem(LS.founding);
-  }else if(code==="FOUNDING20"){
-    role="founder_creator";
-    localStorage.setItem(LS.founding,"1");
-    localStorage.removeItem(LS.admin);
-  }else if(code){
-    role="creator";
-    localStorage.removeItem(LS.admin);
-    localStorage.removeItem(LS.founding);
-  }else{
-    role="viewer";
-    localStorage.removeItem(LS.admin);
-    localStorage.removeItem(LS.founding);
-  }
-
-  setRole(role);
-
-  $("note").textContent =
-    role==="admin" ? "✅ Admin access saved. Redirecting…" :
-    role==="founder_creator" ? "✅ Founding Creator saved. Redirecting…" :
-    role==="creator" ? "✅ Creator access saved. Redirecting…" :
-    "Viewer mode saved. Redirecting…";
-
-  toast("Access applied ✅");
-
-  // Redirect into the real app
-  if(role==="admin") window.location.href = "./app.html#admin";
-  else if(role==="creator" || role==="founder_creator") window.location.href = "./app.html#studio";
-  else window.location.href = "./app.html#access";
-}
-
-/* Buttons */
-$("enterBtn").addEventListener("click", ()=>applyCode($("codeInput").value));
-$("viewBtn").addEventListener("click", ()=>applyCode(""));
-
-/* Auto-skip access for creator/admin */
-(function init(){
-  const role=getRole();
-  setRole(role);
-
-  // If already creator/admin/founding, skip index entirely
-  if(role==="admin") { window.location.replace("./app.html#admin"); return; }
-  if(role==="creator" || role==="founder_creator") { window.location.replace("./app.html#studio"); return; }
-
-  // Viewer stays here
-})();
-
-/* Fallback if any collage image fails */
-(function collageFallback(){
-  const fallbacks = [
-    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60",
-    "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60",
-    "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60",
-    "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=60",
-    "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60",
-    "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60"
-  ];
-  document.querySelectorAll(".collage img").forEach((img, idx)=>{
-    img.addEventListener("error", ()=>{
-      const next = fallbacks[(idx+1) % fallbacks.length];
-      if(img.src !== next) img.src = next;
-    }, {once:true});
-  });
-})();
+document.getElementById("reset").onclick=()=>{
+  Object.values(LS).forEach(k=>localStorage.removeItem(k));
+  toast("Access reset");
+};
 </script>
 </body>
 </html>
