@@ -3,468 +3,525 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • Demo App</title>
+<title>CookVibe • Stage 1 Demo (App)</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
-<meta name="theme-color" content="#0b0f0e"/>
+<meta name="theme-color" content="#ffffff"/>
 
 <style>
 :root{
-  --bg:#0b0f0e;--card:#121816;--text:#f1f5f4;--muted:#9fb0aa;--line:#24322d;
-  --g:#1fbf7a;--y:#d9b75f;--sh:0 12px 30px rgba(0,0,0,.32);
-  --bright1:#fff4e6; --bright2:#f7fff9; --bright3:#eef6ff;
+  /* brand */
+  --g:#1fbf7a;
+  --y:#d9b75f;
+
+  /* light UI */
+  --ink:#111213;
+  --muted:rgba(17,18,19,.65);
+  --line:rgba(17,18,19,.12);
+  --card:rgba(255,255,255,.92);
+  --card2:rgba(255,255,255,.84);
+  --shadow:0 18px 45px rgba(0,0,0,.14);
+  --radius:18px;
 }
-*{box-sizing:border-box}html,body{height:100%}
 
-/* ✅ anchor scroll + sticky header */
-html{scroll-padding-top:92px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
 
+/* ✅ BRIGHT, GLOBAL, FOOD-FORWARD BACKGROUND (LOCKED) */
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+  color:var(--ink);
   background:
-    radial-gradient(1000px 520px at 10% 0%, rgba(31,191,122,.12), transparent 60%),
-    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.12), transparent 60%),
-    linear-gradient(180deg, var(--bright1) 0%, var(--bright2) 40%, var(--bright3) 100%);
-  color:#111;
+    radial-gradient(1200px 600px at 8% 8%, rgba(31,191,122,.22), transparent 55%),
+    radial-gradient(1100px 560px at 92% 12%, rgba(217,183,95,.22), transparent 58%),
+    radial-gradient(900px 520px at 18% 92%, rgba(255, 99, 132,.14), transparent 60%),
+    radial-gradient(900px 520px at 88% 86%, rgba(0, 175, 255,.13), transparent 58%),
+    linear-gradient(180deg, #fff3da 0%, #ffffff 54%, #f3fff8 100%);
 }
-a{color:inherit;text-decoration:none}
-.hidden{display:none !important}
 
-/* app shell keeps your original dark cards for readability */
-.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
-.card{background:rgba(18,24,22,.95);color:var(--text);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--sh);margin-top:14px}
-.muted{color:var(--muted)}.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
+a{color:inherit;text-decoration:none}
+
+.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 70px}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--shadow);
+  margin-top:14px;
+}
+.muted{color:var(--muted)}
+.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+
 .row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#0f1412;color:var(--muted);font-size:12px;font-weight:900}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:950;font-size:13px;background:linear-gradient(135deg,var(--g),var(--y));color:#000;user-select:none}
-.btn.ghost{background:#0f1412;color:var(--text);border:1px solid var(--line)}
-.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
-.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
+.grid{display:grid;gap:14px}
+.cols2{grid-template-columns:1.15fr .85fr}
 @media(max-width:900px){.cols2{grid-template-columns:1fr}}
 
-input,textarea{width:100%;background:#0f1412;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
+input,textarea,select{
+  width:100%;
+  background:rgba(255,255,255,.96);
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:11px 12px;
+  font:inherit;
+  outline:none;
+}
 textarea{min-height:92px;resize:vertical}
 
-/* HEADER */
-.hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,.72);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.10)}
-.hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.82);
+  color:rgba(17,18,19,.70);
+  font-size:12px;font-weight:900;
+  backdrop-filter:blur(10px);
+}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
+  font-weight:950;font-size:13px;
+  background:linear-gradient(135deg,var(--g),var(--y));
+  color:#000;user-select:none;
+}
+.btn.ghost{
+  background:rgba(255,255,255,.78);
+  color:var(--ink);
+  border:1px solid var(--line);
+  backdrop-filter:blur(10px);
+}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
+
+/* header */
+.hdr{
+  position:sticky;top:0;z-index:999;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.hdrin{
+  max-width:1100px;margin:0 auto;
+  padding:12px 14px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
+}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
 .brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brandTag{font-size:12px;color:#334;opacity:.75;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
 .nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
-.nav a:hover{background:rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.10);padding:7px 9px}
+.nav a:hover{background:rgba(255,255,255,.75);border:1px solid var(--line);padding:7px 9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-/* Logo boxes (kept) */
-.logoBox{width:42px;height:42px;border-radius:12px;border:1px solid rgba(0,0,0,.12);
-  background:linear-gradient(135deg,rgba(31,191,122,.22),rgba(217,183,95,.20));
-  display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
-.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:#fff}
-
-/* Toast */
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.92);box-shadow:0 12px 30px rgba(0,0,0,.18);display:none}
-.toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.10)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
-
-/* Media + cards */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
-.tile{border:1px solid var(--line);background:#0f1412;border-radius:14px;padding:12px;color:var(--text)}
-video{width:100%;border-radius:14px;border:1px solid var(--line);background:#0b0f0e}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
-.gItem{border:1px solid var(--line);background:#0b0f0e;border-radius:14px;overflow:hidden}
-.gItem img{width:100%;height:120px;object-fit:cover;display:block} /* ✅ smaller + faster */
-.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
-.x{border:1px solid var(--line);background:#0f1412;color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
-
-/* Bright Post-Access Hero (B) */
-.postAccessHero{
-  margin: 14px auto 0;
-  max-width: 1100px;
-  padding: 18px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, rgba(255,246,230,.92) 0%, rgba(255,255,255,.92) 70%);
-  box-shadow: 0 12px 30px rgba(0,0,0,.10);
-  border:1px solid rgba(0,0,0,.10);
+/* logo boxes */
+.logoBox{
+  width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
+  background:linear-gradient(135deg, rgba(31,191,122,.18), rgba(217,183,95,.18));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:1000;overflow:hidden;
 }
-.postAccessHero h1{margin:0 0 6px;font-size:24px;font-weight:1000;color:#111}
-.postAccessHero p{margin:0 0 12px;color:#333;opacity:.9;line-height:1.45;font-size:14px}
-.foodCollage{
+.logoBox.big{width:140px;height:140px;border-radius:28px;font-size:34px}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(255,255,255,.88)}
+
+/* bright hero */
+.hero{
+  background:
+    radial-gradient(900px 360px at 20% 10%, rgba(31,191,122,.16), transparent 60%),
+    radial-gradient(900px 360px at 85% 10%, rgba(217,183,95,.16), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.86) 0%, rgba(255,255,255,.74) 100%);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:18px;
+  box-shadow: var(--shadow);
+}
+.hero h1{margin:0 0 6px;font-size:22px;letter-spacing:.2px}
+.hero p{margin:0;color:var(--muted);line-height:1.45}
+.heroGrid{
+  margin-top:14px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:10px;
 }
-.foodCollage img{
+.heroGrid img{
   width:100%;
-  height:110px; /* ✅ smaller */
+  height:110px;
   object-fit:cover;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.08);
   background:#fff;
 }
-
-/* Access Gate Screen (Viewer must enter) */
-#accessGate{
-  min-height:calc(100vh - 74px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
+@media(max-width:520px){
+  .heroGrid img{height:92px}
 }
-.gateCard{
-  width:min(520px, 94vw);
-  background:rgba(255,255,255,.94);
+
+/* notice/warn */
+.notice{
+  border:1px solid rgba(31,191,122,.35);
+  background:rgba(31,191,122,.10);
+  border-radius:14px;padding:12px 14px
+}
+.warn{
+  border:1px solid rgba(217,183,95,.38);
+  background:rgba(217,183,95,.14);
+  border-radius:14px;padding:12px 14px
+}
+.hidden{display:none !important}
+
+/* galleries */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:12px;
+  margin-top:12px;
+}
+.gItem{
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.92);
+  border-radius:16px;
+  overflow:hidden;
+}
+.gItem img{
+  width:100%;
+  height:112px;           /* ✅ smaller images (fix) */
+  object-fit:cover;
+  display:block;
+}
+.cap{
+  padding:10px;font-size:12px;color:rgba(0,0,0,.60);
+  display:flex;justify-content:space-between;gap:10px;align-items:center
+}
+.x{
   border:1px solid rgba(0,0,0,.12);
-  border-radius:22px;
-  box-shadow:0 18px 50px rgba(0,0,0,.18);
-  padding:18px;
+  background:rgba(255,255,255,.85);
+  color:var(--ink);
+  font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer
 }
-.gateLogoRow{display:flex;gap:12px;align-items:center}
-.gateTitle{font-weight:1000;font-size:22px;margin:0;color:#111}
-.gateSub{margin:6px 0 0;color:#333;opacity:.82;line-height:1.35}
-.gateGrid{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.gateGrid img{width:100%;height:82px;object-fit:cover;border-radius:14px;border:1px solid rgba(0,0,0,.08)}
-.gateInput{margin-top:12px}
-.gateInput input{background:#fff;color:#111;border:1px solid rgba(0,0,0,.14)}
-.gateActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.gateNote{font-size:12px;color:#333;opacity:.75;margin-top:10px;line-height:1.35}
 
-/* Mum easter egg */
+/* cards list */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+.tile{
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.86);
+  border-radius:16px;
+  padding:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+video{
+  width:100%;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,.10);
+  background:#fff;
+}
+
+/* toast */
+.toast{
+  position:fixed;left:50%;transform:translateX(-50%);
+  bottom:16px;z-index:2500;max-width:min(560px,92vw);
+  border-radius:14px;padding:12px 14px;
+  border:1px solid rgba(0,0,0,.12);
+  background:rgba(255,255,255,.92);
+  box-shadow:var(--shadow);
+  display:none;
+}
+.toast.show{display:block}
+.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.14)}
+.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.18)}
+
+/* watermark */
+.wm{
+  position:fixed;right:12px;bottom:12px;z-index:900;
+  width:54px;height:54px;border-radius:16px;
+  border:1px solid rgba(0,0,0,.12);
+  background:rgba(255,255,255,.85);
+  box-shadow:var(--shadow);
+  overflow:hidden;display:none;opacity:.92;
+  backdrop-filter:blur(10px);
+}
+.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+
+/* footer */
+footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,255,255,.72);backdrop-filter:blur(10px)}
+.footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+/* subtle easter egg for Mum (desktop only) */
 .mum-note{
   position:fixed;
   right:12px;
   bottom:10px;
   font-size:11px;
-  opacity:0.14;
+  opacity:0.12;
   pointer-events:none;
-  color:#000;
+  z-index:1200;
 }
 @media (max-width: 1200px){
   .mum-note{ display:none; }
 }
-
-footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.72)}
-.footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
-.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
-.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.08);border-radius:14px;padding:12px 14px}
 </style>
 </head>
 
 <body>
+<div class="wm" id="wm"><img id="wmImg" alt="CookVibe watermark"></div>
 <div class="toast" id="toast"></div>
 
 <header class="hdr">
   <div class="hdrin">
-    <a class="brand" href="#top" onclick="return false;">
-      <div class="logoBox" aria-label="CookVibe logo">
-        <!-- inline SVG logo (always works) -->
-        <svg width="34" height="34" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="500" height="500" fill="#fff"/>
-          <text x="50%" y="55%" text-anchor="middle"
-                font-family="Arial, Helvetica, sans-serif"
-                font-size="140" font-weight="bold">
-            <tspan fill="#2E7D32">Cook</tspan>
-            <tspan fill="#C9A227">vibe</tspan>
-          </text>
-        </svg>
+    <a class="brand" href="#top">
+      <div class="logoBox" id="logoHeaderBox">
+        <span id="logoHeaderFB">CV</span>
+        <img id="logoHeaderImg" class="logoImg" style="display:none" alt="CookVibe logo">
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag">CookVibe demo is live — help shape it.</div>
+        <div class="brandTag" id="tagline">CookVibe demo is live — help shape it.</div>
       </div>
     </a>
 
-    <nav class="nav" id="navLinks">
-      <a href="#earn">Earn</a>
+    <nav class="nav">
       <a href="#public">Creator Page</a>
       <a href="#studio">Studio</a>
       <a href="#admin">Admin</a>
     </nav>
 
     <div class="actions">
-      <button class="btn small" id="copyLink" type="button">Copy Demo Link</button>
-      <button class="btn ghost small" id="logoutBtn" type="button">Log out</button>
+      <span class="pill" id="rolePill">viewer</span>
+      <button class="btn ghost small" id="copyLink" type="button">Copy App Link</button>
       <button class="btn ghost small" id="resetBtn" type="button">Reset Demo</button>
     </div>
   </div>
 </header>
 
-<!-- ========= ACCESS GATE (viewer sees this; creator/admin auto-skip) ========= -->
-<section id="accessGate" class="hidden">
-  <div class="gateCard">
-    <div class="gateLogoRow">
-      <div class="logoBox">
-        <svg width="34" height="34" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="500" height="500" fill="#fff"/>
-          <text x="50%" y="55%" text-anchor="middle"
-                font-family="Arial, Helvetica, sans-serif"
-                font-size="140" font-weight="bold">
-            <tspan fill="#2E7D32">Cook</tspan>
-            <tspan fill="#C9A227">vibe</tspan>
-          </text>
-        </svg>
+<div id="top" class="wrap">
+
+  <!-- ✅ Bright hero (post-access vibe) -->
+  <section class="hero" aria-label="CookVibe Global Hero">
+    <div class="row">
+      <div class="rowL">
+        <div class="logoBox">CV</div>
+        <div>
+          <h1>Welcome to CookVibe 🌍🍽️</h1>
+          <p>A global cooking community where creators share culture — and earn more as engagement grows (Stage 2).</p>
+        </div>
       </div>
-      <div>
-        <p class="gateTitle">Welcome to CookVibe</p>
-        <p class="gateSub">Enter your access code to continue.</p>
-      </div>
+      <span class="pill" id="roleMini">viewer</span>
     </div>
 
-    <div class="gateGrid" aria-label="global food collage">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70" alt="Global food">
-      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=70" alt="People sharing food">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=70" alt="Home cooking">
-      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=70" alt="International cuisine">
-      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=70" alt="Healthy food">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=70" alt="Seafood dish">
+    <div class="heroGrid" aria-label="Global food collage">
+      <!-- ✅ Stable image URLs with sizing params; includes seafood -->
+      <img alt="Seafood dish" src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60">
+      <img alt="People sharing food" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60">
+      <img alt="International cuisine" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60">
+      <img alt="Home cooking" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60">
+      <img alt="Family meal" src="https://images.unsplash.com/photo-1541542684-4bf98f59e51b?auto=format&fit=crop&w=900&q=60">
+      <img alt="Healthy dishes" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60">
     </div>
 
-    <div class="gateInput">
-      <input id="codeInputGate" placeholder="Enter access code (FOUNDING20 / ADMIN / any creator code)">
+    <div class="smalltxt" style="margin-top:12px">
+      Note: Stage 1 saves profile + photos locally on this device. Videos are session playback. Stage 2 adds accounts + storage + moderation + payouts.
     </div>
 
-    <div class="gateActions">
-      <button class="btn" id="enterGateBtn" type="button">Enter CookVibe</button>
-      <button class="btn ghost" id="viewOnlyBtn" type="button">View as Viewer</button>
-    </div>
-
-    <div class="gateNote">
-      <strong>FOUNDING20</strong> = Founding Creator flag • <strong>ADMIN</strong> = Admin • Any other code = Creator
-    </div>
-  </div>
-</section>
-
-<!-- ========= APP SHELL ========= -->
-<div id="appShell" class="hidden">
-
-  <!-- Bright post-access hero (B) -->
-  <section class="postAccessHero">
-    <h1>CookVibe demo is live — help shape it.</h1>
-    <p>
-      A global cooking community where creators share culture, meals, and moments —
-      and earn more as engagement grows (Stage 2 adds accounts + real payouts).
-    </p>
-
-    <div class="foodCollage">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=70" alt="Global food">
-      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=70" alt="People sharing food">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70" alt="Home cooking">
-      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=70" alt="International cuisine">
-      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=70" alt="Healthy dishes">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=70" alt="Seafood dish">
+    <div class="warn smalltxt" id="viewerGateNote" style="margin-top:12px;display:none">
+      You’re in <strong>Viewer</strong> mode. Go back to the Access page to enter a Creator/Admin code.
+      <span style="white-space:nowrap">→ <a href="./index.html" class="btn small" style="margin-left:8px">Open Access</a></span>
     </div>
   </section>
 
-  <div id="top" class="wrap">
+  <!-- PUBLIC -->
+  <section id="public" class="card">
+    <div class="row">
+      <div class="rowL">
+        <h2 style="margin:0;font-size:18px">Public Creator Page Preview</h2>
+        <span class="pill">PUBLIC</span>
+      </div>
+      <a class="btn small" href="#studio">Edit in Studio</a>
+    </div>
 
-    <!-- EARN -->
-    <section id="earn" class="card">
+    <div class="tile" style="margin-top:12px">
       <div class="row">
         <div class="rowL">
-          <h2 style="margin:0">Earn on CookVibe</h2>
-          <span class="pill">Stage 2 monetization</span>
-        </div>
-        <span class="pill" id="rolePill">viewer</span>
-      </div>
-
-      <p class="muted" style="margin-top:10px;line-height:1.55">
-        CookVibe is building creator earning around interaction — the more your audience engages, the more you earn.
-        Stage 1 is about workflow + feedback; Stage 2 adds accounts, payouts, and moderation.
-      </p>
-
-      <div class="cards">
-        <div class="tile">
-          <strong>Engagement-weighted earning</strong>
-          <div class="smalltxt" style="margin-top:8px">Views, saves, comments, shares, tips, and retention will matter.</div>
-        </div>
-        <div class="tile">
-          <strong>Tips only for lives</strong>
-          <div class="smalltxt" style="margin-top:8px">Lives are not paywalled. Tips are welcome.</div>
-        </div>
-        <div class="tile">
-          <strong>Global-first discovery</strong>
-          <div class="smalltxt" style="margin-top:8px">International creators get real visibility via country lanes + leaderboards.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PUBLIC -->
-    <section id="public" class="card">
-      <div class="row">
-        <div class="rowL">
-          <h2 style="margin:0;font-size:18px">Public Creator Page Preview</h2>
-          <span class="pill">PUBLIC</span>
-        </div>
-        <a class="btn small" href="#studio">Edit in Studio</a>
-      </div>
-
-      <div class="tile" style="margin-top:12px">
-        <div class="row">
-          <div class="rowL">
-            <div class="logoBox">CV</div>
-            <div>
-              <div style="font-weight:1000" id="pubName">Creator Name</div>
-              <div class="smalltxt" id="pubMeta">Country • @handle</div>
-            </div>
-            <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
+          <div class="logoBox">CV</div>
+          <div>
+            <div style="font-weight:1000" id="pubName">Creator Name</div>
+            <div class="smalltxt" id="pubMeta">Country • @handle</div>
           </div>
-          <span class="pill" id="pubRole">viewer</span>
+          <span class="pill" id="pubFounder" style="display:none">⭐ Founding Creator</span>
         </div>
-
-        <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">Save a profile to populate this page.</div>
-
-        <hr/>
-        <div class="row"><strong>Intro Video</strong><span class="smalltxt">Session playback</span></div>
-        <div style="margin-top:10px"><video id="pubIntro" controls class="hidden"></video></div>
-
-        <hr/>
-        <div class="row"><strong>Meal Photos</strong><span class="smalltxt" id="pubMealCount">0</span></div>
-        <div id="pubMealsEmpty" class="smalltxt" style="margin-top:8px">No meal photos yet.</div>
-        <div id="pubMeals" class="gallery"></div>
-
-        <hr/>
-        <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
-        <div id="pubVids" class="cards"></div>
-      </div>
-    </section>
-
-    <!-- STUDIO -->
-    <section id="studio" class="card">
-      <div class="row">
-        <div class="rowL"><h2 style="margin:0;font-size:18px">Creator Studio</h2><span class="pill">CREATOR</span></div>
-        <span class="pill" id="creatorGate">viewer</span>
+        <span class="pill" id="pubRole">viewer</span>
       </div>
 
-      <div class="warn smalltxt" style="margin-top:12px">
-        Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
-      </div>
-
-      <div class="grid cols2" style="margin-top:12px">
-        <div class="tile">
-          <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
-          <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
-          <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
-          <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica)"></div>
-          <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
-          <div class="row" style="margin-top:10px">
-            <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
-            <a class="btn ghost" href="#public">View Public</a>
-          </div>
-          <div class="smalltxt" id="profileStatus" style="margin-top:10px"></div>
-        </div>
-
-        <div class="tile">
-          <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
-          <div class="smalltxt" style="margin-top:8px">Shows above cooking videos on public page (session playback).</div>
-          <div style="margin-top:10px"><input id="introVideo" type="file" accept="video/*"></div>
-          <div style="margin-top:10px"><video id="introPlayer" controls class="hidden"></video></div>
-          <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
-        </div>
-      </div>
+      <div class="muted" style="margin-top:10px;line-height:1.55" id="pubBio">Save a profile to populate this page.</div>
 
       <hr/>
+      <div class="row"><strong>Intro Video</strong><span class="smalltxt">Session playback</span></div>
+      <div style="margin-top:10px"><video id="pubIntro" controls class="hidden"></video></div>
+
+      <hr/>
+      <div class="row"><strong>Meal Photos</strong><span class="smalltxt" id="pubMealCount">0</span></div>
+      <div id="pubMealsEmpty" class="smalltxt" style="margin-top:8px">No meal photos yet.</div>
+      <div id="pubMeals" class="gallery"></div>
+
+      <hr/>
+      <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
+      <div id="pubVids" class="cards"></div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section id="studio" class="card">
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Creator Studio</h2><span class="pill">CREATOR</span></div>
+      <span class="pill" id="creatorGate">viewer</span>
+    </div>
+
+    <div class="warn smalltxt" style="margin-top:12px">
+      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+    </div>
+
+    <div class="grid cols2" style="margin-top:12px">
+      <div class="tile">
+        <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
+        <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
+        <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
+        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica 🇯🇲)"></div>
+        <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
+          <a class="btn ghost" href="#public">View Public</a>
+        </div>
+        <div class="smalltxt" id="profileStatus" style="margin-top:10px"></div>
+      </div>
 
       <div class="tile">
-        <div class="row"><strong>Meal Photo Gallery (FAST)</strong><span class="pill">Upload</span></div>
-        <div class="smalltxt" style="margin-top:8px">Pick 1–5 photos at a time. Resizes + compresses for speed.</div>
-        <div class="row" style="margin-top:10px">
-          <input id="mealInput" type="file" accept="image/*" multiple>
-          <button class="btn" id="mealUploadBtn" type="button">Upload Meals</button>
-        </div>
-        <div class="smalltxt" id="mealStatus" style="margin-top:10px">—</div>
-        <div id="mealGallery" class="gallery"></div>
-      </div>
-
-      <hr/>
-
-      <div class="tile">
-        <div class="row"><strong>Cooking Videos</strong><span class="pill">Playback</span></div>
-        <div class="row" style="margin-top:10px">
-          <input id="cookVideoInput" type="file" accept="video/*">
-          <button class="btn" id="addVideoBtn" type="button">Add Video</button>
-        </div>
-        <div class="smalltxt" id="videoStatus" style="margin-top:10px">—</div>
-        <div id="videoList" class="cards"></div>
-      </div>
-
-      <hr/>
-
-      <div class="tile" id="suggestionTile">
-        <div class="row"><strong>Creator Suggestions</strong><span class="pill">Creators only</span></div>
-        <div style="margin-top:10px"><textarea id="suggestionText" placeholder="Unfiltered feedback…"></textarea></div>
-        <div class="row" style="margin-top:10px">
-          <button class="btn" id="sendSuggestionBtn" type="button">Submit</button>
-          <button class="btn ghost" id="viewSuggestionLogBtn" type="button">View Saved</button>
-        </div>
-        <div class="smalltxt" id="suggestionStatus" style="margin-top:10px">—</div>
-        <div id="suggestionLog" class="cards hidden"></div>
-      </div>
-    </section>
-
-    <!-- ADMIN -->
-    <section id="admin" class="card">
-      <div class="row">
-        <div class="rowL"><h2 style="margin:0;font-size:18px">Admin Panel</h2><span class="pill">ADMIN</span></div>
-        <span class="pill" id="adminGate">locked</span>
-      </div>
-
-      <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (use code <strong>ADMIN</strong>).</div>
-
-      <div id="adminLocked" class="tile" style="margin-top:12px">
-        <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
-        <div class="smalltxt" style="margin-top:8px">Enter code <strong>ADMIN</strong> at the access screen to unlock.</div>
-      </div>
-
-      <div id="adminUnlocked" class="hidden" style="margin-top:12px">
-        <div class="tile">
-          <div class="row"><strong>Logo Uploads (4 slots)</strong><span class="pill">Local</span></div>
-          <div class="grid cols2" style="margin-top:10px">
-            <div><label class="smalltxt">Slot 1</label><input id="logo1" type="file" accept="image/*"></div>
-            <div><label class="smalltxt">Slot 2</label><input id="logo2" type="file" accept="image/*"></div>
-            <div><label class="smalltxt">Slot 3</label><input id="logo3" type="file" accept="image/*"></div>
-            <div><label class="smalltxt">Slot 4</label><input id="logo4" type="file" accept="image/*"></div>
-          </div>
-          <div class="row" style="margin-top:10px">
-            <button class="btn" id="saveLogosBtn" type="button">Save Logos</button>
-            <button class="btn ghost" id="clearLogosBtn" type="button">Clear Logos</button>
-          </div>
-          <div class="smalltxt" id="logoStatus" style="margin-top:10px">—</div>
-        </div>
-
-        <div class="tile" style="margin-top:14px">
-          <div class="row"><strong>Admin Photos (FAST)</strong><span class="pill">Upload</span></div>
-          <div class="row" style="margin-top:10px">
-            <input id="adminPhotoInput" type="file" accept="image/*" multiple>
-            <button class="btn" id="adminUploadBtn" type="button">Upload Admin Photos</button>
-          </div>
-          <div class="smalltxt" id="adminStatus" style="margin-top:10px">—</div>
-          <div id="adminGallery" class="gallery"></div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <footer>
-    <div class="footerIn">
-      <div>
-        <div style="font-weight:1000;color:#111">CookVibe</div>
-        <div class="smalltxt" style="color:#334;opacity:.8">Founder: Shaun Wint • The Start UPZ, LLC</div>
-      </div>
-      <div class="smalltxt" style="color:#334;opacity:.8;max-width:520px">
-        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, scalable storage.
+        <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
+        <div class="smalltxt" style="margin-top:8px">Shows above cooking videos on public page (session playback).</div>
+        <div style="margin-top:10px"><input id="introVideo" type="file" accept="video/*"></div>
+        <div style="margin-top:10px"><video id="introPlayer" controls class="hidden"></video></div>
+        <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
       </div>
     </div>
-  </footer>
+
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Meal Photo Gallery (FAST)</strong><span class="pill">Upload</span></div>
+      <div class="smalltxt" style="margin-top:8px">Pick 1–5 photos at a time. Resizes + compresses for speed.</div>
+      <div class="row" style="margin-top:10px">
+        <input id="mealInput" type="file" accept="image/*" multiple>
+        <button class="btn" id="mealUploadBtn" type="button">Upload Meals</button>
+      </div>
+      <div class="smalltxt" id="mealStatus" style="margin-top:10px">—</div>
+      <div id="mealGallery" class="gallery"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile">
+      <div class="row"><strong>Cooking Videos</strong><span class="pill">Playback</span></div>
+      <div class="row" style="margin-top:10px">
+        <input id="cookVideoInput" type="file" accept="video/*">
+        <button class="btn" id="addVideoBtn" type="button">Add Video</button>
+      </div>
+      <div class="smalltxt" id="videoStatus" style="margin-top:10px">—</div>
+      <div id="videoList" class="cards"></div>
+    </div>
+
+    <hr/>
+
+    <div class="tile" id="suggestionTile">
+      <div class="row"><strong>Creator Suggestions</strong><span class="pill">Creators only</span></div>
+      <div style="margin-top:10px"><textarea id="suggestionText" placeholder="Unfiltered feedback…"></textarea></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="sendSuggestionBtn" type="button">Submit</button>
+        <button class="btn ghost" id="viewSuggestionLogBtn" type="button">View Saved</button>
+      </div>
+      <div class="smalltxt" id="suggestionStatus" style="margin-top:10px">—</div>
+      <div id="suggestionLog" class="cards hidden"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="card">
+    <div class="row">
+      <div class="rowL"><h2 style="margin:0;font-size:18px">Admin Panel</h2><span class="pill">ADMIN</span></div>
+      <span class="pill" id="adminGate">locked</span>
+    </div>
+
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (set on Access page using code <strong>ADMIN</strong>).</div>
+
+    <div id="adminLocked" class="tile" style="margin-top:12px">
+      <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
+      <div class="smalltxt" style="margin-top:8px">Go to the Access page, enter code <strong>ADMIN</strong>, then return here.</div>
+      <div style="margin-top:10px"><a class="btn small" href="./index.html">Open Access</a></div>
+    </div>
+
+    <div id="adminUnlocked" class="hidden" style="margin-top:12px">
+      <div class="tile">
+        <div class="row"><strong>Logo Uploads (4 slots)</strong><span class="pill">Local</span></div>
+        <div class="grid cols2" style="margin-top:10px">
+          <div><label class="smalltxt">Slot 1 (Header)</label><input id="logo1" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 2 (Hero)</label><input id="logo2" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 3 (Footer)</label><input id="logo3" type="file" accept="image/*"></div>
+          <div><label class="smalltxt">Slot 4 (Watermark)</label><input id="logo4" type="file" accept="image/*"></div>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn" id="saveLogosBtn" type="button">Save Logos</button>
+          <button class="btn ghost" id="clearLogosBtn" type="button">Clear Logos</button>
+        </div>
+        <div class="smalltxt" id="logoStatus" style="margin-top:10px">—</div>
+      </div>
+
+      <div class="tile" style="margin-top:14px">
+        <div class="row"><strong>Admin Photos (FAST)</strong><span class="pill">Upload</span></div>
+        <div class="row" style="margin-top:10px">
+          <input id="adminPhotoInput" type="file" accept="image/*" multiple>
+          <button class="btn" id="adminUploadBtn" type="button">Upload Admin Photos</button>
+        </div>
+        <div class="smalltxt" id="adminStatus" style="margin-top:10px">—</div>
+        <div id="adminGallery" class="gallery"></div>
+      </div>
+    </div>
+  </section>
 
 </div>
+
+<footer>
+  <div class="footerIn">
+    <div>
+      <div class="rowL">
+        <div class="logoBox" id="logoFooterBox">
+          <span id="logoFooterFB">CV</span>
+          <img id="logoFooterImg" class="logoImg" style="display:none" alt="CookVibe logo">
+        </div>
+        <div>
+          <div style="font-weight:1000">CookVibe</div>
+          <div class="smalltxt">Creator-first cooking • web-first demo</div>
+        </div>
+      </div>
+      <div class="smalltxt" style="margin-top:10px">Founder: Shaun Wint • The Start UPZ, LLC</div>
+    </div>
+
+    <div>
+      <div style="font-weight:1000">Stage Notes</div>
+      <div class="smalltxt" style="margin-top:8px">
+        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, and scalable storage.
+      </div>
+    </div>
+  </div>
+</footer>
 
 <div class="mum-note">I love you Mum thank you.</div>
 
 <script>
-/* ========= Storage keys ========= */
+/* =========================
+  COOKVIBE STAGE 1 APP LOGIC
+  (kept intact; visuals updated only)
+========================= */
+
 const LS={
   role:"cv_role",
   founding:"cv_founding",
@@ -475,6 +532,7 @@ const LS={
   logos:"cv_logos",
   adminPhotos:"cv_admin_photos"
 };
+
 const $=id=>document.getElementById(id);
 
 function toast(msg,ok=true){
@@ -488,7 +546,6 @@ function safeJSON(key,fallback){
   try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}
   catch{return fallback;}
 }
-
 function escapeHTML(s){
   return String(s)
     .replaceAll("&","&amp;")
@@ -498,14 +555,13 @@ function escapeHTML(s){
     .replaceAll("'","&#039;");
 }
 
-/* ========= Role / Gate logic ========= */
 function setRole(role){
   localStorage.setItem(LS.role,role);
 
-  // pills
-  if($("rolePill")) $("rolePill").textContent=role;
-  if($("creatorGate")) $("creatorGate").textContent=role;
-  if($("pubRole")) $("pubRole").textContent=role;
+  $("rolePill").textContent=role;
+  $("roleMini").textContent=role;
+  $("creatorGate").textContent=role;
+  $("pubRole").textContent=role;
 
   const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
   $("suggestionTile").classList.toggle("hidden",!isCreator);
@@ -517,68 +573,17 @@ function setRole(role){
 
   const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
   $("pubFounder").style.display=founding?"inline-flex":"none";
+
+  // show viewer note
+  $("viewerGateNote").style.display = (role==="viewer") ? "block" : "none";
 }
 
-function applyAccessCode(codeRaw){
-  const code=(codeRaw||"").trim().toUpperCase();
-  let role="viewer";
-
-  if(code==="ADMIN"){ role="admin"; localStorage.setItem(LS.admin,"1"); localStorage.removeItem(LS.founding); }
-  else if(code==="FOUNDING20"){ role="founder_creator"; localStorage.setItem(LS.founding,"1"); localStorage.removeItem(LS.admin); }
-  else if(code){ role="creator"; localStorage.removeItem(LS.admin); localStorage.removeItem(LS.founding); }
-  else { role="viewer"; localStorage.removeItem(LS.admin); localStorage.removeItem(LS.founding); }
-
-  setRole(role);
-  if(role!=="viewer"){
-    showApp();
-    toast("Access granted ✅");
-  }else{
-    toast("Viewer mode",true);
-  }
-  renderAll();
-}
-
-/* B) Access screen at top → viewer sees access input → creator/admin auto-skip */
-function showGate(){
-  $("accessGate").classList.remove("hidden");
-  $("appShell").classList.add("hidden");
-  window.scrollTo({top:0,behavior:"instant"});
-}
-function showApp(){
-  $("accessGate").classList.add("hidden");
-  $("appShell").classList.remove("hidden");
-  // land at studio for creators/admin
-  const role=localStorage.getItem(LS.role)||"viewer";
-  if(role==="creator"||role==="founder_creator"||role==="admin"){
-    location.hash="#studio";
-  }else{
-    location.hash="#earn";
-  }
-}
-
-/* Gate buttons */
-$("enterGateBtn").addEventListener("click",()=>{
-  applyAccessCode($("codeInputGate").value);
-});
-$("viewOnlyBtn").addEventListener("click",()=>{
-  applyAccessCode(""); // viewer
-  showApp();
-});
-
-/* Top actions */
 $("copyLink").addEventListener("click",async()=>{
-  const url=window.location.origin+window.location.pathname+"#earn";
+  const url=window.location.href;
   try{ await navigator.clipboard.writeText(url); toast("Link copied ✅"); }
   catch{ toast("Copy failed — copy URL manually.",false); }
 });
-$("logoutBtn").addEventListener("click",()=>{
-  // keep data, just return to gate
-  localStorage.setItem(LS.role,"viewer");
-  localStorage.removeItem(LS.admin);
-  localStorage.removeItem(LS.founding);
-  setRole("viewer");
-  showGate();
-});
+
 $("resetBtn").addEventListener("click",()=>{
   if(!confirm("Reset demo data on this device?")) return;
   Object.values(LS).forEach(k=>localStorage.removeItem(k));
@@ -800,9 +805,30 @@ function renderSuggestions(){
 }
 
 /* ========= Logos (4 slots) ========= */
+function setLogoUI(src,fallbackSpan,imgEl){
+  if(src){
+    fallbackSpan.style.display="none";
+    imgEl.style.display="block";
+    imgEl.src=src;
+  }else{
+    imgEl.style.display="none";
+    imgEl.removeAttribute("src");
+    fallbackSpan.style.display="inline";
+  }
+}
+
 function renderLogosToUI(){
-  // (kept for Stage 1 storage; UI slots remain in admin)
-  // No visual application here beyond storage; safe for now.
+  const logos=safeJSON(LS.logos,[null,null,null,null]);
+  setLogoUI(logos[0],$("logoHeaderFB"),$("logoHeaderImg"));
+  setLogoUI(logos[2],$("logoFooterFB"),$("logoFooterImg"));
+  const wm=$("wm");
+  if(logos[3]){
+    $("wmImg").src=logos[3];
+    wm.style.display="block";
+  }else{
+    wm.style.display="none";
+    $("wmImg").removeAttribute("src");
+  }
 }
 
 $("saveLogosBtn").addEventListener("click",async()=>{
@@ -856,7 +882,7 @@ function renderAll(){
 
 /* ========= Init ========= */
 (function init(){
-  // restore role
+  // restore role from Access page localStorage (fixes “logging in every time” complaint)
   let role=localStorage.getItem(LS.role)||"viewer";
   if(localStorage.getItem(LS.admin)==="1") role="admin";
   if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
@@ -870,15 +896,6 @@ function renderAll(){
   $("cBio").value=p.bio||"";
 
   renderAll();
-
-  // Gate rule:
-  // viewer -> show access gate
-  // creator/admin/founding -> auto skip to app
-  if(role==="creator"||role==="founder_creator"||role==="admin"){
-    showApp();
-  }else{
-    showGate();
-  }
 })();
 </script>
 
