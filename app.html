@@ -3,113 +3,51 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • Stage 1 Demo (App)</title>
+<title>CookVibe • Demo</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
 <meta name="theme-color" content="#ffffff"/>
 
 <style>
 :root{
-  /* brand */
-  --g:#1fbf7a;
-  --y:#d9b75f;
-
-  /* light UI */
-  --ink:#111213;
-  --muted:rgba(17,18,19,.65);
-  --line:rgba(17,18,19,.12);
+  --g:#1fbf7a;--y:#d9b75f;
+  --bg:#ffffff;
   --card:rgba(255,255,255,.92);
-  --card2:rgba(255,255,255,.84);
-  --shadow:0 18px 45px rgba(0,0,0,.14);
-  --radius:18px;
+  --text:#0f172a;
+  --muted:#475569;
+  --line:rgba(15,23,42,.12);
+  --sh:0 18px 50px rgba(15,23,42,.10);
 }
-
-*{box-sizing:border-box}
-html,body{height:100%}
-html{scroll-behavior:smooth;scroll-padding-top:92px}
-
-/* ✅ BRIGHT, GLOBAL, FOOD-FORWARD BACKGROUND (LOCKED) */
+*{box-sizing:border-box}html,body{height:100%}
+html{scroll-padding-top:92px;scroll-behavior:smooth}
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,system-ui,sans-serif;
-  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  color:var(--text);
   background:
-    radial-gradient(1200px 600px at 8% 8%, rgba(31,191,122,.22), transparent 55%),
-    radial-gradient(1100px 560px at 92% 12%, rgba(217,183,95,.22), transparent 58%),
-    radial-gradient(900px 520px at 18% 92%, rgba(255, 99, 132,.14), transparent 60%),
-    radial-gradient(900px 520px at 88% 86%, rgba(0, 175, 255,.13), transparent 58%),
-    linear-gradient(180deg, #fff3da 0%, #ffffff 54%, #f3fff8 100%);
+    radial-gradient(900px 520px at 10% 0%, rgba(31,191,122,.18), transparent 60%),
+    radial-gradient(900px 520px at 90% 0%, rgba(217,183,95,.18), transparent 60%),
+    radial-gradient(900px 520px at 50% 100%, rgba(59,130,246,.14), transparent 65%),
+    var(--bg);
 }
-
 a{color:inherit;text-decoration:none}
-
-.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 70px}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:16px;
-  box-shadow:var(--shadow);
-  margin-top:14px;
-}
-.muted{color:var(--muted)}
-.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--sh);margin-top:14px;backdrop-filter:blur(10px)}
+.muted{color:var(--muted)}.smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
 hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-
 .row{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .rowL{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.grid{display:grid;gap:14px}
-.cols2{grid-template-columns:1.15fr .85fr}
+.pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.75);color:var(--muted);font-size:12px;font-weight:900}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:0;cursor:pointer;font-weight:950;font-size:13px;background:linear-gradient(135deg,var(--g),var(--y));color:#000;user-select:none}
+.btn.ghost{background:rgba(255,255,255,.75);color:var(--text);border:1px solid var(--line)}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
+.grid{display:grid;gap:14px}.cols2{grid-template-columns:1.15fr .85fr}
 @media(max-width:900px){.cols2{grid-template-columns:1fr}}
-
-input,textarea,select{
-  width:100%;
-  background:rgba(255,255,255,.96);
-  color:var(--ink);
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:11px 12px;
-  font:inherit;
-  outline:none;
-}
+input,textarea{width:100%;background:rgba(255,255,255,.92);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;outline:none}
 textarea{min-height:92px;resize:vertical}
 
-.pill{
-  display:inline-flex;gap:8px;align-items:center;
-  padding:6px 10px;border-radius:999px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.82);
-  color:rgba(17,18,19,.70);
-  font-size:12px;font-weight:900;
-  backdrop-filter:blur(10px);
-}
-
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 14px;border-radius:12px;border:0;cursor:pointer;
-  font-weight:950;font-size:13px;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000;user-select:none;
-}
-.btn.ghost{
-  background:rgba(255,255,255,.78);
-  color:var(--ink);
-  border:1px solid var(--line);
-  backdrop-filter:blur(10px);
-}
-.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
-
-/* header */
-.hdr{
-  position:sticky;top:0;z-index:999;
-  background:rgba(255,255,255,.82);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-}
-.hdrin{
-  max-width:1100px;margin:0 auto;
-  padding:12px 14px;
-  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
-}
+/* Header */
+.hdr{position:sticky;top:0;z-index:999;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hdrin{max-width:1100px;margin:0 auto;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
 .brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -118,150 +56,48 @@ textarea{min-height:92px;resize:vertical}
 .nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
 .nav a:hover{background:rgba(255,255,255,.75);border:1px solid var(--line);padding:7px 9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-
-/* logo boxes */
-.logoBox{
-  width:42px;height:42px;border-radius:12px;border:1px solid var(--line);
-  background:linear-gradient(135deg, rgba(31,191,122,.18), rgba(217,183,95,.18));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:1000;overflow:hidden;
-}
+.logoBox{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(31,191,122,.25),rgba(217,183,95,.22));display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden}
 .logoBox.big{width:140px;height:140px;border-radius:28px;font-size:34px}
-.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(255,255,255,.88)}
-
-/* bright hero */
-.hero{
-  background:
-    radial-gradient(900px 360px at 20% 10%, rgba(31,191,122,.16), transparent 60%),
-    radial-gradient(900px 360px at 85% 10%, rgba(217,183,95,.16), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.86) 0%, rgba(255,255,255,.74) 100%);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:18px;
-  box-shadow: var(--shadow);
-}
-.hero h1{margin:0 0 6px;font-size:22px;letter-spacing:.2px}
-.hero p{margin:0;color:var(--muted);line-height:1.45}
-.heroGrid{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:10px;
-}
-.heroGrid img{
-  width:100%;
-  height:110px;
-  object-fit:cover;
-  border-radius:14px;
-  border:1px solid rgba(0,0,0,.08);
-  background:#fff;
-}
-@media(max-width:520px){
-  .heroGrid img{height:92px}
-}
-
-/* notice/warn */
-.notice{
-  border:1px solid rgba(31,191,122,.35);
-  background:rgba(31,191,122,.10);
-  border-radius:14px;padding:12px 14px
-}
-.warn{
-  border:1px solid rgba(217,183,95,.38);
-  background:rgba(217,183,95,.14);
-  border-radius:14px;padding:12px 14px
-}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(255,255,255,.9)}
+.wm{position:fixed;right:12px;bottom:12px;z-index:900;width:54px;height:54px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.85);box-shadow:var(--sh);overflow:hidden;display:none;opacity:.92}
+.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
+.notice{border:1px solid rgba(31,191,122,.35);background:rgba(31,191,122,.08);border-radius:14px;padding:12px 14px}
+.warn{border:1px solid rgba(217,183,95,.35);background:rgba(217,183,95,.10);border-radius:14px;padding:12px 14px}
 .hidden{display:none !important}
 
-/* galleries */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-  gap:12px;
-  margin-top:12px;
-}
-.gItem{
-  border:1px solid rgba(0,0,0,.10);
-  background:rgba(255,255,255,.92);
-  border-radius:16px;
-  overflow:hidden;
-}
-.gItem img{
-  width:100%;
-  height:112px;           /* ✅ smaller images (fix) */
-  object-fit:cover;
-  display:block;
-}
-.cap{
-  padding:10px;font-size:12px;color:rgba(0,0,0,.60);
-  display:flex;justify-content:space-between;gap:10px;align-items:center
-}
-.x{
-  border:1px solid rgba(0,0,0,.12);
-  background:rgba(255,255,255,.85);
-  color:var(--ink);
-  font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer
-}
-
-/* cards list */
+/* Media layouts */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:12px}
+.gItem{border:1px solid var(--line);background:rgba(255,255,255,.9);border-radius:14px;overflow:hidden}
+.gItem img{width:100%;height:110px;object-fit:cover;display:block}
+.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid var(--line);background:rgba(255,255,255,.75);color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
-.tile{
-  border:1px solid rgba(0,0,0,.10);
-  background:rgba(255,255,255,.86);
-  border-radius:16px;
-  padding:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,.08);
-}
-video{
-  width:100%;
-  border-radius:14px;
-  border:1px solid rgba(0,0,0,.10);
-  background:#fff;
-}
-
-/* toast */
-.toast{
-  position:fixed;left:50%;transform:translateX(-50%);
-  bottom:16px;z-index:2500;max-width:min(560px,92vw);
-  border-radius:14px;padding:12px 14px;
-  border:1px solid rgba(0,0,0,.12);
-  background:rgba(255,255,255,.92);
-  box-shadow:var(--shadow);
-  display:none;
-}
-.toast.show{display:block}
-.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.14)}
-.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.18)}
-
-/* watermark */
-.wm{
-  position:fixed;right:12px;bottom:12px;z-index:900;
-  width:54px;height:54px;border-radius:16px;
-  border:1px solid rgba(0,0,0,.12);
-  background:rgba(255,255,255,.85);
-  box-shadow:var(--shadow);
-  overflow:hidden;display:none;opacity:.92;
-  backdrop-filter:blur(10px);
-}
-.wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
-
-/* footer */
-footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,255,255,.72);backdrop-filter:blur(10px)}
+.tile{border:1px solid var(--line);background:rgba(255,255,255,.85);border-radius:14px;padding:12px}
+video{width:100%;border-radius:14px;border:1px solid var(--line);background:#fff}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:2500;max-width:min(560px,92vw);border-radius:14px;padding:12px 14px;border:1px solid var(--line);background:rgba(255,255,255,.92);box-shadow:var(--sh);display:none}
+.toast.show{display:block}.toast.ok{border-color:rgba(31,191,122,.55);background:rgba(31,191,122,.12)}.toast.bad{border-color:rgba(217,183,95,.55);background:rgba(217,183,95,.12)}
+footer{margin-top:36px;border-top:1px solid var(--line);background:rgba(255,255,255,.7)}
 .footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 
-/* subtle easter egg for Mum (desktop only) */
-.mum-note{
-  position:fixed;
-  right:12px;
-  bottom:10px;
-  font-size:11px;
-  opacity:0.12;
-  pointer-events:none;
-  z-index:1200;
+/* Bright “post access” hero */
+.postAccessHero{
+  margin: 14px auto 0;
+  max-width: 1100px;
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,246,230,.85), rgba(255,255,255,.75));
+  border:1px solid var(--line);
+  box-shadow: var(--sh);
 }
-@media (max-width: 1200px){
-  .mum-note{ display:none; }
-}
+.postAccessHero h1{margin:0 0 8px;font-size:22px;font-weight:1000}
+.postAccessHero p{margin:0;color:var(--muted);line-height:1.55}
+.foodRow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:12px}
+@media(max-width:900px){.foodRow{grid-template-columns:repeat(3,1fr)}}
+.foodRow img{width:100%;height:95px;object-fit:cover;border-radius:14px;border:1px solid var(--line);background:#fff}
+
+/* Subtle easter egg for Mum (desktop only) */
+.mum-note{position:fixed;right:12px;bottom:10px;font-size:11px;opacity:0.14;pointer-events:none;user-select:none}
+@media (max-width:1200px){.mum-note{display:none}}
 </style>
 </head>
 
@@ -278,7 +114,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag" id="tagline">CookVibe demo is live — help shape it.</div>
+        <div class="brandTag">Demo • upload + feedback</div>
       </div>
     </a>
 
@@ -286,50 +122,31 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <a href="#public">Creator Page</a>
       <a href="#studio">Studio</a>
       <a href="#admin">Admin</a>
+      <a href="index.html" class="pill" title="Back to access page">Access</a>
     </nav>
 
     <div class="actions">
-      <span class="pill" id="rolePill">viewer</span>
-      <button class="btn ghost small" id="copyLink" type="button">Copy App Link</button>
+      <button class="btn ghost small" id="copyLink" type="button">Copy Demo Link</button>
       <button class="btn ghost small" id="resetBtn" type="button">Reset Demo</button>
     </div>
   </div>
 </header>
 
+<!-- Bright, global hero that shows AFTER access (this page is post-access) -->
+<div class="postAccessHero">
+  <h1>Welcome to CookVibe 🌍🍽️</h1>
+  <p>Upload meals, share cooking videos, and shape what this becomes. Buttons stay CookVibe green + gold — everything else is bright, clean, and alive.</p>
+  <div class="foodRow" aria-label="Global food strip">
+    <img alt="Global food" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=70">
+    <img alt="People sharing food" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=70">
+    <img alt="Home cooking" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70">
+    <img alt="Family meal" src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=900&q=70">
+    <img alt="International cuisine" src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=70">
+    <img alt="Seafood" src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=70">
+  </div>
+</div>
+
 <div id="top" class="wrap">
-
-  <!-- ✅ Bright hero (post-access vibe) -->
-  <section class="hero" aria-label="CookVibe Global Hero">
-    <div class="row">
-      <div class="rowL">
-        <div class="logoBox">CV</div>
-        <div>
-          <h1>Welcome to CookVibe 🌍🍽️</h1>
-          <p>A global cooking community where creators share culture — and earn more as engagement grows (Stage 2).</p>
-        </div>
-      </div>
-      <span class="pill" id="roleMini">viewer</span>
-    </div>
-
-    <div class="heroGrid" aria-label="Global food collage">
-      <!-- ✅ Stable image URLs with sizing params; includes seafood -->
-      <img alt="Seafood dish" src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=60">
-      <img alt="People sharing food" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=60">
-      <img alt="International cuisine" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=60">
-      <img alt="Home cooking" src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=60">
-      <img alt="Family meal" src="https://images.unsplash.com/photo-1541542684-4bf98f59e51b?auto=format&fit=crop&w=900&q=60">
-      <img alt="Healthy dishes" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=60">
-    </div>
-
-    <div class="smalltxt" style="margin-top:12px">
-      Note: Stage 1 saves profile + photos locally on this device. Videos are session playback. Stage 2 adds accounts + storage + moderation + payouts.
-    </div>
-
-    <div class="warn smalltxt" id="viewerGateNote" style="margin-top:12px;display:none">
-      You’re in <strong>Viewer</strong> mode. Go back to the Access page to enter a Creator/Admin code.
-      <span style="white-space:nowrap">→ <a href="./index.html" class="btn small" style="margin-left:8px">Open Access</a></span>
-    </div>
-  </section>
 
   <!-- PUBLIC -->
   <section id="public" class="card">
@@ -379,15 +196,16 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     </div>
 
     <div class="warn smalltxt" style="margin-top:12px">
-      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session). Stage 2 adds accounts + cloud storage.
+      Demo saves profile + photos locally on this device. Videos play back immediately (session).
+      Stage 2 adds accounts + cloud storage + moderation + translation/subtitles.
     </div>
 
     <div class="grid cols2" style="margin-top:12px">
       <div class="tile">
         <div class="row"><strong>Profile</strong><span class="pill">Required</span></div>
-        <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ms. Kimmy)"></div>
+        <div style="margin-top:10px"><input id="cName" placeholder="Display name (e.g., Ian Reid)"></div>
         <div style="margin-top:10px"><input id="cHandle" placeholder="@handle (optional)"></div>
-        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., Jamaica 🇯🇲)"></div>
+        <div style="margin-top:10px"><input id="cCountry" placeholder="Country (e.g., United Kingdom)"></div>
         <div style="margin-top:10px"><textarea id="cBio" placeholder="Short bio / what you cook best"></textarea></div>
         <div class="row" style="margin-top:10px">
           <button class="btn" id="saveProfileBtn" type="button">Save Profile</button>
@@ -451,12 +269,11 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <span class="pill" id="adminGate">locked</span>
     </div>
 
-    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (set on Access page using code <strong>ADMIN</strong>).</div>
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (set code on access page).</div>
 
     <div id="adminLocked" class="tile" style="margin-top:12px">
       <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
-      <div class="smalltxt" style="margin-top:8px">Go to the Access page, enter code <strong>ADMIN</strong>, then return here.</div>
-      <div style="margin-top:10px"><a class="btn small" href="./index.html">Open Access</a></div>
+      <div class="smalltxt" style="margin-top:8px">Go to <a href="index.html" style="text-decoration:underline">Access</a> and enter <strong>ADMIN</strong>.</div>
     </div>
 
     <div id="adminUnlocked" class="hidden" style="margin-top:12px">
@@ -508,7 +325,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     <div>
       <div style="font-weight:1000">Stage Notes</div>
       <div class="smalltxt" style="margin-top:8px">
-        Stage 1 validates workflows + feedback. Stage 2 adds accounts, persistence, moderation, creator tools, and scalable storage.
+        Stage 1 validates workflows + feedback. Stage 2 adds accounts, moderation, translation/subtitles, and scalable storage.
       </div>
     </div>
   </div>
@@ -517,11 +334,6 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
 <div class="mum-note">I love you Mum thank you.</div>
 
 <script>
-/* =========================
-  COOKVIBE STAGE 1 APP LOGIC
-  (kept intact; visuals updated only)
-========================= */
-
 const LS={
   role:"cv_role",
   founding:"cv_founding",
@@ -558,8 +370,6 @@ function escapeHTML(s){
 function setRole(role){
   localStorage.setItem(LS.role,role);
 
-  $("rolePill").textContent=role;
-  $("roleMini").textContent=role;
   $("creatorGate").textContent=role;
   $("pubRole").textContent=role;
 
@@ -573,13 +383,18 @@ function setRole(role){
 
   const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
   $("pubFounder").style.display=founding?"inline-flex":"none";
-
-  // show viewer note
-  $("viewerGateNote").style.display = (role==="viewer") ? "block" : "none";
 }
 
+// role restore (comes from index.html access)
+(function initRole(){
+  let role=localStorage.getItem(LS.role)||"viewer";
+  if(localStorage.getItem(LS.admin)==="1") role="admin";
+  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
+  setRole(role);
+})();
+
 $("copyLink").addEventListener("click",async()=>{
-  const url=window.location.href;
+  const url=window.location.origin+window.location.pathname+"#public";
   try{ await navigator.clipboard.writeText(url); toast("Link copied ✅"); }
   catch{ toast("Copy failed — copy URL manually.",false); }
 });
@@ -588,7 +403,7 @@ $("resetBtn").addEventListener("click",()=>{
   if(!confirm("Reset demo data on this device?")) return;
   Object.values(LS).forEach(k=>localStorage.removeItem(k));
   toast("Reset complete ✅");
-  location.reload();
+  setTimeout(()=>location.href="index.html",600);
 });
 
 /* ========= Profile ========= */
@@ -757,7 +572,7 @@ function renderVideosPublic(){
     tile.className="tile";
     tile.innerHTML=`<div class="smalltxt"><strong>${escapeHTML(v.name)}</strong></div>
       <div style="margin-top:8px"><video controls src="${v.url}"></video></div>
-      <div class="smalltxt" style="margin-top:8px">Stage 1 session preview</div>`;
+      <div class="smalltxt" style="margin-top:8px">Demo playback</div>`;
     pub.appendChild(tile);
   });
 }
@@ -882,19 +697,11 @@ function renderAll(){
 
 /* ========= Init ========= */
 (function init(){
-  // restore role from Access page localStorage (fixes “logging in every time” complaint)
-  let role=localStorage.getItem(LS.role)||"viewer";
-  if(localStorage.getItem(LS.admin)==="1") role="admin";
-  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
-  setRole(role);
-
-  // restore profile fields
   const p=safeJSON(LS.profile,{});
   $("cName").value=p.name||"";
   $("cHandle").value=p.handle||"";
   $("cCountry").value=p.country||"";
   $("cBio").value=p.bio||"";
-
   renderAll();
 })();
 </script>
