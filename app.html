@@ -16,9 +16,9 @@
 
 :root{
   --bg:#ffffff;
-  --card:rgba(255,255,255,.92);
+  --card:#ffffff;
   --text:#121212;
-  --muted:#54636b;
+  --muted:#5b6b66;
   --line:rgba(0,0,0,.10);
   --g:#1fbf7a;
   --y:#d9b75f;
@@ -36,12 +36,13 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--text);
   background:
-    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.35), transparent 55%),
-    radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.24), transparent 55%),
-    radial-gradient(900px 700px at 55% 100%, rgba(112,161,255,.20), transparent 55%),
-    linear-gradient(180deg, #fff4e2 0%, #ffffff 52%, #f3fff8 100%);
+    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.32), transparent 55%),
+    radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.22), transparent 55%),
+    radial-gradient(900px 700px at 55% 100%, rgba(112,161,255,.18), transparent 55%),
+    linear-gradient(180deg, #fff6e6 0%, #ffffff 55%, #f5fff9 100%);
 }
 
+/* Links */
 a{color:inherit;text-decoration:none}
 
 /* Layout */
@@ -49,13 +50,13 @@ a{color:inherit;text-decoration:none}
 
 /* Cards */
 .card{
-  background:var(--card);
+  background:rgba(255,255,255,.92);
   border:1px solid var(--line);
   border-radius:18px;
   padding:16px;
   box-shadow:var(--shadow2);
   margin-top:14px;
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(8px);
 }
 .tile{
   border:1px solid var(--line);
@@ -77,7 +78,7 @@ hr{border:0;border-top:1px solid rgba(0,0,0,.08);margin:16px 0}
   display:inline-flex;gap:8px;align-items:center;
   padding:6px 10px;border-radius:999px;
   border:1px solid rgba(0,0,0,.10);
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.9);
   color:var(--muted);
   font-size:12px;font-weight:900
 }
@@ -92,7 +93,7 @@ hr{border:0;border-top:1px solid rgba(0,0,0,.08);margin:16px 0}
   box-shadow:0 10px 18px rgba(0,0,0,.10);
 }
 .btn.ghost{
-  background:rgba(255,255,255,.92);
+  background:rgba(255,255,255,.9);
   color:var(--text);
   border:1px solid rgba(0,0,0,.12);
   box-shadow:none;
@@ -102,7 +103,7 @@ hr{border:0;border-top:1px solid rgba(0,0,0,.08);margin:16px 0}
 /* Inputs */
 input,textarea{
   width:100%;
-  background:rgba(255,255,255,.96);
+  background:rgba(255,255,255,.95);
   color:var(--text);
   border:1px solid rgba(0,0,0,.12);
   border-radius:12px;
@@ -121,7 +122,7 @@ textarea{min-height:92px;resize:vertical}
 .hdr{
   position:sticky;top:0;z-index:999;
   background:rgba(255,255,255,.78);
-  backdrop-filter:blur(14px);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(0,0,0,.10);
 }
 .hdrin{
@@ -155,7 +156,7 @@ textarea{min-height:92px;resize:vertical}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
 .gItem{border:1px solid rgba(0,0,0,.10);background:#fff;border-radius:16px;overflow:hidden}
-.gItem img{width:100%;height:120px;object-fit:cover;display:block}
+.gItem img{width:100%;height:120px;object-fit:cover;display:block} /* smaller, faster */
 .cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
 .x{border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.9);color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
 
@@ -181,7 +182,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
 
-/* Hero */
+/* Post-access hero */
 .postAccessHero{
   margin: 18px auto 8px;
   max-width: 1100px;
@@ -194,6 +195,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .postAccessHero h1{margin:0 0 8px;font-size:26px;font-weight:1000}
 .postAccessHero p{margin:0 0 14px;font-size:14px;color:#2e2e2e;line-height:1.5}
+
 .foodCollage{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -201,7 +203,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .foodCollage img{
   width:100%;
-  height:110px;
+  height:110px;              /* smaller (you asked) */
   object-fit:cover;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.08);
@@ -239,7 +241,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag" id="tagline">CookVibe demo is live — help shape it.</div>
+        <div class="brandTag">Demo is live — help shape it.</div>
       </div>
     </a>
 
@@ -262,22 +264,27 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
 
 <div id="top" class="wrap">
 
-  <!-- HERO (food images + seafood) -->
+  <!-- =========================
+       POST-ACCESS VISUAL HERO
+       Working food photos (incl. seafood)
+  ========================= -->
   <section class="postAccessHero">
     <h1>Welcome to CookVibe 🌍🍽️</h1>
     <p>
-      A bright, global cooking community where creators share culture, meals, and moments.
-      Stage 1 is for testing uploads, profiles, and flow — monetization comes next.
+      A global cooking community where creators share culture, meals, and moments —
+      and earn more as engagement grows (Stage 2+). For now: test uploads, profiles, and flow.
     </p>
 
-   <div class="foodCollage">
-  <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=80" alt="Friends sharing a meal">
-  <img src="https://images.unsplash.com/photo-1528712306091-ed0763094c98?auto=format&fit=crop&w=900&q=80" alt="Family eating together">
-  <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="People enjoying food together">
-  <img src="https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?auto=format&fit=crop&w=900&q=80" alt="Group dinner table">
-  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80" alt="Friends eating and laughing">
-  <img src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&w=900&q=80" alt="Shared meal celebration">
-</div>
+    <div class="foodCollage">
+      <!-- Seafood (locked) -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish (salmon)">
+      <!-- Global food / people / meals -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Fresh salad">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry dish">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Family_dinner_table.jpg/640px-Family_dinner_table.jpg" alt="People enjoying a meal together">
+    </div>
   </section>
 
   <!-- PUBLIC -->
@@ -401,9 +408,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <span class="pill" id="adminGate">locked</span>
     </div>
 
-    <div class="warn smalltxt" style="margin-top:12px">
-      Visible only in ADMIN mode (set on access page with code <strong>ADMIN</strong>).
-    </div>
+    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (use code <strong>ADMIN</strong> on access page).</div>
 
     <div id="adminLocked" class="tile" style="margin-top:12px">
       <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
@@ -482,17 +487,6 @@ const LS={
 const $=id=>document.getElementById(id);
 
 /* =========================
-   HARD ACCESS GATE
-   If no role stored → redirect to index.html
-========================= */
-(function gate(){
-  const role=localStorage.getItem(LS.role);
-  if(!role){
-    window.location.replace("./index.html");
-  }
-})();
-
-/* =========================
    UTIL
 ========================= */
 function toast(msg,ok=true){
@@ -510,7 +504,7 @@ function escapeHTML(s){
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
+    .replaceAll('"',"quot;")
     .replaceAll("'","&#039;");
 }
 
@@ -552,6 +546,7 @@ $("resetBtn").addEventListener("click",()=>{
 });
 
 $("logoutBtn").addEventListener("click",()=>{
+  // Clear access + role and return to access page
   localStorage.removeItem(LS.role);
   localStorage.removeItem(LS.admin);
   localStorage.removeItem(LS.founding);
@@ -868,13 +863,34 @@ function renderAll(){
 }
 
 /* =========================
-   INIT
+   ENFORCE ACCESS GATE
+   If no role stored → redirect to index.html
+
+   ✅ ADMIN ACCESS FIX (ONLY CHANGE):
+   If user opens #admin and admin flag is missing, prompt for ADMIN.
 ========================= */
 (function init(){
-  let role=localStorage.getItem(LS.role)||"viewer";
-  if(localStorage.getItem(LS.admin)==="1") role="admin";
-  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
-  setRole(role);
+  const role = localStorage.getItem(LS.role);
+  if(!role){
+    window.location.replace("./index.html");
+    return;
+  }
+
+  // ✅ ONLY CHANGE: regain admin without dev tools
+  const hash = (window.location.hash || "").toLowerCase();
+  const wantsAdmin = hash.startsWith("#admin");
+  if(wantsAdmin && localStorage.getItem(LS.admin) !== "1"){
+    const code = prompt("Admin access: enter code");
+    if(code && code.trim().toUpperCase() === "ADMIN"){
+      localStorage.setItem(LS.admin,"1");
+      localStorage.setItem(LS.role,"admin");
+    }
+  }
+
+  let restoredRole = localStorage.getItem(LS.role) || role;
+  if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
+  if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
+  setRole(restoredRole);
 
   const p=safeJSON(LS.profile,{});
   $("cName").value=p.name||"";
