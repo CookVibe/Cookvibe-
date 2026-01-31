@@ -203,7 +203,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .foodCollage img{
   width:100%;
-  height:110px;
+  height:110px;              /* smaller (you asked) */
   object-fit:cover;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.08);
@@ -225,13 +225,6 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
 @media (max-width: 1200px){
   .mum-note{ display:none; }
 }
-
-/* Recipe Rolodex */
-.recipeGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:12px}
-.recipeCard{border:1px solid rgba(0,0,0,.10);background:rgba(255,255,255,.92);border-radius:16px;padding:12px;box-shadow:0 10px 24px rgba(0,0,0,.06)}
-.recipeTitle{font-weight:1000}
-.recipeMeta{margin-top:6px}
-.recipeMeta pre{white-space:pre-wrap;margin:8px 0 0;padding:10px;border-radius:12px;border:1px solid rgba(0,0,0,.08);background:rgba(0,0,0,.02);font-size:12px;line-height:1.45}
 </style>
 </head>
 
@@ -283,14 +276,14 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     </p>
 
     <div class="foodCollage">
-      <!-- Seafood -->
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80" alt="Seafood">
-      <!-- People / meals -->
-      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" alt="People sharing food">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80" alt="Home cooking">
-      <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=800&q=80" alt="Family meal">
-      <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=800&q=80" alt="International cuisine">
-      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80" alt="Healthy dishes">
+      <!-- Seafood (locked) -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish (salmon)">
+      <!-- Global food / people / meals -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Fresh salad">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry dish">
+      <!-- REMOVED: broken Family_dinner_table.jpg -->
     </div>
   </section>
 
@@ -331,11 +324,6 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <hr/>
       <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
       <div id="pubVids" class="cards"></div>
-
-      <hr/>
-      <div class="row"><strong>Recipes</strong><span class="smalltxt" id="pubRecipeCount">0</span></div>
-      <div id="pubRecipesEmpty" class="smalltxt" style="margin-top:8px">No recipes yet.</div>
-      <div id="pubRecipes" class="recipeGrid"></div>
     </div>
   </section>
 
@@ -347,7 +335,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     </div>
 
     <div class="warn smalltxt" style="margin-top:12px">
-      Stage 1 saves photos/profile/recipes locally on this device. Videos play back immediately (session).
+      Stage 1 saves photos/profile locally on this device. Videos play back immediately (session).
       Stage 2 adds accounts + cloud storage + moderation + payouts.
     </div>
 
@@ -397,44 +385,6 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       </div>
       <div class="smalltxt" id="videoStatus" style="margin-top:10px">—</div>
       <div id="videoList" class="cards"></div>
-    </div>
-
-    <hr/>
-
-    <!-- =========================
-         RECIPE ROLODEX (NEW)
-         keep everything else the same
-    ========================= -->
-    <div class="tile" id="recipeTile">
-      <div class="row"><strong>Recipe Rolodex</strong><span class="pill">Type + Save</span></div>
-      <div class="smalltxt" style="margin-top:8px">
-        Add recipes here. They save locally on this device (Stage 1). Stage 2 will sync to accounts.
-      </div>
-
-      <div style="margin-top:10px">
-        <input id="rTitle" placeholder="Recipe title (e.g., Jerk Chicken + Mango Slaw)">
-      </div>
-
-      <div style="margin-top:10px">
-        <textarea id="rIngredients" placeholder="Ingredients (one per line)"></textarea>
-      </div>
-
-      <div style="margin-top:10px">
-        <textarea id="rSteps" placeholder="Instructions / steps"></textarea>
-      </div>
-
-      <div class="row" style="margin-top:10px">
-        <button class="btn" id="saveRecipeBtn" type="button">Save Recipe</button>
-        <button class="btn ghost" id="clearRecipeFormBtn" type="button">Clear</button>
-      </div>
-
-      <div class="smalltxt" id="recipeStatus" style="margin-top:10px">—</div>
-
-      <div class="row" style="margin-top:14px">
-        <strong>Saved Recipes</strong>
-        <span class="smalltxt" id="recipeCount">0</span>
-      </div>
-      <div id="recipeList" class="recipeGrid"></div>
     </div>
 
     <hr/>
@@ -530,7 +480,6 @@ const LS={
   admin:"cv_admin",
   profile:"cv_profile",
   meals:"cv_meals",
-  recipes:"cv_recipes",             // ✅ NEW (Recipe Rolodex)
   suggestions:"cv_suggestions",
   logos:"cv_logos",
   adminPhotos:"cv_admin_photos"
@@ -555,7 +504,7 @@ function escapeHTML(s){
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
+    .replaceAll('"',"quot;")
     .replaceAll("'","&#039;");
 }
 
@@ -698,91 +647,6 @@ function renderMeals(){
     toast("Removed ✅");
     renderMeals(); renderPublic();
   }));
-}
-
-/* =========================
-   RECIPE ROLODEX (NEW)
-========================= */
-$("saveRecipeBtn").addEventListener("click",()=>{
-  const title=$("rTitle").value.trim();
-  const ingredients=$("rIngredients").value.trim();
-  const steps=$("rSteps").value.trim();
-
-  if(!title){ toast("Add a recipe title.",false); return; }
-  if(!ingredients && !steps){ toast("Add ingredients or steps.",false); return; }
-
-  const arr=safeJSON(LS.recipes,[]);
-  arr.unshift({
-    id:"r_"+Date.now(),
-    title,
-    ingredients,
-    steps,
-    ts:Date.now()
-  });
-  localStorage.setItem(LS.recipes,JSON.stringify(arr));
-  $("recipeStatus").textContent="✅ Recipe saved";
-  toast("Recipe saved ✅");
-  renderRecipesStudio();
-  renderRecipesPublic();
-});
-
-$("clearRecipeFormBtn").addEventListener("click",()=>{
-  $("rTitle").value="";
-  $("rIngredients").value="";
-  $("rSteps").value="";
-  $("recipeStatus").textContent="—";
-  toast("Cleared ✅");
-});
-
-function renderRecipesStudio(){
-  const arr=safeJSON(LS.recipes,[]);
-  $("recipeCount").textContent=String(arr.length);
-  const box=$("recipeList");
-  box.innerHTML="";
-  arr.forEach((r)=>{
-    const card=document.createElement("div");
-    card.className="recipeCard";
-    card.innerHTML=`
-      <div class="row">
-        <div class="recipeTitle">${escapeHTML(r.title)}</div>
-        <button class="x" data-id="${r.id}">Remove</button>
-      </div>
-      <div class="recipeMeta">
-        ${r.ingredients?`<div class="smalltxt"><strong>Ingredients</strong></div><pre>${escapeHTML(r.ingredients)}</pre>`:""}
-        ${r.steps?`<div class="smalltxt"><strong>Steps</strong></div><pre>${escapeHTML(r.steps)}</pre>`:""}
-      </div>
-    `;
-    box.appendChild(card);
-  });
-
-  box.querySelectorAll(".x").forEach(btn=>btn.addEventListener("click",()=>{
-    const id=btn.getAttribute("data-id");
-    const a=safeJSON(LS.recipes,[]).filter(x=>x.id!==id);
-    localStorage.setItem(LS.recipes,JSON.stringify(a));
-    toast("Removed ✅");
-    renderRecipesStudio();
-    renderRecipesPublic();
-  }));
-}
-
-function renderRecipesPublic(){
-  const arr=safeJSON(LS.recipes,[]);
-  $("pubRecipeCount").textContent=String(arr.length);
-  $("pubRecipesEmpty").style.display=arr.length?"none":"block";
-  const box=$("pubRecipes");
-  box.innerHTML="";
-  arr.slice(0,12).forEach(r=>{
-    const card=document.createElement("div");
-    card.className="recipeCard";
-    card.innerHTML=`
-      <div class="recipeTitle">${escapeHTML(r.title)}</div>
-      <div class="recipeMeta">
-        ${r.ingredients?`<div class="smalltxt"><strong>Ingredients</strong></div><pre>${escapeHTML(r.ingredients)}</pre>`:""}
-        ${r.steps?`<div class="smalltxt"><strong>Steps</strong></div><pre>${escapeHTML(r.steps)}</pre>`:""}
-      </div>
-    `;
-    box.appendChild(card);
-  });
 }
 
 /* =========================
@@ -988,7 +852,6 @@ function renderPublic(){
 
   renderMeals();
   renderVideosPublic();
-  renderRecipesPublic();   // ✅ NEW
   renderLogosToUI();
 }
 
@@ -997,11 +860,11 @@ function renderAll(){
   renderVideosStudio();
   renderSuggestions();
   renderAdminPhotos();
-  renderRecipesStudio();   // ✅ NEW
 }
 
 /* =========================
    ENFORCE ACCESS GATE
+   If no role stored → redirect to index.html
 ========================= */
 (function init(){
   const role = localStorage.getItem(LS.role);
@@ -1010,7 +873,6 @@ function renderAll(){
     return;
   }
 
-  // Restore role (keeps your ADMIN access working)
   let restoredRole = role;
   if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
   if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
