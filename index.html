@@ -15,7 +15,6 @@
   --line:rgba(0,0,0,.10);
   --shadow:0 14px 34px rgba(0,0,0,.10);
 }
-
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -27,7 +26,6 @@ body{
     radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.20), transparent 55%),
     linear-gradient(180deg,#fff6e6 0%,#ffffff 60%,#f5fff9 100%);
 }
-
 .wrap{max-width:1100px;margin:0 auto;padding:24px 14px 60px}
 .card{
   background:rgba(255,255,255,.94);
@@ -36,26 +34,14 @@ body{
   padding:22px;
   box-shadow:var(--shadow);
 }
-
-.row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.rowL{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.row{display:flex;gap:14px;align-items:center}
 .small{font-size:12px;color:var(--muted)}
 .btn{
-  padding:12px 18px;
-  border-radius:14px;
-  border:0;
-  cursor:pointer;
-  font-weight:900;
+  padding:12px 18px;border-radius:14px;border:0;
+  cursor:pointer;font-weight:900;
   background:linear-gradient(135deg,var(--g),var(--y));
-  color:#000;
 }
-input{
-  width:100%;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,.15);
-  font-size:14px;
-}
+input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
 
 .logoBox{
   width:60px;height:60px;border-radius:18px;
@@ -64,9 +50,6 @@ input{
   background:#000;
 }
 .logoBox svg{width:50px;height:50px}
-
-.hero h1{margin:12px 0 6px;font-size:30px;font-weight:1000}
-.hero p{margin:0 0 16px;color:#2e2e2e;line-height:1.55}
 
 .foodGrid{
   display:grid;
@@ -81,7 +64,6 @@ input{
   border-radius:16px;
   border:1px solid rgba(0,0,0,.10);
 }
-
 .earn{
   margin-top:18px;
   border-radius:18px;
@@ -89,11 +71,6 @@ input{
   background:rgba(31,191,122,.08);
   border:1px solid rgba(31,191,122,.25);
 }
-.earn h3{margin:0 0 8px;font-size:16px}
-.earn ul{margin:8px 0 0;padding-left:18px}
-.earn li{margin:6px 0}
-
-.footer{margin-top:16px;font-size:12px;color:var(--muted)}
 </style>
 </head>
 
@@ -102,62 +79,51 @@ input{
   <div class="card">
 
     <div class="row">
-      <div class="rowL">
-        <div class="logoBox">
-          <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-            <rect width="500" height="500" fill="#000"/>
-            <text x="50%" y="55%" text-anchor="middle"
-              font-family="Arial, Helvetica, sans-serif"
-              font-size="96" font-weight="bold">
-              <tspan fill="#2E7D32">Cook</tspan>
-              <tspan fill="#C9A227">vibe</tspan>
-            </text>
-          </svg>
-        </div>
-        <div>
-          <div style="font-weight:1000">CookVibe</div>
-          <div class="small">Access required</div>
-        </div>
+      <div class="logoBox">
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <rect width="500" height="500" fill="#000"/>
+          <text x="50%" y="55%" text-anchor="middle"
+            font-family="Arial, Helvetica, sans-serif"
+            font-size="96" font-weight="bold">
+            <tspan fill="#2E7D32">Cook</tspan>
+            <tspan fill="#C9A227">vibe</tspan>
+          </text>
+        </svg>
+      </div>
+      <div>
+        <div style="font-weight:1000">CookVibe</div>
+        <div class="small">Access required</div>
       </div>
     </div>
 
-    <div class="hero">
-      <h1>CookVibe demo is live — help shape it.</h1>
-      <p>
-        A global cooking platform built for creators.
-        Enter your access code to explore the demo.
-      </p>
+    <h1>CookVibe demo is live — help shape it.</h1>
+    <p>A global cooking platform built for creators.</p>
 
-      <!-- FOOD ONLY (NO PEOPLE) -->
-      <div class="foodGrid">
-        <!-- ONE seafood image -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish">
+    <!-- FOOD ONLY (IMAGES THAT WORK) -->
+    <div class="foodGrid">
+      <!-- Seafood (ONE) -->
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80" alt="Seafood">
 
-        <!-- Meals (no people) -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Salad">
-      </div>
+      <!-- Meals -->
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Paella">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80" alt="Salad">
+      <img src="https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=800&q=80" alt="Curry">
+      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80" alt="Sushi">
+    </div>
 
-      <div class="earn">
-        <h3>How creators earn on CookVibe</h3>
-        <ul>
-          <li>Tips during live cooking sessions</li>
-          <li>Future subscriptions & rewards</li>
-          <li>Early creators help shape the platform</li>
-        </ul>
-      </div>
+    <div class="earn">
+      <strong>How creators earn</strong>
+      <ul>
+        <li>Tips during live cooking</li>
+        <li>Future subscriptions</li>
+        <li>Early creator rewards</li>
+      </ul>
+    </div>
 
-      <div style="margin-top:18px">
-        <input id="code" placeholder="Enter access code"/>
-        <div style="margin-top:12px">
-          <button class="btn" onclick="enter()">Enter CookVibe</button>
-        </div>
-      </div>
-
-      <div class="footer">
-        Demo access only • App features unlock after entry
+    <div style="margin-top:18px">
+      <input id="code" placeholder="Enter access code"/>
+      <div style="margin-top:12px">
+        <button class="btn" onclick="enter()">Enter CookVibe</button>
       </div>
     </div>
 
@@ -166,7 +132,7 @@ input{
 
 <script>
 function enter(){
-  const code=document.getElementById("code").value.trim().toUpperCase();
+  const code=document.getElementById("code").value.trim();
   if(!code){ alert("Enter access code"); return; }
   localStorage.setItem("cv_role","creator");
   window.location.href="app.html";
