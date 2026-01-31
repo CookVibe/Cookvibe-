@@ -101,7 +101,7 @@ hr{border:0;border-top:1px solid rgba(0,0,0,.08);margin:16px 0}
 .btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
 
 /* Inputs */
-input,textarea{
+input,textarea,select{
   width:100%;
   background:rgba(255,255,255,.95);
   color:var(--text);
@@ -156,7 +156,7 @@ textarea{min-height:92px;resize:vertical}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
 .gItem{border:1px solid rgba(0,0,0,.10);background:#fff;border-radius:16px;overflow:hidden}
-.gItem img{width:100%;height:120px;object-fit:cover;display:block} /* smaller, faster */
+.gItem img{width:100%;height:120px;object-fit:cover;display:block}
 .cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
 .x{border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.9);color:var(--text);font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
 
@@ -203,7 +203,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .foodCollage img{
   width:100%;
-  height:110px;              /* smaller (you asked) */
+  height:110px;
   object-fit:cover;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.08);
@@ -266,7 +266,6 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
 
   <!-- =========================
        POST-ACCESS VISUAL HERO
-       Working food photos (incl. seafood)
   ========================= -->
   <section class="postAccessHero">
     <h1>Welcome to CookVibe 🌍🍽️</h1>
@@ -276,14 +275,14 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     </p>
 
     <div class="foodCollage">
-      <!-- Seafood (locked) -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish (salmon)">
-      <!-- Global food / people / meals -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Fresh salad">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry dish">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Family_dinner_table.jpg/640px-Family_dinner_table.jpg" alt="People enjoying a meal together">
+      <!-- Seafood (one) -->
+      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80" alt="Seafood">
+      <!-- Meals / community -->
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Meal">
+      <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80" alt="People sharing food">
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80" alt="Home cooking">
+      <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80" alt="Fresh dish">
+      <img src="https://images.unsplash.com/photo-1532634726-8b9fb99825c7?auto=format&fit=crop&w=800&q=80" alt="Dinner together">
     </div>
   </section>
 
@@ -320,6 +319,11 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <div class="row"><strong>Meal Photos</strong><span class="smalltxt" id="pubMealCount">0</span></div>
       <div id="pubMealsEmpty" class="smalltxt" style="margin-top:8px">No meal photos yet.</div>
       <div id="pubMeals" class="gallery"></div>
+
+      <hr/>
+      <div class="row"><strong>Recipe Rolodex</strong><span class="smalltxt" id="pubRecipeCount">0</span></div>
+      <div id="pubRecipesEmpty" class="smalltxt" style="margin-top:8px">No recipes yet.</div>
+      <div id="pubRecipes" class="cards"></div>
 
       <hr/>
       <div class="row"><strong>Videos</strong><span class="smalltxt" id="pubVidCount">0</span></div>
@@ -360,6 +364,69 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
         <div style="margin-top:10px"><video id="introPlayer" controls class="hidden"></video></div>
         <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
       </div>
+    </div>
+
+    <hr/>
+
+    <!-- ✅ RECIPE ROLODEX (NEW) -->
+    <div class="tile" id="recipeTile">
+      <div class="row">
+        <strong>Recipe Rolodex</strong>
+        <span class="pill">Type + Save</span>
+      </div>
+      <div class="smalltxt" style="margin-top:8px">
+        Add recipes here so creators can type and organize them (saved locally for Stage 1).
+      </div>
+
+      <div class="grid cols2" style="margin-top:10px">
+        <div>
+          <label class="smalltxt">Recipe Title</label>
+          <input id="rTitle" placeholder="e.g., Jamaican Curry Chicken">
+        </div>
+        <div>
+          <label class="smalltxt">Tags (comma-separated)</label>
+          <input id="rTags" placeholder="e.g., curry, weeknight, spicy">
+        </div>
+      </div>
+
+      <div style="margin-top:10px">
+        <label class="smalltxt">Ingredients</label>
+        <textarea id="rIngredients" placeholder="List ingredients (one per line)"></textarea>
+      </div>
+
+      <div style="margin-top:10px">
+        <label class="smalltxt">Steps</label>
+        <textarea id="rSteps" placeholder="Write steps (numbered or paragraphs)"></textarea>
+      </div>
+
+      <div style="margin-top:10px">
+        <label class="smalltxt">Notes (optional)</label>
+        <textarea id="rNotes" placeholder="Timing, substitutions, tips…"></textarea>
+      </div>
+
+      <div class="row" style="margin-top:10px">
+        <button class="btn" id="saveRecipeBtn" type="button">Save Recipe</button>
+        <button class="btn ghost" id="clearRecipeFormBtn" type="button">Clear</button>
+      </div>
+
+      <div class="grid cols2" style="margin-top:12px">
+        <div>
+          <label class="smalltxt">Search</label>
+          <input id="recipeSearch" placeholder="Search title/tags…">
+        </div>
+        <div>
+          <label class="smalltxt">Sort</label>
+          <select id="recipeSort">
+            <option value="new">Newest first</option>
+            <option value="old">Oldest first</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="smalltxt" id="recipeStatus" style="margin-top:10px">—</div>
+      <div id="recipeList" class="cards"></div>
     </div>
 
     <hr/>
@@ -408,11 +475,26 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       <span class="pill" id="adminGate">locked</span>
     </div>
 
-    <div class="warn smalltxt" style="margin-top:12px">Visible only in ADMIN mode (use code <strong>ADMIN</strong> on access page).</div>
+    <div class="warn smalltxt" style="margin-top:12px">
+      Admin can unlock here if access page set you as creator. (Admin fix)
+    </div>
 
     <div id="adminLocked" class="tile" style="margin-top:12px">
       <div class="row"><strong>Admin Access</strong><span class="pill">Locked</span></div>
-      <div class="smalltxt" style="margin-top:8px">Enter code <strong>ADMIN</strong> on the access page to unlock this panel.</div>
+      <div class="smalltxt" style="margin-top:8px">
+        Enter admin code to unlock admin tools on this device.
+      </div>
+      <div class="grid cols2" style="margin-top:10px">
+        <div>
+          <label class="smalltxt">Admin Code</label>
+          <input id="adminCodeInput" placeholder="Type ADMIN">
+        </div>
+        <div>
+          <label class="smalltxt">Action</label>
+          <button class="btn" id="adminUnlockBtn" type="button">Unlock Admin</button>
+        </div>
+      </div>
+      <div class="smalltxt" id="adminUnlockNote" style="margin-top:10px">—</div>
     </div>
 
     <div id="adminUnlocked" class="hidden" style="margin-top:12px">
@@ -480,6 +562,7 @@ const LS={
   admin:"cv_admin",
   profile:"cv_profile",
   meals:"cv_meals",
+  recipes:"cv_recipes",
   suggestions:"cv_suggestions",
   logos:"cv_logos",
   adminPhotos:"cv_admin_photos"
@@ -519,6 +602,7 @@ function setRole(role){
 
   const isCreator=(role==="creator"||role==="founder_creator"||role==="admin");
   $("suggestionTile").classList.toggle("hidden",!isCreator);
+  $("recipeTile").classList.toggle("hidden",!isCreator);
 
   const isAdmin=(role==="admin");
   $("adminGate").textContent=isAdmin?"unlocked":"locked";
@@ -546,12 +630,30 @@ $("resetBtn").addEventListener("click",()=>{
 });
 
 $("logoutBtn").addEventListener("click",()=>{
-  // Clear access + role and return to access page
   localStorage.removeItem(LS.role);
   localStorage.removeItem(LS.admin);
   localStorage.removeItem(LS.founding);
   toast("Logged out ✅");
   window.location.replace("./index.html");
+});
+
+/* =========================
+   ADMIN FIX (NEW)
+   Unlock admin inside app.html
+========================= */
+$("adminUnlockBtn").addEventListener("click",()=>{
+  const code = ($("adminCodeInput").value || "").trim().toUpperCase();
+  if(code !== "ADMIN"){
+    $("adminUnlockNote").textContent = "❌ Wrong code.";
+    toast("Wrong admin code", false);
+    return;
+  }
+  localStorage.setItem(LS.admin,"1");
+  localStorage.removeItem(LS.founding);
+  setRole("admin");
+  $("adminUnlockNote").textContent = "✅ Admin unlocked on this device.";
+  toast("Admin unlocked ✅");
+  location.hash = "#admin";
 });
 
 /* =========================
@@ -569,6 +671,118 @@ $("saveProfileBtn").addEventListener("click",()=>{
   toast("Profile saved ✅");
   renderPublic();
 });
+
+/* =========================
+   RECIPE ROLODEX (NEW)
+========================= */
+$("saveRecipeBtn").addEventListener("click",()=>{
+  const title = $("rTitle").value.trim();
+  const tags  = $("rTags").value.trim();
+  const ing   = $("rIngredients").value.trim();
+  const steps = $("rSteps").value.trim();
+  const notes = $("rNotes").value.trim();
+
+  if(!title || !ing || !steps){
+    $("recipeStatus").textContent = "❌ Title, Ingredients, and Steps are required.";
+    toast("Missing required recipe fields", false);
+    return;
+  }
+
+  const arr = safeJSON(LS.recipes, []);
+  arr.unshift({
+    id: "r_" + Date.now(),
+    title,
+    tags,
+    ingredients: ing,
+    steps,
+    notes,
+    ts: Date.now()
+  });
+  localStorage.setItem(LS.recipes, JSON.stringify(arr));
+  $("recipeStatus").textContent = "✅ Recipe saved";
+  toast("Recipe saved ✅");
+  renderRecipes();
+  renderPublic();
+
+  // keep form for rapid entry? (we keep values, but clear title for convenience)
+  $("rTitle").value = "";
+});
+
+$("clearRecipeFormBtn").addEventListener("click",()=>{
+  $("rTitle").value="";
+  $("rTags").value="";
+  $("rIngredients").value="";
+  $("rSteps").value="";
+  $("rNotes").value="";
+  $("recipeStatus").textContent="—";
+});
+
+$("recipeSearch").addEventListener("input",renderRecipes);
+$("recipeSort").addEventListener("change",renderRecipes);
+
+function getFilteredSortedRecipes(){
+  const q = ($("recipeSearch").value || "").trim().toLowerCase();
+  const sort = $("recipeSort").value || "new";
+  let arr = safeJSON(LS.recipes, []);
+
+  if(q){
+    arr = arr.filter(r=>{
+      const hay = (r.title+" "+(r.tags||"")).toLowerCase();
+      return hay.includes(q);
+    });
+  }
+
+  if(sort==="new") arr.sort((a,b)=>b.ts-a.ts);
+  if(sort==="old") arr.sort((a,b)=>a.ts-b.ts);
+  if(sort==="az")  arr.sort((a,b)=>(a.title||"").localeCompare(b.title||""));
+  if(sort==="za")  arr.sort((a,b)=>(b.title||"").localeCompare(a.title||""));
+
+  return arr;
+}
+
+function renderRecipes(){
+  const list = $("recipeList");
+  const arr = getFilteredSortedRecipes();
+  list.innerHTML = "";
+
+  if(arr.length===0){
+    $("recipeStatus").textContent = "No saved recipes yet.";
+  }
+
+  arr.forEach(r=>{
+    const card = document.createElement("div");
+    card.className = "tile";
+    card.innerHTML = `
+      <div class="row">
+        <div>
+          <div style="font-weight:1000">${escapeHTML(r.title)}</div>
+          <div class="smalltxt">${escapeHTML(r.tags || "")}</div>
+        </div>
+        <button class="btn ghost small" data-del="${r.id}">Delete</button>
+      </div>
+      <hr/>
+      <div class="smalltxt"><strong>Ingredients</strong></div>
+      <div class="smalltxt" style="white-space:pre-wrap;margin-top:6px">${escapeHTML(r.ingredients)}</div>
+      <div class="smalltxt" style="margin-top:10px"><strong>Steps</strong></div>
+      <div class="smalltxt" style="white-space:pre-wrap;margin-top:6px">${escapeHTML(r.steps)}</div>
+      ${r.notes ? `<div class="smalltxt" style="margin-top:10px"><strong>Notes</strong></div>
+      <div class="smalltxt" style="white-space:pre-wrap;margin-top:6px">${escapeHTML(r.notes)}</div>` : ``}
+    `;
+    list.appendChild(card);
+  });
+
+  list.querySelectorAll("[data-del]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const id = btn.getAttribute("data-del");
+      const a = safeJSON(LS.recipes, []);
+      const next = a.filter(x=>x.id!==id);
+      localStorage.setItem(LS.recipes, JSON.stringify(next));
+      toast("Recipe deleted ✅");
+      renderRecipes();
+      renderPublic();
+    });
+  });
+}
 
 /* =========================
    FAST IMAGES (resize + compress)
@@ -850,6 +1064,23 @@ function renderPublic(){
   const founding=(localStorage.getItem(LS.founding)==="1"||role==="founder_creator");
   $("pubFounder").style.display=founding?"inline-flex":"none";
 
+  // recipes public
+  const recipes = safeJSON(LS.recipes, []);
+  $("pubRecipeCount").textContent = String(recipes.length);
+  $("pubRecipesEmpty").style.display = recipes.length ? "none" : "block";
+  const pubRecipes = $("pubRecipes");
+  pubRecipes.innerHTML = "";
+  recipes.slice(0,6).forEach(r=>{
+    const t = document.createElement("div");
+    t.className = "tile";
+    t.innerHTML = `
+      <div style="font-weight:1000">${escapeHTML(r.title)}</div>
+      <div class="smalltxt">${escapeHTML(r.tags || "")}</div>
+      <div class="smalltxt" style="margin-top:8px;white-space:pre-wrap">${escapeHTML((r.ingredients||"").split("\n").slice(0,5).join("\n"))}</div>
+    `;
+    pubRecipes.appendChild(t);
+  });
+
   renderMeals();
   renderVideosPublic();
   renderLogosToUI();
@@ -857,6 +1088,7 @@ function renderPublic(){
 
 function renderAll(){
   renderPublic();
+  renderRecipes();
   renderVideosStudio();
   renderSuggestions();
   renderAdminPhotos();
@@ -864,10 +1096,6 @@ function renderAll(){
 
 /* =========================
    ENFORCE ACCESS GATE
-   If no role stored → redirect to index.html
-
-   ✅ ADMIN ACCESS FIX (ONLY CHANGE):
-   If user opens #admin and admin flag is missing, prompt for ADMIN.
 ========================= */
 (function init(){
   const role = localStorage.getItem(LS.role);
@@ -876,18 +1104,7 @@ function renderAll(){
     return;
   }
 
-  // ✅ ONLY CHANGE: regain admin without dev tools
-  const hash = (window.location.hash || "").toLowerCase();
-  const wantsAdmin = hash.startsWith("#admin");
-  if(wantsAdmin && localStorage.getItem(LS.admin) !== "1"){
-    const code = prompt("Admin access: enter code");
-    if(code && code.trim().toUpperCase() === "ADMIN"){
-      localStorage.setItem(LS.admin,"1");
-      localStorage.setItem(LS.role,"admin");
-    }
-  }
-
-  let restoredRole = localStorage.getItem(LS.role) || role;
+  let restoredRole = role;
   if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
   if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
   setRole(restoredRole);
