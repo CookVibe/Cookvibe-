@@ -1,413 +1,322 @@
-<!doctype html>
+<<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>CookVibe • Access</title>
-  <meta http-equiv="Cache-Control" content="no-store"/>
-  <meta name="theme-color" content="#ffffff"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CookVibe • Access</title>
+<meta http-equiv="Cache-Control" content="no-store"/>
+<meta name="theme-color" content="#ffffff"/>
 
-  <style>
-    :root{
-      --bg1:#fff7e6;
-      --bg2:#f2fbff;
-      --card:#ffffff;
-      --text:#101418;
-      --muted:#5b6572;
-      --line:rgba(16,20,24,.12);
-      --shadow:0 18px 40px rgba(16,20,24,.10);
-      --g:#1fbf7a;   /* CookVibe green (buttons only) */
-      --y:#d9b75f;   /* CookVibe gold  (buttons only) */
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 520px at 10% 0%, rgba(255,180,80,.28), transparent 60%),
-        radial-gradient(900px 520px at 90% 0%, rgba(80,200,255,.20), transparent 60%),
-        linear-gradient(180deg,var(--bg1),var(--bg2));
-    }
-    a{color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 54px}
-    .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      padding:10px 14px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.75);
-      box-shadow:0 10px 26px rgba(16,20,24,.06);
-      backdrop-filter:blur(10px);
-    }
-    .brand{
-      display:flex;align-items:center;gap:12px;min-width:0;
-    }
-    .logo{
-      width:46px;height:46px;border-radius:14px;border:1px solid var(--line);
-      background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;
-    }
-    .brandTxt{min-width:0}
-    .brandName{font-weight:1000;letter-spacing:.2px}
-    .brandSub{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:7px 10px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.7);
-      font-size:12px;font-weight:900;color:var(--muted);
-    }
+<style>
+  :root{
+    --g:#1fbf7a; --y:#d9b75f;
+    --text:#121212; --muted:#475457;
+    --line:rgba(0,0,0,.10);
+    --shadow:0 16px 36px rgba(0,0,0,.10);
+  }
 
-    .hero{
-      margin-top:16px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      background:rgba(255,255,255,.86);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-    .heroIn{padding:22px 18px}
-    .hRow{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
-    .hLeft{max-width:720px}
-    h1{margin:0;font-size:30px;line-height:1.1}
-    .lead{margin:10px 0 0;color:var(--muted);line-height:1.5}
-    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.34), transparent 55%),
+      radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.22), transparent 55%),
+      radial-gradient(900px 700px at 55% 100%, rgba(112,161,255,.18), transparent 55%),
+      linear-gradient(180deg, #fff4e2 0%, #ffffff 50%, #f2fff8 100%);
+  }
 
-    .card{
-      margin-top:14px;
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:rgba(255,255,255,.92);
-      box-shadow:0 14px 34px rgba(16,20,24,.08);
-      padding:18px;
-    }
-    .grid{display:grid;gap:14px}
-    .cols2{grid-template-columns:1.05fr .95fr}
-    @media(max-width:900px){.cols2{grid-template-columns:1fr}}
-    .miniTitle{font-weight:1000;margin:0 0 8px}
-    .muted{color:var(--muted)}
-    .small{font-size:12px;color:var(--muted);line-height:1.5}
-    .hr{height:1px;background:var(--line);margin:14px 0}
+  a{color:inherit;text-decoration:none}
 
-    input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      outline:none;
-      font:inherit;
-      background:#fff;
-    }
+  .wrap{max-width:1100px;margin:0 auto;padding:18px 14px 48px}
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:11px 14px;border-radius:14px;border:0;cursor:pointer;
-      font-weight:1000;font-size:14px;
-      background:linear-gradient(135deg,var(--g),var(--y));
-      color:#000;
-      box-shadow:0 10px 18px rgba(31,191,122,.14);
-      user-select:none;
-    }
-    .btn.ghost{
-      background:#fff;color:var(--text);
-      border:1px solid var(--line);
-      box-shadow:none;
-    }
+  .topbar{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:14px 14px;
+    background:rgba(255,255,255,.70);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+  }
 
-    .collage{
-      display:grid;
-      grid-template-columns:repeat(12,1fr);
-      gap:10px;
-      padding:14px 14px 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.0), rgba(255,255,255,.75));
-    }
-    .tile{
-      position:relative;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(16,20,24,.10);
-      background:#fff;
-      min-height:120px;
-    }
-    .tile img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-      filter:saturate(1.08) contrast(1.02);
-      transform:scale(1.01);
-    }
-    .t1{grid-column:span 5;min-height:210px}
-    .t2{grid-column:span 7;min-height:210px}
-    .t3{grid-column:span 4;min-height:170px}
-    .t4{grid-column:span 4;min-height:170px}
-    .t5{grid-column:span 4;min-height:170px}
-    @media(max-width:900px){
-      .t1,.t2,.t3,.t4,.t5{grid-column:span 12;min-height:190px}
-    }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logoBox{
+    width:56px;height:56px;border-radius:16px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.85);
+    box-shadow:0 10px 24px rgba(0,0,0,.08);
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .brandTxt{display:flex;flex-direction:column;line-height:1.1}
+  .brandName{font-weight:1000;font-size:18px}
+  .brandTag{font-size:12px;color:var(--muted);margin-top:4px}
 
-    .notice{
-      border:1px solid rgba(31,191,122,.30);
-      background:rgba(31,191,122,.08);
-      border-radius:16px;
-      padding:12px 14px;
-    }
-    .warn{
-      border:1px solid rgba(217,183,95,.35);
-      background:rgba(217,183,95,.10);
-      border-radius:16px;
-      padding:12px 14px;
-    }
+  .pillRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 10px;border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.88);
+    color:var(--muted);
+    font-size:12px;font-weight:900;
+  }
 
-    .toast{
-      position:fixed;left:50%;transform:translateX(-50%);bottom:16px;
-      z-index:9999;
-      max-width:min(640px,92vw);
-      border-radius:16px;padding:12px 14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.92);
-      box-shadow:0 18px 40px rgba(16,20,24,.14);
-      display:none;
-      font-weight:900;
-    }
-    .toast.show{display:block}
-    .toast.ok{border-color:rgba(31,191,122,.45)}
-    .toast.bad{border-color:rgba(217,183,95,.55)}
+  .hero{
+    margin-top:14px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:rgba(255,255,255,.72);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+    overflow:hidden;
+  }
 
-    footer{
-      margin-top:18px;
-      padding:10px 4px;
-      color:var(--muted);
-      font-size:12px;
-      text-align:center;
-    }
-  </style>
+  .heroIn{padding:18px}
+  .heroH1{margin:0;font-size:30px;font-weight:1000}
+  .heroP{margin:10px 0 0;color:#2f3a3d;line-height:1.55;font-size:14px}
+
+  .grid{display:grid;gap:12px}
+  .cols2{grid-template-columns:1fr}
+  @media(min-width:980px){.cols2{grid-template-columns:1.05fr .95fr}}
+
+  .card{
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:rgba(255,255,255,.88);
+    box-shadow:0 10px 26px rgba(0,0,0,.08);
+    padding:16px;
+  }
+
+  input{
+    width:100%;
+    padding:12px 12px;
+    border-radius:14px;
+    border:1px solid rgba(0,0,0,.12);
+    background:rgba(255,255,255,.95);
+    font:inherit;
+    outline:none;
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:12px 14px;border-radius:14px;border:0;cursor:pointer;
+    font-weight:1000;font-size:14px;
+    background:linear-gradient(135deg,var(--g),var(--y));
+    color:#000;
+    box-shadow:0 12px 20px rgba(0,0,0,.10);
+    user-select:none;
+    width:100%;
+  }
+  .btn:active{transform:translateY(1px)}
+
+  .small{font-size:12px;color:var(--muted);line-height:1.5}
+
+  .foodCollage{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:10px;
+    margin-top:12px;
+  }
+  .foodCollage img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    border-radius:16px;
+    border:1px solid rgba(0,0,0,.10);
+    background:#fff;
+  }
+
+  .earnBox{
+    margin-top:12px;
+    border:1px solid rgba(31,191,122,.28);
+    background:rgba(31,191,122,.08);
+    border-radius:16px;
+    padding:12px 14px;
+  }
+
+  .warnBox{
+    margin-top:10px;
+    border:1px solid rgba(217,183,95,.35);
+    background:rgba(217,183,95,.14);
+    border-radius:16px;
+    padding:10px 12px;
+  }
+
+  .toast{
+    position:fixed;left:50%;transform:translateX(-50%);
+    bottom:16px;z-index:9999;
+    max-width:min(640px,92vw);
+    border-radius:14px;
+    padding:12px 14px;
+    border:1px solid rgba(0,0,0,.12);
+    background:rgba(255,255,255,.92);
+    box-shadow:var(--shadow);
+    display:none;
+    font-weight:800;
+  }
+  .toast.show{display:block}
+</style>
 </head>
 
 <body>
-  <div class="toast" id="toast"></div>
+<div class="wrap">
 
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo" aria-label="CookVibe logo">
-          <!-- Inline SVG logo (safe, always loads) -->
-          <svg width="120" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="500" height="500" fill="#ffffff"/>
-            <text x="50%" y="55%" text-anchor="middle"
-              font-family="Arial, Helvetica, sans-serif"
-              font-size="96" font-weight="bold">
-              <tspan fill="#2E7D32">Cook</tspan>
-              <tspan fill="#C9A227">vibe</tspan>
-            </text>
-          </svg>
-        </div>
-        <div class="brandTxt">
-          <div class="brandName">CookVibe</div>
-          <div class="brandSub">CookVibe demo is live — help shape it.</div>
-        </div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logoBox" aria-label="CookVibe logo">
+        <!-- Logo (SVG) -->
+        <svg width="56" height="56" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CookVibe">
+          <rect width="500" height="500" fill="#000"/>
+          <text x="50%" y="55%" text-anchor="middle"
+                font-family="Arial, Helvetica, sans-serif"
+                font-size="96" font-weight="bold">
+            <tspan fill="#2E7D32">Cook</tspan>
+            <tspan fill="#C9A227">vibe</tspan>
+          </text>
+        </svg>
       </div>
-
-      <span class="pill" id="modePill">viewer access</span>
+      <div class="brandTxt">
+        <div class="brandName">CookVibe</div>
+        <div class="brandTag">Demo is live — help shape it.</div>
+      </div>
     </div>
 
-    <section class="hero" role="region" aria-label="CookVibe access">
-      <div class="heroIn">
-        <div class="hRow">
-          <div class="hLeft">
-            <h1>Enter the demo 🌍🍽️</h1>
-            <p class="lead">
-              CookVibe is building a global cooking community where creators share culture through food —
-              and earn more as their content gets more interaction.
-            </p>
-
-            <div class="ctaRow">
-              <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
-              <button class="btn ghost" id="skipInfoBtn" type="button">What do creators earn?</button>
-            </div>
-
-            <div class="hr"></div>
-
-            <div class="grid cols2">
-              <div class="card" style="margin:0">
-                <p class="miniTitle">Access Code</p>
-                <p class="small" style="margin-top:0">
-                  Viewer can explore. Creator/Admin unlock creator tools inside the demo.
-                  <br/><strong>FOUNDING20</strong> = Founding Creator • <strong>ADMIN</strong> = Admin • Any other code = Creator
-                </p>
-                <input id="codeInput" placeholder="Enter access code (optional)  e.g., FOUNDING20" autocomplete="off"/>
-                <div class="ctaRow" style="margin-top:12px">
-                  <button class="btn" id="applyCodeBtn" type="button">Enter CookVibe</button>
-                  <button class="btn ghost" id="clearCodeBtn" type="button">Continue as Viewer</button>
-                </div>
-                <div class="small" id="note" style="margin-top:10px"></div>
-              </div>
-
-              <div class="card" style="margin:0">
-                <p class="miniTitle">How creators make money (simple)</p>
-                <div class="notice">
-                  <div style="font-weight:1000">More interaction → more income.</div>
-                  <div class="small" style="margin-top:6px">
-                    CookVibe is built around creators earning as the platform grows:
-                    engagement (views, saves, shares), tips, and future revenue programs as Stage 2/3 roll out.
-                  </div>
-                </div>
-                <div class="warn" style="margin-top:10px">
-                  <div class="small">
-                    Stage 1 is a demo to validate uploads, profiles, and feedback.
-                    Earnings features scale in Stage 2/3 — but we’re designing it with creators first.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="pill">bright • global • food-forward</div>
-        </div>
-      </div>
-
-      <!-- Collage strip -->
-      <div class="collage" aria-label="Global food collage">
-        <div class="tile t1">
-          <img loading="lazy" referrerpolicy="no-referrer"
-            src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
-            alt="Colorful global food spread">
-        </div>
-        <div class="tile t2">
-          <img loading="lazy" referrerpolicy="no-referrer"
-            src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80"
-            alt="People enjoying a meal together">
-        </div>
-        <div class="tile t3">
-          <img loading="lazy" referrerpolicy="no-referrer"
-            src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80"
-            alt="Fresh home cooked dish">
-        </div>
-        <div class="tile t4">
-          <!-- Seafood image -->
-          <img loading="lazy" referrerpolicy="no-referrer"
-            src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1200&q=80"
-            alt="Seafood meal">
-        </div>
-        <div class="tile t5">
-          <img loading="lazy" referrerpolicy="no-referrer"
-            src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=1200&q=80"
-            alt="International cuisine">
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Tip: once a creator/admin code is saved on your device, CookVibe will take you straight into the demo next time.
-    </footer>
+    <div class="pillRow">
+      <span class="pill">🌍 Global</span>
+      <span class="pill">🍲 Food culture</span>
+      <span class="pill">🎥 Upload testing</span>
+      <span class="pill">🇯🇲 🇬🇧 🇺🇸 🇳🇬 🇮🇳 🇯🇵 🇫🇷 🇧🇷</span>
+    </div>
   </div>
 
+  <div class="hero">
+    <div class="heroIn">
+      <div class="grid cols2">
+        <div class="card">
+          <h1 class="heroH1">Enter Access Code</h1>
+          <p class="heroP">
+            This is the <strong>access page</strong>. After you enter a code, you’ll be redirected into the full demo
+            where you can upload meal photos, upload videos, and test the flow.
+          </p>
+
+          <div style="margin-top:12px">
+            <input id="codeInput" placeholder="Enter access code (e.g., FOUNDING20 or ADMIN)" autocomplete="off" />
+          </div>
+
+          <div style="margin-top:10px">
+            <button class="btn" id="enterBtn" type="button">Access CookVibe</button>
+          </div>
+
+          <div class="warnBox small" id="noteBox">
+            <strong>Heads up:</strong> This demo is testing uploads + creator workflow. It’s not the full “live” platform yet.
+          </div>
+
+          <div class="earnBox">
+            <div style="font-weight:1000;margin-bottom:6px">Earn on CookVibe</div>
+            <div class="small">
+              CookVibe is being built so creators can earn more as their content gets more interaction.
+              <strong>More engagement → more earnings.</strong>
+              Stage 1 is about testing uploads + creator tools. Stage 2 adds accounts, persistence, and monetization systems.
+            </div>
+          </div>
+
+          <div class="small" style="margin-top:12px">
+            <strong>Codes:</strong> <strong>FOUNDING20</strong> = Founding Creator • <strong>ADMIN</strong> = Admin • Any other non-blank code = Creator access.
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:1000;font-size:16px">Global food, real people, real vibe</div>
+          <div class="small" style="margin-top:6px">
+            These are just visuals for the access page — the functional upload + video tools are inside the app after you enter a code.
+          </div>
+
+          <div class="foodCollage">
+            <!-- Seafood (required) -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish (salmon)">
+            <!-- Global food -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry dish">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Tacos_de_carnitas%2C_Mexico_City.jpg/640px-Tacos_de_carnitas%2C_Mexico_City.jpg" alt="Tacos">
+            <!-- People together -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Family_dinner_table.jpg/640px-Family_dinner_table.jpg" alt="People enjoying a meal together">
+          </div>
+
+          <div class="small" style="margin-top:12px">
+            🇯🇲 🇬🇧 🇺🇸 🇳🇬 🇮🇳 🇯🇵 🇫🇷 🇧🇷 — CookVibe is built for international creators and culture-first cooking.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-/* ========= CookVibe Access Gate (index.html) =========
-   - viewer sees access input
-   - creator/admin auto-skip this page next time
-   - redirects to app.html
-*/
-const LS = {
-  role: "cv_role",
-  founding: "cv_founding",
-  admin: "cv_admin"
-};
+  const LS = {
+    role: "cv_role",
+    founding: "cv_founding",
+    admin: "cv_admin"
+  };
 
-const $ = (id) => document.getElementById(id);
-
-function toast(msg, ok=true){
-  const t = $("toast");
-  t.className = "toast show " + (ok ? "ok" : "bad");
-  t.textContent = msg;
-  setTimeout(()=>{ t.className = "toast"; }, 2200);
-}
-
-function getSavedRole(){
-  let role = localStorage.getItem(LS.role) || "viewer";
-  if(localStorage.getItem(LS.admin)==="1") role = "admin";
-  if(localStorage.getItem(LS.founding)==="1") role = "founder_creator";
-  return role;
-}
-
-function setPill(role){
-  const pill = $("modePill");
-  if(role==="admin") pill.textContent = "admin detected • skipping access";
-  else if(role==="founder_creator") pill.textContent = "creator detected • skipping access";
-  else if(role==="creator") pill.textContent = "creator detected • skipping access";
-  else pill.textContent = "viewer access";
-}
-
-function redirectToApp(){
-  // Always go to app.html (no hash)
-  window.location.href = "./app.html";
-}
-
-function applyAccessCode(raw){
-  const code = (raw || "").trim().toUpperCase();
-  let role = "viewer";
-
-  // Clear flags first
-  localStorage.removeItem(LS.admin);
-  localStorage.removeItem(LS.founding);
-
-  if(code === "ADMIN"){
-    role = "admin";
-    localStorage.setItem(LS.admin, "1");
-  }else if(code === "FOUNDING20"){
-    role = "founder_creator";
-    localStorage.setItem(LS.founding, "1");
-  }else if(code){
-    role = "creator";
-  }else{
-    role = "viewer";
+  const toastEl = document.getElementById("toast");
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.className = "toast show";
+    setTimeout(()=>toastEl.className="toast", 2200);
   }
 
-  localStorage.setItem(LS.role, role);
+  // Auto-skip access page if already creator/admin (stored locally)
+  (function autoSkip(){
+    const role = localStorage.getItem(LS.role);
+    if(role && role !== "viewer"){
+      // already has access on this device
+      window.location.replace("./app.html#studio");
+    }
+  })();
 
-  $("note").innerHTML =
-    role==="admin" ? "✅ Admin mode saved. Taking you into the demo…" :
-    role==="founder_creator" ? "✅ Founding Creator saved. Taking you into the demo…" :
-    role==="creator" ? "✅ Creator mode saved. Taking you into the demo…" :
-    "Viewer mode. Taking you into the demo…";
+  function applyCode(){
+    const raw = (document.getElementById("codeInput").value || "").trim();
+    const code = raw.toUpperCase();
 
-  toast("Access saved ✅");
-  setTimeout(redirectToApp, 450);
-}
+    if(!code){
+      toast("Enter an access code to continue.");
+      return;
+    }
 
-/* Auto-skip if creator/admin already saved */
-(function init(){
-  const role = getSavedRole();
-  setPill(role);
+    // Decide role from code (simple + reliable)
+    let role = "creator";
+    if(code === "ADMIN"){
+      role = "admin";
+      localStorage.setItem(LS.admin, "1");
+      localStorage.removeItem(LS.founding);
+    } else if(code === "FOUNDING20"){
+      role = "founder_creator";
+      localStorage.setItem(LS.founding, "1");
+      localStorage.removeItem(LS.admin);
+    } else {
+      role = "creator";
+      localStorage.removeItem(LS.admin);
+      localStorage.removeItem(LS.founding);
+    }
 
-  const shouldSkip = (role==="creator" || role==="founder_creator" || role==="admin");
-  if(shouldSkip){
-    // Very short delay so the page still feels intentional
-    setTimeout(redirectToApp, 250);
+    localStorage.setItem(LS.role, role);
+
+    toast("Access granted ✅ Redirecting…");
+    setTimeout(()=>window.location.replace("./app.html#studio"), 450);
   }
-})();
 
-/* Buttons */
-$("applyCodeBtn").addEventListener("click", ()=> applyAccessCode($("codeInput").value));
-$("enterBtn").addEventListener("click", ()=> applyAccessCode($("codeInput").value));
-$("clearCodeBtn").addEventListener("click", ()=> applyAccessCode(""));
-
-$("skipInfoBtn").addEventListener("click", ()=>{
-  toast("Creators earn more as interaction grows (Stage 2/3 expands payouts). ✅");
-});
-
-/* Enter key submits */
-$("codeInput").addEventListener("keydown", (e)=>{
-  if(e.key==="Enter"){
-    e.preventDefault();
-    applyAccessCode($("codeInput").value);
-  }
-});
-
-/* Clear input */
-$("clearCodeBtn").addEventListener("click", ()=>{
-  $("codeInput").value = "";
-});
+  document.getElementById("enterBtn").addEventListener("click", applyCode);
+  document.getElementById("codeInput").addEventListener("keydown", (e)=>{
+    if(e.key === "Enter") applyCode();
+  });
 </script>
-
 </body>
-</html>html>
+</html>
