@@ -36,10 +36,10 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--text);
   background:
-    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.32), transparent 55%),
-    radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.22), transparent 55%),
-    radial-gradient(900px 700px at 55% 100%, rgba(112,161,255,.18), transparent 55%),
-    linear-gradient(180deg, #fff6e6 0%, #ffffff 55%, #f5fff9 100%);
+    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.34), transparent 55%),
+    radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.24), transparent 55%),
+    radial-gradient(900px 700px at 55% 100%, rgba(112,161,255,.20), transparent 55%),
+    linear-gradient(180deg, #fff3dd 0%, #ffffff 52%, #f1fff7 100%);
 }
 
 /* Links */
@@ -189,7 +189,7 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
   padding: 18px;
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255,246,230,.92) 0%, rgba(255,255,255,.92) 58%, rgba(245,255,249,.92) 100%);
+    linear-gradient(180deg, rgba(255,238,210,.92) 0%, rgba(255,255,255,.92) 58%, rgba(235,255,244,.92) 100%);
   border:1px solid rgba(0,0,0,.08);
   box-shadow:var(--shadow);
 }
@@ -203,10 +203,11 @@ video{width:100%;border-radius:14px;border:1px solid rgba(0,0,0,.12);background:
 }
 .foodCollage img{
   width:100%;
-  height:110px;              /* smaller (you asked) */
+  height:110px;               /* smaller */
   object-fit:cover;
   border-radius:14px;
   border:1px solid rgba(0,0,0,.08);
+  background:linear-gradient(135deg, rgba(31,191,122,.18), rgba(217,183,95,.16));
 }
 
 /* Footer */
@@ -241,7 +242,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag">Demo is live — help shape it.</div>
+        <div class="brandTag" id="brandTag">CookVibe demo is live — help shape it.</div>
       </div>
     </a>
 
@@ -276,14 +277,31 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     </p>
 
     <div class="foodCollage">
-      <!-- Seafood (locked) -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood dish (salmon)">
-      <!-- Global food / people / meals -->
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Fresh salad">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Chicken_curry_%281%29.jpg/640px-Chicken_curry_%281%29.jpg" alt="Curry dish">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Family_dinner_table.jpg/640px-Family_dinner_table.jpg" alt="People enjoying a meal together">
+      <!-- Reliable images w/ params + lazy + onerror fallback -->
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=70"
+           alt="Seafood dish"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=70';">
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70"
+           alt="Fresh food plate"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=70';">
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=70"
+           alt="People sharing food"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1604908554160-6e75a3fba9d1?auto=format&fit=crop&w=900&q=70';">
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=900&q=70"
+           alt="International cuisine"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70';">
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=900&q=70"
+           alt="Coffee and conversation"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=70';">
+      <img loading="lazy"
+           src="https://images.unsplash.com/photo-1528712306091-ed0763094c98?auto=format&fit=crop&w=900&q=70"
+           alt="Family meal together"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=70';">
     </div>
   </section>
 
@@ -504,7 +522,7 @@ function escapeHTML(s){
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
-    .replaceAll('"',"quot;")
+    .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
 
@@ -546,7 +564,6 @@ $("resetBtn").addEventListener("click",()=>{
 });
 
 $("logoutBtn").addEventListener("click",()=>{
-  // Clear access + role and return to access page
   localStorage.removeItem(LS.role);
   localStorage.removeItem(LS.admin);
   localStorage.removeItem(LS.founding);
