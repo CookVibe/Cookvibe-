@@ -872,28 +872,82 @@ function renderAll(){
 }
 
 /* =========================
-   ENFORCE ACCESS GATE
-   If no role stored → redirect to index.html
+   ACCESS OVERLAY GATE
+   If no role stored → show overlay inside app.html
 ========================= */
 (function init(){
-  const role = localStorage.getItem(LS.role);
-  if(!role){
-    window.location.replace("./index.html");
-    return;
+  const overlay = $("accessOverlay");
+
+  function applyCode(codeRaw){
+    const code = (codeRaw||"").trim().toUpperCase();
+
+    // Clear flags first
+    localStorage.removeItem(LS.admin);
+    localStorage.removeItem(LS.founding);
+
+    let role = "viewer";
+
+    if(code === "ADMIN"){
+      role = "admin";
+      localStorage.setItem(LS.admin,"1");
+    }else if(code === "FOUNDING20"){
+      role = "founder_creator";
+      localStorage.setItem(LS.founding,"1");
+    }else if(code){
+      role = "creator";
+    }else{
+      role = "viewer";
+    }
+
+    localStorage.setItem(LS.role, role);
+    return role;
   }
 
-  let restoredRole = role;
-  if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
-  if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
-  setRole(restoredRole);
+  function bootApp(){
+    // restore role from storage
+    let restoredRole = localStorage.getItem(LS.role) || "viewer";
+    if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
+    if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
+    setRole(restoredRole);
 
-  const p=safeJSON(LS.profile,{});
-  $("cName").value=p.name||"";
-  $("cHandle").value=p.handle||"";
-  $("cCountry").value=p.country||"";
-  $("cBio").value=p.bio||"";
+    // restore profile fields
+    const p=safeJSON(LS.profile,{});
+    $("cName").value=p.name||"";
+    $("cHandle").value=p.handle||"";
+    $("cCountry").value=p.country||"";
+    $("cBio").value=p.bio||"";
 
-  renderAll();
+    renderAll();
+  }
+
+  // If no role, show overlay instead of redirect loop
+  const existingRole = localStorage.getItem(LS.role);
+  if(!existingRole){
+    overlay.classList.remove("hidden");
+
+    $("overlayEnterBtn").addEventListener("click",()=>{
+      const role = applyCode($("overlayCode").value);
+      $("overlayNote").textContent =
+        role==="admin" ? "✅ Admin unlocked." :
+        role==="founder_creator" ? "✅ Founding Creator enabled." :
+        role==="creator" ? "✅ Creator enabled." :
+        "Viewer mode.";
+      overlay.classList.add("hidden");
+      toast("Access applied ✅");
+      bootApp();
+    });
+
+    $("overlayViewerBtn").addEventListener("click",()=>{
+      localStorage.setItem(LS.role,"viewer");
+      overlay.classList.add("hidden");
+      bootApp();
+    });
+
+    return; // stop here until overlay used
+  }
+
+  // Already has role → just boot
+  bootApp();
 })();
 </script>
 
