@@ -370,6 +370,33 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
         <div class="smalltxt" id="introStatus" style="margin-top:10px"></div>
       </div>
     </div>
+     <!-- RECIPE ROLODEX -->
+<div class="tile" id="recipeRolodex">
+  <div class="row">
+    <strong>Recipe Rolodex</strong>
+    <span class="pill">Creators</span>
+  </div>
+
+  <div class="smalltxt" style="margin-top:8px">
+    Save your recipes privately. This becomes public in later stages.
+  </div>
+
+  <div style="margin-top:10px">
+    <input id="recipeTitle" placeholder="Recipe name (e.g. Jerk Chicken)">
+  </div>
+
+  <div style="margin-top:10px">
+    <textarea id="recipeBody" placeholder="Ingredients + steps"></textarea>
+  </div>
+
+  <div class="row" style="margin-top:10px">
+    <button class="btn" id="saveRecipeBtn" type="button">Save Recipe</button>
+    <button class="btn ghost" id="viewRecipesBtn" type="button">View Saved</button>
+  </div>
+
+  <div id="recipeStatus" class="smalltxt" style="margin-top:10px">—</div>
+  <div id="recipeList" class="cards hidden"></div>
+</div>
 
     <hr/>
 
