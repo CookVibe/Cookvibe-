@@ -383,14 +383,15 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
    TEST LIVE REHEARSAL TILE
    Stage 1 local recording only
 ========================= -->
-<div class="tile">
+<div class="tile" id="testLiveTile">
   <div class="row">
     <strong>Test Live (Preview Only)</strong>
     <span class="pill">Stage 1</span>
   </div>
 
   <div class="smalltxt" style="margin-top:8px">
-    Practice going live. Records locally only. Nothing is public yet.
+    Practice going live. This records video locally (replay inside this demo + added to your Cooking Videos list).
+    Nothing is public yet. Stage 2 will enable real livestreaming.
   </div>
 
   <div class="row" style="margin-top:12px;gap:8px">
@@ -398,66 +399,117 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
     <button class="btn ghost" id="stopLiveBtn" type="button" disabled>Stop</button>
   </div>
 
+  <div class="row" style="margin-top:10px;gap:8px">
+    <a class="btn ghost small" id="downloadLiveBtn" href="#" download style="display:none">Save Recording</a>
+    <span class="smalltxt" id="liveStatus">—</span>
+  </div>
+
   <div style="margin-top:12px">
-    <video id="livePreview" controls class="hidden"></video>
+    <video id="livePreview" controls playsinline class="hidden"></video>
   </div>
 </div>
 
 <script>
-let liveRecorder;
-let liveChunks=[];
-let liveStream;
+/* Test Live — local recording + playback + add to sessionVideos */
+(function(){
+  const startBtn = document.getElementById("startLiveBtn");
+  const stopBtn  = document.getElementById("stopLiveBtn");
+  const preview  = document.getElementById("livePreview");
+  const dlBtn    = document.getElementById("downloadLiveBtn");
+  const statusEl = document.getElementById("liveStatus");
 
-const startBtn=document.getElementById("startLiveBtn");
-const stopBtn=document.getElementById("stopLiveBtn");
-const preview=document.getElementById("livePreview");
+  if(!startBtn || !stopBtn || !preview) return;
 
-startBtn.onclick=async()=>{
-  liveStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  let liveRecorder = null;
+  let liveChunks = [];
+  let liveStream = null;
 
-  preview.srcObject=liveStream;
-  preview.classList.remove("hidden");
-  preview.muted=true;
-  preview.play();
+  function setStatus(msg){ if(statusEl) statusEl.textContent = msg; }
 
-  liveChunks=[];
-  liveRecorder=new MediaRecorder(liveStream);
+  startBtn.onclick = async () => {
+    try{
+      // iOS Safari: must be user-gesture (this click is fine)
+      liveStream = await navigator.mediaDevices.getUserMedia({ video:true, audio:true });
 
-  liveRecorder.ondataavailable=e=>{
-    if(e.data.size) liveChunks.push(e.data);
-  };
+      // Live preview
+      preview.srcObject = liveStream;
+      preview.classList.remove("hidden");
+      preview.muted = true;
+      preview.playsInline = true;
+      await preview.play();
 
-  liveRecorder.onstop=()=>{
-    const blob=new Blob(liveChunks,{type:"video/webm"});
-    const url=URL.createObjectURL(blob);
+      liveChunks = [];
+      liveRecorder = new MediaRecorder(liveStream, { mimeType: "video/webm" });
 
-    liveStream.getTracks().forEach(t=>t.stop());
+      liveRecorder.ondataavailable = (e) => {
+        if(e.data && e.data.size > 0) liveChunks.push(e.data);
+      };
 
-    preview.srcObject=null;
-    preview.src=url;
-    preview.muted=false;
-    preview.controls=true;
-    preview.load();
+      liveRecorder.onstop = () => {
+        try{
+          const blob = new Blob(liveChunks, { type: "video/webm" });
+          const url = URL.createObjectURL(blob);
 
-    const name=`Test Live • ${new Date().toLocaleString()}`;
+          // stop camera stream
+          if(liveStream){
+            liveStream.getTracks().forEach(t => t.stop());
+            liveStream = null;
+          }
 
-    if(typeof sessionVideos!=="undefined"){
-      sessionVideos.unshift({url,name,ts:Date.now()});
-      if(typeof renderVideosStudio==="function") renderVideosStudio();
-      if(typeof renderVideosPublic==="function") renderVideosPublic();
+          // Playback
+          preview.pause();
+          preview.srcObject = null;
+          preview.src = url;
+          preview.muted = false;
+          preview.controls = true;
+          preview.load();
+          preview.play().catch(()=>{});
+
+          // Show "Save Recording" link
+          if(dlBtn){
+            dlBtn.href = url;
+            dlBtn.download = `CookVibe_Test_Live_${Date.now()}.webm`;
+            dlBtn.style.display = "inline-flex";
+          }
+
+          // Add to Cooking Videos list (sessionVideos)
+          if(typeof sessionVideos !== "undefined" && Array.isArray(sessionVideos)){
+            const name = `Test Live • ${new Date().toLocaleString()}`;
+            sessionVideos.unshift({ url, name, ts: Date.now() });
+            if(typeof renderVideosStudio === "function") renderVideosStudio();
+            if(typeof renderVideosPublic === "function") renderVideosPublic();
+          }
+
+          setStatus("✅ Recording saved for playback");
+        }catch(err){
+          console.error(err);
+          setStatus("⚠️ Saved, but playback failed");
+        }
+      };
+
+      liveRecorder.start(250); // collect chunks regularly
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      setStatus("🔴 Recording…");
+      if(dlBtn) dlBtn.style.display = "none";
+    }catch(err){
+      console.error(err);
+      setStatus("⚠️ Camera/mic blocked — allow permissions");
+      alert("Camera/Mic blocked. In Safari, allow camera + microphone for this site, then try again.");
     }
   };
 
-  liveRecorder.start();
-  startBtn.disabled=true;
-  stopBtn.disabled=false;
-};
-
-stopBtn.onclick=()=>{
-  liveRecorder.stop();
-  startBtn.disabled=false;
-  stopBtn.disabled=true;
-};
+  stopBtn.onclick = () => {
+    try{
+      if(liveRecorder && liveRecorder.state !== "inactive"){
+        liveRecorder.stop();
+      }
+    }catch(e){}
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    setStatus("⏳ Finalizing…");
+  };
+})();
 </script>
 
       <div class="tile">
