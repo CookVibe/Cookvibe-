@@ -425,12 +425,24 @@ startBtn.onclick=async()=>{
 
   liveRecorder.onstop=()=>{
   const blob=new Blob(liveChunks,{type:"video/webm"});
-  const url=URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
 
-  // stop preview stream + show playback
-  preview.srcObject=null;
-  preview.src=url;
-  preview.muted=false;
+  // stop camera stream
+  preview.srcObject = null;
+
+  // force proper playback load (THIS is the fix)
+  preview.src = url;
+  preview.muted = false;
+  preview.controls = true;
+  preview.load();
+
+  // add to Cooking Videos list
+  const name = `Test Live • ${new Date().toLocaleString()}`;
+  sessionVideos.unshift({ url, name, ts: Date.now() });
+
+  if (typeof renderVideosStudio === "function") renderVideosStudio();
+  if (typeof renderVideosPublic === "function") renderVideosPublic();
+};
 
   // ✅ add to existing Cooking Videos list (sessionVideos)
   const name = `Test Live • ${new Date().toLocaleString()}`;
