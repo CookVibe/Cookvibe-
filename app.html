@@ -424,11 +424,22 @@ startBtn.onclick=async()=>{
   liveRecorder.ondataavailable=e=>liveChunks.push(e.data);
 
   liveRecorder.onstop=()=>{
-    const blob=new Blob(liveChunks,{type:"video/webm"});
-    preview.srcObject=null;
-    preview.src=URL.createObjectURL(blob);
-    preview.muted=false;
-  };
+  const blob=new Blob(liveChunks,{type:"video/webm"});
+  const url=URL.createObjectURL(blob);
+
+  // stop preview stream + show playback
+  preview.srcObject=null;
+  preview.src=url;
+  preview.muted=false;
+
+  // ✅ add to existing Cooking Videos list (sessionVideos)
+  const name = `Test Live • ${new Date().toLocaleString()}`;
+  sessionVideos.unshift({ url, name, ts: Date.now() });
+
+  // refresh your video UI
+  if (typeof renderVideosStudio === "function") renderVideosStudio();
+  if (typeof renderVideosPublic === "function") renderVideosPublic();
+};
 
   liveRecorder.start();
   startBtn.disabled=true;
