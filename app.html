@@ -383,6 +383,10 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
    TEST LIVE REHEARSAL TILE
    Stage 1 local recording only
 ========================= -->
+<!-- =========================
+   TEST LIVE REHEARSAL TILE
+   Stage 1 local recording only
+========================= -->
 <div class="tile">
   <div class="row">
     <strong>Test Live (Preview Only)</strong>
@@ -405,6 +409,64 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
 </div>
 
 <script>
+let liveRecorder;
+let liveChunks=[];
+let liveStream;
+
+const startBtn=document.getElementById("startLiveBtn");
+const stopBtn=document.getElementById("stopLiveBtn");
+const preview=document.getElementById("livePreview");
+
+startBtn.onclick=async()=>{
+  liveStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+
+  preview.srcObject=liveStream;
+  preview.classList.remove("hidden");
+  preview.muted=true;
+  preview.play();
+
+  liveChunks=[];
+  liveRecorder=new MediaRecorder(liveStream);
+
+  liveRecorder.ondataavailable=e=>{
+    if(e.data.size) liveChunks.push(e.data);
+  };
+
+  liveRecorder.onstop=()=>{
+    const blob=new Blob(liveChunks,{type:"video/webm"});
+    const url=URL.createObjectURL(blob);
+
+    // stop camera
+    liveStream.getTracks().forEach(t=>t.stop());
+
+    // playback
+    preview.srcObject=null;
+    preview.src=url;
+    preview.muted=false;
+    preview.controls=true;
+    preview.load();
+
+    // add to Cooking Videos list
+    const name=`Test Live • ${new Date().toLocaleString()}`;
+    if(typeof sessionVideos!=="undefined"){
+      sessionVideos.unshift({url,name,ts:Date.now()});
+      if(typeof renderVideosStudio==="function") renderVideosStudio();
+      if(typeof renderVideosPublic==="function") renderVideosPublic();
+    }
+  };
+
+  liveRecorder.start();
+
+  startBtn.disabled=true;
+  stopBtn.disabled=false;
+};
+
+stopBtn.onclick=()=>{
+  liveRecorder.stop();
+  startBtn.disabled=false;
+  stopBtn.disabled=true;
+};
+</script>
 let liveRecorder, liveChunks=[];
 
 const startBtn=document.getElementById("startLiveBtn");
