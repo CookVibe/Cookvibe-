@@ -379,6 +379,68 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
         </div>
         <div class="smalltxt" id="profileStatus" style="margin-top:10px"></div>
       </div>
+       <!-- =========================
+   TEST LIVE REHEARSAL TILE
+   Stage 1 local recording only
+========================= -->
+<div class="tile">
+  <div class="row">
+    <strong>Test Live (Preview Only)</strong>
+    <span class="pill">Stage 1</span>
+  </div>
+
+  <div class="smalltxt" style="margin-top:8px">
+    Practice going live. This records video locally to your device only.
+    Nothing is public yet. Stage 2 will enable real livestreaming.
+  </div>
+
+  <div class="row" style="margin-top:12px;gap:8px">
+    <button class="btn" id="startLiveBtn" type="button">Start Test Live</button>
+    <button class="btn ghost" id="stopLiveBtn" type="button" disabled>Stop</button>
+  </div>
+
+  <div style="margin-top:12px">
+    <video id="livePreview" controls class="hidden"></video>
+  </div>
+</div>
+
+<script>
+let liveRecorder, liveChunks=[];
+
+const startBtn=document.getElementById("startLiveBtn");
+const stopBtn=document.getElementById("stopLiveBtn");
+const preview=document.getElementById("livePreview");
+
+startBtn.onclick=async()=>{
+  const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  preview.srcObject=stream;
+  preview.classList.remove("hidden");
+  preview.muted=true;
+  preview.play();
+
+  liveChunks=[];
+  liveRecorder=new MediaRecorder(stream);
+
+  liveRecorder.ondataavailable=e=>liveChunks.push(e.data);
+
+  liveRecorder.onstop=()=>{
+    const blob=new Blob(liveChunks,{type:"video/webm"});
+    preview.srcObject=null;
+    preview.src=URL.createObjectURL(blob);
+    preview.muted=false;
+  };
+
+  liveRecorder.start();
+  startBtn.disabled=true;
+  stopBtn.disabled=false;
+};
+
+stopBtn.onclick=()=>{
+  liveRecorder.stop();
+  startBtn.disabled=false;
+  stopBtn.disabled=true;
+};
+</script>
 
       <div class="tile">
         <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
