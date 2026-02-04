@@ -383,11 +383,7 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
    TEST LIVE REHEARSAL TILE
    Stage 1 local recording only
 ========================= -->
-<!-- =========================
-   TEST LIVE REHEARSAL TILE
-   Stage 1 local recording only
-========================= -->
-<div class="tile">
+<div class="tile" id="testLiveTile">
   <div class="row">
     <strong>Test Live (Preview Only)</strong>
     <span class="pill">Stage 1</span>
@@ -401,130 +397,148 @@ footer{margin-top:36px;border-top:1px solid rgba(0,0,0,.10);background:rgba(255,
   <div class="row" style="margin-top:12px;gap:8px">
     <button class="btn" id="startLiveBtn" type="button">Start Test Live</button>
     <button class="btn ghost" id="stopLiveBtn" type="button" disabled>Stop</button>
+    <a class="btn ghost small" id="downloadLiveBtn" href="#" download style="display:none">Save Recording</a>
   </div>
 
   <div style="margin-top:12px">
     <video id="livePreview" controls class="hidden"></video>
   </div>
+
+  <div class="smalltxt" id="liveStatus" style="margin-top:10px">—</div>
 </div>
 
 <script>
-let liveRecorder;
-let liveChunks=[];
-let liveStream;
+(function(){
+  const startBtn = document.getElementById("startLiveBtn");
+  const stopBtn  = document.getElementById("stopLiveBtn");
+  const preview  = document.getElementById("livePreview");
+  const dlBtn    = document.getElementById("downloadLiveBtn");
+  const statusEl = document.getElementById("liveStatus");
+  if(!startBtn || !stopBtn || !preview) return;
 
-const startBtn=document.getElementById("startLiveBtn");
-const stopBtn=document.getElementById("stopLiveBtn");
-const preview=document.getElementById("livePreview");
+  let liveStream = null;
+  let liveRecorder = null;
+  let liveChunks = [];
+  let lastUrl = null;
 
-startBtn.onclick=async()=>{
-  liveStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  function setStatus(t){ if(statusEl) statusEl.textContent = t; }
 
-  preview.srcObject=liveStream;
-  preview.classList.remove("hidden");
-  preview.muted=true;
-  preview.play();
+  function stopTracks(stream){
+    try{ stream.getTracks().forEach(tr => tr.stop()); }catch(e){}
+  }
 
-  liveChunks=[];
-  liveRecorder=new MediaRecorder(liveStream);
-
-  liveRecorder.ondataavailable=e=>{
-    if(e.data.size) liveChunks.push(e.data);
-  };
-
-  liveRecorder.onstop=()=>{
-    const blob=new Blob(liveChunks,{type:"video/webm"});
-    const url=URL.createObjectURL(blob);
-
-    // stop camera
-    liveStream.getTracks().forEach(t=>t.stop());
-
-    // playback
-    preview.srcObject=null;
-    preview.src=url;
-    preview.muted=false;
-    preview.controls=true;
-    preview.load();
-
-    // add to Cooking Videos list
-    const name=`Test Live • ${new Date().toLocaleString()}`;
-    if(typeof sessionVideos!=="undefined"){
-      sessionVideos.unshift({url,name,ts:Date.now()});
-      if(typeof renderVideosStudio==="function") renderVideosStudio();
-      if(typeof renderVideosPublic==="function") renderVideosPublic();
+  function pickMime(){
+    const list = [
+      "video/webm;codecs=vp9,opus",
+      "video/webm;codecs=vp8,opus",
+      "video/webm"
+    ];
+    for(const m of list){
+      if(window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) return m;
     }
-  };
+    return "";
+  }
 
-  liveRecorder.start();
+  async function startLive(){
+    try{
+      // reset download
+      if(dlBtn){ dlBtn.style.display="none"; dlBtn.removeAttribute("href"); }
 
-  startBtn.disabled=true;
-  stopBtn.disabled=false;
-};
+      // reset preview
+      preview.classList.remove("hidden");
+      preview.pause();
+      preview.removeAttribute("src");
+      preview.load();
 
-stopBtn.onclick=()=>{
-  liveRecorder.stop();
-  startBtn.disabled=false;
-  stopBtn.disabled=true;
-};
-</script>
-let liveRecorder, liveChunks=[];
+      liveStream = await navigator.mediaDevices.getUserMedia({ video:true, audio:true });
 
-const startBtn=document.getElementById("startLiveBtn");
-const stopBtn=document.getElementById("stopLiveBtn");
-const preview=document.getElementById("livePreview");
+      preview.srcObject = liveStream;
+      preview.muted = true;
+      preview.controls = false;
+      preview.playsInline = true;
+      await preview.play();
 
-startBtn.onclick=async()=>{
-  const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-  preview.srcObject=stream;
-  preview.classList.remove("hidden");
-  preview.muted=true;
-  preview.play();
+      liveChunks = [];
+      const mimeType = pickMime();
+      liveRecorder = mimeType ? new MediaRecorder(liveStream, { mimeType }) : new MediaRecorder(liveStream);
 
-  liveChunks=[];
-  liveRecorder=new MediaRecorder(stream);
+      liveRecorder.ondataavailable = (e)=>{
+        if(e.data && e.data.size > 0) liveChunks.push(e.data);
+      };
 
-  liveRecorder.ondataavailable=e=>liveChunks.push(e.data);
+      liveRecorder.onstop = async ()=>{
+        // ✅ IMPORTANT: stop camera so playback can take over cleanly
+        if(liveStream) stopTracks(liveStream);
 
-  liveRecorder.onstop=()=>{
-  const blob=new Blob(liveChunks,{type:"video/webm"});
-  const url = URL.createObjectURL(blob);
+        const blob = new Blob(liveChunks, { type: "video/webm" });
 
-  // stop camera stream
-  preview.srcObject = null;
+        if(lastUrl){ try{ URL.revokeObjectURL(lastUrl); }catch(e){} }
+        lastUrl = URL.createObjectURL(blob);
 
-  // force proper playback load (THIS is the fix)
-  preview.src = url;
-  preview.muted = false;
-  preview.controls = true;
-  preview.load();
+        // ✅ SWITCH FROM LIVE STREAM TO PLAYBACK
+        preview.pause();
+        preview.srcObject = null;            // clear stream
+        preview.muted = false;
+        preview.controls = true;
 
-  // add to Cooking Videos list
-  const name = `Test Live • ${new Date().toLocaleString()}`;
-  sessionVideos.unshift({ url, name, ts: Date.now() });
+        // force reload
+        preview.removeAttribute("src");
+        preview.load();
 
-  if (typeof renderVideosStudio === "function") renderVideosStudio();
-  if (typeof renderVideosPublic === "function") renderVideosPublic();
-};
+        // set recorded src and load
+        preview.src = lastUrl;
+        preview.load();
 
-  // ✅ add to existing Cooking Videos list (sessionVideos)
-  const name = `Test Live • ${new Date().toLocaleString()}`;
-  sessionVideos.unshift({ url, name, ts: Date.now() });
+        // attempt autoplay playback (user just tapped buttons so it should be allowed)
+        try{ await preview.play(); }catch(e){ /* ok if it doesn't autoplay */ }
 
-  // refresh your video UI
-  if (typeof renderVideosStudio === "function") renderVideosStudio();
-  if (typeof renderVideosPublic === "function") renderVideosPublic();
-};
+        // download link
+        if(dlBtn){
+          dlBtn.href = lastUrl;
+          dlBtn.download = `cookvibe-test-live-${Date.now()}.webm`;
+          dlBtn.style.display = "inline-flex";
+          dlBtn.textContent = "Save Recording";
+        }
 
-  liveRecorder.start();
-  startBtn.disabled=true;
-  stopBtn.disabled=false;
-};
+        // add to Cooking Videos list if present
+        try{
+          if(typeof sessionVideos !== "undefined" && Array.isArray(sessionVideos)){
+            const name = `Test Live • ${new Date().toLocaleString()}`;
+            sessionVideos.unshift({ url: lastUrl, name, ts: Date.now() });
+            if(typeof renderVideosStudio === "function") renderVideosStudio();
+            if(typeof renderVideosPublic === "function") renderVideosPublic();
+          }
+        }catch(e){ console.warn(e); }
 
-stopBtn.onclick=()=>{
-  liveRecorder.stop();
-  startBtn.disabled=false;
-  stopBtn.disabled=true;
-};
+        setStatus("✅ Recording ready — playback below.");
+        try{ if(typeof toast==="function") toast("Test Live saved ✅"); }catch(e){}
+      };
+
+      liveRecorder.start();
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      setStatus("🔴 Recording…");
+    }catch(err){
+      console.error(err);
+      setStatus("❌ Camera/mic blocked. Enable permissions.");
+      alert("Camera/mic blocked — please allow permissions for this site.");
+    }
+  }
+
+  function stopLive(){
+    try{
+      if(liveRecorder && liveRecorder.state !== "inactive") liveRecorder.stop();
+    }catch(err){
+      console.error(err);
+      setStatus("❌ Could not stop recording.");
+    }
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+  }
+
+  startBtn.addEventListener("click", startLive);
+  stopBtn.addEventListener("click", stopLive);
+})();
 </script>
 
       <div class="tile">
