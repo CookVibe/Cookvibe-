@@ -1144,6 +1144,42 @@ function renderAll(){
   bootApp();
 })();
 </script>
+   <!-- =========================
+ COOKED IT ICON AUTO UPGRADE
+ One-paste • zero edits needed
+========================= -->
+<script>
+(function(){
+
+  const icon = "data:image/png;base64,PASTE_YOUR_BASE64_HERE";
+
+  function upgradeButtons(){
+    document.querySelectorAll("button").forEach(btn=>{
+      if(btn.textContent.trim() === "Cooked It" && !btn.dataset.upgraded){
+
+        btn.dataset.upgraded = "1";
+
+        btn.style.display = "flex";
+        btn.style.alignItems = "center";
+        btn.style.gap = "8px";
+
+        const img = document.createElement("img");
+        img.src = icon;
+        img.style.width = "20px";
+        img.style.height = "20px";
+
+        btn.prepend(img);
+      }
+    });
+  }
+
+  upgradeButtons();
+
+  // re-run in case videos render later
+  setInterval(upgradeButtons, 1000);
+
+})();
+</script>
 
 </body>
 </html>
