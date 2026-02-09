@@ -180,47 +180,147 @@ input{
       “It looks awesome. I already created my creator name.”
     </div>
 
-    <!-- ACCESS -->
-    <div style="margin-top:20px">
-      <input id="code" placeholder="Enter access code"/>
-      <button class="btn" onclick="enter()">Enter CookVibe</button>
-    </div>
+    <!-- =========================
+   ACCESS + PASSWORD GATE (Stage 1 local)
+   Codes allowed ONLY:
+   ADMIN / CORECIRCLE / CREATOR / VIBER / DEV
+========================= -->
 
+<div style="margin-top:18px">
+  <input id="code" placeholder="Enter access code (ADMIN / CORECIRCLE / CREATOR / VIBER / DEV)" autocomplete="off"/>
+
+  <div style="margin-top:10px">
+    <input id="pass" type="password" placeholder="Password (first time = set one)" autocomplete="new-password"/>
+  </div>
+
+  <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+    <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
+    <button class="btn" id="changePassBtn" type="button" style="background:#fff;border:1px solid rgba(0,0,0,.12);">Change Password</button>
+  </div>
+
+  <div class="small" id="loginMsg" style="margin-top:10px; line-height:1.4;">
+    Stage 1 note: Password is stored on <b>this device/browser only</b>. Clearing site data resets it.
   </div>
 </div>
 
 <script>
-function enter(){
-  const raw = document.getElementById("code").value || "";
-  const code = raw.trim().toUpperCase();
+/* =========================
+   ACCESS CODES + LOCAL PASSWORD (Stage 1)
+========================= */
+const ALLOWED_CODES = ["ADMIN","CORECIRCLE","CREATOR","VIBER","DEV"];
 
-  // ✅ single dev access code (change this string if you want a different one)
-  const DEV_ACCESS_CODE = "CORECIRCLE";
-
-  if(!code){
-    alert("Enter an access code");
-    return;
-  }
-
-  // ❌ block everything except the dev code
-  if(code !== DEV_ACCESS_CODE){
-    alert("Invalid access code.");
-    return;
-  }
-
+function setRoleFromCode(code){
   // clear all roles first
   localStorage.removeItem("cv_role");
   localStorage.removeItem("cv_admin");
   localStorage.removeItem("cv_founding");
 
-  // ✅ give dev full access
-  localStorage.setItem("cv_role","admin");
-  localStorage.setItem("cv_admin","1");
+  // role mapping
+  if(code === "ADMIN"){
+    localStorage.setItem("cv_role","admin");
+    localStorage.setItem("cv_admin","1");
+    return "admin";
+  }
+  if(code === "CORECIRCLE"){
+    localStorage.setItem("cv_role","founder_creator");
+    localStorage.setItem("cv_founding","1");
+    return "founder_creator";
+  }
+  if(code === "DEV"){
+    localStorage.setItem("cv_role","creator");
+    return "creator";
+  }
+  if(code === "CREATOR"){
+    localStorage.setItem("cv_role","creator");
+    return "creator";
+  }
+  if(code === "VIBER"){
+    localStorage.setItem("cv_role","viewer");
+    return "viewer";
+  }
+  return null;
+}
 
-  // hard redirect into app
+// One password per device (Stage 1). If you want per-code passwords later, we can key it by code.
+const PASS_KEY = "cv_pass";
+
+function enter(){
+  const codeRaw = document.getElementById("code").value || "";
+  const code = codeRaw.trim().toUpperCase();
+  const pass = (document.getElementById("pass").value || "").trim();
+  const msg  = document.getElementById("loginMsg");
+
+  if(!code){
+    alert("Enter an access code.");
+    return;
+  }
+  if(!ALLOWED_CODES.includes(code)){
+    alert("Invalid access code.");
+    return;
+  }
+
+  // password logic (Stage 1 local)
+  const existingPass = localStorage.getItem(PASS_KEY);
+
+  // First-time setup: create password
+  if(!existingPass){
+    if(pass.length < 6){
+      alert("Create a password (6+ characters).");
+      return;
+    }
+    localStorage.setItem(PASS_KEY, pass);
+    if(msg) msg.textContent = "✅ Password set. Entering CookVibe…";
+  } else {
+    // Require correct password
+    if(!pass){
+      alert("Enter your password.");
+      return;
+    }
+    if(pass !== existingPass){
+      alert("Wrong password.");
+      return;
+    }
+  }
+
+  // Set role ONLY if code is allowed
+  const role = setRoleFromCode(code);
+  if(!role){
+    alert("Invalid access code.");
+    return;
+  }
+
+  // Go to app
   window.location.href = "app.html";
 }
-</script>
 
-</body>
-</html>
+function changePassword(){
+  const existingPass = localStorage.getItem(PASS_KEY);
+
+  if(!existingPass){
+    alert("No password set yet. Enter a code and create one first.");
+    return;
+  }
+
+  const current = prompt("Enter current password:");
+  if(current === null) return;
+  if(current !== existingPass){
+    alert("Wrong current password.");
+    return;
+  }
+
+  const next = prompt("Enter NEW password (6+ chars):");
+  if(next === null) return;
+  if(String(next).trim().length < 6){
+    alert("New password must be at least 6 characters.");
+    return;
+  }
+
+  localStorage.setItem(PASS_KEY, String(next).trim());
+  alert("✅ Password updated.");
+  const passInput = document.getElementById("pass");
+  if(passInput) passInput.value = "";
+}
+
+document.getElementById("enterBtn").addEventListener("click", enter);
+document.getElementById("changePassBtn").addEventListener("click", changePassword);
+</script>
