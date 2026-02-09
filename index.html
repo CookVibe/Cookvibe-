@@ -194,33 +194,31 @@ function enter(){
   const raw = document.getElementById("code").value || "";
   const code = raw.trim().toUpperCase();
 
+  // ✅ single dev access code (change this string if you want a different one)
+  const DEV_ACCESS_CODE = "CORECIRCLE";
+
   if(!code){
     alert("Enter an access code");
     return;
   }
 
+  // ❌ block everything except the dev code
+  if(code !== DEV_ACCESS_CODE){
+    alert("Invalid access code.");
+    return;
+  }
+
+  // clear all roles first
   localStorage.removeItem("cv_role");
   localStorage.removeItem("cv_admin");
   localStorage.removeItem("cv_founding");
-  localStorage.removeItem("cv_core");
 
-  if(code==="ADMIN"){
-    localStorage.setItem("cv_role","admin");
-    localStorage.setItem("cv_admin","1");
-  }
-  else if(code==="FOUNDING20"){
-    localStorage.setItem("cv_role","founder_creator");
-    localStorage.setItem("cv_founding","1");
-  }
-  else if(code==="CORECIRCLE"){
-    localStorage.setItem("cv_role","core_creator");
-    localStorage.setItem("cv_core","1");
-  }
-  else{
-    localStorage.setItem("cv_role","creator");
-  }
+  // ✅ give dev full access
+  localStorage.setItem("cv_role","admin");
+  localStorage.setItem("cv_admin","1");
 
-  window.location.href="app.html";
+  // hard redirect into app
+  window.location.href = "app.html";
 }
 </script>
 
