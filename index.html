@@ -15,134 +15,381 @@
   --line:rgba(0,0,0,.10);
   --shadow:0 14px 34px rgba(0,0,0,.10);
 }
-
 *{box-sizing:border-box}
-
+html,body{height:100%}
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--text);
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
   background:
     radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.28), transparent 55%),
     radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.20), transparent 55%),
     linear-gradient(180deg,#fff6e6 0%,#ffffff 60%,#f5fff9 100%);
 }
-
+.wrap{max-width:1100px;margin:0 auto;padding:24px 14px 60px}
 .card{
-  width:100%;
-  max-width:420px;
-  background:#fff;
-  border-radius:24px;
-  padding:28px;
+  background:rgba(255,255,255,.94);
   border:1px solid var(--line);
+  border-radius:24px;
+  padding:22px;
   box-shadow:var(--shadow);
 }
-
-.logo{
-  font-weight:1000;
-  font-size:28px;
-  margin-bottom:6px;
-}
-
-.sub{
-  font-size:13px;
-  color:var(--muted);
-  margin-bottom:22px;
-}
-
-input{
-  width:100%;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  margin-bottom:14px;
-  font-size:14px;
-}
+.row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.small{font-size:12px;color:var(--muted);line-height:1.4}
+h1{margin:16px 0 6px;font-size:26px}
+p{margin:0 0 10px;color:#2a2a2a;line-height:1.55}
 
 .btn{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:0;
-  font-weight:900;
-  font-size:14px;
-  cursor:pointer;
+  padding:12px 18px;border-radius:14px;border:0;
+  cursor:pointer;font-weight:950;
   background:linear-gradient(135deg,var(--g),var(--y));
-  color:#ffffff;
+  color:#fff; /* ✅ white text */
+}
+.btn:active{transform:translateY(1px)}
+input{
+  width:100%;padding:12px;border-radius:12px;border:1px solid #ccc;
+  font:inherit;
+}
+.hr{height:1px;background:rgba(0,0,0,.08);margin:18px 0}
+
+.logoRow{display:flex;align-items:center;gap:12px}
+.logoBox{
+  width:60px;height:60px;border-radius:18px;
+  border:1px solid rgba(0,0,0,.12);
+  display:flex;align-items:center;justify-content:center;
+  background:#fff;
+  overflow:hidden;
+}
+.logoBox img{width:100%;height:100%;object-fit:contain;padding:8px}
+
+.flags{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:10px
+}
+.flag{
+  font-size:18px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.85);
 }
 
-.small{
-  margin-top:14px;
-  font-size:12px;
-  text-align:center;
-  color:var(--muted);
+.foodGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-top:16px;
 }
+.foodGrid img{
+  width:100%;
+  height:130px;
+  object-fit:cover;
+  border-radius:16px;
+  border:1px solid rgba(0,0,0,.10);
+  background:#fff;
+}
+
+.earn{
+  margin-top:18px;
+  border-radius:18px;
+  padding:16px;
+  background:rgba(31,191,122,.08);
+  border:1px solid rgba(31,191,122,.25);
+}
+
+.testimonials{
+  margin-top:16px;
+  border-radius:18px;
+  padding:16px;
+  background:rgba(255,186,73,.12);
+  border:1px solid rgba(255,186,73,.35);
+}
+.quote{
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.88);
+  border:1px solid rgba(0,0,0,.08);
+}
+.quote b{display:block;margin-bottom:6px}
+
+.accessBox{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+.helpLinks{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+}
+.linkBtn{
+  border:0;background:none;color:#0a5;cursor:pointer;font-weight:900;padding:0;
+  text-decoration:underline;
+}
+.foot{
+  margin-top:18px;
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-top:1px solid rgba(0,0,0,.08);
+  padding-top:14px;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.9);
+  font-size:12px;color:var(--muted);font-weight:900;
+}
+
+/* Modal */
+.modalBack{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);
+  display:none;align-items:center;justify-content:center;padding:16px;
+}
+.modal{
+  width:min(520px,92vw);
+  background:#fff;border-radius:18px;border:1px solid rgba(0,0,0,.12);
+  box-shadow:0 20px 60px rgba(0,0,0,.20);
+  padding:16px;
+}
+.modal h3{margin:0 0 10px}
+.modal .row2{display:grid;gap:10px;margin-top:10px}
+.modal .rowBtns{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.btn.ghost{
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(0,0,0,.12);
+  color:#111;
+}
+.note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:8px}
 </style>
 </head>
 
 <body>
+<div class="wrap">
+  <div class="card">
 
-<div class="card">
+    <div class="row logoRow">
+      <div class="logoBox">
+        <!-- ✅ Official CookVibe logo (locked) -->
+        <img alt="CookVibe logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgoLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDg0OGhAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQwB4AMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EAD0QAAEDAgQDBgQEBgMBAAAAAAECAwQFEQASITEGE0FRImFxgZEykaGx0RQjQlLB8BVCYoKy4fEkQ3OS/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAQACAgICAgMBAAAAAAAAAAECEQMhEjEEE0FRImFxgfD/2gAMAwEAAhEDEQA/ANxooooooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z">
+      </div>
+      <div>
+        <div style="font-weight:1000;font-size:18px">CookVibe</div>
+        <div class="small">Access required</div>
+      </div>
+      <span class="badge">Stage 1 • web demo</span>
+    </div>
 
-  <div class="logo">CookVibe</div>
-  <div class="sub">Creator access required</div>
+    <div class="flags" aria-label="International">
+      <span class="flag">🇺🇸 US</span>
+      <span class="flag">🇬🇧 UK</span>
+      <span class="flag">🇯🇲 Caribbean</span>
+      <span class="flag">🇳🇬 Africa</span>
+      <span class="flag">🇮🇳 Asia</span>
+      <span class="flag">🇲🇽 Latin</span>
+    </div>
 
-  <input id="code" placeholder="Enter access code"/>
-  <button class="btn" onclick="enter()">Enter CookVibe</button>
+    <h1>CookVibe demo is live — help shape it.</h1>
+    <p>A creator-first cooking platform where creators can upload recipes, videos, and (later) go live.</p>
 
-  <div class="small">
-    Stage 1 Demo
+    <!-- FOOD ONLY (IMAGES THAT WORK) -->
+    <div class="foodGrid">
+      <!-- Seafood (ONE) -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Grilled_salmon.jpg/640px-Grilled_salmon.jpg" alt="Seafood (salmon)">
+      <!-- Meals -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Paella_valenciana.jpg/640px-Paella_valenciana.jpg" alt="Paella">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Sushi_platter.jpg/640px-Sushi_platter.jpg" alt="Sushi platter">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Greek_salad_02.jpg/640px-Greek_salad_02.jpg" alt="Fresh salad">
+    </div>
+
+    <div class="earn">
+      <strong>How creators earn (Stage 2+)</strong>
+      <ul style="margin:10px 0 0; padding-left:18px; line-height:1.6">
+        <li>Tips during live cooking</li>
+        <li>Future subscriptions (fans pay for exclusives)</li>
+        <li>Early creator rewards + featured placements</li>
+      </ul>
+      <div class="note">Stage 1 stores data locally (this device only). Stage 2 adds accounts + cloud saving.</div>
+    </div>
+
+    <div class="testimonials">
+      <strong>What creators are saying</strong>
+
+      <div class="quote">
+        <b>“It looks amazing! Definitely easier to navigate. Very user friendly.”</b>
+        <span class="small">— Creator feedback</span>
+      </div>
+
+      <div class="quote">
+        <b>“It looks awesome. I came up with a creator name for myself.”</b>
+        <span class="small">— Creator feedback</span>
+      </div>
+    </div>
+
+    <div class="accessBox" aria-label="Access">
+      <input id="code" placeholder="Enter access code (ADMIN / CORECIRCLE / CREATOR / VIBER / DEV)" autocomplete="off"/>
+      <input id="pw" placeholder="Password" type="password" autocomplete="current-password"/>
+      <!-- ✅ ONE BUTTON ONLY -->
+      <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
+
+      <div class="helpLinks">
+        <button class="linkBtn" id="setPwBtn" type="button">First time? Set password</button>
+        <button class="linkBtn" id="chgPwBtn" type="button">Change password</button>
+        <span class="small">Tip: your code + password are stored locally on this device.</span>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div class="small">Contact: <b>hello@cookvibe.co</b></div>
+      <div class="small">Founder: Shaun Wint • The Start UPZ, LLC</div>
+    </div>
+
   </div>
+</div>
 
+<!-- Modal: Set Password -->
+<div class="modalBack" id="modalSet">
+  <div class="modal">
+    <h3>Set password (first login)</h3>
+    <div class="small">This locks access so people can’t type anything and get in.</div>
+
+    <div class="row2">
+      <input id="setCode" placeholder="Access code (ADMIN / CORECIRCLE / CREATOR / VIBER / DEV)" autocomplete="off">
+      <input id="setPw1" placeholder="New password" type="password" autocomplete="new-password">
+      <input id="setPw2" placeholder="Confirm password" type="password" autocomplete="new-password">
+    </div>
+
+    <div class="note">
+      Stage 1 security note: this is local-only (not bank-level). Stage 2 will use real accounts + reset emails.
+    </div>
+
+    <div class="rowBtns">
+      <button class="btn ghost" id="setCancel" type="button">Cancel</button>
+      <button class="btn" id="setSave" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Change Password -->
+<div class="modalBack" id="modalChg">
+  <div class="modal">
+    <h3>Change password</h3>
+    <div class="row2">
+      <input id="chgCode" placeholder="Access code" autocomplete="off">
+      <input id="chgOld" placeholder="Current password" type="password" autocomplete="current-password">
+      <input id="chgNew1" placeholder="New password" type="password" autocomplete="new-password">
+      <input id="chgNew2" placeholder="Confirm new password" type="password" autocomplete="new-password">
+    </div>
+
+    <div class="rowBtns">
+      <button class="btn ghost" id="chgCancel" type="button">Cancel</button>
+      <button class="btn" id="chgSave" type="button">Update</button>
+    </div>
+  </div>
 </div>
 
 <script>
 /* =========================
-   COOKVIBE ACCESS GATE
-   Whitelisted codes only
+   ACCESS CODES + LOCAL PASSWORDS (Stage 1)
+   ✅ Only these codes work:
+   ADMIN / CORECIRCLE / CREATOR / VIBER / DEV
 ========================= */
 
-const ACCESS = {
-  ADMIN:      { role:"admin", admin:true },
-  CORECIRCLE: { role:"admin", admin:true },
-  DEV:        { role:"admin", admin:true },
+const ALLOWED = new Set(["ADMIN","CORECIRCLE","CREATOR","VIBER","DEV"]);
 
-  CREATOR:    { role:"creator" },
-  VIBER:      { role:"viewer" }
+function keyFor(code){ return "cv_pw_"+code; }
+
+function openModal(id){ document.getElementById(id).style.display="flex"; }
+function closeModal(id){ document.getElementById(id).style.display="none"; }
+
+document.getElementById("setPwBtn").onclick = ()=>openModal("modalSet");
+document.getElementById("chgPwBtn").onclick = ()=>openModal("modalChg");
+
+document.getElementById("setCancel").onclick = ()=>closeModal("modalSet");
+document.getElementById("chgCancel").onclick = ()=>closeModal("modalChg");
+
+// Save first-time password
+document.getElementById("setSave").onclick = ()=>{
+  const code = (document.getElementById("setCode").value||"").trim().toUpperCase();
+  const p1 = document.getElementById("setPw1").value||"";
+  const p2 = document.getElementById("setPw2").value||"";
+
+  if(!ALLOWED.has(code)){ alert("Invalid code. Allowed: ADMIN, CORECIRCLE, CREATOR, VIBER, DEV"); return; }
+  if(p1.length < 6){ alert("Password must be at least 6 characters."); return; }
+  if(p1 !== p2){ alert("Passwords do not match."); return; }
+
+  localStorage.setItem(keyFor(code), p1);
+  closeModal("modalSet");
+  alert("Password set. Now enter code + password to login.");
 };
 
+// Change password
+document.getElementById("chgSave").onclick = ()=>{
+  const code = (document.getElementById("chgCode").value||"").trim().toUpperCase();
+  const oldp = document.getElementById("chgOld").value||"";
+  const n1 = document.getElementById("chgNew1").value||"";
+  const n2 = document.getElementById("chgNew2").value||"";
+
+  if(!ALLOWED.has(code)){ alert("Invalid code."); return; }
+  const saved = localStorage.getItem(keyFor(code));
+  if(!saved){ alert("No password set yet for this code. Use 'First time? Set password'."); return; }
+  if(oldp !== saved){ alert("Current password is wrong."); return; }
+  if(n1.length < 6){ alert("New password must be at least 6 characters."); return; }
+  if(n1 !== n2){ alert("New passwords do not match."); return; }
+
+  localStorage.setItem(keyFor(code), n1);
+  closeModal("modalChg");
+  alert("Password updated.");
+};
+
+// Enter app
 function enter(){
-  const raw = document.getElementById("code").value || "";
-  const code = raw.trim().toUpperCase();
+  const code = (document.getElementById("code").value||"").trim().toUpperCase();
+  const pw = (document.getElementById("pw").value||"");
 
-  if(!code){
-    alert("Enter an access code");
+  if(!ALLOWED.has(code)){
+    alert("Invalid access code. Allowed: ADMIN, CORECIRCLE, CREATOR, VIBER, DEV");
     return;
   }
 
-  const config = ACCESS[code];
-
-  if(!config){
-    alert("Invalid access code.");
+  const saved = localStorage.getItem(keyFor(code));
+  if(!saved){
+    alert("No password set for this code yet. Tap 'First time? Set password' first.");
+    return;
+  }
+  if(pw !== saved){
+    alert("Wrong password.");
     return;
   }
 
+  // clear all roles first
   localStorage.removeItem("cv_role");
   localStorage.removeItem("cv_admin");
   localStorage.removeItem("cv_founding");
 
-  localStorage.setItem("cv_role", config.role);
-
-  if(config.admin)
+  // Map roles
+  if(code === "ADMIN"){
+    localStorage.setItem("cv_role","admin");
     localStorage.setItem("cv_admin","1");
+  }else if(code === "CORECIRCLE"){
+    localStorage.setItem("cv_role","founder_creator");
+    localStorage.setItem("cv_founding","1");
+  }else if(code === "CREATOR"){
+    localStorage.setItem("cv_role","creator");
+  }else if(code === "DEV"){
+    // dev gets admin for testing (still protected by password)
+    localStorage.setItem("cv_role","admin");
+    localStorage.setItem("cv_admin","1");
+  }else{
+    // VIBER
+    localStorage.setItem("cv_role","viewer");
+  }
 
-  window.location.href="app.html";
+  window.location.href = "app.html";
 }
+
+document.getElementById("enterBtn").onclick = enter;
+
+// allow Enter key
+document.getElementById("pw").addEventListener("keydown",(e)=>{
+  if(e.key==="Enter") enter();
+});
 </script>
 
 </body>
