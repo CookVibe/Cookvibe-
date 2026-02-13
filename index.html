@@ -11,316 +11,139 @@
   --g:#1fbf7a;
   --y:#d9b75f;
   --text:#121212;
-  --muted:#5f6a65;
+  --muted:#55635e;
   --line:rgba(0,0,0,.10);
-  --shadow:0 18px 40px rgba(0,0,0,.12);
+  --shadow:0 14px 34px rgba(0,0,0,.10);
 }
 
 *{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--text);
-
-  /* bright lively background (LOCKED) */
-  background:
-    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.30), transparent 55%),
-    radial-gradient(1000px 700px at 95% 0%, rgba(31,191,122,.25), transparent 55%),
-    linear-gradient(180deg,#fff7e8 0%,#ffffff 60%,#f3fff8 100%);
-}
-
-.wrap{
-  max-width:1000px;
-  margin:auto;
-  padding:30px 16px 60px;
-}
-
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:26px;
-  padding:26px;
-  box-shadow:var(--shadow);
-}
-
-.row{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.small{
-  font-size:12px;
-  color:var(--muted);
-}
-
-.logoBox{
-  width:64px;
-  height:64px;
-  border-radius:18px;
+  min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:#000;
+
+  background:
+    radial-gradient(1200px 700px at 10% 0%, rgba(255,186,73,.28), transparent 55%),
+    radial-gradient(1100px 700px at 90% 5%, rgba(31,191,122,.20), transparent 55%),
+    linear-gradient(180deg,#fff6e6 0%,#ffffff 60%,#f5fff9 100%);
 }
 
-.logoBox svg{width:54px;height:54px}
-
-h1{
-  margin:18px 0 6px;
-  font-size:26px;
-  font-weight:900;
-}
-
-p{margin:0 0 14px}
-
-.foodGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-  gap:12px;
-  margin-top:18px;
-}
-
-.foodGrid img{
+.card{
   width:100%;
-  height:130px;
-  object-fit:cover;
-  border-radius:16px;
-  border:1px solid rgba(0,0,0,.1);
+  max-width:420px;
+  background:#fff;
+  border-radius:24px;
+  padding:28px;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
 
-.earn{
-  margin-top:20px;
-  padding:16px;
-  border-radius:18px;
-  background:rgba(31,191,122,.08);
-  border:1px solid rgba(31,191,122,.3);
+.logo{
+  font-weight:1000;
+  font-size:28px;
+  margin-bottom:6px;
 }
 
-.testimonials{
-  margin-top:18px;
-  padding:14px;
-  border-radius:16px;
-  background:rgba(255,186,73,.10);
-  border:1px solid rgba(255,186,73,.35);
+.sub{
   font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
 }
 
 input{
   width:100%;
-  padding:12px;
+  padding:14px;
   border-radius:12px;
   border:1px solid #ccc;
+  margin-bottom:14px;
   font-size:14px;
 }
 
 .btn{
   width:100%;
-  margin-top:12px;
-  padding:13px;
+  padding:14px;
   border-radius:14px;
   border:0;
   font-weight:900;
+  font-size:14px;
   cursor:pointer;
   background:linear-gradient(135deg,var(--g),var(--y));
+  color:#ffffff;
+}
+
+.small{
+  margin-top:14px;
+  font-size:12px;
+  text-align:center;
+  color:var(--muted);
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrap">
-  <div class="card">
+<div class="card">
 
-    <!-- LOGO -->
-    <div class="row">
-      <div class="logoBox">
-        <svg viewBox="0 0 500 500">
-          <rect width="500" height="500" fill="#000"/>
-          <text x="50%" y="55%" text-anchor="middle"
-            font-family="Arial"
-            font-size="96"
-            font-weight="bold">
-            <tspan fill="#2E7D32">Cook</tspan>
-            <tspan fill="#C9A227">vibe</tspan>
-          </text>
-        </svg>
-      </div>
-      <div>
-        <div style="font-weight:1000;font-size:18px">CookVibe</div>
-        <div class="small">Private demo access</div>
-      </div>
-    </div>
+  <div class="logo">CookVibe</div>
+  <div class="sub">Creator access required</div>
 
-    <h1>CookVibe demo is live — help shape it.</h1>
-    <p>A global cooking platform where creators share meals and earn income.</p>
+  <input id="code" placeholder="Enter access code"/>
+  <button class="btn" onclick="enter()">Enter CookVibe</button>
 
-    <!-- FOOD (ALL WORKING) -->
-    <div class="foodGrid">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836" alt="Paella">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754" alt="Seafood">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe" alt="Salad">
-      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2" alt="Sushi">
-    </div>
-
-    <!-- EARN -->
-    <div class="earn">
-      <strong>How creators earn</strong>
-      <ul>
-        <li>Tips during live cooking</li>
-        <li>Future subscriptions</li>
-        <li>Early creator rewards</li>
-      </ul>
-    </div>
-
-    <!-- TESTIMONIALS -->
-    <div class="testimonials">
-      <strong>What creators are saying</strong><br><br>
-      “It looks amazing! Definitely easier to navigate. Very user friendly.”<br>
-      “It looks awesome. I already created my creator name.”
-    </div>
-
-    <!-- =========================
-   ACCESS + PASSWORD GATE (Stage 1 local)
-   Codes allowed ONLY:
-   ADMIN / CORECIRCLE / CREATOR / VIBER / DEV
-========================= -->
-
-<div style="margin-top:18px">
-  <input id="code" placeholder="Enter access code (ADMIN / CORECIRCLE / CREATOR / VIBER / DEV)" autocomplete="off"/>
-
-  <div style="margin-top:10px">
-    <input id="pass" type="password" placeholder="Password (first time = set one)" autocomplete="new-password"/>
+  <div class="small">
+    Stage 1 Demo
   </div>
 
-  <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-    <button class="btn" id="enterBtn" type="button">Enter CookVibe</button>
-    <button class="btn" id="changePassBtn" type="button" style="background:#fff;border:1px solid rgba(0,0,0,.12);">Change Password</button>
-  </div>
-
-  <div class="small" id="loginMsg" style="margin-top:10px; line-height:1.4;">
-    Stage 1 note: Password is stored on <b>this device/browser only</b>. Clearing site data resets it.
-  </div>
 </div>
 
 <script>
 /* =========================
-   ACCESS CODES + LOCAL PASSWORD (Stage 1)
+   COOKVIBE ACCESS GATE
+   Whitelisted codes only
 ========================= */
-const ALLOWED_CODES = ["ADMIN","CORECIRCLE","CREATOR","VIBER","DEV"];
 
-function setRoleFromCode(code){
-  // clear all roles first
+const ACCESS = {
+  ADMIN:      { role:"admin", admin:true },
+  CORECIRCLE: { role:"admin", admin:true },
+  DEV:        { role:"admin", admin:true },
+
+  CREATOR:    { role:"creator" },
+  VIBER:      { role:"viewer" }
+};
+
+function enter(){
+  const raw = document.getElementById("code").value || "";
+  const code = raw.trim().toUpperCase();
+
+  if(!code){
+    alert("Enter an access code");
+    return;
+  }
+
+  const config = ACCESS[code];
+
+  if(!config){
+    alert("Invalid access code.");
+    return;
+  }
+
   localStorage.removeItem("cv_role");
   localStorage.removeItem("cv_admin");
   localStorage.removeItem("cv_founding");
 
-  // role mapping
-  if(code === "ADMIN"){
-    localStorage.setItem("cv_role","admin");
+  localStorage.setItem("cv_role", config.role);
+
+  if(config.admin)
     localStorage.setItem("cv_admin","1");
-    return "admin";
-  }
-  if(code === "CORECIRCLE"){
-    localStorage.setItem("cv_role","founder_creator");
-    localStorage.setItem("cv_founding","1");
-    return "founder_creator";
-  }
-  if(code === "DEV"){
-    localStorage.setItem("cv_role","creator");
-    return "creator";
-  }
-  if(code === "CREATOR"){
-    localStorage.setItem("cv_role","creator");
-    return "creator";
-  }
-  if(code === "VIBER"){
-    localStorage.setItem("cv_role","viewer");
-    return "viewer";
-  }
-  return null;
+
+  window.location.href="app.html";
 }
-
-// One password per device (Stage 1). If you want per-code passwords later, we can key it by code.
-const PASS_KEY = "cv_pass";
-
-function enter(){
-  const codeRaw = document.getElementById("code").value || "";
-  const code = codeRaw.trim().toUpperCase();
-  const pass = (document.getElementById("pass").value || "").trim();
-  const msg  = document.getElementById("loginMsg");
-
-  if(!code){
-    alert("Enter an access code.");
-    return;
-  }
-  if(!ALLOWED_CODES.includes(code)){
-    alert("Invalid access code.");
-    return;
-  }
-
-  // password logic (Stage 1 local)
-  const existingPass = localStorage.getItem(PASS_KEY);
-
-  // First-time setup: create password
-  if(!existingPass){
-    if(pass.length < 6){
-      alert("Create a password (6+ characters).");
-      return;
-    }
-    localStorage.setItem(PASS_KEY, pass);
-    if(msg) msg.textContent = "✅ Password set. Entering CookVibe…";
-  } else {
-    // Require correct password
-    if(!pass){
-      alert("Enter your password.");
-      return;
-    }
-    if(pass !== existingPass){
-      alert("Wrong password.");
-      return;
-    }
-  }
-
-  // Set role ONLY if code is allowed
-  const role = setRoleFromCode(code);
-  if(!role){
-    alert("Invalid access code.");
-    return;
-  }
-
-  // Go to app
-  window.location.href = "app.html";
-}
-
-function changePassword(){
-  const existingPass = localStorage.getItem(PASS_KEY);
-
-  if(!existingPass){
-    alert("No password set yet. Enter a code and create one first.");
-    return;
-  }
-
-  const current = prompt("Enter current password:");
-  if(current === null) return;
-  if(current !== existingPass){
-    alert("Wrong current password.");
-    return;
-  }
-
-  const next = prompt("Enter NEW password (6+ chars):");
-  if(next === null) return;
-  if(String(next).trim().length < 6){
-    alert("New password must be at least 6 characters.");
-    return;
-  }
-
-  localStorage.setItem(PASS_KEY, String(next).trim());
-  alert("✅ Password updated.");
-  const passInput = document.getElementById("pass");
-  if(passInput) passInput.value = "";
-}
-
-document.getElementById("enterBtn").addEventListener("click", enter);
-document.getElementById("changePassBtn").addEventListener("click", changePassword);
 </script>
+
+</body>
+</html>
