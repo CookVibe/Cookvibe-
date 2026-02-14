@@ -3,393 +3,253 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • Access</title>
-<meta http-equiv="Cache-Control" content="no-store"/>
+<title>CookVibe • Preview</title>
 
 <style>
+
+/* =========================
+   GLOBAL — GLOSS BLACK
+========================= */
+
 :root{
-  --g:#1fbf7a;
-  --y:#d9b75f;
-  --text:#f2f2f2;
-  --muted:#b7c2bd;
-  --line:rgba(255,255,255,.10);
-  --shadow:0 18px 44px rgba(0,0,0,.55);
-  --card:rgba(18,18,18,.72);
-  --glass:rgba(255,255,255,.06);
+  --accent1:#ffb84d;
+  --accent2:#2de39a;
+  --accent3:#6aa8ff;
 }
+
 *{box-sizing:border-box}
-html,body{height:100%}
+
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  color:var(--text);
+  color:#fff;
   background:#000;
   overflow-x:hidden;
 }
 
-/* Gloss black + subtle grain */
+/* subtle gloss */
 body::before{
   content:"";
-  position:fixed; inset:-40px;
+  position:fixed;
+  inset:0;
   background:
-    radial-gradient(900px 520px at 18% 8%, rgba(31,191,122,.18), transparent 60%),
-    radial-gradient(860px 520px at 82% 12%, rgba(217,183,95,.16), transparent 60%),
-    radial-gradient(820px 560px at 55% 95%, rgba(112,161,255,.10), transparent 62%),
-    linear-gradient(180deg, #060606 0%, #000 60%, #060606 100%);
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.06), transparent 40%),
+    radial-gradient(circle at 70% 80%, rgba(255,255,255,.05), transparent 40%);
   pointer-events:none;
-  z-index:-3;
 }
+
+/* film grain */
 body::after{
   content:"";
-  position:fixed; inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
-  opacity:.18;
-  pointer-events:none;
-  z-index:-2;
-}
-
-/* Subtle “alive” motion (not loud) */
-@keyframes drift{
-  0%{transform:translate3d(0,0,0)}
-  50%{transform:translate3d(10px,-8px,0)}
-  100%{transform:translate3d(0,0,0)}
-}
-.glowOrb{
   position:fixed;
-  width:520px;height:520px;border-radius:50%;
-  filter:blur(44px);
-  opacity:.14;
-  animation:drift 8.5s ease-in-out infinite;
+  inset:0;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:.08;
   pointer-events:none;
-  z-index:-1;
 }
-.glow1{left:-140px;top:-160px;background:radial-gradient(circle at 30% 30%, rgba(31,191,122,.65), transparent 60%)}
-.glow2{right:-160px;top:-140px;background:radial-gradient(circle at 30% 30%, rgba(217,183,95,.62), transparent 60%);animation-duration:10.5s}
-.glow3{left:18%;bottom:-220px;background:radial-gradient(circle at 30% 30%, rgba(112,161,255,.55), transparent 60%);animation-duration:12.5s}
 
-.wrap{max-width:1120px;margin:0 auto;padding:22px 14px 64px}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:26px;
-  padding:22px;
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(10px);
-}
-.row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.rowL{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.small{font-size:12px;color:var(--muted);line-height:1.5}
+/* layout */
 
-.btn{
-  padding:12px 18px;border-radius:14px;border:0;
-  cursor:pointer;font-weight:1000;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#fff; /* ✅ white text (you asked) */
-  box-shadow:0 12px 20px rgba(0,0,0,.45);
-}
-.btn:active{transform:translateY(1px)}
-.btn.pulse{position:relative}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(31,191,122,.30), 0 12px 20px rgba(0,0,0,.45)}
-  70%{box-shadow:0 0 0 14px rgba(31,191,122,0), 0 12px 20px rgba(0,0,0,.45)}
-  100%{box-shadow:0 0 0 0 rgba(31,191,122,0), 0 12px 20px rgba(0,0,0,.45)}
-}
-.btn.pulse{animation:pulse 2.2s infinite}
+.wrap{max-width:1100px;margin:auto;padding:40px 20px}
 
-input{
-  width:100%;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.35);
-  color:#fff;
-}
-input::placeholder{color:rgba(255,255,255,.55)}
+h1{font-size:42px;margin:0 0 10px;font-weight:900}
+h2{font-size:26px;margin-bottom:14px}
+p{color:#cfcfcf;line-height:1.6}
 
-.logoBar{
-  display:flex;align-items:center;gap:12px;
+/* logo */
+
+.logo{
+  display:flex;
+  justify-content:center;
+  margin-bottom:20px;
 }
-.logoImg{
-  width:54px;height:54px;border-radius:16px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.06);
-  padding:8px;
-  object-fit:contain;
+
+.logo img{
+  height:80px;
 }
-.brandName{
-  font-weight:1100;font-size:18px;letter-spacing:.2px
-}
-.tagline{
-  color:var(--muted);font-size:12px;margin-top:2px
-}
+
+/* hero */
 
 .hero{
-  margin-top:14px;
-  border-radius:22px;
-  padding:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  text-align:center;
+  padding:40px 0;
 }
-.hero h1{margin:0 0 8px;font-size:26px;font-weight:1100}
-.hero p{margin:0;color:rgba(255,255,255,.86);line-height:1.55}
 
-.banner{
-  margin-top:12px;
-  border-radius:18px;
-  padding:12px 14px;
-  border:1px solid rgba(31,191,122,.35);
-  background:rgba(31,191,122,.10);
-  display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+.tag{
+  font-size:18px;
+  color:#aaa;
 }
-.banner b{color:#fff}
-.banner .mini{font-size:12px;color:rgba(255,255,255,.78);line-height:1.4}
+
+/* access */
+
+.access{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+input{
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  width:220px;
+}
+
+button{
+  padding:14px 22px;
+  border:none;
+  border-radius:10px;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--accent2),var(--accent1));
+  color:#fff;
+  cursor:pointer;
+}
+
+/* sections */
+
+.section{
+  margin-top:70px;
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(6px);
+}
+
+/* color pop */
+
+.pop1{border-left:4px solid var(--accent1)}
+.pop2{border-left:4px solid var(--accent2)}
+.pop3{border-left:4px solid var(--accent3)}
+
+/* testimonials */
+
+.quote{
+  margin-top:14px;
+  padding:16px;
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+}
+
+/* flags */
 
 .flags{
-  display:flex;flex-wrap:wrap;gap:8px;
-}
-.flag{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 10px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.05);
-  color:#fff;font-size:12px;font-weight:900;
-}
-.flag span{filter:saturate(1.1)}
-.sep{height:1px;background:rgba(255,255,255,.08);margin:18px 0}
-
-.foodGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  margin-top:14px;
-}
-.foodGrid img{
-  width:100%;
-  height:92px;              /* ✅ smaller */
-  object-fit:cover;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 12px 22px rgba(0,0,0,.35);
-  transition:transform .18s ease, filter .18s ease;
-  filter:saturate(1.12) contrast(1.08);
-}
-.foodGrid img:hover{transform:translateY(-2px);filter:saturate(1.2) contrast(1.1)}
-
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:12px;margin-top:14px;
-}
-.tile{
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.05);
-  border-radius:18px;
-  padding:14px;
-}
-.tile h3{margin:0 0 8px;font-size:14px}
-.tile p{margin:0;color:rgba(255,255,255,.82);font-size:13px;line-height:1.55}
-.pop{
-  border-color:rgba(217,183,95,.26);
-  background:
-    radial-gradient(420px 220px at 20% 10%, rgba(217,183,95,.18), transparent 60%),
-    radial-gradient(420px 220px at 80% 10%, rgba(31,191,122,.15), transparent 60%),
-    rgba(255,255,255,.05);
-}
-.quote{
-  font-size:13px;line-height:1.55;color:rgba(255,255,255,.86);
-}
-.quote b{color:#fff}
-.q{
-  margin-top:10px;
-  padding:12px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(0,0,0,.22);
+  font-size:28px;
+  text-align:center;
+  margin-top:20px;
 }
 
-.earn{
-  margin-top:14px;
-  border-radius:18px;
-  padding:16px;
-  background:
-    radial-gradient(460px 220px at 15% 10%, rgba(31,191,122,.18), transparent 60%),
-    radial-gradient(460px 220px at 85% 10%, rgba(217,183,95,.14), transparent 60%),
-    rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.10);
-}
-.earn ul{margin:10px 0 0 18px;color:rgba(255,255,255,.84);line-height:1.6}
-.earn li{margin:6px 0}
+/* banner */
 
-.footerNote{
-  margin-top:18px;
-  font-size:12px;
-  color:rgba(255,255,255,.60);
+.banner{
+  margin-top:60px;
+  padding:28px;
+  text-align:center;
+  border-radius:20px;
+  background:linear-gradient(135deg,#111,#000);
+  border:1px solid rgba(255,255,255,.08);
 }
-code{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.10)}
+
+.apply{
+  margin-top:16px;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+  100%{transform:scale(1)}
+}
+
 </style>
 </head>
 
 <body>
-<div class="glowOrb glow1"></div>
-<div class="glowOrb glow2"></div>
-<div class="glowOrb glow3"></div>
 
 <div class="wrap">
-  <div class="card">
 
-    <!-- TOP BAR (✅ logo included) -->
-    <div class="row">
-      <div class="logoBar">
-        <img class="logoImg" alt="CookVibe logo"
-          src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgoLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDg0OGhAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQwB4AMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EAD0QAAEDAgQDBgQEBgMBAAAAAAECAwQFEQASITEGE0FRImFxgZEykaGx0RQjQlLB8BVCYoKy4fEkQ3OS/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAQACAgICAgMBAAAAAAAAAAECEQMhEjEEE0FRImFxgfD/2gAMAwEAAhEDEQA/ANxooooooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z">
-        <div>
-          <div class="brandName">CookVibe</div>
-          <div class="tagline">CookVibe is in preview — help shape the build.</div>
-        </div>
-      </div>
+<!-- LOGO -->
+<div class="logo">
+  <img src="logo.png" alt="CookVibe logo">
+</div>
 
-      <!-- FLAGS -->
-      <div class="flags" aria-label="Global flags">
-        <div class="flag"><span>🇺🇸</span>US</div>
-        <div class="flag"><span>🇬🇧</span>UK</div>
-        <div class="flag"><span>🇯🇲</span>Caribbean</div>
-        <div class="flag"><span>🇳🇬</span>Africa</div>
-        <div class="flag"><span>🇯🇵</span>Asia</div>
-      </div>
-    </div>
+<!-- HERO -->
+<div class="hero">
+  <h1>CookVibe is in Preview</h1>
+  <div class="tag">The creator-first cooking platform</div>
 
-    <!-- HERO -->
-    <div class="hero">
-      <h1>Creator-first cooking — culture, recipes, videos, and (soon) live.</h1>
-      <p>
-        Stage 1 is a working preview to validate flow + feedback. Stage 2 adds real accounts, cloud storage, moderation,
-        scalable video, and monetization infrastructure.
-      </p>
-
-      <!-- SEEKING TECHNICAL PARTNER banner -->
-      <div class="banner" style="margin-top:14px">
-        <div>
-          <b>Seeking technical partner (CTO path)</b>
-          <div class="mini">Equity + profit-share options • Clear milestones • Real product already live</div>
-        </div>
-        <button class="btn pulse" type="button" onclick="window.location.href='mailto:hello@cookvibe.co?subject=CookVibe%20Technical%20Partner%20Interest'">
-          Apply / Talk
-        </button>
-      </div>
-    </div>
-
-    <div class="sep"></div>
-
-    <!-- FOOD (keep the vibe alive) -->
-    <div class="small">Preview of the vibe (food-forward):</div>
-    <div class="foodGrid">
-      <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=80" alt="Seafood">
-      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Meal">
-      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="Delicious meal">
-      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Sushi">
-    </div>
-
-    <!-- COLOR POP SECTIONS (Why now / Earn / Testimonials) -->
-    <div class="grid3">
-      <div class="tile pop">
-        <h3>🔥 Why now</h3>
-        <p>
-          Food creators are already building audiences — but their content is scattered across platforms.
-          CookVibe is the creator home base: profile + recipes + videos + community feedback, with live coming next.
-        </p>
-      </div>
-
-      <div class="tile pop">
-        <h3>💸 How creators earn (Stage 2+)</h3>
-        <p>
-          Stage 1 is about proving workflow + creator demand. Stage 2 introduces creator monetization infrastructure:
-        </p>
-        <div class="earn" style="margin-top:10px">
-          <ul>
-            <li>Tips during live cooking</li>
-            <li>Follower subscriptions for exclusive content</li>
-            <li>Brand sponsorship opportunities</li>
-            <li>Creator rewards + featured placement</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="tile pop">
-        <h3>🗣️ What creators are saying</h3>
-        <div class="q quote">
-          <b>“It looks amazing! Definitely easier to navigate. Very user friendly. Good job!”</b><br>
-          <span class="small">— early creator feedback</span>
-        </div>
-        <div class="q quote">
-          <b>“It looks awesome. I came up with a creator name for myself.”</b><br>
-          <span class="small">— early creator feedback</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="sep"></div>
-
-    <!-- ACCESS (tightened + real code gate) -->
-    <div class="rowL">
-      <div>
-        <div style="font-weight:1100">Access required</div>
-        <div class="small">
-          Use one of these codes: <code>ADMIN</code> <code>CORECIRCLE</code> <code>CREATOR</code> <code>VIBER</code> <code>DEV</code>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:14px">
-      <input id="code" placeholder="Enter access code"/>
-      <div style="margin-top:12px">
-        <button class="btn" onclick="enter()">Enter CookVibe</button>
-      </div>
-      <div class="footerNote">
-        Contact: <b>hello@cookvibe.co</b>
-      </div>
-    </div>
-
+  <div class="access">
+    <input id="code" placeholder="Enter access code"/>
+    <button onclick="enter()">Enter</button>
   </div>
+
+  <div class="flags">🇺🇸 🇬🇧 🇯🇲 🇳🇬 🇫🇷 🇮🇹 🇯🇵 🇮🇳 🇲🇽</div>
+</div>
+
+<!-- WHY NOW -->
+<div class="section pop1">
+  <h2>Why Now</h2>
+  <p>
+  Food content is exploding globally, but creators still rely on platforms not built for cooking.
+  CookVibe creates a dedicated home for recipes, live cooking, and creator monetization.
+  </p>
+</div>
+
+<!-- HOW CREATORS EARN -->
+<div class="section pop2">
+  <h2>How Creators Earn</h2>
+  <p>
+  • Tips during live cooking  
+  • Subscriptions  
+  • Premium classes  
+  • Brand partnerships  
+  • Featured creator rewards  
+  </p>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section pop3">
+  <h2>What Creators Are Saying</h2>
+
+  <div class="quote">
+  “It looks amazing — super easy to navigate.”
+  </div>
+
+  <div class="quote">
+  “I love the idea. I already picked my creator name.”
+  </div>
+
+</div>
+
+<!-- PARTNER BANNER -->
+<div class="banner">
+  <h2>Seeking Technical Partner</h2>
+  <p>
+  Looking for a long-term CTO-level partner with equity + profit share.
+  Help build the future of creator-first food platforms.
+  </p>
+
+  <button class="apply">Apply to Partner</button>
+</div>
+
 </div>
 
 <script>
+
 function enter(){
-  const raw = document.getElementById("code").value || "";
-  const code = raw.trim().toUpperCase();
+  const code=document.getElementById("code").value.trim().toUpperCase();
 
-  if(!code){
-    alert("Enter an access code");
+  const valid=["ADMIN","CORECIRCLE","CREATOR","VIBER","DEV"];
+
+  if(!valid.includes(code)){
+    alert("Invalid code");
     return;
   }
 
-  const allowed = new Set(["ADMIN","CORECIRCLE","CREATOR","VIBER","DEV"]);
-  if(!allowed.has(code)){
-    alert("Invalid access code.");
-    return;
-  }
-
-  // clear all roles first
-  localStorage.removeItem("cv_role");
-  localStorage.removeItem("cv_admin");
-  localStorage.removeItem("cv_founding");
-
-  // role mapping
-  if(code === "ADMIN"){
-    localStorage.setItem("cv_role","admin");
-    localStorage.setItem("cv_admin","1");
-  } else if(code === "CORECIRCLE"){
-    localStorage.setItem("cv_role","corecircle");
-  } else if(code === "CREATOR"){
-    localStorage.setItem("cv_role","creator");
-  } else if(code === "VIBER"){
-    localStorage.setItem("cv_role","viber");
-  } else if(code === "DEV"){
-    localStorage.setItem("cv_role","dev");
-  }
-
-  window.location.href = "app.html";
+  localStorage.setItem("cv_role",code);
+  window.location.href="app.html";
 }
+
 </script>
 
 </body>
