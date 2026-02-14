@@ -3,537 +3,593 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CookVibe • Preview Access</title>
+<title>CookVibe • Access</title>
 <meta http-equiv="Cache-Control" content="no-store"/>
+<meta name="theme-color" content="#000000"/>
 
 <style>
 :root{
-  --g:#1fbf7a;
-  --y:#d9b75f;
-  --hot:#ff4fd8;
-  --ice:#66d9ff;
-
   --bg:#000;
-  --card:rgba(255,255,255,.06);
-  --card2:rgba(255,255,255,.08);
-  --line:rgba(255,255,255,.10);
   --text:#f4f4f4;
   --muted:rgba(255,255,255,.72);
-  --shadow:0 18px 44px rgba(0,0,0,.55);
-
-  --radius:22px;
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.08);
+  --glass2:rgba(255,255,255,.12);
+  --shadow: 0 22px 60px rgba(0,0,0,.65);
+  --shadow2: 0 14px 34px rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+  color:var(--text);
   background:#000;
   overflow-x:hidden;
 }
 
-/* ===== Gloss black + subtle motion + grain ===== */
-.stage{
-  min-height:100%;
-  position:relative;
-  isolation:isolate;
+/* glossy black + subtle motion */
+.bg{
+  position:fixed; inset:0; z-index:-3;
   background:
-    radial-gradient(900px 520px at 15% 12%, rgba(31,191,122,.12), transparent 60%),
-    radial-gradient(900px 520px at 82% 18%, rgba(217,183,95,.10), transparent 60%),
-    radial-gradient(900px 520px at 50% 92%, rgba(102,217,255,.08), transparent 60%),
-    radial-gradient(1200px 900px at 50% 35%, rgba(255,255,255,.05), transparent 55%),
-    linear-gradient(180deg, #000 0%, #050505 45%, #000 100%);
+    radial-gradient(900px 520px at 30% 15%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(800px 520px at 75% 25%, rgba(255,255,255,.06), transparent 62%),
+    radial-gradient(900px 700px at 50% 95%, rgba(255,255,255,.05), transparent 62%),
+    linear-gradient(180deg, #020202 0%, #000 60%, #010101 100%);
+  filter:saturate(0.95) contrast(1.05);
 }
-.stage::before{
+.bg::after{
   content:"";
   position:absolute; inset:-40%;
   background:
-    radial-gradient(closest-side, rgba(255,255,255,.06), transparent 70%),
-    radial-gradient(closest-side, rgba(255,255,255,.04), transparent 72%),
-    radial-gradient(closest-side, rgba(31,191,122,.07), transparent 74%),
-    radial-gradient(closest-side, rgba(217,183,95,.06), transparent 74%);
-  filter: blur(26px);
-  opacity:.55;
-  animation: drift 18s ease-in-out infinite alternate;
-  z-index:-2;
+    radial-gradient(closest-side at 35% 30%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(closest-side at 75% 20%, rgba(255,255,255,.08), transparent 62%),
+    radial-gradient(closest-side at 50% 85%, rgba(255,255,255,.06), transparent 62%);
+  animation: drift 14s ease-in-out infinite alternate;
+  opacity:.75;
 }
 @keyframes drift{
-  from{ transform:translate3d(-2%, -1%,0) scale(1.02); }
-  to  { transform:translate3d( 2%,  1%,0) scale(1.04); }
+  from{ transform:translate3d(-2%, -1%, 0) scale(1.02); }
+  to{ transform:translate3d(2%, 1%, 0) scale(1.03); }
 }
+
+/* film grain */
 .grain{
+  position:fixed; inset:0; z-index:-2;
   pointer-events:none;
-  position:absolute; inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
   mix-blend-mode:overlay;
-  opacity:.14;
-  z-index:-1;
+  opacity:.18;
+}
+.vignette{
+  position:fixed; inset:0; z-index:-1;
+  pointer-events:none;
+  background: radial-gradient(closest-side at 50% 40%, transparent 52%, rgba(0,0,0,.65) 100%);
+  opacity:.95;
 }
 
-/* ===== Layout ===== */
-.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 70px}
-.topbar{
-  position:sticky; top:0; z-index:99;
-  backdrop-filter: blur(14px);
-  background: linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.35));
-  border-bottom:1px solid rgba(255,255,255,.06);
+.wrap{
+  max-width:1120px;
+  margin:0 auto;
+  padding:22px 14px 64px;
 }
-.topin{
-  max-width:1100px;margin:0 auto;
-  padding:12px 14px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-}
-.brand{display:flex;align-items:center;gap:12px;min-width:0}
-.logo{
-  width:44px;height:44px;border-radius:14px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.06);
-  box-shadow:0 14px 30px rgba(0,0,0,.55);
-  overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-}
-.logo img{width:100%;height:100%;object-fit:contain;padding:8px;background:rgba(0,0,0,.55)}
-.brandTxt{min-width:0;line-height:1.1}
-.brandName{font-weight:1000;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.nav a{
-  color:rgba(255,255,255,.88);
-  font-weight:900;
+.topRow{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.brand h1{
+  margin:0;
+  font-size:22px;
+  letter-spacing:.4px;
+  font-weight:1000;
+}
+.brand .tag{
+  color:var(--muted);
   font-size:13px;
-  padding:8px 10px;border-radius:12px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.04);
+  line-height:1.45;
+  max-width:560px;
 }
-.nav a:hover{background:rgba(255,255,255,.06)}
-
-/* ===== Cards ===== */
-.card{
-  margin-top:16px;
-  border-radius:var(--radius);
-  background:linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.045));
-  border:1px solid rgba(255,255,255,.10);
-  box-shadow:var(--shadow);
-  padding:18px;
+.pills{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
 }
-.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.small{font-size:12px;color:var(--muted);line-height:1.45}
-.muted{color:var(--muted)}
 .pill{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:6px 10px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.05);
-  color:rgba(255,255,255,.84);
-  font-size:12px;font-weight:950;
-}
-
-/* ===== Buttons ===== */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:12px 16px;border-radius:14px;border:0;
-  cursor:pointer;font-weight:1000;font-size:14px;
-  background:linear-gradient(135deg,var(--g),var(--y));
-  color:#fff; /* ✅ white text */
-  box-shadow:0 16px 30px rgba(0,0,0,.55);
-}
-.btn.ghost{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
   background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.14);
-  color:#fff;
-  box-shadow:none;
+  font-size:12px;
+  color:rgba(255,255,255,.82);
+  font-weight:900;
 }
-.btn.apply{
-  position:relative;
-  background:linear-gradient(135deg,var(--hot),var(--y));
+.flags{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
 }
-.btn.apply::after{
-  content:"";
-  position:absolute; inset:-2px;
-  border-radius:16px;
-  border:1px solid rgba(255,79,216,.65);
-  filter: blur(.2px);
-  opacity:.35;
-}
-.pulse{ animation:pulse 1.9s ease-in-out infinite; }
-@keyframes pulse{
-  0%,100%{ transform:translateZ(0) scale(1); box-shadow:0 16px 30px rgba(0,0,0,.55); }
-  50%{ transform:translateZ(0) scale(1.03); box-shadow:0 20px 40px rgba(255,79,216,.18); }
-}
-
-/* ===== Hero ===== */
-.hero{
-  margin-top:18px;
-  border-radius:28px;
-  padding:22px 18px;
-  border:1px solid rgba(255,255,255,.10);
-  background:
-    radial-gradient(800px 500px at 18% 12%, rgba(255,79,216,.10), transparent 60%),
-    radial-gradient(800px 500px at 80% 20%, rgba(31,191,122,.10), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.035));
-  box-shadow:var(--shadow);
-}
-.heroTop{
-  display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-}
-.heroLogoWrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.heroLogo{
-  width:64px;height:64px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.05);
+.flag{
+  width:24px;height:16px;border-radius:4px;
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 8px 18px rgba(0,0,0,.5);
   overflow:hidden;
 }
-.heroLogo img{width:100%;height:100%;object-fit:contain;padding:10px;background:rgba(0,0,0,.55)}
-.hero h1{margin:10px 0 8px;font-size:30px;font-weight:1100;letter-spacing:.2px}
-.hero p{margin:0 0 14px;font-size:14px;color:rgba(255,255,255,.82);line-height:1.55;max-width:820px}
+.flag img{width:100%;height:100%;object-fit:cover;display:block}
 
-.colorPop{
-  display:inline-block;
-  background:linear-gradient(90deg, var(--ice), var(--hot));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  font-weight:1100;
+/* plate stage */
+.stage{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:26px 0 8px;
 }
 
-/* Flags */
-.flags{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:20px;opacity:.95;}
-.flags span{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:34px;height:34px;border-radius:12px;
-  background:rgba(255,255,255,.05);
+/* utensils (desktop only) */
+.utensils{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.9;
+}
+.utensils::before,
+.utensils::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:120px;
+  height:420px;
+  transform:translateY(-50%);
+  filter:drop-shadow(0 18px 35px rgba(0,0,0,.55));
+  opacity:.95;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.22)),
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,.95), transparent 55%);
   border:1px solid rgba(255,255,255,.12);
+  border-radius:90px;
+  mask:
+    radial-gradient(80px 80px at 50% 8%, #000 55%, transparent 56%),
+    linear-gradient(#000, #000);
+  -webkit-mask:
+    radial-gradient(80px 80px at 50% 8%, #000 55%, transparent 56%),
+    linear-gradient(#000, #000);
+}
+.utensils::before{ left: calc(50% - 350px); transform:translateY(-50%) rotate(-4deg); }
+.utensils::after{ right: calc(50% - 350px); transform:translateY(-50%) rotate(4deg); }
+
+@media(max-width:980px){
+  .utensils{display:none;}
 }
 
-/* Food grid (smaller) */
-.foodGrid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+/* plate */
+.plate{
+  width:min(920px, 100%);
+  position:relative;
+  padding:18px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,255,255,.18), rgba(255,255,255,.03) 42%, rgba(255,255,255,.02) 66%, rgba(255,255,255,.10) 100%);
+  box-shadow: var(--shadow);
+}
+.plate::before{
+  content:"";
+  position:absolute; inset:10px;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(0,0,0,.65) 0%, rgba(0,0,0,.92) 48%, rgba(0,0,0,.98) 100%),
+    radial-gradient(circle at 25% 20%, rgba(255,255,255,.10), transparent 45%),
+    radial-gradient(circle at 75% 18%, rgba(255,255,255,.08), transparent 48%);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    inset 0 18px 40px rgba(255,255,255,.05),
+    inset 0 -22px 60px rgba(0,0,0,.75);
+}
+.plate::after{
+  /* rim highlight */
+  content:"";
+  position:absolute; inset:0;
+  border-radius:999px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,255,255,.22), transparent 55%),
+    radial-gradient(circle at 50% 85%, rgba(255,255,255,.08), transparent 60%);
+  opacity:.65;
+  pointer-events:none;
+}
+
+/* center card (keeps everything you already had, just inside plate) */
+.card{
+  position:relative;
+  z-index:2;
+  margin:0 auto;
+  width:min(760px, 92vw);
+  border-radius:26px;
+  padding:20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(10px);
+}
+
+.sectionTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap:10px;
   margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(255,255,255,.10);
 }
-.foodGrid img{
-  width:100%;
-  height:92px;
-  object-fit:cover;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.10);
-  filter:saturate(1.08) contrast(1.06);
-}
+.sectionTitle strong{font-size:14px;letter-spacing:.2px}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
 
-/* Sections */
-.grid2{display:grid;gap:14px;grid-template-columns:1.1fr .9fr}
-@media(max-width:900px){.grid2{grid-template-columns:1fr}}
-.blockTitle{font-weight:1100;letter-spacing:.2px;margin:0 0 8px;}
-.callout{
+/* tech partner banner */
+.banner{
+  margin-top:14px;
+  padding:14px 14px;
   border-radius:18px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);
-  padding:14px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
 }
-.callout.hot{
+.banner b{letter-spacing:.2px}
+.banner .sub{color:var(--muted);font-size:12px;line-height:1.45;max-width:520px}
+
+/* glass buttons */
+.btnRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.20);
   background:
-    radial-gradient(500px 200px at 20% 20%, rgba(255,79,216,.14), transparent 60%),
-    radial-gradient(500px 200px at 80% 30%, rgba(102,217,255,.12), transparent 60%),
-    rgba(255,255,255,.03);
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.07));
+  color:#fff; /* WHITE TEXT (your rule) */
+  font-weight:950;
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 14px 26px rgba(0,0,0,.55);
+  position:relative;
+  overflow:hidden;
+}
+.btn::before{
+  content:"";
+  position:absolute; inset:-40% -20%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+  transform: rotate(18deg) translateX(-70%);
+  opacity:.9;
+}
+.btn:hover{ transform:translateY(-1px); }
+.btn:hover::before{ animation:sweep 1.2s ease; }
+@keyframes sweep{
+  from{ transform: rotate(18deg) translateX(-70%); }
+  to{ transform: rotate(18deg) translateX(70%); }
+}
+.btn:active{ transform:translateY(0px); opacity:.95; }
+
+.btn.pulse{
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 14px 26px rgba(0,0,0,.55); }
+  50%{ box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 18px 34px rgba(0,0,0,.70); }
 }
 
-/* Access */
+/* inputs */
 input{
   width:100%;
   padding:12px 12px;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.45);
   color:#fff;
   outline:none;
 }
 input::placeholder{color:rgba(255,255,255,.55)}
-.accessRow{display:grid;gap:10px;grid-template-columns:1fr auto}
-@media(max-width:680px){.accessRow{grid-template-columns:1fr}}
-
-.noticeBanner{
-  margin-top:14px;
-  border-radius:18px;
-  padding:14px;
-  border:1px solid rgba(255,79,216,.25);
-  background:
-    radial-gradient(700px 260px at 15% 20%, rgba(255,79,216,.16), transparent 60%),
-    radial-gradient(700px 260px at 85% 30%, rgba(217,183,95,.12), transparent 60%),
-    rgba(255,255,255,.03);
+.twoCol{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
 }
-.noticeBanner .row{align-items:flex-start}
-.noticeBanner strong{font-weight:1100}
+@media(max-width:720px){ .twoCol{grid-template-columns:1fr;} }
 
-.footer{
-  margin-top:22px;
-  padding:16px 0 0;
-  border-top:1px solid rgba(255,255,255,.08);
-  color:rgba(255,255,255,.70);
-  font-size:12px;
+/* food images smaller (30% smaller feel) */
+.foodGrid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
 }
-
-.kbd{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size:12px;
-  padding:2px 8px;
-  border-radius:10px;
+@media(max-width:720px){ .foodGrid{grid-template-columns:repeat(2, minmax(0,1fr));} }
+.foodGrid img{
+  width:100%;
+  height:96px;
+  object-fit:cover;
+  border-radius:16px;
   border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.05);
-  color:rgba(255,255,255,.86);
+  box-shadow:0 10px 18px rgba(0,0,0,.55);
 }
+
+/* testimonials */
+.quoteGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+@media(max-width:720px){ .quoteGrid{grid-template-columns:1fr;} }
+.quote{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.06);
+  border-radius:16px;
+  padding:12px;
+}
+.quote .who{margin-top:8px;color:rgba(255,255,255,.70);font-size:12px;font-weight:900}
+
+/* footer */
+.foot{
+  margin-top:16px;
+  color:rgba(255,255,255,.55);
+  font-size:12px;
+  text-align:center;
+}
+a.link{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
 </style>
 </head>
 
 <body>
-<div class="stage">
-  <div class="grain"></div>
+<div class="bg"></div>
+<div class="grain"></div>
+<div class="vignette"></div>
 
-  <div class="topbar">
-    <div class="topin">
-      <div class="brand">
-        <div class="logo">
-          <img alt="CookVibe logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgoLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDg0OGhAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQwB4AMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EAD0QAAEDAgQDBgQEBgMBAAAAAAECAwQFEQASITEGE0FRImFxgZEykaGx0RQjQlLB8BVCYoKy4fEkQ3OS/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAQACAgICAgMBAAAAAAAAAAECEQMhEjEEE0FRImFxgfD/2gAMAwEAAhEDEQA/ANxooooooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z"/>
-        </div>
-        <div class="brandTxt">
-          <div class="brandName">CookVibe</div>
-          <div class="brandTag">Preview access • creator-first cooking platform</div>
-        </div>
+<div class="wrap">
+
+  <div class="topRow">
+    <div class="brand">
+      <h1>CookVibe</h1>
+      <div class="tag">
+        CookVibe is in <b>preview</b>. You’re entering an early build to test flow, features, and creator tools.
       </div>
+    </div>
 
-      <div class="nav">
-        <a href="#why">Why now</a>
-        <a href="#earn">How creators earn</a>
-        <a href="#say">What creators are saying</a>
-        <a href="#access">Access</a>
+    <div class="pills">
+      <span class="pill">🌍 Global cooking</span>
+      <span class="pill">🧪 Stage 1 preview</span>
+      <span class="pill">🔒 Access-controlled</span>
+      <span class="pill">💬 Feedback-driven</span>
+      <div class="flags" aria-label="international flags">
+        <span class="flag"><img alt="USA" src="https://flagcdn.com/w40/us.png"></span>
+        <span class="flag"><img alt="UK" src="https://flagcdn.com/w40/gb.png"></span>
+        <span class="flag"><img alt="Nigeria" src="https://flagcdn.com/w40/ng.png"></span>
+        <span class="flag"><img alt="Jamaica" src="https://flagcdn.com/w40/jm.png"></span>
+        <span class="flag"><img alt="India" src="https://flagcdn.com/w40/in.png"></span>
       </div>
     </div>
   </div>
 
-  <div class="wrap">
+  <div class="stage">
+    <div class="utensils"></div>
 
-    <section class="hero" id="top">
-      <div class="heroTop">
-        <div class="heroLogoWrap">
-          <div class="heroLogo">
-            <img alt="CookVibe logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHBwgHBgoICAkLCgoLDhgQDg0NDh0VFhEYIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDg0OGhAQGy0lICUtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAQwB4AMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABQYBAwQCB//EAD0QAAEDAgQDBgQEBgMBAAAAAAECAwQFEQASITEGE0FRImFxgZEykaGx0RQjQlLB8BVCYoKy4fEkQ3OS/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEDAgQF/8QAJBEBAQACAgICAgMBAAAAAAAAAAECEQMhEjEEE0FRImFxgfD/2gAMAwEAAhEDEQA/ANxooooooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/Z"/>
+    <div class="plate">
+      <div class="card">
+
+        <div class="banner">
+          <div>
+            <b>Seeking technical partner</b>
+            <div class="sub">
+              Equity / profit-share path for a builder who wants real ownership. Stage 1 is live, Stage 2 is the real build.
+            </div>
+          </div>
+          <div class="btnRow">
+            <button class="btn pulse" type="button" onclick="openApply()">Apply</button>
+            <button class="btn" type="button" onclick="openDemo()">View App Preview</button>
+          </div>
+        </div>
+
+        <div class="sectionTitle">
+          <strong>Why now</strong>
+          <span class="small">Creators want ownership + community, not just another feed.</span>
+        </div>
+        <div class="small" style="margin-top:10px">
+          CookVibe is building a creator-first cooking platform where recipes + videos + culture live together —
+          and live cooking becomes the next layer (Stage 2+).
+        </div>
+
+        <div class="sectionTitle">
+          <strong>Preview visuals</strong>
+          <span class="small">Food-only. Real photos.</span>
+        </div>
+
+        <div class="foodGrid" aria-label="food images">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Meal photo 1">
+          <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Meal photo 2">
+          <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="Meal photo 3">
+          <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=80" alt="Seafood photo">
+          <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=80" alt="Cooking at home">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Sharing food together">
+        </div>
+
+        <div class="sectionTitle">
+          <strong>How creators earn</strong>
+          <span class="small">Stage 2+ monetization</span>
+        </div>
+        <div class="small" style="margin-top:10px">
+          • Tips during live cooking (Stage 2+) <br>
+          • Subscriber access to exclusive series (Stage 2+) <br>
+          • Brand/sponsor integrations for top creators (Stage 2+)
+        </div>
+
+        <div class="sectionTitle">
+          <strong>What creators are saying</strong>
+          <span class="small">Real early feedback</span>
+        </div>
+        <div class="quoteGrid">
+          <div class="quote">
+            “It looks amazing! Definitely easier to navigate. Very user friendly.”
+            <div class="who">— Early creator tester</div>
+          </div>
+          <div class="quote">
+            “It looks awesome. I came up with a creator name for myself.”
+            <div class="who">— Early creator tester</div>
+          </div>
+        </div>
+
+        <!-- ACCESS -->
+        <div class="sectionTitle">
+          <strong>Access</strong>
+          <span class="small">Codes are required</span>
+        </div>
+
+        <div class="twoCol" style="margin-top:10px">
+          <div>
+            <input id="code" placeholder="Enter access code (e.g., CORECIRCLE)"/>
+            <div class="small" style="margin-top:8px">
+              Allowed codes: <b>ADMIN</b>, <b>CORECIRCLE</b>, <b>CREATOR</b>, <b>VIBER</b>, <b>DEV</b>
+            </div>
           </div>
           <div>
-            <span class="pill">COOKVIBE IS IN PREVIEW</span>
+            <input id="pw" placeholder="Set or enter password (required after first login)"/>
             <div class="small" style="margin-top:8px">
-              Global food • creator culture • Stage 1 demo (local-only) → Stage 2 (accounts + backend + scale)
+              First time with a code: set a password. Next time: enter it to get back in.
             </div>
           </div>
         </div>
 
-        <div class="flags" aria-label="International flags">
-          <span title="USA">🇺🇸</span>
-          <span title="UK">🇬🇧</span>
-          <span title="Ghana">🇬🇭</span>
-          <span title="Jamaica">🇯🇲</span>
-          <span title="Nigeria">🇳🇬</span>
-          <span title="India">🇮🇳</span>
-          <span title="Mexico">🇲🇽</span>
-          <span title="Japan">🇯🇵</span>
-        </div>
-      </div>
-
-      <h1>Where food creators turn culture into community — <span class="colorPop">and eventually income.</span></h1>
-      <p>
-        CookVibe is a creator-first cooking platform: profiles, recipes, videos, and a “test live” rehearsal mode.
-        This preview is built to gather feedback fast and prove what’s worth scaling.
-      </p>
-
-      <div class="foodGrid" aria-label="Food photos">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Meal photo">
-        <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80" alt="Sushi meal photo">
-        <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="Delicious meal photo">
-        <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=900&q=80" alt="Seafood photo">
-      </div>
-
-      <div class="noticeBanner" id="partner">
-        <div class="row">
-          <div style="min-width:260px">
-            <strong>Seeking a technical partner (Stage 2 build)</strong>
-            <div class="small" style="margin-top:6px">
-              Equity + <b>profit-share</b> aligned. Clear milestones, clean scope, real product already live in preview.
-            </div>
-          </div>
-
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
-            <button class="btn apply pulse" type="button" onclick="scrollToAccess()">Apply</button>
-            <a class="btn ghost" href="app.html" style="display:inline-flex;align-items:center;justify-content:center">View App (if authorized)</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" id="why">
-      <div class="row">
-        <h2 class="blockTitle" style="margin:0">Why now <span class="colorPop">matters</span></h2>
-        <span class="pill">Momentum</span>
-      </div>
-
-      <div class="grid2" style="margin-top:12px">
-        <div class="callout hot">
-          <div style="font-weight:1100">Creators want <span class="colorPop">direct ownership</span> of their audience.</div>
-          <div class="small" style="margin-top:8px">
-            Cooking content is everywhere — but creators don’t have a platform built specifically for food culture,
-            recipes, and live engagement that can scale into a sustainable business.
-          </div>
+        <div class="btnRow" style="margin-top:12px">
+          <button class="btn" type="button" onclick="enter()">Enter CookVibe</button>
+          <button class="btn" type="button" onclick="forgotPw()">Change password</button>
         </div>
 
-        <div class="callout">
-          <div style="font-weight:1100">CookVibe Preview = fast feedback loop.</div>
-          <div class="small" style="margin-top:8px">
-            Stage 1 proves UX + workflows. Stage 2 adds real accounts, cloud storage, moderation, payouts,
-            and scalable architecture. Build the right foundation once.
-          </div>
-        </div>
-      </div>
-    </section>
+        <div class="small" id="status" style="margin-top:10px;color:rgba(255,255,255,.78)">—</div>
 
-    <section class="card" id="earn">
-      <div class="row">
-        <h2 class="blockTitle" style="margin:0">How creators earn <span class="colorPop">(Stage 2+)</span></h2>
-        <span class="pill">Monetization</span>
-      </div>
-
-      <div class="grid2" style="margin-top:12px">
-        <div class="callout">
-          <div style="font-weight:1100">Engagement-based income paths</div>
-          <ul class="small" style="margin:10px 0 0 18px">
-            <li>Tips during live cooking (Stage 2+)</li>
-            <li>Subscriber-only content (followers pay for exclusives)</li>
-            <li>Brand collaborations + sponsor slots</li>
-            <li>Creator rewards for top-performing recipes/videos</li>
-          </ul>
+        <div class="foot">
+          App preview: <a class="link" href="./app.html" onclick="return false;">app.html</a> (access required) • Contact: <b>hello@cookvibe.co</b>
         </div>
 
-        <div class="callout hot">
-          <div style="font-weight:1100">Keep it simple to start.</div>
-          <div class="small" style="margin-top:8px">
-            Stage 2 doesn’t have to ship livestream at day 1. We can launch an MVP with accounts + uploads + feeds,
-            then layer live streaming once infra is stable.
-          </div>
-        </div>
       </div>
-    </section>
-
-    <section class="card" id="say">
-      <div class="row">
-        <h2 class="blockTitle" style="margin:0">What creators are saying <span class="colorPop">already</span></h2>
-        <span class="pill">Early feedback</span>
-      </div>
-
-      <div class="grid2" style="margin-top:12px">
-        <div class="callout">
-          <div style="font-weight:1000">“It looks amazing! Definitely easier to navigate. Very user friendly.”</div>
-          <div class="small" style="margin-top:8px">— Early creator tester</div>
-        </div>
-        <div class="callout hot">
-          <div style="font-weight:1000">“It looks awesome. I came up with a creator name for myself.”</div>
-          <div class="small" style="margin-top:8px">— Early creator tester</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" id="access">
-      <div class="row">
-        <h2 class="blockTitle" style="margin:0">Access</h2>
-        <span class="pill">Preview gate</span>
-      </div>
-
-      <div class="small" style="margin-top:10px">
-        Enter your access code to continue into the preview app. (Stage 1 uses local storage only.)
-      </div>
-
-      <div style="margin-top:14px" class="accessRow">
-        <input id="code" placeholder="Enter access code (e.g., CORECIRCLE)"/>
-        <button class="btn" onclick="enter()">Enter CookVibe</button>
-      </div>
-
-      <div class="small" style="margin-top:10px">
-        Roles: <span class="kbd">ADMIN</span> <span class="kbd">CORECIRCLE</span> <span class="kbd">CREATOR</span> <span class="kbd">VIBER</span> <span class="kbd">DEV</span>
-      </div>
-
-      <div class="footer">
-        Contact: <b>hello@cookvibe.co</b>
-      </div>
-    </section>
-
+    </div>
   </div>
 </div>
 
 <script>
-function scrollToAccess(){
-  const el=document.getElementById("access");
-  if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+function openDemo(){
+  // only opens if already authorized
+  const role = localStorage.getItem("cv_role");
+  if(!role){
+    alert("Enter an access code first.");
+    return;
+  }
+  window.location.href = "app.html";
+}
+function openApply(){
+  // lightweight apply action (no backend yet)
+  alert("Apply: DM Shaun or email hello@cookvibe.co with your role + stack + availability.");
 }
 
-/* ========= ACCESS GATE (multi-code) + simple local password =========
-   NOTE: Stage 1 only (no server). Passwords stored locally on THIS device only.
-*/
+function keyForCode(code){ return "cv_pw_" + code; }
+function roleForCode(code){
+  // Map your requested codes to roles
+  // ADMIN -> admin
+  // CORECIRCLE -> corecircle (dev-access tier)
+  // CREATOR -> creator
+  // VIBER -> viber (user)
+  // DEV -> dev
+  switch(code){
+    case "ADMIN": return "admin";
+    case "CORECIRCLE": return "corecircle";
+    case "CREATOR": return "creator";
+    case "VIBER": return "viber";
+    case "DEV": return "dev";
+    default: return null;
+  }
+}
+
 function enter(){
   const raw = document.getElementById("code").value || "";
   const code = raw.trim().toUpperCase();
+  const pw = (document.getElementById("pw").value || "").trim();
 
-  if(!code){
-    alert("Enter an access code");
-    return;
-  }
+  const status = document.getElementById("status");
 
-  const CODE_ROLE = {
-    "ADMIN":"admin",
-    "CORECIRCLE":"corecircle",
-    "CREATOR":"creator",
-    "VIBER":"viber",
-    "DEV":"dev"
-  };
-
-  const role = CODE_ROLE[code];
+  if(!code){ alert("Enter an access code"); return; }
+  const role = roleForCode(code);
   if(!role){
     alert("Invalid access code.");
+    status.textContent = "⚠️ Invalid code.";
+    return;
+  }
+  if(!pw){
+    alert("Enter a password (first login sets it, later logins require it).");
     return;
   }
 
-  const PASS_KEY = "cv_pass_" + role;
-  const existingPass = localStorage.getItem(PASS_KEY);
-
-  if(!existingPass){
-    const p1 = prompt("Set a password for this role (stored only on this device):");
-    if(!p1 || p1.length < 4){ alert("Password must be at least 4 characters."); return; }
-    const p2 = prompt("Confirm password:");
-    if(p1 !== p2){ alert("Passwords do not match."); return; }
-    localStorage.setItem(PASS_KEY, p1);
-    alert("Password set ✅ (local-only). Continue.");
+  const stored = localStorage.getItem(keyForCode(code));
+  if(!stored){
+    // first login: set password
+    localStorage.setItem(keyForCode(code), pw);
   }else{
-    const p = prompt("Enter password for this role (local-only):");
-    if(p !== existingPass){ alert("Wrong password."); return; }
+    // returning: verify password
+    if(pw !== stored){
+      alert("Wrong password for this code.");
+      status.textContent = "❌ Wrong password.";
+      return;
+    }
   }
 
-  localStorage.removeItem("cv_role");
+  // clear flags first
   localStorage.removeItem("cv_admin");
   localStorage.removeItem("cv_founding");
 
-  if(role === "admin"){
-    localStorage.setItem("cv_role","admin");
-    localStorage.setItem("cv_admin","1");
-  }else if(role === "corecircle"){
-    localStorage.setItem("cv_role","creator");
-  }else if(role === "creator"){
-    localStorage.setItem("cv_role","creator");
-  }else if(role === "viber"){
-    localStorage.setItem("cv_role","viewer");
-  }else if(role === "dev"){
-    localStorage.setItem("cv_role","admin");
+  // set role
+  localStorage.setItem("cv_role", role);
+
+  // admin flags
+  if(code === "ADMIN" || code === "DEV" || code === "CORECIRCLE"){
+    // dev tiers get admin tools in Stage 1
     localStorage.setItem("cv_admin","1");
   }
 
+  status.textContent = "✅ Access granted. Redirecting…";
   window.location.href = "app.html";
+}
+
+function forgotPw(){
+  const raw = document.getElementById("code").value || "";
+  const code = raw.trim().toUpperCase();
+  const role = roleForCode(code);
+  if(!role){
+    alert("Enter a valid access code first (ADMIN/CORECIRCLE/CREATOR/VIBER/DEV).");
+    return;
+  }
+  const newPw = prompt("Set a new password for " + code + ":");
+  if(!newPw) return;
+  localStorage.setItem(keyForCode(code), newPw.trim());
+  alert("Password updated. Enter the code + new password to login.");
 }
 </script>
 
