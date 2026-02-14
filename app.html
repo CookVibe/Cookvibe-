@@ -10,24 +10,17 @@
 <style>
 /* =========================
    COOKVIBE APP (POST-ACCESS)
-   Dark • Premium • Michelin-ish
-   (No green/gold gradients)
+   Dark • Glossy • Pro
 ========================= */
 
 :root{
   --bg:#000000;
-  --card:rgba(14,14,14,.88);
-  --tile:rgba(18,18,18,.86);
-  --text:#F3F1EC;          /* warm white */
-  --muted:#B7B1A6;         /* warm gray */
+  --card:rgba(15,15,15,.92);
+  --text:#f5f5f5;
+  --muted:#b7b7b7;
   --line:rgba(255,255,255,.10);
-  --line2:rgba(255,255,255,.14);
-
-  /* Michelin-ish accents (subtle, not neon) */
-  --accent:#C7B07A;        /* champagne */
-  --accent2:#B28A5A;       /* copper */
-  --shadow:0 18px 44px rgba(0,0,0,.55);
-  --shadow2:0 12px 28px rgba(0,0,0,.45);
+  --shadow:0 18px 44px rgba(0,0,0,.75);
+  --shadow2:0 12px 30px rgba(0,0,0,.65);
 }
 
 /* Smooth anchors + sticky header offset */
@@ -40,41 +33,28 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
   color:var(--text);
   background:
-    radial-gradient(1200px 700px at 10% 0%, rgba(199,176,122,.10), transparent 58%),
-    radial-gradient(1100px 700px at 90% 5%, rgba(178,138,90,.08), transparent 60%),
-    radial-gradient(900px 700px at 55% 100%, rgba(255,255,255,.06), transparent 55%),
-    linear-gradient(180deg, #000 0%, #070707 35%, #000 100%);
-  overflow-x:hidden;
+    radial-gradient(1400px 700px at 50% -250px, rgba(255,255,255,.07), transparent 62%),
+    radial-gradient(900px 600px at 15% 10%, rgba(255,255,255,.05), transparent 60%),
+    radial-gradient(900px 600px at 85% 20%, rgba(255,255,255,.04), transparent 60%),
+    linear-gradient(180deg,#050505 0%, #000000 100%);
 }
 
-/* Gloss + film grain overlay */
-body::before{
-  content:"";
-  position:fixed; inset:0;
-  pointer-events:none;
-  z-index:0;
-  opacity:.09;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
-  mix-blend-mode:overlay;
-}
+/* Film grain */
 body::after{
   content:"";
-  position:fixed; inset:-40px;
+  position:fixed;
+  inset:0;
   pointer-events:none;
-  z-index:0;
-  background:
-    radial-gradient(900px 420px at 18% 18%, rgba(255,255,255,.07), transparent 60%),
-    radial-gradient(800px 380px at 82% 22%, rgba(255,255,255,.05), transparent 62%),
-    radial-gradient(900px 500px at 55% 90%, rgba(255,255,255,.04), transparent 62%);
-  opacity:.55;
-  filter: blur(6px);
+  opacity:.10;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
 /* Links */
 a{color:inherit;text-decoration:none}
 
 /* Layout */
-.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px; position:relative; z-index:1}
+.wrap{max-width:1100px;margin:0 auto;padding:14px 14px 56px}
 
 /* Cards */
 .card{
@@ -88,10 +68,10 @@ a{color:inherit;text-decoration:none}
 }
 .tile{
   border:1px solid var(--line);
-  background:var(--tile);
+  background:rgba(10,10,10,.88);
   border-radius:16px;
   padding:12px;
-  box-shadow:0 12px 26px rgba(0,0,0,.38);
+  box-shadow:0 10px 24px rgba(0,0,0,.55);
 }
 .muted{color:var(--muted)}
 .smalltxt{font-size:12px;color:var(--muted);line-height:1.5}
@@ -105,40 +85,49 @@ hr{border:0;border-top:1px solid rgba(255,255,255,.10);margin:16px 0}
 .pill{
   display:inline-flex;gap:8px;align-items:center;
   padding:6px 10px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.22);
-  color:var(--muted);
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.35);
+  color:rgba(255,255,255,.82);
   font-size:12px;font-weight:900
 }
 
-/* Buttons — Michelin-ish (food/premium) */
+/* =========================
+   FOOD BUTTONS (stainless)
+========================= */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
-  padding:10px 14px;border-radius:999px;border:1px solid rgba(199,176,122,.45);
-  cursor:pointer;font-weight:950;font-size:13px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 35%, rgba(0,0,0,.35) 100%),
-    radial-gradient(900px 180px at 20% 0%, rgba(199,176,122,.14), transparent 55%),
-    #0A0A0A;
-  color:#FFFFFF; /* requested white text vibe */
+  gap:8px;
+  padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.16);
+  cursor:pointer;
+  font-weight:950;font-size:13px;
+  background:linear-gradient(180deg,#2a2a2a,#121212);
+  color:#ffffff;
   user-select:none;
-  box-shadow:0 14px 26px rgba(0,0,0,.45);
-  transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, filter .12s ease;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 10px 18px rgba(0,0,0,.55);
+  transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+.btn::before{
+  content:"🍴";
+  filter:grayscale(1) brightness(1.2);
+  opacity:.9;
 }
 .btn:hover{
   transform:translateY(-1px);
-  border-color:rgba(199,176,122,.72);
-  box-shadow:0 18px 34px rgba(0,0,0,.55);
-  filter:saturate(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    0 14px 26px rgba(0,0,0,.65);
 }
-.btn:active{transform:translateY(0px) scale(.99)}
+.btn:active{transform:translateY(0)}
 .btn.ghost{
-  background:rgba(255,255,255,.06);
-  color:var(--text);
+  background:rgba(0,0,0,.30);
+  color:#f5f5f5;
   border:1px solid rgba(255,255,255,.18);
   box-shadow:none;
 }
-.btn.small{padding:8px 12px;font-size:12px;border-radius:999px}
+.btn.small{padding:8px 10px;font-size:12px;border-radius:10px}
+.btn.small::before{content:"🥄";filter:grayscale(1) brightness(1.2)}
 
 /* Inputs */
 input,textarea{
@@ -151,7 +140,6 @@ input,textarea{
   font:inherit;
   outline:none;
 }
-input::placeholder, textarea::placeholder{color:rgba(243,241,236,.55)}
 textarea{min-height:92px;resize:vertical}
 
 /* Grid */
@@ -162,8 +150,8 @@ textarea{min-height:92px;resize:vertical}
 /* Header */
 .hdr{
   position:sticky;top:0;z-index:999;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(14px);
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(255,255,255,.10);
 }
 .hdrin{
@@ -173,40 +161,33 @@ textarea{min-height:92px;resize:vertical}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .brandTxt{min-width:0;display:flex;flex-direction:column;line-height:1.1}
 .brandName{font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brandTag{font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brandTag{font-size:12px;color:rgba(255,255,255,.72);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
-.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px}
+.nav a{font-size:13px;font-weight:900;padding:8px 10px;border-radius:10px;color:rgba(255,255,255,.88)}
 .nav a:hover{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:7px 9px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
 /* Logos */
 .logoBox{
   width:42px;height:42px;border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:
-    radial-gradient(120px 60px at 30% 25%, rgba(199,176,122,.20), transparent 60%),
-    rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.14);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
   display:flex;align-items:center;justify-content:center;font-weight:1000;overflow:hidden
 }
-.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(0,0,0,.12)}
+.logoImg{width:100%;height:100%;object-fit:contain;display:block;padding:6px;background:rgba(0,0,0,.25)}
 
 /* Notices */
-.notice{border:1px solid rgba(199,176,122,.28);background:rgba(199,176,122,.10);border-radius:14px;padding:12px 14px}
-.warn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
+.notice{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
+.warn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);border-radius:14px;padding:12px 14px}
 .hidden{display:none !important}
 
 /* Media / galleries */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
-.gItem{border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.25);border-radius:16px;overflow:hidden}
+.gItem{border:1px solid rgba(255,255,255,.12);background:#000;border-radius:16px;overflow:hidden}
 .gItem img{width:100%;height:120px;object-fit:cover;display:block}
-.cap{padding:10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
-.x{
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.22);
-  color:var(--text);
-  font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer
-}
+.cap{padding:10px;font-size:12px;color:rgba(255,255,255,.70);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.35);color:#fff;font-weight:950;border-radius:10px;padding:6px 10px;cursor:pointer}
 
 video{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:#000}
 
@@ -215,21 +196,18 @@ video{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.14);backg
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:16px;z-index:2500;max-width:min(560px,92vw);
   border-radius:14px;padding:12px 14px;border:1px solid rgba(255,255,255,.14);
-  background:rgba(0,0,0,.65);box-shadow:var(--shadow);display:none;
-  color:var(--text);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,.75);box-shadow:var(--shadow);display:none;color:#fff
 }
 .toast.show{display:block}
-.toast.ok{border-color:rgba(199,176,122,.55);background:rgba(0,0,0,.70)}
-.toast.bad{border-color:rgba(255,255,255,.22);background:rgba(0,0,0,.70)}
+.toast.ok{border-color:rgba(255,255,255,.22);background:rgba(0,0,0,.78)}
+.toast.bad{border-color:rgba(255,255,255,.22);background:rgba(0,0,0,.78)}
 
 /* Watermark */
 .wm{
   position:fixed;right:12px;bottom:12px;z-index:900;
   width:54px;height:54px;border-radius:16px;border:1px solid rgba(255,255,255,.14);
   background:rgba(0,0,0,.55);box-shadow:var(--shadow2);
-  overflow:hidden;display:none;opacity:.92;
-  backdrop-filter:blur(10px);
+  overflow:hidden;display:none;opacity:.92
 }
 .wm img{width:100%;height:100%;object-fit:contain;padding:8px;display:block}
 
@@ -240,15 +218,13 @@ video{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.14);backg
   padding: 18px;
   border-radius: 22px;
   background:
-    radial-gradient(1200px 500px at 18% 0%, rgba(199,176,122,.14), transparent 55%),
-    radial-gradient(900px 420px at 88% 20%, rgba(178,138,90,.10), transparent 55%),
-    rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.12);
+    radial-gradient(900px 300px at 40% -40px, rgba(255,255,255,.08), transparent 60%),
+    linear-gradient(180deg, rgba(12,12,12,.92) 0%, rgba(0,0,0,.92) 100%);
+  border:1px solid rgba(255,255,255,.10);
   box-shadow:var(--shadow);
-  backdrop-filter:blur(12px);
 }
 .postAccessHero h1{margin:0 0 8px;font-size:26px;font-weight:1000}
-.postAccessHero p{margin:0 0 14px;font-size:14px;color:rgba(243,241,236,.88);line-height:1.5}
+.postAccessHero p{margin:0 0 14px;font-size:14px;color:rgba(255,255,255,.82);line-height:1.5}
 
 .foodCollage{
   display:grid;
@@ -260,11 +236,11 @@ video{width:100%;border-radius:14px;border:1px solid rgba(255,255,255,.14);backg
   height:110px;
   object-fit:cover;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.10);
 }
 
 /* Footer */
-footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.55);backdrop-filter:blur(12px)}
+footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.70)}
 .footerIn{max-width:1100px;margin:0 auto;padding:22px 14px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 
 /* Mum note (desktop only) */
@@ -275,7 +251,6 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
   font-size:11px;
   opacity:0.12;
   pointer-events:none;
-  z-index:1;
 }
 @media (max-width: 1200px){
   .mum-note{ display:none; }
@@ -296,7 +271,7 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
       </div>
       <div class="brandTxt">
         <div class="brandName">CookVibe</div>
-        <div class="brandTag">Demo is live — help shape it.</div>
+        <div class="brandTag">Preview is live — help shape it.</div>
       </div>
     </a>
 
@@ -321,7 +296,6 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
 
   <!-- =========================
        POST-ACCESS VISUAL HERO
-       Working food photos (incl. seafood)
   ========================= -->
   <section class="postAccessHero">
     <h1>Welcome to CookVibe 🌍🍽️</h1>
@@ -331,15 +305,20 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
     </p>
 
     <div class="foodCollage">
+      <!-- Child watching parent cook -->
       <img
         src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=80"
         alt="Child watching parent cook at home">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ghanaian_Jollof_Rice.jpg/960px-Ghanaian_Jollof_Rice.jpg"
-        alt="African rice (Jollof)">
+
+      <!-- African rice (Jollof) -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Ghanaian_Jollof_Rice.jpg/960px-Ghanaian_Jollof_Rice.jpg" alt="African rice (Jollof)">
+
+      <!-- People enjoying food together -->
       <img
         src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80"
         alt="Group enjoying food together">
+
+      <!-- Delicious food -->
       <img
         src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80"
         alt="Beautifully prepared delicious meal">
@@ -390,24 +369,15 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
   <section id="studio" class="card">
     <!-- =========================
          TEST LIVE PREVIEW NOTICE
-         (Stage 1 only – rehearsal mode)
     ========================= -->
-    <div style="
-      margin-top:12px;
-      padding:14px 16px;
-      border-radius:14px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      font-size:13px;
-      line-height:1.5;
-    ">
+    <div class="warn" style="margin-top:12px;font-size:13px;line-height:1.5;">
       <strong>🎥 Test Live (Preview Mode)</strong><br>
       This is a rehearsal version of CookVibe Live. Streams are <b>not public yet</b> — recordings stay local on your device only.<br>
       Full livestreaming launches in <b>Stage 2</b>.<br>
       Please test it and share feedback to help shape the final experience.
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-top:12px">
       <div class="rowL"><h2 style="margin:0;font-size:18px">Creator Studio</h2><span class="pill">CREATOR</span></div>
       <span class="pill" id="creatorGate">viewer</span>
     </div>
@@ -433,7 +403,6 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
 
       <!-- =========================
            TEST LIVE REHEARSAL TILE
-           Stage 1 local recording only
       ========================= -->
       <div class="tile" id="testLiveTile">
         <div class="row">
@@ -461,103 +430,6 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
         </div>
       </div>
 
-      <script>
-      /* Test Live — local recording + playback + add to sessionVideos */
-      (function(){
-        const startBtn = document.getElementById("startLiveBtn");
-        const stopBtn  = document.getElementById("stopLiveBtn");
-        const preview  = document.getElementById("livePreview");
-        const dlBtn    = document.getElementById("downloadLiveBtn");
-        const statusEl = document.getElementById("liveStatus");
-
-        if(!startBtn || !stopBtn || !preview) return;
-
-        let liveRecorder = null;
-        let liveChunks = [];
-        let liveStream = null;
-
-        function setStatus(msg){ if(statusEl) statusEl.textContent = msg; }
-
-        startBtn.onclick = async () => {
-          try{
-            liveStream = await navigator.mediaDevices.getUserMedia({ video:true, audio:true });
-
-            preview.srcObject = liveStream;
-            preview.classList.remove("hidden");
-            preview.muted = true;
-            preview.playsInline = true;
-            await preview.play();
-
-            liveChunks = [];
-            liveRecorder = new MediaRecorder(liveStream);
-
-            liveRecorder.ondataavailable = (e) => {
-              if(e.data && e.data.size > 0) liveChunks.push(e.data);
-            };
-
-            liveRecorder.onstop = () => {
-              try{
-                const blob = new Blob(liveChunks, { type: liveRecorder.mimeType || "video/webm" });
-                const url = URL.createObjectURL(blob);
-
-                if(liveStream){
-                  liveStream.getTracks().forEach(t => t.stop());
-                  liveStream = null;
-                }
-
-                preview.pause();
-                preview.srcObject = null;
-                preview.src = url;
-                preview.muted = false;
-                preview.controls = true;
-                preview.load();
-                preview.play().catch(()=>{});
-
-                if(dlBtn){
-                  dlBtn.href = url;
-                  dlBtn.download = `CookVibe_Test_Live_${Date.now()}.webm`;
-                  dlBtn.style.display = "inline-flex";
-                }
-
-                if(typeof sessionVideos !== "undefined" && Array.isArray(sessionVideos)){
-                  const name = `Test Live • ${new Date().toLocaleString()}`;
-                  sessionVideos.unshift({ url, name, ts: Date.now() });
-                  if(typeof renderVideosStudio === "function") renderVideosStudio();
-                  if(typeof renderVideosPublic === "function") renderVideosPublic();
-                }
-
-                setStatus("✅ Recording saved for playback");
-              }catch(err){
-                console.error(err);
-                setStatus("⚠️ Saved, but playback failed");
-              }
-            };
-
-            liveRecorder.start(250);
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-            setStatus("🔴 Recording…");
-            if(dlBtn) dlBtn.style.display = "none";
-          }catch(err){
-            console.error(err);
-            setStatus("⚠️ Camera/mic blocked — allow permissions");
-            alert("Camera/Mic blocked. In Safari, allow camera + microphone for this site, then try again.");
-          }
-        };
-
-        stopBtn.onclick = () => {
-          try{
-            if(liveRecorder && liveRecorder.state !== "inactive"){
-              liveRecorder.stop();
-            }
-          }catch(e){}
-          startBtn.disabled = false;
-          stopBtn.disabled = true;
-          setStatus("⏳ Finalizing…");
-        };
-      })();
-      </script>
-
       <div class="tile">
         <div class="row"><strong>Creator Intro Video</strong><span class="pill">Optional</span></div>
         <div class="smalltxt" style="margin-top:8px">Shows above cooking videos on public page (session playback).</div>
@@ -567,23 +439,18 @@ footer{margin-top:36px;border-top:1px solid rgba(255,255,255,.10);background:rgb
       </div>
     </div>
 
-    <!-- RECIPE ROLODEX -->
-    <div class="card" style="
-      margin-top:14px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:16px;
-      padding:12px 14px;
-      font-size:13px;
-      line-height:1.5;
-    ">
+    <!-- =========================
+         STAGE 1 SAVE NOTICE
+    ========================= -->
+    <div class="warn" style="margin-top:14px;font-size:13px;line-height:1.5;">
       <strong>Demo note:</strong>
       Recipes save on this device & browser only during Stage 1.
       Switching devices, browsers, or clearing data will remove them.
       Stage 2 will add accounts + cloud saving.
     </div>
 
-    <div class="tile" id="recipeRolodex">
+    <!-- RECIPE ROLODEX -->
+    <div class="tile" id="recipeRolodex" style="margin-top:12px">
       <div class="row">
         <strong>Recipe Rolodex</strong>
         <span class="pill">Creators</span>
@@ -752,7 +619,7 @@ function escapeHTML(s){
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
-    .replaceAll('"',"quot;")
+    .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
 
@@ -1110,77 +977,178 @@ function renderAll(){
 }
 
 /* =========================
-   ACCESS OVERLAY GATE
-   If no role stored → show overlay inside app.html
+   TEST LIVE — local recording + playback + add to sessionVideos
 ========================= */
-(function init(){
-  const overlay = $("accessOverlay");
+(function(){
+  const startBtn = document.getElementById("startLiveBtn");
+  const stopBtn  = document.getElementById("stopLiveBtn");
+  const preview  = document.getElementById("livePreview");
+  const dlBtn    = document.getElementById("downloadLiveBtn");
+  const statusEl = document.getElementById("liveStatus");
 
-  function applyCode(codeRaw){
-    const code = (codeRaw||"").trim().toUpperCase();
+  if(!startBtn || !stopBtn || !preview) return;
 
-    localStorage.removeItem(LS.admin);
-    localStorage.removeItem(LS.founding);
+  let liveRecorder = null;
+  let liveChunks = [];
+  let liveStream = null;
 
-    let role = "viewer";
+  function setStatus(msg){ if(statusEl) statusEl.textContent = msg; }
 
-    if(code === "ADMIN"){
-      role = "admin";
-      localStorage.setItem(LS.admin,"1");
-    }else if(code === "FOUNDING20"){
-      role = "founder_creator";
-      localStorage.setItem(LS.founding,"1");
-    }else if(code){
-      role = "creator";
-    }else{
-      role = "viewer";
+  startBtn.onclick = async () => {
+    try{
+      liveStream = await navigator.mediaDevices.getUserMedia({ video:true, audio:true });
+
+      preview.srcObject = liveStream;
+      preview.classList.remove("hidden");
+      preview.muted = true;
+      preview.playsInline = true;
+      await preview.play();
+
+      liveChunks = [];
+
+      // NOTE: iOS Safari can be picky, so do NOT force mimeType
+      liveRecorder = new MediaRecorder(liveStream);
+
+      liveRecorder.ondataavailable = (e) => {
+        if(e.data && e.data.size > 0) liveChunks.push(e.data);
+      };
+
+      liveRecorder.onstop = () => {
+        try{
+          const blob = new Blob(liveChunks, { type: liveRecorder.mimeType || "video/webm" });
+          const url = URL.createObjectURL(blob);
+
+          if(liveStream){
+            liveStream.getTracks().forEach(t => t.stop());
+            liveStream = null;
+          }
+
+          preview.pause();
+          preview.srcObject = null;
+          preview.src = url;
+          preview.muted = false;
+          preview.controls = true;
+          preview.load();
+          preview.play().catch(()=>{});
+
+          if(dlBtn){
+            dlBtn.href = url;
+            dlBtn.download = `CookVibe_Test_Live_${Date.now()}.webm`;
+            dlBtn.style.display = "inline-flex";
+          }
+
+          if(typeof sessionVideos !== "undefined" && Array.isArray(sessionVideos)){
+            const name = `Test Live • ${new Date().toLocaleString()}`;
+            sessionVideos.unshift({ url, name, ts: Date.now() });
+            if(typeof renderVideosStudio === "function") renderVideosStudio();
+            if(typeof renderVideosPublic === "function") renderVideosPublic();
+          }
+
+          setStatus("✅ Recording saved for playback");
+        }catch(err){
+          console.error(err);
+          setStatus("⚠️ Saved, but playback failed");
+        }
+      };
+
+      liveRecorder.start(250);
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      setStatus("🔴 Recording…");
+      if(dlBtn) dlBtn.style.display = "none";
+    }catch(err){
+      console.error(err);
+      setStatus("⚠️ Camera/mic blocked — allow permissions");
+      alert("Camera/Mic blocked. In Safari, allow camera + microphone for this site, then try again.");
     }
+  };
 
-    localStorage.setItem(LS.role, role);
-    return role;
-  }
+  stopBtn.onclick = () => {
+    try{
+      if(liveRecorder && liveRecorder.state !== "inactive"){
+        liveRecorder.stop();
+      }
+    }catch(e){}
+    startBtn.disabled = false;
+    stopBtn.disabled = true;
+    setStatus("⏳ Finalizing…");
+  };
+})();
 
-  function bootApp(){
-    let restoredRole = localStorage.getItem(LS.role) || "viewer";
-    if(localStorage.getItem(LS.admin)==="1") restoredRole="admin";
-    if(localStorage.getItem(LS.founding)==="1") restoredRole="founder_creator";
-    setRole(restoredRole);
-
-    const p=safeJSON(LS.profile,{});
-    $("cName").value=p.name||"";
-    $("cHandle").value=p.handle||"";
-    $("cCountry").value=p.country||"";
-    $("cBio").value=p.bio||"";
-
-    renderAll();
-  }
-
-  const existingRole = localStorage.getItem(LS.role);
-  if(!existingRole && overlay){
-    overlay.classList.remove("hidden");
-
-    $("overlayEnterBtn").addEventListener("click",()=>{
-      const role = applyCode($("overlayCode").value);
-      $("overlayNote").textContent =
-        role==="admin" ? "✅ Admin unlocked." :
-        role==="founder_creator" ? "✅ Founding Creator enabled." :
-        role==="creator" ? "✅ Creator enabled." :
-        "Viewer mode.";
-      overlay.classList.add("hidden");
-      toast("Access applied ✅");
-      bootApp();
-    });
-
-    $("overlayViewerBtn").addEventListener("click",()=>{
-      localStorage.setItem(LS.role,"viewer");
-      overlay.classList.add("hidden");
-      bootApp();
-    });
-
+/* =========================
+   RECIPE ROLODEX (local)
+========================= */
+function loadRecipes(){
+  return safeJSON("cv_recipes",[]);
+}
+function saveRecipes(arr){
+  localStorage.setItem("cv_recipes",JSON.stringify(arr));
+}
+function renderRecipeList(){
+  const list=$("recipeList");
+  const recipes=loadRecipes();
+  list.innerHTML="";
+  if(!recipes.length){
+    list.innerHTML=`<div class="tile"><div class="smalltxt">No saved recipes yet.</div></div>`;
     return;
   }
+  recipes.forEach((r,idx)=>{
+    const t=document.createElement("div");
+    t.className="tile";
+    t.innerHTML=`
+      <div class="row">
+        <div class="smalltxt"><strong>${escapeHTML(r.title||"Recipe")}</strong></div>
+        <button class="btn ghost small" data-rm="${idx}">Remove</button>
+      </div>
+      <div class="smalltxt" style="margin-top:8px;white-space:pre-wrap">${escapeHTML(r.body||"")}</div>
+    `;
+    list.appendChild(t);
+  });
+  list.querySelectorAll("button[data-rm]").forEach(b=>b.addEventListener("click",()=>{
+    const i=Number(b.getAttribute("data-rm"));
+    const recipes=loadRecipes();
+    recipes.splice(i,1);
+    saveRecipes(recipes);
+    toast("Removed ✅");
+    renderRecipeList();
+  }));
+}
+$("saveRecipeBtn").addEventListener("click",()=>{
+  const title=$("recipeTitle").value.trim();
+  const body=$("recipeBody").value.trim();
+  if(!title && !body){ toast("Type a recipe first.",false); return; }
+  const recipes=loadRecipes();
+  recipes.unshift({title,body,ts:Date.now()});
+  saveRecipes(recipes);
+  $("recipeTitle").value="";
+  $("recipeBody").value="";
+  $("recipeStatus").textContent="✅ Recipe saved (local)";
+  toast("Recipe saved ✅");
+  renderRecipeList();
+});
+$("viewRecipesBtn").addEventListener("click",()=>{
+  $("recipeList").classList.toggle("hidden");
+  renderRecipeList();
+});
 
-  bootApp();
+/* =========================
+   BOOT
+========================= */
+(function boot(){
+  // restore role
+  let role = localStorage.getItem(LS.role) || "viewer";
+  if(localStorage.getItem(LS.admin)==="1") role="admin";
+  if(localStorage.getItem(LS.founding)==="1") role="founder_creator";
+  setRole(role);
+
+  // restore profile fields
+  const p=safeJSON(LS.profile,{});
+  $("cName").value=p.name||"";
+  $("cHandle").value=p.handle||"";
+  $("cCountry").value=p.country||"";
+  $("cBio").value=p.bio||"";
+
+  renderAll();
 })();
 </script>
 
