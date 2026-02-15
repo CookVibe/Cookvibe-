@@ -28,8 +28,7 @@ body{
 }
 
 /* -------------------------
-   DINNER PLATE SCENE (NEW)
-   Pure CSS/HTML (no images)
+   DINNER PLATE SCENE
 ------------------------- */
 .stage{
   min-height:100vh;
@@ -58,7 +57,6 @@ body{
   justify-content:center;
   filter: drop-shadow(0 28px 60px rgba(0,0,0,.14));
 }
-/* plate layers */
 .plate::before{
   content:"";
   position:absolute;
@@ -72,7 +70,6 @@ body{
   border:1px solid rgba(0,0,0,.10);
 }
 .plate::after{
-  /* inner shine */
   content:"";
   position:absolute;
   inset:18%;
@@ -83,7 +80,6 @@ body{
   pointer-events:none;
 }
 
-/* utensils */
 .utensil{
   position:absolute;
   top:50%;
@@ -130,45 +126,6 @@ body{
   border:1px solid rgba(0,0,0,.10);
 }
 
-/* fork prongs */
-.utensil .prongs{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  top:10px;
-  width:46px;
-  height:24%;
-  display:flex;
-  gap:5px;
-  justify-content:center;
-}
-.utensil .prongs span{
-  display:block;
-  width:6px;
-  height:100%;
-  border-radius:6px;
-  background:linear-gradient(180deg, rgba(245,245,245,.96), rgba(170,170,170,.96));
-  border:1px solid rgba(0,0,0,.10);
-}
-
-/* knife blade (on the right utensil via :after) */
-.utensil.right .head{
-  border-radius:18px 18px 10px 10px;
-}
-.utensil.right .head::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  top:8px;
-  width:18px;
-  height:78%;
-  border-radius:14px;
-  background:linear-gradient(180deg, rgba(250,250,250,.98), rgba(165,165,165,.95));
-  border:1px solid rgba(0,0,0,.10);
-}
-
-/* center content sits on the plate */
 .center{
   position:relative;
   width:min(780px, 90vw);
@@ -192,7 +149,7 @@ body{
   padding:12px 18px;border-radius:14px;border:0;
   cursor:pointer;font-weight:900;
   background:linear-gradient(135deg,var(--g),var(--y));
-  color:#fff; /* ✅ white text as requested */
+  color:#fff;
 }
 input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
 
@@ -202,9 +159,7 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
   display:flex;align-items:center;justify-content:center;
   background:#000;
 }
-.logoBox img{
-  width:50px;height:50px;object-fit:contain;display:block;
-}
+.logoBox img{width:50px;height:50px;object-fit:contain}
 
 .foodGrid{
   display:grid;
@@ -226,16 +181,6 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
   background:rgba(31,191,122,.08);
   border:1px solid rgba(31,191,122,.25);
 }
-
-/* mobile tighten utensils */
-@media(max-width:820px){
-  .utensil{width:84px}
-}
-@media(max-width:520px){
-  .utensil{display:none} /* keep it clean on very small screens */
-  .plate::before{inset:0}
-  .plate{width:min(980px, 96vw)}
-}
 </style>
 </head>
 
@@ -243,38 +188,20 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
   <div class="stage">
     <div class="plateScene">
 
-      <!-- Fork (left) -->
-      <div class="utensil left" aria-hidden="true">
-        <div class="head"></div>
-        <div class="prongs">
-          <span></span><span></span><span></span><span></span>
-        </div>
-        <div class="neck"></div>
-        <div class="handle"></div>
-      </div>
+      <div class="utensil left"><div class="head"></div><div class="neck"></div><div class="handle"></div></div>
+      <div class="utensil right"><div class="head"></div><div class="neck"></div><div class="handle"></div></div>
+      <div class="plate"></div>
 
-      <!-- Knife (right) -->
-      <div class="utensil right" aria-hidden="true">
-        <div class="head"></div>
-        <div class="neck"></div>
-        <div class="handle"></div>
-      </div>
-
-      <!-- Plate -->
-      <div class="plate" aria-hidden="true"></div>
-
-      <!-- EXISTING CONTENT (UNCHANGED) -->
       <div class="center">
         <div class="wrap">
           <div class="card">
 
+            <!-- UPDATED HEADER ONLY -->
             <div class="row">
               <div class="logoBox">
-                <!-- IMPORTANT: place your logo file beside index.html named cookvibe-logo.png -->
-                <img src="cookvibe-logo.png" alt="CookVibe logo">
+                <img src="cookvibe-logo-from-base64.png" alt="CookVibe logo">
               </div>
               <div>
-                <!-- CookVibe styled like logo -->
                 <div style="font-weight:1000; font-size:20px; letter-spacing:.2px">
                   <span style="color:#2E7D32">Cook</span><span style="color:#C9A227">vibe</span>
                 </div>
@@ -285,15 +212,11 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
             <h1>CookVibe demo is live — help shape it.</h1>
             <p>A global cooking platform built for creators.</p>
 
-            <!-- FOOD ONLY (IMAGES THAT WORK) -->
             <div class="foodGrid">
-              <!-- Seafood (ONE) -->
-              <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80" alt="Seafood">
-
-              <!-- Meals -->
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" alt="Paella">
-              <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80" alt="Salad">
-              <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80" alt="Sushi">
+              <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80">
+              <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=800&q=80">
             </div>
 
             <div class="earn">
@@ -305,7 +228,6 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
               </ul>
             </div>
 
-            <!-- ACCESS -->
             <div style="margin-top:18px">
               <input id="code" placeholder="Enter access code"/>
               <div style="margin-top:12px">
@@ -324,32 +246,11 @@ input{width:100%;padding:12px;border-radius:12px;border:1px solid #ccc}
 function enter(){
   const raw = document.getElementById("code").value || "";
   const code = raw.trim().toUpperCase();
-
-  // ✅ single dev access code (change this string if you want a different one)
   const DEV_ACCESS_CODE = "CORECIRCLE";
-
-  if(!code){
-    alert("Enter an access code");
-    return;
-  }
-
-  // ❌ block everything except the dev code
-  if(code !== DEV_ACCESS_CODE){
-    alert("Invalid access code.");
-    return;
-  }
-
-  // clear all roles first
-  localStorage.removeItem("cv_role");
-  localStorage.removeItem("cv_admin");
-  localStorage.removeItem("cv_founding");
-
-  // ✅ give dev full access
+  if(!code){alert("Enter an access code");return;}
+  if(code !== DEV_ACCESS_CODE){alert("Invalid access code.");return;}
   localStorage.setItem("cv_role","admin");
-  localStorage.setItem("cv_admin","1");
-
-  // hard redirect into app
-  window.location.href = "app.html";
+  window.location.href="app.html";
 }
 </script>
 
