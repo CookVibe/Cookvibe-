@@ -985,30 +985,73 @@ $("introVideo").addEventListener("change",()=>{
 /* =========================
    SUGGESTIONS
 ========================= */
-$("sendSuggestionBtn").addEventListener("click",()=>{
-  const text=$("suggestionText").value.trim();
+/* =========================
+   SUGGESTIONS
+========================= */
+$("sendSuggestionBtn").addEventListener("click", async ()=>{
+  const text = $("suggestionText").value.trim();
   if(!text){ toast("Type feedback first.",false); return; }
-  const arr=safeJSON(LS.suggestions,[]);
-  arr.unshift({text,ts:Date.now()});
-  localStorage.setItem(LS.suggestions,JSON.stringify(arr));
-  $("suggestionText").value="";
-  $("suggestionStatus").textContent="✅ Saved locally";
+
+  // 1) Save locally (Stage 1 behavior)
+  const arr = safeJSON(LS.suggestions, []);
+  arr.unshift({ text, ts: Date.now() });
+  localStorage.setItem(LS.suggestions, JSON.stringify(arr));
+
+  // UI feedback immediately
+  $("suggestionText").value = "";
+  $("suggestionStatus").textContent = "⏳ Sending to CookVibe email…";
   toast("Suggestion saved ✅");
+
+  // 2) Send to email (no server) via FormSubmit
+  // NOTE: First time FormSubmit may send a confirmation email to hello@cookvibe.co to authorize delivery.
+  try{
+    const role = localStorage.getItem(LS.role) || "viewer";
+    const p = safeJSON(LS.profile, {});
+    const name = (p.name || "").trim() || "Anonymous";
+    const handle = (p.handle || "").trim() || "";
+    const country = (p.country || "").trim() || "";
+    const meta = [role, country, handle].filter(Boolean).join(" • ");
+
+    const payload = {
+      _subject: `CookVibe Suggestion (${role})`,
+      name,
+      meta,
+      message: text,
+      page: location.href,
+      ts: new Date().toISOString()
+    };
+
+    const res = await fetch("https://formsubmit.co/ajax/hello@cookvibe.co", {
+      method: "POST",
+      headers: { "Content-Type":"application/json", "Accept":"application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if(!res.ok) throw new Error("Email send failed");
+
+    $("suggestionStatus").textContent = "✅ Sent to hello@cookvibe.co + saved locally";
+    toast("Sent to CookVibe ✅");
+  }catch(err){
+    console.error(err);
+    $("suggestionStatus").textContent =
+      "⚠️ Saved locally, but email didn’t send (try again).";
+    toast("Saved locally (email failed) ⚠️", false);
+  }
 });
 
-$("viewSuggestionLogBtn").addEventListener("click",()=>{
+$("viewSuggestionLogBtn").addEventListener("click", ()=>{
   $("suggestionLog").classList.toggle("hidden");
   renderSuggestions();
 });
 
 function renderSuggestions(){
-  const arr=safeJSON(LS.suggestions,[]);
-  const box=$("suggestionLog");
-  box.innerHTML="";
+  const arr = safeJSON(LS.suggestions, []);
+  const box = $("suggestionLog");
+  box.innerHTML = "";
   arr.slice(0,10).forEach(s=>{
-    const t=document.createElement("div");
-    t.className="tile";
-    t.innerHTML=`<div class="smalltxt" style="white-space:pre-wrap">${escapeHTML(s.text)}</div>`;
+    const t = document.createElement("div");
+    t.className = "tile";
+    t.innerHTML = `<div class="smalltxt" style="white-space:pre-wrap">${escapeHTML(s.text)}</div>`;
     box.appendChild(t);
   });
 }
